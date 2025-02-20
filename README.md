@@ -14,4 +14,4 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 
 📥 **Quick Installation**
 - [Download from the official website.](https://www.aingdesk.com/en/download.html)
-- Download from GitHub.
+- [Download from GitHub.](https://github.com/aingdesk/AingDesk/releases)
