@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Lad os starte en ny samtale."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Tænker på"
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Kopier"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Ingen oplysninger"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Regenerer"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Indtast venligst samtaleindhold"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Send"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Stop generering"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Kopiering lykkedes"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Vælg venligst den passende model"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Svarer i øjeblikket, bedes senere"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Downloadet:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Hastighed:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Referencer"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Kopieret"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Processor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Hukommelse:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Grafikkort:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Forslag:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "For første gang skal du vælge den model, du vil installere"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Eksempelvis:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Søg"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Modellen slettes senere"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Tips"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Opdaget, at du ikke har installeret Model Manager, installerer du det straks?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Ikke installeret"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Installer nu"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Installerer modelhåndtering senere"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Størrelse:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Prøv at genvælge downloadnoden for at optimere downloadhastigheden, PS: Den aktuelle downloadfremgang går ikke tabt, og brytepunktet fortsættes automatisk."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Alle"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "Installeret"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Model"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Størrelse"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "kort indledning"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "funktion"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "operation"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Slet"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "installér"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Lysfarvetilstand"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Mørk tilstand"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Dialog"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Indhold af dialogen"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Ny dialog"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Modelstyring"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Indstillinger"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Slet dialog"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Om sletning af den aktuelle samtale skal bekræftes"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "Annuller"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Slet"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Ændr dialogtitel"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Indtast en ny dialogtitel"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Bekræft"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Ændr overskrift"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Dybt tænkt"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Dialogen er stoppet"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Sletting af dialog lykkedes"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Fjernelse af dialog mislykkedes:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Dialogtitel ændret vellykket"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Ændring af dialogens titel mislykkedes:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Installation lykkedes"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Forbinder, vent venligst"
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Venter på download: {0}, vent venligst..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Henter: {0}, vent venligst..."
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Installerer: {0}, vent venligst..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Installation mislykkedes"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Slettelse af model lykkedes"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Model sletning mislykkedes: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Model er unormal, gengenerer venligst"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Installation af modelhåndtering lykkedes"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Installation af Model Manager mislykkedes"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Der opstod en fejl i anmodningen, statuskode:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Der opstod en fejl i anmodningen"
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Klik på [Indstillinger] for at installere modellen"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Modelstørrelse:"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Tilgængelig"
+    }
+}

@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Yeni bir konuşma başlayalım."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Düşünüyorum."
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "kopyalama"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Bilgi yok"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Yeniden Oluştur"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Lütfen konuşmayı girin"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "gönderin"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Oluşturmayı Durdur"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Başarılı kopyalandı"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Uygun Model Seçin"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Şu anda cevap veriyor, lütfen daha sonra"
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Modeli yüklemek için [Ayarlar] tıklayın"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Model boyutu:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "İndirildi:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Hız:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "sitat"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Kopyalandı"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "İşlemci:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Hafıza:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Grafik kartı:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Öneriler:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "İlk kez kullandığınız zaman, yüklemek istediğiniz modeli seçin."
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Örneğin:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "arama"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Model siliniyor, lütfen daha sonra"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "İpuçları"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Model Yöneticisi'ni yüklemediğiniz tespit edildi, hemen yüklediniz mi?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Henüz yükleme"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Şimdi Yükle"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Model Yöneticisi yükleniyor, lütfen daha sonra"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Ölçüm:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "İndirme hızını optimize etmek için indirme düğümünü yeniden seçmeyi deneyin, PS: Mevcut indirme ilerlemesi kaybolmaz ve otomatik olarak kopma noktası yenilenir."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Hepsi"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "zaten kuruldu"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Model"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "boyut"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Açıklama"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Özellikler"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "İşlemler"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Sil"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Kur"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Açık renk modu"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Karanlık Mod"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "dialog"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Konuşma İçeriği"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Yeni diyalog"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Model Yönetimi"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Ayarlar"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Konuşmayı Sil"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Geçerli konuşmanın silinmesini onaylayıp onaylamayacağını"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "iptal et"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Sil"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Dialog başlığını değiştir"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Lütfen yeni bir sohbet başlığını girin"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Onayla"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Başlık Değiştir"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Derin düşündüm."
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Konuşma durduruldu"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Konuşma başarıyla silindi"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Dialog silmesi başarısız oldu:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Konuşma başlığı başarıyla değiştirildi"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Konuşma başlığı değiştirilmedi:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Yükleme başarılı"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Bağlanıyor, lütfen bekle."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "İndirme bekliyor: {0}, lütfen bekleyin..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "İndiriliyor: {0}, lütfen bekleyin..."
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Yükleniyor: {0}, lütfen bekleyin..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Yükleme başarısız oldu"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Model silindi başarıyla"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Model silinmesi başarısız oldu: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Model istisna, lütfen yeniden oluşturun"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Model Yöneticisi Başarıyla Yüklendi"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Model Yöneticisi Yüklemesi Başarısız Oldu"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "İstek hatası, durum kodu:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "İstem hatası oluştu"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Kullanılabilir"
+    }
+}

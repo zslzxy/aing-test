@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Alustame uue vestluse."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Mõtlen..."
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Kopeerimine"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Teavet puudub"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Uuesti looda"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Palun sisesta vestluse sisu"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Saada"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Loomise lõpetamine"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Edukalt kopeeritud"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Palun valige vastav mudel"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Vastab praegu, palun hiljem."
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Klõpsake [Settings] mudeli installimiseks"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Mudeli suurus:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Allalaaditud:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Kiirus:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Viide"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Kopeeritud"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Protsessor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Mälu:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Graafikakaart:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Soovitused:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Esimene kord, valige mudel installida"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Näiteks:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Otsi"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Mudelid kustutatakse, palun hiljem"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Näpunäited"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Avastas, et teil ei ole mudelihaldurit installitud, kas installida kohe?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Ajutiselt paigaldamata"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Installeeri kohe"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Mudelihalduri paigaldamine, palun hiljem"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Suurus:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Proovige uuesti valida allalaadimissõlme, et optimeerida allalaadimise kiirust, PS: Praegune allalaadimise edusamm ei kaota ja katkestuspunkt jätkatakse automaatselt."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Kõik"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "juba paigaldatud"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "mudel"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Suurus"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Sissejuhatus"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Funktsioonid"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "operatsioon"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Kustuta"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Installeerimine"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Helge värvi režiim"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Tume režiim"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Dialoog"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Dialoogi sisu"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Uus dialoog"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Mudelijuhtimine"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Seadmed"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Eemalda vestlus"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Kas kinnitada aktiivse vestluse kustutamist"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "Tühista"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Eemalda"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Dialoogi pealkirja muutmine"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Palun sisesta uus dialoogi pealkiri"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Kinnitamine"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Pealkirja muutmine"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Sügavalt mõeldud"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Dialoog lõpetati"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Dialoogi kustutamine õnnestus"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Dialoogi kustutamine nurjus:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Dialoogi pealkirja muutmine õnnestus"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Dialoogi pealkirja muutmine nurjus:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Installeerimine õnnestus"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Ühendamine, palun oodake..."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Allalaadimist oodatakse: {0}, palun oodake"
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Allalaadimine: {0}, palun oodake"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Paigaldamine: {0}, palun oodake..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Paigaldamine nurjus"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Mudel kustutati edukalt"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Mudeli kustutamine nurjus: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Mudel ebatavaline, palun uuesti genereerida"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Mudelihalduri installimine õnnestus"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Mudelihalduri paigaldamine nurjus"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Tekkis viga, olekukood:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Tekkis küsimuses viga"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "saadaval"
+    }
+}

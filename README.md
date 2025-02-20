@@ -1,7 +1,3 @@
-🚀 Coming soon!
-
-The code will be uploaded immediately after final preparations and organization. Stay tuned for updates! ✨
-
 # AingDesk
 🚀 **Brief Introduction in One Sentence**
 

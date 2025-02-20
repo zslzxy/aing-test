@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Iniziamo una nuova conversazione."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Pensare"
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Copia"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Nessuna informazione"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Rigenerare"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Inserisci il contenuto della conversazione"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Invia"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Smettere di generare"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Copia riuscita"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Seleziona il modello corrispondente"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Rispondo ora, per favore più tardi"
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Fai clic su [Impostazioni] per installare il modello"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Dimensioni del modello:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Downloaded:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Velocità:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Riferimenti"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "copiato"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Processore:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Memoria:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Scheda grafica:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Suggerimenti:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Per la prima volta, selezionare il modello da installare"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Per esempio:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "ricerca"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Modello cancellato, per favore più tardi"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Consigli"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "È stato rilevato che non hai installato Model Manager, lo hai installato subito?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Non installare"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Installa subito"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Gestione dei modelli in corso di installazione, per favore più tardi"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Dimensioni:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Prova a selezionare nuovamente il nodo di download per ottimizzare la velocità di download, PS: Il download corrente non viene perso e il punto di interruzione viene rinnovato automaticamente."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Tutti"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "Installato"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Modello"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Dimensioni"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Introduzione"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Funzionalità"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "operazione"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Elimina"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "installa"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Modalità colore chiaro"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Modalità scura"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Dialogo"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Contenuto della conversazione"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Nuovo dialogo"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Gestione dei modelli"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Impostazioni"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Elimina conversazione"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Se confermare la cancellazione della conversazione corrente"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "Annulla"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "elimina"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Modificare il titolo della conversazione"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Inserisci il nuovo titolo della conversazione"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "conferma"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Cambia titolo"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Pensato profondamente"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "La conversazione è stata interrotta"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Cancellazione della conversazione con successo"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Cancellazione della conversazione non riuscita:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Il titolo della conversazione è stato modificato con successo"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Modifica del titolo della conversazione non riuscita:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Installazione riuscita"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Si sta connettendo, si prega di aspettare..."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Attendendo il download: {0}, aspettate..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Scaricamento: {0}, attendere"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Installazione: {0}, aspettate..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Installazione non riuscita"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Modello eliminato correttamente"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Eliminazione del modello non riuscita: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Eccezione del modello, rigenerare"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Gestione modelli installato correttamente"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Installazione del gestore modello non riuscita"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Errore nella richiesta, codice di stato:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Errore nella richiesta"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Disponibile"
+    }
+}

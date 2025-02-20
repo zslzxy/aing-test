@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Hãy bắt đầu một cuộc đối thoại mới."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Đang suy nghĩ......"
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Sao chép"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Không có thông tin."
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Tái tạo"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Vui lòng nhập nội dung hội thoại"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Gửi"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Ngừng tạo"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Sao chép thành công"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Vui lòng chọn mô hình tương ứng"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Trả lời ngay bây giờ, vui lòng để sau"
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Nhấn [Cài đặt] để cài đặt mô hình"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Kích thước mô hình:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Tải về:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Tốc độ:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Trích dẫn"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Đã sao chép"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Bộ xử lý:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Bộ nhớ:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Đồ họa:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Đề nghị:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Lần đầu tiên sử dụng, hãy chọn mô hình bạn muốn cài đặt"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Ví dụ:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Tìm kiếm"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Loại bỏ mô hình, xin vui lòng sau"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Mẹo"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Phát hiện ra rằng bạn không cài đặt Trình quản lý mô hình, bạn có cài đặt nó ngay bây giờ không?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Tạm thời không cài đặt"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Cài đặt ngay"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Trình quản lý mô hình đang được cài đặt, vui lòng để sau"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Kích thước:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Hãy thử chọn lại nút tải xuống để tối ưu hóa tốc độ tải xuống, PS: Tiến trình tải xuống hiện tại sẽ không bị mất và điểm ngắt sẽ được gia hạn tự động."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Tất cả"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "Đã cài đặt"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Mô hình"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Kích thước"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Giới thiệu"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Chức năng"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "Hoạt động"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Xoá"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Cài đặt"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Chế độ màu sáng"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Chế độ tối"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Đối thoại"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Nội dung hội thoại"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Đối thoại mới"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Quản lý mô hình"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Thiết lập"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Xoá cuộc hội thoại"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Xác nhận xóa cuộc hội thoại hiện tại"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "Hủy bỏ"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Xoá"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Thay đổi tiêu đề hội thoại"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Vui lòng nhập tiêu đề hội thoại mới"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Xác nhận"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Thay đổi tiêu đề"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Suy nghĩ sâu sắc"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Name"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Xóa hội thoại thành công"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Gỡ bỏ hội thoại không thành công:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Thay đổi tiêu đề hội thoại thành công"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Sửa đổi tiêu đề hội thoại không thành công:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Cài đặt thành công"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Đang kết nối, vui lòng chờ..."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Chờ tải xuống: {0}, vui lòng chờ..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Đang tải xuống: {0}, vui lòng chờ..."
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Đang cài đặt: {0}, vui lòng chờ..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Cài đặt thất bại"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Xóa mô hình thành công"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Lỗi xóa mô hình: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Mô hình ngoại lệ, vui lòng tạo lại"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Trình quản lý mô hình đã được cài đặt thành công"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Trình quản lý mô hình không cài đặt được"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Yêu cầu bị lỗi, mã trạng thái:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Đã xảy ra lỗi yêu cầu"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Có sẵn"
+    }
+}

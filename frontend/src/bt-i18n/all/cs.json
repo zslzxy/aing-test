@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Začněme nový rozhovor."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Přemýšlím..."
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Kopírovat"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Žádné informace"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Znovu vytvořit"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Zadejte prosím obsah dialogu"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Poslat"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Přestaňte generovat"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Úspěšné kopírování"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Vyberte prosím odpovídající model"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Momentálně odpovídám, prosím, počkejte chvíli."
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Klikněte na [Nastavení] pro instalaci modelu"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Velikost modelu:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Stažené:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Rychlost:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Reference"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Kopírováno"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Procesor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Paměť:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Grafická karta:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Doporučení:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Poprvé vyberte model, který chcete nainstalovat."
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Například:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Vyhledávání"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Výmaz modelu probíhá, prosím počkejte"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Tipy"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Zjistili jste, že jste nainstalovali Model Manager, chtěli byste ho nainstalovat nyní?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Není nainstalováno"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Instalace nyní"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Instalace správce modelů, počkejte prosím"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Velikost:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Zkuste znovu vybrat uzel stahování pro optimalizaci rychlosti stahování, PS: Neztratí aktuální průběh stahování a automaticky se obnoví z bodu přerušení."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Všichni."
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "již nainstalovaný"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Model"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Velikost"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Úvod"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Funkce"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "provoz"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Smazat"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Instalace"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Světlý režim"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Tmavý režim"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Dialog"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Obsah dialogu"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Nový dialog"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Správa modelů"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "nastavit"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Smazat konverzaci"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Potvrdit smazání aktuální konverzace"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "zrušit"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Odstranit"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Změna názvu dialogu"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Zadejte prosím nový název konverzace"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Potvrzení"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Změnit název"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Hluboce přemýšlel"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Dialog byl zastaven"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Úspěšné smazání dialogu"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Smazání dialogu selhalo:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Úspěšná změna názvu dialogu"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Úprava názvu dialogu selhala:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Úspěšná instalace"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Připojení, prosím počkejte..."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Čekáme na stažení: {0}, prosím počkejte..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Stahování: {0}, prosím počkejte"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Instaluje se: {0}, počkejte prosím..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Instalace selhala"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Úspěšné odstranění modelu"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Smazání modelu selhalo: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Odchylný model, prosím znovu vytvořte"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Správce modelů úspěšně nainstalován"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Instalace Správce modelů selhala"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Chyba, stavový kód:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Došlo k chybě požadavku"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "K dispozici"
+    }
+}

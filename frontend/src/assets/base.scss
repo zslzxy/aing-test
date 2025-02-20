@@ -1,0 +1,32 @@
+:root {
+    // 背景
+    --bt-bg: #f7f7f7;
+    // 主题色
+    --bt-theme-color: rgb(29, 149, 52);
+    // 边距
+    --bt-mg-normal: 20px;
+    --bt-mg-small: 10px;
+    --bt-mg-large: 30px;
+
+    --bt-pd-normal: 20px;
+    --bt-pd-small: 10px;
+    --bt-pd-large: 30px;
+    // 边框
+    --bt-border-normal: 1px;
+    // 圆角
+    --bt-border-radius-normal:
+        // 文字
+        --bt-text-color:#333;
+    // 文字尺寸
+    --bt-fz: 14px;
+}
+
+html,
+body,
+ul,
+li,
+p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

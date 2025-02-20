@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Počnimo novi razgovor."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Razmišljam o tome"
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Kopiraj"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Nema informacija"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Ponovno generirati"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Molimo unesite sadržaj razgovora"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Pošalji"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Zaustavi stvaranje"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Kopiranje uspješno"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Odaberite odgovarajući model"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Trenutno odgovaram, molim vas kasnije."
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Kliknite [Postavke] za instalaciju modela"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Veličina modela:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Preuzeto:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Brzina:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Referencije"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Kopirano"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Procesor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Pamćenje:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Grafička kartica:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Preporuke:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Prvi put, odaberite model koji želite instalirati"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Na primjer:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Traži"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Model je izbrisan, molim vas kasnije"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Tips"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Otkriveno je da niste instalirali Model Manager, instalirate li ga odmah?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Ne instaliraj"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Instalirajte odmah"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Instaliram upravitelja modela, molim vas kasnije"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Veličina:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Pokušajte ponovno odabrati čvor za preuzimanje kako biste optimizirali brzinu preuzimanja, PS: Trenutni napredak preuzimanja neće biti izgubljen i automatski će se nastaviti."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Svi."
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "Instalirano"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Model"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Veličina"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Uvod"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Funkcije"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "operacija"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Izbriši"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Instalacija"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Mod svjetlosne boje"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Tamni način"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Dijalog"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Sadržaj razgovora"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Novi dijalog"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Upravljanje modelima"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Postavke"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Obriši razgovor"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Da li potvrditi brisanje trenutnog razgovora"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "Otkaži"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Izbriši"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Promjena naslova dijaloga"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Unesite naslov novog dijaloga"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Potvrda"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Promjena naslova"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Duboko razmišljam."
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Razgovor je prestao"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Uspješno brisanje razgovora"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Neuspjelo brisanje razgovora:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Uspješna promjena naslova dijaloga"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Promjena naslova dijaloga nije uspjela:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Instalacija uspješna"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Povezivanje, molim pričekajte..."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Čekamo preuzimanje: {0}, molimo pričekajte..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Preuzimanje: {0}, molimo pričekajte..."
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Instaliram: {0}, molimo pričekajte..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Instalacija nije uspjela"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Uspješno uklanjanje modela"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Neuspjelo brisanje modela: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Model je neobičan, ponovno generirajte."
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Upravitelj modela uspješno instaliran"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Instalacija upravitelja modela nije uspjela"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Pogreška u zahtjevu, kod stanja:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Pojavila se pogreška zahtjeva"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Dostupno"
+    }
+}

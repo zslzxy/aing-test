@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Magsimula tayo ng bagong pag-uusap"
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Pag-iisip tungkol"
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "copy"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Walang impormasyon sa kasalukuyan"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Rebenerate"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Pakiusap ipasok ang nilalaman ng pag-uusap"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "ipadala"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Itigil ang paglikha"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Magtagumpay ang kopya"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Mangyaring piliin ang katulad na modelo"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Sa kasalukuyang pagsagot, mangyaring maghintay ng sandali"
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Mag-click sa [Settings] upang i-install ang modelo"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "sukat ng modelo:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Downloaded:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Bilis:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "quote"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Copied"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Processor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Memory:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Graphics card:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Sumungkahi:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Para sa unang gamitin, mangyaring piliin ang modelo upang i-install"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Halimbawa:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "search"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Maghintay"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Mga Tips"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Naintindihan na hindi ka naka-install ng Model Manager, gusto mo bang i-install ito ngayon?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Hindi naka-install temporaryo"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "I-install na ngayon"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Inilagay ang Model Manager, mangyaring maghintay"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "laki:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Subukan mong i-reselect ang download node upang optimize ang download speed, PS: Hindi nito mawawala ang kasalukuyang pag-unlad ng download at awtomatiko na ipagpatuloy mula sa breakpoint."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Lahat sila"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "na-install"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Modelo"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "paper size"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "maikling pagpapakilala"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "paper size"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "operasyon"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Stock label"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "i-install"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "liwanag na kulay mode"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Dark Mode"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "dialog"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Kalaman ng dialog"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Bagong dialog"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Model management"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "itakda"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Stock label"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Sigurado ka bang i-delete ang kasalukuyang pag-uusap"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "kanselahin"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "delete"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Baguhin ang pamagat ng dialog"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Pakiusap ipasok ang bagong pamagat ng pag-uusap"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "confirm"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Baguhin ang pamagat"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Malalim pondered"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Ang pag-uusap ay tumigil"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Ang dialog ay matagumpay na nabalis"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Nabigo ang pagtanggal ng dialog:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Ang pamagat ng dialog ay matagumpay na binago"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Nabigo ang pagbabago sa pamagat ng dialog:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Ang pag-install ay matagumpay"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Mag-uugnay, mangyaring maghintay"
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Hinihintay ang download: {0}, pakiusap maghintay"
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Nag-download: {0}, pakiusap maghintay"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Inilagay: {0}, mangyaring maghintay"
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Nabigo ang pag-install"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Ang modelo ay matagumpay na naialis"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Nabigo ang pagtanggal ng modelo: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Maliban sa modelo, mangyaring magbago"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Ang Model Manager ay matagumpay na naka-install"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Nabigo ang pag-install ng Model Manager"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "May pagkakamali, status code:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Naganap ang pagkakamali sa paghingi"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "available"
+    }
+}

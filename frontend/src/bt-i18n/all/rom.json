@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Hai să începem o nouă conversaţie."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Mă gândesc..."
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "copiază"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Nu există informații disponibile în acest moment"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Regenerare"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Introduceți conținutul dialogului"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Trimite"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Opreşte generarea"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Copiat cu succes"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Selectați modelul corespunzător"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Răspunde acum, te rog mai târziu."
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Faceți clic pe [Setări] pentru a instala modelul"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Dimensiunea modelului:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Descărcate:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Viteza:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "citat"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Copiat"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Procesor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Memorie:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Placă grafică:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Recomandări:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Pentru prima dată, selectați modelul pe care doriți să îl instalați"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "De exemplu:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Căutare"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Modelul este șters, vă rugăm mai târziu"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Sfaturi"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "S-a detectat că nu aveți instalat Managerul de modele, instalați-l imediat?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Nu instalați"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Instalați acum"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Instalarea managerului de modele, așteptați"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Mărime:"
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Toate"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "Instalat"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Modelul"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Mărime"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Introducere"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "funcție"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "Operaţii"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Șterge"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Instalare"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Mod culoare luminoasă"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Mod întunecat"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Dialogul"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Conținutul dialogului"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Dialog nou"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Managementul modelelor"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Șterge dialogul"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "Anulează"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "șterge"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Modificarea titlului dialogului"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Introduceți un nou titlu de dialog"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Confirmare"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Schimbă titlul"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "A gândit în profunzime"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Conversaţia s-a oprit."
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Dialog șters cu succes"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Ștergerea dialogului a eșuat:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Titlul dialogului a fost modificat cu succes"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Modificarea titlului dialogului a eșuat:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Instalare reușită"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Conectează-te, te rog aşteaptă."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Aşteptaţi descărcarea: {0}, vă rugăm să aşteptaţi..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Descărcare: {0}, vă rugăm să așteptați"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Instalare: {0}, aşteptaţi..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Instalarea a eșuat"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Model șters cu succes"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Ştergerea modelului a eșuat: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Modelul este anormal, vă rugăm să regenerați"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Managerul de modele a fost instalat cu succes"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Instalarea managerului de modele a eșuat"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Eroare de solicitare, cod de stare:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Eroare la cerere"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Încercați reselectarea nodului de descărcare pentru a optimiza viteza de descărcare, PS: Acesta nu va pierde progresul curent de descărcare și va relua automat de la un punct de întrerupere."
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Setări"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Se confirmă ştergerea conversaţiei curente"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Disponibil"
+    }
+}

@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Aloitetaan uusi keskustelu."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Ajattelen..."
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Kopioi"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Tietoa ei ole"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Luo uudelleen"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Syötä keskustelun sisältö"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "Lähetä"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Lopeta luominen"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Kopiointi onnistui"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Valitse malli"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Vastaa nyt, pyydän myöhemmin."
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Napsauta [Asetukset] asentaa malli"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Mallin koko:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Ladattu:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Nopeus:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "viittaus"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Kopioitu"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Prosessori:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Muisti:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Grafiikkakortti:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Ehdotukset:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Ensimmäistä käyttökertaa varten valitse asennettava malli"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Esimerkiksi:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Etsi"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Mallin poisto käynnissä, odota"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Vinkit"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Huomaattiin, ettet ole asentanut Model Manageria, asennetko sen heti?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Älä asenna"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Asenna nyt"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Mallinhallinta asennetaan myöhemmin"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "koko:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Yritä valita lataussolmu uudelleen latausnopeuden optimoimiseksi, PS: Nykyistä latauksen etenemistä ei menetetä, keskeytyspiste jatketaan automaattisesti."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Kaikki"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "Asennettu"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Malli"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Koko"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "lyhyt esittely"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Ominaisuudet"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "Toiminta"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Poista"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Asennus"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Vaalea tila"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Tumma tila"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "keskustelu"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Keskustelun sisältö"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Uusi vuoropuhelu"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Mallinhallinta"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Asetukset"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Poista keskustelu"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Varmistaako nykyisen keskustelun poistaminen"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "peruuta"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Poista"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Muuta keskustelun otsikkoa"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Syötä uusi keskusteluotsikko"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Varmista"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Muuta otsikkoa"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Syvällistä pohdintaa."
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Keskustelu lopetettu"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Keskustelun poistaminen onnistui"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Keskustelun poistaminen epäonnistui:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Keskustelun otsikko muutettiin onnistuneesti"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Dialogin otsikon muuttaminen epäonnistui:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Asennus onnistui"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Yhdistän, odota."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Odotetaan latausta: {0}, odota"
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Ladataan: {0}, odota"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Asentaa: {0}, odota..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Asennus epäonnistui"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Mallin poistaminen onnistui"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Mallin poistaminen epäonnistui: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Malli on poikkeuksellinen, luo uudelleen"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Mallinhallinta asennettiin onnistuneesti"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Mallinhallinnan asennus epäonnistui"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Pyyntö sai virheen, tilakoodi:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Pyyntöön syntyi virhe"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Saatavilla"
+    }
+}

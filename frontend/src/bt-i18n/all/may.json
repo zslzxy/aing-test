@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Mari kita mulakan perbualan baru."
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "sedang berfikir..."
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "Salin"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "Tiada maklumat"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Buat semula"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Sila masukkan perbualan"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "hantar keluar"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Hentikan menghasilkan"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Salin berjaya"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Sila pilih model yang sesuai"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Sekarang menjawab, silakan kemudian."
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Klik [Tetapan] untuk memasang model"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Saiz model:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Muat turun:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Kelajuan:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "Rujukan"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Disalin"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Pemproses:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Memori:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Kad grafik:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Cadangan:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "Untuk pertama kali digunakan, pilih model yang anda ingin pasang"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "Seperti:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "Carian"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Model dipadamkan, sila kemudian"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Petua"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Mengesan bahawa anda tidak memasang pengurus model, adakah anda memasangnya dengan segera?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Tidak dipasang sementara"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Pasang Sekarang"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Memasang pengurus model, sila kemudian"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "Saiz:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Cuba pilih semula nod muat turun untuk mengoptimumkan kelajuan muat turun, PS: Tidak kehilangan kemajuan muat turun semasa, titik putus akan diperbaharui secara automatik."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "Semua"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "telah dipasang"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Model"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "Saiz"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "Pengenalan"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "Ciri-ciri"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "Operasi"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Hapuskan"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "Pemasangan"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Mod warna cahaya"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Mod gelap"
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Perbualan"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Kandungan Perbualan"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "Dialog baru"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Pengurusan Model"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "Tetapan"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Hapuskan perbualan"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Sama ada mengesahkan untuk memadam perbualan semasa"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "batalkan"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "Hapuskan"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Ubah suai tajuk dialog"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Sila masukkan tajuk perbualan baru"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "Pengesahan"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Ubah tajuk"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Berfikir mendalam"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "Perbualan berhenti"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Dialog dipadam dengan berjaya"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Penghapusan dialog gagal:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Tajuk dialog berjaya diubahsuai"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Gagal mengubah suai tajuk dialog:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Pemasangan berjaya"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Sambungan, sila tunggu..."
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Menunggu muat turun: {0}, sila tunggu..."
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Memuat turun: {0}, sila tunggu"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Memasang: {0}, sila tunggu..."
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Pemasangan Gagal"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Model dipadam dengan berjaya"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Gagal memadam model: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Model tidak biasa, sila buat semula"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Pemasangan Pengurus Model berjaya"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Pemasangan Pengurus Model gagal"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Permintaan ralat, kod status:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Ralat dalam permintaan"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "Tersedia"
+    }
+}

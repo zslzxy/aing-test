@@ -1,0 +1,322 @@
+{
+    "05615c1a95ddeace90ad24440f983327": {
+        "src": "对话列表获取成功",
+        "dst": "Liste de conversations pour réussir"
+    },
+    "bdc196907484423428a23b5a9f2814a5": {
+        "src": "对话创建成功",
+        "dst": "Dialogue créé avec succès"
+    },
+    "ee770bfdd1805e8cb4ca1bad3caff336": {
+        "src": "获取模型列表时出错:",
+        "dst": "Erreur lors de l'obtention de la liste des modèles:"
+    },
+    "73df54c21fa6d0a9d953af3ebd8ef150": {
+        "src": "大模型列表获取成功",
+        "dst": "Grande liste de modèles pour le succès"
+    },
+    "9dae2de765c7e7f2edfd0ee42141933d": {
+        "src": "对话信息获取成功",
+        "dst": "Dialogue accès à l'information succès"
+    },
+    "bf06ec1c99bbe9c731f7a34a9fff2a12": {
+        "src": "对话删除成功",
+        "dst": "Dialogue supprimé avec succès"
+    },
+    "8628f14c34a603a0025a756b1fbb8e70": {
+        "src": "标题修改成功",
+        "dst": "Modification du titre réussie"
+    },
+    "f4760a6a2df559ce407cd9977efa619f": {
+        "src": "标题修改失败",
+        "dst": "La modification du titre a échoué"
+    },
+    "d8b930e39589293e2d50a4f6c5d6b2dd": {
+        "src": "指定对话不可用",
+        "dst": "Spécifier que la conversation n'est pas disponible"
+    },
+    "dc63a0a39902e51b457fa128839f84f9": {
+        "src": "对话历史删除成功",
+        "dst": "Historique des conversations supprimé avec succès"
+    },
+    "664b5cdade033b16264e6a2fdfefa782": {
+        "src": "已阻止大模型继续生成内容",
+        "dst": "Le grand modèle a été empêché de continuer à générer du contenu"
+    },
+    "ac1bec126ca2352d8d7750cacf5006dd": {
+        "src": "最后一条历史对话记录获取成功",
+        "dst": "Le dernier historique des conversations obtient le succès"
+    },
+    "fb559ab354303d1927dcd9f0f2dffa23": {
+        "src": "获取成功",
+        "dst": "Obtenir le succès"
+    },
+    "b03d40f307508d236826bfc5e45d0562": {
+        "src": "获取语言列表时出错:",
+        "dst": "Erreur lors de l'obtention de la liste des langues:"
+    },
+    "56f0a1c0bc0408556c5810ea4f219dd4": {
+        "src": "获取失败",
+        "dst": "Obtenir un échec"
+    },
+    "6299544f596ad80461788ca5f39171ee": {
+        "src": "设置语言为: {}",
+        "dst": "La langue de réglage est: {}"
+    },
+    "f6088e4ae24e551baa0f7a697b867695": {
+        "src": "设置成功",
+        "dst": "Configurer avec succès"
+    },
+    "b61c81771ecd0e6612d96dba6226f31a": {
+        "src": "设置语言时出错:",
+        "dst": "Erreur lors du réglage de la langue:"
+    },
+    "9f96034c4d8dab42c66159ab111fef13": {
+        "src": "设置失败",
+        "dst": "La configuration a échoué"
+    },
+    "7a47c2769120bfa5c61af3a0efc8a920": {
+        "src": "获取客户端语言包时出错:",
+        "dst": "Erreur lors de l'obtention du pack de langue client:"
+    },
+    "8a25a145fb07ad167b69734fc636c78b": {
+        "src": "获取客户端语言包失败",
+        "dst": "L'obtention du pack de langue client a échoué"
+    },
+    "cf924548d2b18aca6d145ab4683e2f90": {
+        "src": "获取服务端语言包时出错:",
+        "dst": "Erreur lors de l'obtention du pack de langue côté Service:"
+    },
+    "76fa8844f0569b9064597b268be1daf7": {
+        "src": "获取服务端语言包失败",
+        "dst": "L'obtention du pack de langue côté Service a échoué"
+    },
+    "c5f0021f83003f6404ffb710affe2118": {
+        "src": "模型管理器信息获取成功",
+        "dst": "Model Manager information succès"
+    },
+    "811f543fd407958fcb1814162e71e723": {
+        "src": "安装成功",
+        "dst": "Installation réussie"
+    },
+    "fc7667efe2b9a47f6576a0c6323d0a9c": {
+        "src": "获取安装进度成功",
+        "dst": "Obtenir la progression de l'installation réussie"
+    },
+    "0007d170de017dafc266aa03926d7f00": {
+        "src": "删除成功",
+        "dst": "Supprimer avec succès"
+    },
+    "13526728c7306eeddb5c023c1e195982": {
+        "src": "不支持的管理器",
+        "dst": "Gestionnaires non supportés"
+    },
+    "5cec8e5fbc2892462b44d18ec8666c05": {
+        "src": "正在安装,请稍后...",
+        "dst": "Installation en cours, plus tard..."
+    },
+    "9639082228cdb4fde37745de2dfd305c": {
+        "src": "获取 Windows 系统信息时出错:",
+        "dst": "Erreur lors de l'obtention des informations système Windows:"
+    },
+    "6bbd72c8a7b6f492af917e341743e6ea": {
+        "src": "获取 Linux 系统信息时出错:",
+        "dst": "Erreur lors de l'obtention des informations système Linux:"
+    },
+    "fbd89eebc8d7f4a9599e7accf4ad4611": {
+        "src": "获取 MacOS 系统信息时出错:",
+        "dst": "Erreur lors de l'obtention des informations système MacOS:"
+    },
+    "843dfa423705e064a1c074f356e53880": {
+        "src": "获取 GPU 信息时出错:",
+        "dst": "Erreur lors de l'obtention des informations GPU:"
+    },
+    "aacf8da608ec0807ac1d44c3c3387b07": {
+        "src": "根据您的硬件配置，可以流畅运行大部分中大规模的模型，如：32b、27b、24b、14b、7b 等",
+        "dst": "En fonction de votre configuration matérielle, vous pouvez exécuter en douceur la plupart des modèles de moyenne à grande échelle tels que: 32b, 27B, 24b, 14B, 7b, etc."
+    },
+    "1411c5e4708da8c28039942123c5e608": {
+        "src": "您的硬件配置适合选择中等规模的模型，如: 7b、14b、16b 等",
+        "dst": "Votre configuration matérielle est adaptée pour choisir des modèles de taille moyenne tels que: 7b, 14B, 16B, etc."
+    },
+    "9764c415129911627729558f92e8399e": {
+        "src": "由于硬件资源有限，建议选择轻量级的模型，如: 1b、2b 等",
+        "dst": "En raison des ressources matérielles limitées, il est recommandé de choisir un modèle léger tel que: 1b, 2b, etc."
+    },
+    "f4f5776af542ce50f8d69326432d65b6": {
+        "src": "获取配置信息时出现未知错误:",
+        "dst": "Erreur inconnue lors de l'obtention des informations de configuration:"
+    },
+    "bf2b114e3d4cc375d7b481221220ad94": {
+        "src": "获取配置信息时出现未知错误",
+        "dst": "Erreur inconnue lors de l'obtention des informations de configuration"
+    },
+    "5d517e230392009681892ca5b2a41a16": {
+        "src": "获取配置信息成功",
+        "dst": "Obtenir les informations de configuration avec succès"
+    },
+    "ca643d2878309a3834621ee41cdfe08d": {
+        "src": "获取 Windows 磁盘信息时出错:",
+        "dst": "Erreur lors de l'obtention des informations du disque windows:"
+    },
+    "751a8273696cf0318f1ea6d68fe0fac1": {
+        "src": "获取 Linux 磁盘信息时出错:",
+        "dst": "Erreur lors de l'obtention des informations sur le disque Linux:"
+    },
+    "e4c7a88025ab29b40b8351ddff8000e9": {
+        "src": "获取 macOS 磁盘信息时出错:",
+        "dst": "Erreur lors de l’obtention des informations sur le disque MacOS:"
+    },
+    "69be671786f62ce872f87de1ab761746": {
+        "src": "修改成功",
+        "dst": "Modification réussie"
+    },
+    "30d2e8aced6e01dce51c128fb7fbec6b": {
+        "src": "获取 ollama 版本时出错:",
+        "dst": "Erreur lors de l'obtention de la version ollama:"
+    },
+    "00cc036b9849caaaa5bf1dd5c88d1d9c": {
+        "src": "获取 Ollama 模型列表时出错:",
+        "dst": "Erreur lors de l'obtention de la liste des modèles ollama:"
+    },
+    "066b33ac21cc2449cd527261d6517d32": {
+        "src": "安装模型时出错:",
+        "dst": "Erreur lors de l'installation du modèle:"
+    },
+    "836e86f09ce4ca2d490784ca8b23c1e1": {
+        "src": "删除模型时出错:",
+        "dst": "Erreur lors de la suppression du modèle:"
+    },
+    "8bd39e4ef48df961cc7945f71003f399": {
+        "src": "安装完成",
+        "dst": "Installation terminée"
+    },
+    "4d851dfe645fbf1404edfdcee554b211": {
+        "src": "安装过程中出现错误:",
+        "dst": "Une erreur s'est produite lors de l'installation:"
+    },
+    "90ea4be02cb3d6186a83a6455b1002f6": {
+        "src": "下载过程中出现错误:",
+        "dst": "Une erreur est survenue lors du téléchargement:"
+    },
+    "0503045a8c17ef64efc3fb426177c4a9": {
+        "src": "安装过程中出现未知错误:",
+        "dst": "Erreur inconnue lors de l'installation:"
+    },
+    "07799fa97490558541940d5ed28707c9": {
+        "src": "Windows 环境变量设置成功。",
+        "dst": "La variable d'environnement Windows a été configurée avec succès."
+    },
+    "8a449cba5038b62ad8638c0417acfa50": {
+        "src": "Ollama 已重新启动。",
+        "dst": "Ollama a redémarré."
+    },
+    "7fb8175222322cbd364e42ee3208bbae": {
+        "src": "Linux 环境变量设置成功。",
+        "dst": "La variable d'environnement Linux a été configurée avec succès."
+    },
+    "b9f87f25f7b36bc90b9da65a63bd7ac3": {
+        "src": "macOS 环境变量设置成功。",
+        "dst": "Les variables d’environnement MacOS ont été configurées avec succès."
+    },
+    "8687d6a143f3272fbba2b973efa618f2": {
+        "src": "不支持的操作系统",
+        "dst": "Systèmes d'exploitation non supportés"
+    },
+    "b5c02ff4e8dcd3513c9054b3e12ad3af": {
+        "src": "设置 Ollama 模型存储目录或重启服务时出错:",
+        "dst": "Erreur lors de la configuration du Répertoire de stockage du modèle ollama ou du redémarrage du Service:"
+    },
+    "5cc8c0c58160b874bbdb3a70684103f7": {
+        "src": "Ollama 进程已结束。",
+        "dst": "Le processus ollama est terminé."
+    },
+    "5127dbe6588bf6da8f7efd6c3715e6a3": {
+        "src": "结束 Ollama 进程时可能未找到进程:",
+        "dst": "Un processus peut ne pas être trouvé lorsque vous terminez le processus ollama:"
+    },
+    "79d3abe929f67f0644a78bf32adb3a89": {
+        "src": "复制",
+        "dst": "Copier"
+    },
+    "43fc77886b7fbcd658f0ccdba36bd5a0": {
+        "src": "剪切",
+        "dst": "Couper"
+    },
+    "eafbece1016a6af76cce466e55ad9f00": {
+        "src": "粘贴",
+        "dst": "Coller"
+    },
+    "66eeacd93a7c1bda93906fe908ad11a0": {
+        "src": "全选",
+        "dst": "Tout sélectionner"
+    },
+    "e61ce3c024c634b7eac671f775d42bd5": {
+        "src": "粘贴选中内容",
+        "dst": "Coller le contenu sélectionné"
+    },
+    "d0ed01d1ce91f630b6b01b581b424bf7": {
+        "src": "打开链接",
+        "dst": "Ouvrir le lien"
+    },
+    "4d775d4cd79e2ed6a2fc66fd1e7139c8": {
+        "src": "显示",
+        "dst": "Afficher"
+    },
+    "c3992269b4bced00356095dc9c5be6d2": {
+        "src": "退出",
+        "dst": "Quitter"
+    },
+    "34fc43634c9c77b3ea0dcb82998d9931": {
+        "src": "\\n\\n---\\n**内容不完整:** 用户手动停止生成",
+        "dst": "\\ n \\ n - - - - - \\ n * * contenu incomplet: * * L'utilisateur arrête manuellement la génération"
+    },
+    "85812730fff04e6cf132295e2a466c34": {
+        "src": "Ollama 服务未启动，正在尝试启动...",
+        "dst": "Le Service ollama ne démarre pas et tente de démarrer…"
+    },
+    "a96701c2edc6b67b08aad68806de66d1": {
+        "src": "Ollama 服务启动失败",
+        "dst": "Le démarrage du Service ollama a échoué"
+    },
+    "59a8097435b23ff097b5a10695750cd1": {
+        "src": "将为您重新下载，并断点续传。",
+        "dst": "Il sera re - téléchargé pour vous et renouvelé avec un point d'arrêt."
+    },
+    "7e288921875993b65048dd42c9e07aab": {
+        "src": "意外中断",
+        "dst": "Interruption inattendue"
+    },
+    "850779f5ac5dcd45297a8d011b3a8a69": {
+        "src": "检测到下载速度异常，正在尝试重新连接下载节点...",
+        "dst": "Une anomalie de vitesse de téléchargement a été détectée et une tentative de reconnexion du nœud de téléchargement est en cours…"
+    },
+    "43485c0f3ca76f0c06b718b8e782b59b": {
+        "src": "分享列表获取成功",
+        "dst": "Partager la liste pour réussir"
+    },
+    "9f047f09d5053c466c253438ed51a310": {
+        "src": "创建分享目录失败",
+        "dst": "La création d'un catalogue partagé a échoué"
+    },
+    "04a691b377c91da599d5b4b62b0cb114": {
+        "src": "创建成功",
+        "dst": "Créer un succès"
+    },
+    "d5fd0f4de69840bd343d8e7c99c91d20": {
+        "src": "分享不存在",
+        "dst": "Le partage n'existe pas"
+    },
+    "a94e00ed1acea8fff7590037ca22dd29": {
+        "src": "分享 ID 不存在",
+        "dst": "L'id de partage n'existe pas"
+    },
+    "87e5479f384e7a6a3b82fba6b6a6107b": {
+        "src": "中断成功",
+        "dst": "Interruption réussie"
+    },
+    "0f82b0c2286850759e50950c544747df": {
+        "src": "聊天出错",
+        "dst": "Erreur de chat"
+    }
+}

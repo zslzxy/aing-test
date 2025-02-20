@@ -1,0 +1,306 @@
+{
+    "让我们开启一段新的对话吧": {
+        "src": "让我们开启一段新的对话吧",
+        "dst": "Let's start a new conversation"
+    },
+    "正在思考...": {
+        "src": "正在思考...",
+        "dst": "Thinking about"
+    },
+    "复制": {
+        "src": "复制",
+        "dst": "copy"
+    },
+    "暂无信息": {
+        "src": "暂无信息",
+        "dst": "No information available at the moment"
+    },
+    "重新生成": {
+        "src": "重新生成",
+        "dst": "Regenerate"
+    },
+    "请输入对话内容": {
+        "src": "请输入对话内容",
+        "dst": "Please enter the conversation content"
+    },
+    "发送": {
+        "src": "发送",
+        "dst": "send out"
+    },
+    "停止生成": {
+        "src": "停止生成",
+        "dst": "Stop generating"
+    },
+    "复制成功": {
+        "src": "复制成功",
+        "dst": "Copy successful"
+    },
+    "请选择对应模型": {
+        "src": "请选择对应模型",
+        "dst": "Please select the corresponding model"
+    },
+    "当前正在回答，请稍后": {
+        "src": "当前正在回答，请稍后",
+        "dst": "Currently answering, please wait a moment"
+    },
+    "点击[设置]安装模型": {
+        "src": "点击[设置]安装模型",
+        "dst": "Click on [Settings] to install the model"
+    },
+    "模型大小:": {
+        "src": "模型大小:",
+        "dst": "Model size:"
+    },
+    "已下载:": {
+        "src": "已下载:",
+        "dst": "Downloaded:"
+    },
+    "速度:": {
+        "src": "速度:",
+        "dst": "Speed:"
+    },
+    "引用": {
+        "src": "引用",
+        "dst": "quote"
+    },
+    "已复制": {
+        "src": "已复制",
+        "dst": "Copied"
+    },
+    "处理器:": {
+        "src": "处理器:",
+        "dst": "Processor:"
+    },
+    "内存:": {
+        "src": "内存:",
+        "dst": "Memory:"
+    },
+    "显卡:": {
+        "src": "显卡:",
+        "dst": "Graphics card:"
+    },
+    "建议:": {
+        "src": "建议:",
+        "dst": "Suggestion:"
+    },
+    "首次使用，请选择要安装的模型": {
+        "src": "首次使用，请选择要安装的模型",
+        "dst": "For first-time use, please select the model to install"
+    },
+    "如:": {
+        "src": "如:",
+        "dst": "For example:"
+    },
+    "搜索": {
+        "src": "搜索",
+        "dst": "search"
+    },
+    "模型刪除中，请稍后": {
+        "src": "模型刪除中，请稍后",
+        "dst": "Model deletion in progress, please wait"
+    },
+    "提示": {
+        "src": "提示",
+        "dst": "Tips"
+    },
+    "检测到您没有安装模型管理器，是否立即安装？": {
+        "src": "检测到您没有安装模型管理器，是否立即安装？",
+        "dst": "Detected that you have not installed Model Manager, would you like to install it now?"
+    },
+    "暂不安装": {
+        "src": "暂不安装",
+        "dst": "Not installed temporarily"
+    },
+    "立即安装": {
+        "src": "立即安装",
+        "dst": "Install now"
+    },
+    "正在安装模型管理器，请稍后": {
+        "src": "正在安装模型管理器，请稍后",
+        "dst": "Installing Model Manager, please wait"
+    },
+    "大小:": {
+        "src": "大小:",
+        "dst": "size:"
+    },
+    "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。": {
+        "src": "尝试重新选择下载节点，以优化下载速度，PS:不会丢失当前下载进度，将自动断点续传。",
+        "dst": "Try reselecting the download node to optimize download speed, PS: It will not lose the current download progress and will automatically resume from a breakpoint."
+    },
+    "所有": {
+        "src": "所有",
+        "dst": "All of them"
+    },
+    "已安装": {
+        "src": "已安装",
+        "dst": "already installed"
+    },
+    "模型": {
+        "src": "模型",
+        "dst": "Model"
+    },
+    "大小": {
+        "src": "大小",
+        "dst": "size"
+    },
+    "简介": {
+        "src": "简介",
+        "dst": "brief introduction"
+    },
+    "功能": {
+        "src": "功能",
+        "dst": "function"
+    },
+    "操作": {
+        "src": "操作",
+        "dst": "operation"
+    },
+    "刪除": {
+        "src": "刪除",
+        "dst": "Delete"
+    },
+    "安装": {
+        "src": "安装",
+        "dst": "install"
+    },
+    "浅色模式": {
+        "src": "浅色模式",
+        "dst": "Light color mode"
+    },
+    "深色模式": {
+        "src": "深色模式",
+        "dst": "Dark Mode "
+    },
+    "对话": {
+        "src": "对话",
+        "dst": "Chat"
+    },
+    "对话内容": {
+        "src": "对话内容",
+        "dst": "Chat content"
+    },
+    "新对话": {
+        "src": "新对话",
+        "dst": "New chat"
+    },
+    "模型管理": {
+        "src": "模型管理",
+        "dst": "Model management"
+    },
+    "设置": {
+        "src": "设置",
+        "dst": "set up"
+    },
+    "删除对话": {
+        "src": "删除对话",
+        "dst": "Delete conversation"
+    },
+    "是否确认删除当前对话": {
+        "src": "是否确认删除当前对话",
+        "dst": "Are you sure to delete the current conversation"
+    },
+    "取消": {
+        "src": "取消",
+        "dst": "cancel"
+    },
+    "删除": {
+        "src": "删除",
+        "dst": "delete"
+    },
+    "修改对话标题": {
+        "src": "修改对话标题",
+        "dst": "Modify chat title"
+    },
+    "请输入新的对话标题": {
+        "src": "请输入新的对话标题",
+        "dst": "Please enter a new conversation title"
+    },
+    "确认": {
+        "src": "确认",
+        "dst": "confirm"
+    },
+    "修改标题": {
+        "src": "修改标题",
+        "dst": "Change title"
+    },
+    "已深度思考": {
+        "src": "已深度思考",
+        "dst": "Deeply pondered"
+    },
+    "对话已停止": {
+        "src": "对话已停止",
+        "dst": "The conversation has stopped"
+    },
+    "对话删除成功": {
+        "src": "对话删除成功",
+        "dst": "Chat deleted successfully"
+    },
+    "对话删除失败：": {
+        "src": "对话删除失败：",
+        "dst": "Chat deletion failed:"
+    },
+    "对话标题修改成功": {
+        "src": "对话标题修改成功",
+        "dst": "Chat title successfully modified"
+    },
+    "对话标题修改失败:": {
+        "src": "对话标题修改失败:",
+        "dst": "Chat title modification failed:"
+    },
+    "安装成功": {
+        "src": "安装成功",
+        "dst": "Installation successful"
+    },
+    "正在连接，请稍候...": {
+        "src": "正在连接，请稍候...",
+        "dst": "Connecting, please wait"
+    },
+    "等待下载:{0}，请稍候...": {
+        "src": "等待下载:{0}，请稍候...",
+        "dst": "Waiting for download: {0}, please wait"
+    },
+    "正在下载:{0}，请稍候...": {
+        "src": "正在下载:{0}，请稍候...",
+        "dst": "Downloading: {0}, please wait"
+    },
+    "正在安装:{0}，请稍候...": {
+        "src": "正在安装:{0}，请稍候...",
+        "dst": "Installing: {0}, please wait"
+    },
+    "安装失败": {
+        "src": "安装失败",
+        "dst": "Installation failed"
+    },
+    "模型删除成功": {
+        "src": "模型删除成功",
+        "dst": "Model deleted successfully"
+    },
+    "模型删除失败:{0}": {
+        "src": "模型删除失败:{0}",
+        "dst": "Model deletion failed: {0}"
+    },
+    "模型异常，请重新生成": {
+        "src": "模型异常，请重新生成",
+        "dst": "Model exception, please regenerate"
+    },
+    "模型管理器安装成功": {
+        "src": "模型管理器安装成功",
+        "dst": "Model Manager successfully installed"
+    },
+    "模型管理器安装失败": {
+        "src": "模型管理器安装失败",
+        "dst": "Model Manager installation failed"
+    },
+    "请求出错，状态码:": {
+        "src": "请求出错，状态码:",
+        "dst": "Request error, status code:"
+    },
+    "请求发生错误": {
+        "src": "请求发生错误",
+        "dst": "Request error occurred"
+    },
+    "可用": {
+        "src": "可用",
+        "dst": "available"
+    }
+}
