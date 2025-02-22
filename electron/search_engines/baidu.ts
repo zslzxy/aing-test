@@ -2,7 +2,7 @@ import { withTimeout,SearchResult,getUrlsContent,FETCH_HEADERS } from "./utils";
 
 // 本地百度搜索函数
 export const localBaiduSearch = async (query: string): Promise<SearchResult[]> => {
-    const TOTAL_SEARCH_RESULTS = 20;
+    const TOTAL_SEARCH_RESULTS = 10;
     // 构建请求 URL
     const url = `http://www.baidu.com/s?wd=${encodeURIComponent(query)}&tn=json&rn=${TOTAL_SEARCH_RESULTS}`;
 

@@ -269,7 +269,7 @@
     },
     "34fc43634c9c77b3ea0dcb82998d9931": {
         "src": "\\n\\n---\\n**内容不完整:** 用户手动停止生成",
-        "dst": "n--n** Nội dung không đầy đủ: ** Người dùng ngừng tạo theo cách thủ công"
+        "dst": "\\n\\n---\\n** Nội dung không đầy đủ: ** Người dùng ngừng tạo theo cách thủ công"
     },
     "85812730fff04e6cf132295e2a466c34": {
         "src": "Ollama 服务未启动，正在尝试启动...",
@@ -318,5 +318,173 @@
     "0f82b0c2286850759e50950c544747df": {
         "src": "聊天出错",
         "dst": "Chat bị lỗi"
+    },
+    "e743764113bc591e2abf5c6a779ed4db": {
+        "src": "暂不支持远程中断",
+        "dst": "Tạm thời không hỗ trợ ngắt từ xa"
+    },
+    "61fc5b543cf9ca131751930d043fa17a": {
+        "src": "以下内容是基于用户发送的消息的搜索结果",
+        "dst": "Đây là kết quả tìm kiếm dựa trên tin nhắn người dùng gửi"
+    },
+    "f37dd4d6515506a21fb175abda4201f3": {
+        "src": "在我给你的搜索结果中，每个结果都是[搜索结果 X begin]...[搜索结果 X end]格式的，X代表每篇文章的数字索引。另外搜索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。",
+        "dst": "Trong kết quả tìm kiếm tôi cung cấp cho bạn, mỗi kết quả là [kết quả tìm kiếm X bắt đầu]... Trong định dạng [kết quả tìm kiếm X end], X đại diện cho chỉ mục số của mỗi bài viết. Ngoài ra, kết quả tìm kiếm có thể chứa một số thông tin không liên quan, bạn có thể chọn nội dung theo nhu cầu."
+    },
+    "ba1a9ea044484679a131827298a9d934": {
+        "src": "在回答时，请注意以下几点",
+        "dst": "Khi trả lời, hãy chú ý những điều sau:"
+    },
+    "5a99b099ccfbc64ed2b57ba388ffea9b": {
+        "src": "今天是",
+        "dst": "Hôm nay là"
+    },
+    "6c9ecc39673f2fc50b8d88b9b088e5cb": {
+        "src": "用户所在地点是",
+        "dst": "Vị trí của user là"
+    },
+    "82fae71f8e76a40b44eb0e2bbc577de6": {
+        "src": "不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。",
+        "dst": "Không đề cập đến nguồn cụ thể của kết quả tìm kiếm trong nội dung trả lời của bạn hoặc thứ hạng cụ thể của kết quả tìm kiếm."
+    },
+    "f90cd46d3c5c5df7c7f2f9510dcd4363": {
+        "src": "并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。",
+        "dst": "Không phải tất cả nội dung của kết quả tìm kiếm đều liên quan mật thiết đến vấn đề của người dùng, bạn cần kết hợp vấn đề, tiến hành sàng lọc, sàng lọc kết quả tìm kiếm."
+    },
+    "6b966fd3eba4859f085c0083d7c7deb9": {
+        "src": "对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。",
+        "dst": "Đối với các vấn đề liệt kê các loại (ví dụ như liệt kê tất cả thông tin về chuyến bay), cố gắng kiểm soát câu trả lời trong vòng 10 điểm quan trọng và nói với bạn có thể xem nguồn tìm kiếm, nhận được thông tin đầy đủ. Ưu tiên cung cấp thông tin đầy đủ, có liên quan nhất; Không chủ động cho người dùng biết những gì kết quả tìm kiếm không cung cấp nếu không cần thiết."
+    },
+    "12bd56226bdb7cb69414e173bdebc728": {
+        "src": "对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。",
+        "dst": "Đối với các câu hỏi sáng tạo (như viết luận văn), bạn cần giải thích và khái quát yêu cầu đề mục của người dùng, chọn định dạng thích hợp, tận dụng tối đa kết quả tìm kiếm và rút ra thông tin quan trọng, tạo ra câu trả lời phù hợp với yêu cầu của người dùng, có chiều sâu tư tưởng, sáng tạo và chuyên nghiệp. Độ dài sáng tác của bạn cần kéo dài càng tốt, đối với mỗi một luận thuyết quan trọng phải suy đoán ý đồ của người dùng, đưa ra càng nhiều góc độ trả lời quan trọng càng tốt, hơn nữa cần phải có lượng thông tin lớn, luận thuyết chi tiết."
+    },
+    "079f9dbb1a9d3308e731f8b146bf322a": {
+        "src": "如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。",
+        "dst": "Nếu câu trả lời dài, hãy cố gắng tổng kết cấu trúc, phân đoạn. Nếu cần phải trả lời theo điểm, cố gắng kiểm soát trong vòng 5 điểm và kết hợp nội dung liên quan."
+    },
+    "8b19c30a0ad3f42133b61fae178bd3c5": {
+        "src": "对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。",
+        "dst": "Đối với các câu hỏi khách quan, nếu câu trả lời cho các câu hỏi rất ngắn gọn, bạn có thể bổ sung thích hợp một đến hai câu thông tin liên quan để làm phong phú nội dung."
+    },
+    "1dc0481cca9559c2658bb335c0c6da36": {
+        "src": "你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。",
+        "dst": "Bạn cần chọn định dạng trả lời phù hợp và đẹp dựa trên yêu cầu của người dùng và nội dung trả lời, đảm bảo tính dễ đọc."
+    },
+    "dfe86a3a0237b15117e443536d8a8493": {
+        "src": "你的回答应该综合多个相关网页来回答，不能重复引用一个网页。",
+        "dst": "Câu trả lời của bạn nên kết hợp nhiều trang có liên quan để trả lời, không được trích dẫn lại một trang."
+    },
+    "66358f764cc9866f726104ab602a9ee2": {
+        "src": "除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。",
+        "dst": "Trừ khi người dùng yêu cầu, ngôn ngữ bạn trả lời cần phải phù hợp với ngôn ngữ mà người dùng đặt câu hỏi."
+    },
+    "5cd96302a8f07a13108452579fa7b572": {
+        "src": "用户消息为",
+        "dst": "User message là"
+    },
+    "80a82fe18f8b89062c82fbbb469c0399": {
+        "src": "你是一个擅长搜索网络和回答用户查询的人工智能模型。",
+        "dst": "Bạn là một mô hình AI xuất sắc trong việc tìm kiếm web và trả lời các truy vấn của người dùng."
+    },
+    "e809bddbfdef253a7615ded187c2e622": {
+        "src": "根据提供的搜索结果生成信息丰富且与用户查询相关的回答。",
+        "dst": "Tạo câu trả lời thông tin và có liên quan đến truy vấn của người dùng dựa trên kết quả tìm kiếm được cung cấp."
+    },
+    "03e26e6e0cb5b4a5661b19da684f6a30": {
+        "src": "当前日期和时间为",
+        "dst": "Ngày và giờ hiện tại là"
+    },
+    "2042f4d4f883da80cf56699e40821419": {
+        "src": "用户所在地区为",
+        "dst": "Khu vực của người dùng là"
+    },
+    "5eb031925ea481457d8ac92773b19972": {
+        "src": "根据用户的问题，和上一个对话的内容，理解用户意图，生成一个用于搜索引擎搜索的问题，这个问题的搜索结果将会用于帮助智能模型回答用户问题，回答内容中只有一个问题，且只包含问题内容，不包含其它信息。",
+        "dst": "Dựa trên câu hỏi của người dùng, và nội dung của cuộc trò chuyện trước đó, hiểu ý định của người dùng, tạo ra một câu hỏi để tìm kiếm công cụ tìm kiếm, kết quả tìm kiếm của câu hỏi này sẽ được sử dụng để giúp mô hình thông minh trả lời câu hỏi của người dùng, trả lời chỉ có một câu hỏi trong nội dung và chỉ chứa nội dung câu hỏi, không có thông tin nào khác."
+    },
+    "de61f8ec91ac74a5aae83e1219bff6bd": {
+        "src": "今天的时间是",
+        "dst": "Thời gian hôm nay là"
+    },
+    "73aba3208ac5d16784b86c6eddb98c28": {
+        "src": "上一个对话",
+        "dst": "Cuộc trò chuyện trước"
+    },
+    "bccaaec817af6f08610f49a9acab6c33": {
+        "src": "后续问题",
+        "dst": "Câu hỏi tiếp theo"
+    },
+    "f81fc3025acbb1e6ff1322c56a519537": {
+        "src": "用于搜索的问题",
+        "dst": "Câu hỏi tìm kiếm"
+    },
+    "67b19578d0752ceb5bfc7abb46587f82": {
+        "src": "星期日",
+        "dst": "Chủ Nhật"
+    },
+    "5ce438210f58d2e52ba8fccd3d99cb67": {
+        "src": "星期一",
+        "dst": "Thứ hai"
+    },
+    "34e5216bc310f8c4db8fbfe772156237": {
+        "src": "星期二",
+        "dst": "Thứ ba"
+    },
+    "711d996d87638acb6b93552fca140942": {
+        "src": "星期三",
+        "dst": "Thứ Tư"
+    },
+    "3df6af796b60302d6184ee1e02e090ab": {
+        "src": "星期四",
+        "dst": "Thứ năm"
+    },
+    "450ea3af464ff9f8a08600c0c1f7b82c": {
+        "src": "星期五",
+        "dst": "Thứ sáu"
+    },
+    "1ae72f6826c2717962d123e8088116c2": {
+        "src": "星期六",
+        "dst": "Thứ bảy"
+    },
+    "f8fbeae19402928ea0909596e2bf896f": {
+        "src": "上午",
+        "dst": "Buổi sáng"
+    },
+    "e2eb289cc37550406f297815e5fd3271": {
+        "src": "下午",
+        "dst": "Buổi chiều"
+    },
+    "74f3c097faa774665bc3f4913ed37d5c": {
+        "src": "未知地区",
+        "dst": "Khu vực không rõ"
+    },
+    "2837c06945d298b0bb32dba0cbc3c539": {
+        "src": "问题: ",
+        "dst": "Câu hỏi:"
+    },
+    "2e47c9b5e95f48f41f4f4c7e99a51e3c": {
+        "src": "回答: ",
+        "dst": "Trả lời:"
+    },
+    "e985627a72cd7d10ee196e7ae7978bde": {
+        "src": "回答:",
+        "dst": "Trả lời:"
+    },
+    "098f9e940d9c0517f2a86758de701f1b": {
+        "src": "搜索结果",
+        "dst": "Kết quả tìm kiếm"
+    },
+    "30f7dd4ecdfa89a22c47ed6a743a7037": {
+        "src": "连接",
+        "dst": "Kết nối"
+    },
+    "32c65d8d7431e76029678ec7bb73a5ab": {
+        "src": "标题",
+        "dst": "Tiêu đề"
+    },
+    "2d711b09bd0db0ad240cc83b30dd8014": {
+        "src": "内容",
+        "dst": "Nội dung"
     }
 }

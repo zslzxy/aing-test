@@ -291,7 +291,7 @@ export class ChatService {
      * @param {ChatHistory} history - 要保存的聊天历史记录
      * @param {number} contextLength - 上下文的最大长度
      */
-    save_chat_history(uuid: string, history: ChatHistory, historyRes:ChatHistory, contextLength: number): void {
+    save_chat_history(uuid: string, history: ChatHistory, historyRes:ChatHistory, contextLength: number,regenerate_id:string|undefined): void {
         // 为历史记录生成唯一标识符
         history.id = pub.uuid();
         // 计算历史记录的 tokens 数量
@@ -305,9 +305,18 @@ export class ChatService {
 
         historyRes.content = pub.lang("意外中断");
 
-        // 添加新的历史记录到列表中
-        historyList.push(history, historyRes);
+        if(regenerate_id){
+            let index = historyList.findIndex((item) => item.id == regenerate_id);
+            if(index > -1){
+                // 移除指定ID之后的所有历史记录
+                historyList = historyList.slice(0,index);
+            }
+        }else{
+            // 添加新的提问记录到列表中
+            historyList.push(history);
+        }
 
+        historyList.push(historyRes);
         // 如果总 tokens 数量超过最大上下文长度，逐步移除最早的历史记录
         while (totalTokens > historyMaxContextLength && historyList.length > 0) {
             const firstHistory = historyList.shift();

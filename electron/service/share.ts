@@ -136,7 +136,8 @@ class ShareService {
             modelInfo = chatController.get_model_info(modelStr);
         }
         modelInfo.contextLength = modelInfo.contextLength || 4096;
-
+        // 设置对话状态为正在生成
+        ContextStatusMap.set(contextId, true);
         // 保存新的模型信息
         shareChatService.update_chat_model(shareId, contextId, shareInfo.model, shareInfo.parameters);
 
@@ -190,15 +191,15 @@ class ShareService {
             search_type:search,
         };
 
-        shareChatService.save_chat_history(shareId, contextId, chatHistory, chatHistoryRes, modelInfo.contextLength);
+        shareChatService.save_chat_history(shareId, contextId, chatHistory, chatHistoryRes, modelInfo.contextLength,regenerate_id);
         chatHistoryRes.content = '';
 
         if (search) {
             // 获取上一次的对话历史
             let lastHistory = "";
             if(history.length > 2) {
-                lastHistory += "问题：" + history[history.length - 3].content + "\n";
-                lastHistory += "回答：" + history[history.length - 2].content + "\n";
+                lastHistory += pub.lang("问题: ") + history[history.length - 3].content + "\n";
+                lastHistory += pub.lang("回答:") + history[history.length - 2].content + "\n";
             }
 
             let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search);
@@ -228,9 +229,6 @@ class ShareService {
                 messages: history,
                 stream: true,
             });
-
-            // 设置对话状态为正在生成
-            ContextStatusMap.set(contextId, true);
 
             // 处理大模型的流式响应
             for await (const chunk of res) {

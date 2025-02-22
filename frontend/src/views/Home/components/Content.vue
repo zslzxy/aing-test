@@ -46,7 +46,7 @@
                     <div class="answer">
                         <NImage :src="answerLogo(chatContent.stat!.model as string)" width="30" height="30"
                             preview-disabled />
-                        <div class="answer-token flex items-center gap-5" v-if="!chatContent.content">
+                        <div class="answer-token flex items-center gap-5" v-if="!chatContent.content && isInChat">
                             <NSpin :size="20" />{{ targetNet ? $t("正在执行联网搜索...") : $t("正在思考...") }}
                         </div>
                         <div class="answer-token" v-else>
@@ -101,7 +101,7 @@
                                 </NTooltip>
                                 <NTooltip>
                                     <template #trigger>
-                                        <span class="tool-item" @click="answerAgain(key.replace(/^\d+--/, ''))"><i
+                                        <span class="tool-item" @click="answerAgain(key.replace(/^\d+--/, ''),chatContent.id as string)"><i
                                                 class="i-common:refresh w-20 h-20"></i></span>
                                     </template>
                                     {{ $t("重新生成") }}
@@ -127,9 +127,8 @@
                     <NPopselect v-model:value="targetNet" :options='[
                         { label: $t("不联网"), value: "" },
                         { label: $t("百度"), value: "baidu" },
-                        { label: $t("搜狗"), value: "sougou" },
-                        { label: $t("谷歌"), value: "google" },
-                        { label: $t("DuckDuckGo"), value: "duckduckgo" },
+                        { label: $t("搜狗"), value: "sogou" },
+                        { label: $t("360搜索"), value: "360" },
                     ]' trigger="hover" style="width: 200px;">
                         <NButton class="send-btn" icon-placement="right">
                             <template #icon>
@@ -137,9 +136,8 @@
                             </template>
                             {{ targetNet ? {
                                 baidu: $t("百度"),
-                                google: $t("谷歌"),
-                                sougou: $t("搜狗"),
-                            duckduckgo: "DuckDuckGo"
+                                "360": $t("360搜索"),
+                                sogou: $t("搜狗"),
                             }[targetNet as keyof typeof labels] : $t("不使用联网搜索") }}
                         </NButton>
                     </NPopselect>
@@ -198,19 +196,13 @@ const logos: any = {
     starcoder,
     tinyllama,
 }
-
-const options = ref([
-    { label: $t("不联网"), value: "" },
-    { label: $t("百度"), value: "baidu" },
-    { label: $t("搜狗"), value: "sougou" },
-    { label: $t("谷歌"), value: "google" },
-    { label: $t("DuckDuckGo"), value: "duckduckgo" },
-])
+/**
+ * @description 联网搜索配置数据
+ */
 const labels = ref({
     baidu: $t("百度"),
-    google: $t("谷歌"),
-    sougou: $t("搜狗"),
-    duckduckgo: "DuckDuckGo"
+    "360": $t("360搜索"),
+    sogou: $t("搜狗"),
 })
 /**
  * @description 根据模型确定对应的图标
@@ -294,7 +286,7 @@ function sendChartToModelForKeyBoard(event: KeyboardEvent) {
 /**
  * @description 重新回答
  */
-function answerAgain(questionContent: string) {
+function answerAgain(questionContent: string,id:string) {
     if (isInChat.value) {
         message.warning($t("当前正在回答，请稍后"))
     } else {
@@ -302,6 +294,7 @@ function answerAgain(questionContent: string) {
         chatHistory.value.set(questionContent, { content: "", stat: { model: currentModel.value }, search_result: [] })
         sendChat({
             user_content: questionContent,
+            regenerate_id:id
         })
     }
 

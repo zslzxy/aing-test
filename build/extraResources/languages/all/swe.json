@@ -269,7 +269,7 @@
     },
     "34fc43634c9c77b3ea0dcb82998d9931": {
         "src": "\\n\\n---\\n**内容不完整:** 用户手动停止生成",
-        "dst": " nn---n**Innehållet är ofullständigt:** Användaren slutar generera manuellt"
+        "dst": "\\n\\n---\\n**Innehållet är ofullständigt:** Användaren slutar generera manuellt"
     },
     "85812730fff04e6cf132295e2a466c34": {
         "src": "Ollama 服务未启动，正在尝试启动...",
@@ -318,5 +318,173 @@
     "0f82b0c2286850759e50950c544747df": {
         "src": "聊天出错",
         "dst": "Chat är fel"
+    },
+    "e743764113bc591e2abf5c6a779ed4db": {
+        "src": "暂不支持远程中断",
+        "dst": "Fjärravbrott stöds inte"
+    },
+    "61fc5b543cf9ca131751930d043fa17a": {
+        "src": "以下内容是基于用户发送的消息的搜索结果",
+        "dst": "Följande innehåll baseras på sökresultaten för meddelanden som skickas av användare"
+    },
+    "f37dd4d6515506a21fb175abda4201f3": {
+        "src": "在我给你的搜索结果中，每个结果都是[搜索结果 X begin]...[搜索结果 X end]格式的，X代表每篇文章的数字索引。另外搜索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。",
+        "dst": "I de sökresultat jag gav dig var varje resultat [sökresultat X börja]... I X-endet representerar X ett numeriskt index för varje artikel. Sökresultaten kan också innehålla information som inte är relevant och du kan välja vad du vill."
+    },
+    "ba1a9ea044484679a131827298a9d934": {
+        "src": "在回答时，请注意以下几点",
+        "dst": "Var uppmärksam på följande punkter när du svarar"
+    },
+    "5a99b099ccfbc64ed2b57ba388ffea9b": {
+        "src": "今天是",
+        "dst": "Det är idag."
+    },
+    "6c9ecc39673f2fc50b8d88b9b088e5cb": {
+        "src": "用户所在地点是",
+        "dst": "Användarens plats är"
+    },
+    "82fae71f8e76a40b44eb0e2bbc577de6": {
+        "src": "不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。",
+        "dst": "Nämn inte den specifika källan till sökresultat eller den specifika rangordningen av sökresultat i svarets innehåll."
+    },
+    "f90cd46d3c5c5df7c7f2f9510dcd4363": {
+        "src": "并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。",
+        "dst": "Allt innehåll i sökresultaten är inte nära relaterat till användarens fråga, utan du måste kombinera frågan för att identifiera och filtrera sökresultaten."
+    },
+    "6b966fd3eba4859f085c0083d7c7deb9": {
+        "src": "对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。",
+        "dst": "För att lista frågor (till exempel lista all flyginformation), försök att hålla svaret inom 10 nyckelpunkter och informera användaren om att de kan visa sökkällan och få fullständig information. Prioritera att tillhandahålla fullständiga och mest relevanta listade uppgifter; Informera inte användarna proaktivt om innehåll som inte finns i sökresultaten om det inte är nödvändigt."
+    },
+    "12bd56226bdb7cb69414e173bdebc728": {
+        "src": "对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。",
+        "dst": "För kreativa frågor (t.ex. att skriva en avhandling) måste du tolka och sammanfatta användarens rubrikkrav, välja rätt format, dra nytta av sökresultaten och extrahera viktig information för att generera svar som uppfyller användarens krav, är djupt tänkta, kreativa och professionella. Ditt arbete måste vara så långt som möjligt, spekulera användarens avsikt för varje viktig punkt, ge så många vinklar som möjligt för att svara på viktiga punkter, och se till att den är stor och detaljerad."
+    },
+    "079f9dbb1a9d3308e731f8b146bf322a": {
+        "src": "如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。",
+        "dst": "Om svaret är långt, försök att sammanfatta det i ett strukturerat och stycke för stycke sätt. Om du behöver svara med poäng, försök att begränsa det till inom 5 punkter och sammanfoga relevant innehåll."
+    },
+    "8b19c30a0ad3f42133b61fae178bd3c5": {
+        "src": "对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。",
+        "dst": "För objektiva kategorier av frågor och svar, om svaret på frågan är mycket kort, kan en eller två meningar av relevant information kompletteras lämpligt för att berika innehållet."
+    },
+    "1dc0481cca9559c2658bb335c0c6da36": {
+        "src": "你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。",
+        "dst": "Du måste välja ett lämpligt och vackert svarsformat baserat på användarens önskemål och svarsinnehåll för att säkerställa att svaret är läsbart."
+    },
+    "dfe86a3a0237b15117e443536d8a8493": {
+        "src": "你的回答应该综合多个相关网页来回答，不能重复引用一个网页。",
+        "dst": "Ditt svar bör vara en sammansättning av flera relevanta webbsidor för att svara, och inte upprepade referenser till en webbsida."
+    },
+    "66358f764cc9866f726104ab602a9ee2": {
+        "src": "除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。",
+        "dst": "Om inte användaren begär något annat måste du svara på det språk som användaren ställer frågorna på."
+    },
+    "5cd96302a8f07a13108452579fa7b572": {
+        "src": "用户消息为",
+        "dst": "Användarnas meddelande är"
+    },
+    "80a82fe18f8b89062c82fbbb469c0399": {
+        "src": "你是一个擅长搜索网络和回答用户查询的人工智能模型。",
+        "dst": "Du är en AI-modell som är bra på att söka på nätet och svara på användarförfrågor."
+    },
+    "e809bddbfdef253a7615ded187c2e622": {
+        "src": "根据提供的搜索结果生成信息丰富且与用户查询相关的回答。",
+        "dst": "Generera informativa och relevanta svar på användarfrågor baserat på de angivna sökresultaten."
+    },
+    "03e26e6e0cb5b4a5661b19da684f6a30": {
+        "src": "当前日期和时间为",
+        "dst": "Aktuellt datum och tid är"
+    },
+    "2042f4d4f883da80cf56699e40821419": {
+        "src": "用户所在地区为",
+        "dst": "Användarens område är"
+    },
+    "5eb031925ea481457d8ac92773b19972": {
+        "src": "根据用户的问题，和上一个对话的内容，理解用户意图，生成一个用于搜索引擎搜索的问题，这个问题的搜索结果将会用于帮助智能模型回答用户问题，回答内容中只有一个问题，且只包含问题内容，不包含其它信息。",
+        "dst": "Beroende på användarens fråga och innehållet i den föregående konversationen, förstå användarens avsikt och generera en fråga för sökmotorsökning, sökresultatet av denna fråga kommer att användas för att hjälpa den intelligenta modellen att svara på användarens fråga, svara på innehållet endast en fråga och innehåller endast frågan innehåll, inte annan information."
+    },
+    "de61f8ec91ac74a5aae83e1219bff6bd": {
+        "src": "今天的时间是",
+        "dst": "Dagens tid är"
+    },
+    "73aba3208ac5d16784b86c6eddb98c28": {
+        "src": "上一个对话",
+        "dst": "Föregående dialog"
+    },
+    "bccaaec817af6f08610f49a9acab6c33": {
+        "src": "后续问题",
+        "dst": "Uppföljande frågor"
+    },
+    "f81fc3025acbb1e6ff1322c56a519537": {
+        "src": "用于搜索的问题",
+        "dst": "Frågor för sökning"
+    },
+    "67b19578d0752ceb5bfc7abb46587f82": {
+        "src": "星期日",
+        "dst": "söndag"
+    },
+    "5ce438210f58d2e52ba8fccd3d99cb67": {
+        "src": "星期一",
+        "dst": "Måndag"
+    },
+    "34e5216bc310f8c4db8fbfe772156237": {
+        "src": "星期二",
+        "dst": "Tisdag"
+    },
+    "711d996d87638acb6b93552fca140942": {
+        "src": "星期三",
+        "dst": "Onsdag"
+    },
+    "3df6af796b60302d6184ee1e02e090ab": {
+        "src": "星期四",
+        "dst": "Torsdag"
+    },
+    "450ea3af464ff9f8a08600c0c1f7b82c": {
+        "src": "星期五",
+        "dst": "Fredag"
+    },
+    "1ae72f6826c2717962d123e8088116c2": {
+        "src": "星期六",
+        "dst": "Lördag"
+    },
+    "f8fbeae19402928ea0909596e2bf896f": {
+        "src": "上午",
+        "dst": "På morgonen."
+    },
+    "e2eb289cc37550406f297815e5fd3271": {
+        "src": "下午",
+        "dst": "Eftermiddag"
+    },
+    "74f3c097faa774665bc3f4913ed37d5c": {
+        "src": "未知地区",
+        "dst": "Okänd region"
+    },
+    "2837c06945d298b0bb32dba0cbc3c539": {
+        "src": "问题: ",
+        "dst": "Fråga:"
+    },
+    "2e47c9b5e95f48f41f4f4c7e99a51e3c": {
+        "src": "回答: ",
+        "dst": "Svar:"
+    },
+    "e985627a72cd7d10ee196e7ae7978bde": {
+        "src": "回答:",
+        "dst": "Svar:"
+    },
+    "098f9e940d9c0517f2a86758de701f1b": {
+        "src": "搜索结果",
+        "dst": "Sökresultat"
+    },
+    "30f7dd4ecdfa89a22c47ed6a743a7037": {
+        "src": "连接",
+        "dst": "Anslutning"
+    },
+    "32c65d8d7431e76029678ec7bb73a5ab": {
+        "src": "标题",
+        "dst": "titel"
+    },
+    "2d711b09bd0db0ad240cc83b30dd8014": {
+        "src": "内容",
+        "dst": "Innehåll"
     }
 }

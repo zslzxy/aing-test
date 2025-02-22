@@ -237,7 +237,7 @@ export class ShareChatService {
      * @param {ChatHistory} historyRes - 聊天历史记录响应
      * @param {number} contextLength - 上下文的最大长度
      */
-    save_chat_history(shareId: string, contextId: string, history: ChatHistory, historyRes: ChatHistory, contextLength: number): void {
+    save_chat_history(shareId: string, contextId: string, history: ChatHistory, historyRes: ChatHistory, contextLength: number,regenerate_id:string | any): void {
         history.id = pub.uuid();
         history.tokens = history.content ? history.content.length : 0;
         let historyList = this.read_history(shareId, contextId);
@@ -246,7 +246,20 @@ export class ShareChatService {
 
         historyRes.content = pub.lang("意外中断");
 
-        historyList.push(history, historyRes);
+
+
+        if(regenerate_id){
+            let index = historyList.findIndex((item) => item.id == regenerate_id);
+            if(index > -1){
+                // 移除指定ID之后的所有历史记录
+                historyList = historyList.slice(0,index);
+            }
+        }else{
+            // 添加新的提问记录到列表中
+            historyList.push(history);
+        }
+
+        historyList.push(historyRes);
 
         while (totalTokens > historyMaxContextLength && historyList.length > 0) {
             const firstHistory = historyList.shift();

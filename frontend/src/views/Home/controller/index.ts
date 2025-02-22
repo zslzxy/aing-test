@@ -49,14 +49,14 @@ export function isInstalled(model: string) {
  * @description 获取对话列表
  */
 export async function get_chat_list() {
-    const { chatList, currentContextId, currentChatTitle, chatHistory, currentModel } = getIndexStore()
+    const { chatList, currentContextId, currentChatTitle, chatHistory, currentModel, contextIdForDel } = getIndexStore()
     const res = await post("/chat/get_chat_list")
     chatList.value = res.message
     if (chatList.value.length) {
-        currentContextId.value = chatList.value[0].context_id
-        currentChatTitle.value = chatList.value[0].title
-        currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
-        if (chatHistory.value.size == 0) {
+        if (currentContextId.value == contextIdForDel.value) {
+            currentContextId.value = chatList.value[0].context_id
+            currentChatTitle.value = chatList.value[0].title
+            currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
             getChatInfo(currentContextId.value)
         }
     }
@@ -117,7 +117,7 @@ export async function sendChat(params: ChatParams) {
             // 获取当前接收到的部分响应数据
             const currentResponse = progressEvent.event.currentTarget.responseText;
             // 防止切换带来的错误
-            if (currentTalkingChatId.value == currentContextId.value) chatHistory.value.set(params.user_content, { content: currentResponse, stat: { model: currentModel.value } })
+            if (currentTalkingChatId.value == currentContextId.value) chatHistory.value.set(params.user_content, { content: currentResponse, stat: { model: currentModel.value }, id: "" })
         }
     })
 
@@ -127,6 +127,7 @@ export async function sendChat(params: ChatParams) {
         // chatHistory.value.get(params.user_content)!.stat = lastChhat.message.eval_count
         Object.assign(chatHistory.value.get(params.user_content)!.stat as Object, lastChhat.message.stat)
         chatHistory.value.get(params.user_content)!.search_result = lastChhat.message.search_result as Array<any>
+        chatHistory.value.get(params.user_content)!.id = lastChhat.message.id
     }
     isInChat.value = false
 }
@@ -141,6 +142,8 @@ export async function stopGenerate() {
         message.success($t("对话已停止"))
     }
     isInChat.value = false
+    await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
+    await getChatInfo(currentContextId.value)
 }
 
 
@@ -157,6 +160,7 @@ export async function removeChat(context_id: string) {
     } else {
         message.error(`${$t("对话删除失败：")}${res.error_msg}`)
     }
+
 }
 
 /**
@@ -291,7 +295,8 @@ function generateObject(arr: any) {
         result.set(`${i}--${key}`, {
             content: value,
             stat: arr[i + 1].stat,
-            search_result: arr[i + 1].search_result
+            search_result: arr[i + 1].search_result,
+            id: arr[i + 1].id
         });
     }
     return result;

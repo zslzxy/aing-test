@@ -28,7 +28,7 @@ export let ModelListInfo: ModelInfo[] = [];
  * 存储对话上下文状态的映射，键为对话ID，值为是否继续生成的布尔值
  * @type {Map<string, boolean>}
  */
-let ContextStatusMap = new Map<string, boolean>();
+export let ContextStatusMap = new Map<string, boolean>();
 
 /**
  * chat controller 类，处理与聊天相关的各种操作
@@ -165,6 +165,9 @@ class ChatController {
             tool_calls: ''
         };
 
+        // 设置对话状态为正在生成
+        ContextStatusMap.set(uuid, true);
+
         // 获取模型信息
         let modelInfo = this.get_model_info(modelStr);
         if (modelInfo.contextLength === 0) {
@@ -231,13 +234,13 @@ class ChatController {
             search_query: "", 
         };
 
-        chatService.save_chat_history(uuid, chatHistory,chatHistoryRes, modelInfo.contextLength);
+        chatService.save_chat_history(uuid, chatHistory,chatHistoryRes, modelInfo.contextLength,regenerate_id);
         if (search) {
             // 获取上一次的对话历史
             let lastHistory = "";
             if(history.length > 2) {
-                lastHistory += "问题：" + history[history.length - 3].content + "\n";
-                lastHistory += "回答：" + history[history.length - 2].content + "\n";
+                lastHistory += pub.lang("问题: ") + history[history.length - 3].content + "\n";
+                lastHistory += pub.lang("回答: ") + history[history.length - 2].content + "\n";
             }
 
             let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(user_content,modelStr,lastHistory,search);
@@ -266,9 +269,6 @@ class ChatController {
             messages: history,
             stream: true
         });
-
-        // 设置对话状态为正在生成
-        ContextStatusMap.set(uuid, true);
 
         // 设置HTTP响应头
         event.response.set("Content-Type", "text/event-stream;charset=utf-8");

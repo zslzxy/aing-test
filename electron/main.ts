@@ -1,8 +1,6 @@
 import { ElectronEgg } from 'ee-core';
 import { Lifecycle } from './preload/lifecycle';
 import { preload } from './preload';
-
-import { shareService } from './service/share';
 import { totalService } from './service/total';
 
 // New app
@@ -19,9 +17,12 @@ app.register("preload", preload);
 
 
 // Register service
-const shareIdPrefix = shareService.generateUniquePrefix();
-let socket = shareService.connectToCloudServer(shareIdPrefix);
-shareService.startReconnect(socket,shareIdPrefix);
+setTimeout(() => {
+    const { shareService } = require('./service/share');
+    const shareIdPrefix = shareService.generateUniquePrefix();
+    let socket = shareService.connectToCloudServer(shareIdPrefix);
+    shareService.startReconnect(socket,shareIdPrefix);
+}, 1000);
 
 // 启动统计服务
 totalService.start();

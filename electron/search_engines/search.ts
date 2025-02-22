@@ -3,47 +3,116 @@ import { SearchResult } from "./utils";
 import { localDuckDuckGoSearch } from "./duckduckgo";
 import { localSogouSearch } from "./sogou";
 import { local360Search } from "./so360";
+import { pub } from '../class/public'
 import ollama from "ollama";
 
-// 提取模板常量
-const TEMPLATES = {
-    DEEPSEEK_PROMPT_TPL: `# 以下内容是基于用户发送的消息的搜索结果:
+
+// 获取模板常量
+const getTemplate = ():{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:string, OTHER_PROMPT_TPL:string, OTHER_SYSTEM_PROMPT_TPL:string, QUERY_PROMPT_TPL:string } => {
+    // 提取模板常量
+    const TEMPLATES_LANG = [
+        pub.lang('以下内容是基于用户发送的消息的搜索结果'),
+        pub.lang('在我给你的搜索结果中，每个结果都是[搜索结果 X begin]...[搜索结果 X end]格式的，X代表每篇文章的数字索引。另外搜索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。'),
+        pub.lang('在回答时，请注意以下几点'),
+        pub.lang('今天是'),
+        pub.lang('用户所在地点是'),
+        pub.lang('不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。'),
+        pub.lang('并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。'),
+        pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。'),
+        pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
+        pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
+        pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
+        pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
+        pub.lang('你的回答应该综合多个相关网页来回答，不能重复引用一个网页。'),
+        pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
+        pub.lang('用户消息为'),
+    ]
+
+    const OTHER_SYSTEM_PROMPT_TPL_LANG = [
+        pub.lang('你是一个擅长搜索网络和回答用户查询的人工智能模型。'),
+        pub.lang('在回答时，请注意以下几点'),
+        pub.lang('根据提供的搜索结果生成信息丰富且与用户查询相关的回答。'),
+        pub.lang('当前日期和时间为'),
+        pub.lang('用户所在地区为'),
+        pub.lang('不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。'),
+        pub.lang('并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。'),
+        pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。'),
+        pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
+        pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
+        pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
+        pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
+        pub.lang('你的回答应该综合多个相关网页来回答，不能重复引用一个网页。'),
+        pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
+        pub.lang('以下内容是基于用户发送的消息的搜索结果'),
+    ]
+
+
+    const QUERY_PROMPT_TPL_LANG = [
+        pub.lang('根据用户的问题，和上一个对话的内容，理解用户意图，生成一个用于搜索引擎搜索的问题，这个问题的搜索结果将会用于帮助智能模型回答用户问题，回答内容中只有一个问题，且只包含问题内容，不包含其它信息。'),
+        pub.lang('今天的时间是'),
+        pub.lang('用户所在地点是'),
+        pub.lang('上一个对话'),
+        pub.lang('后续问题'),
+        pub.lang('用于搜索的问题'),
+    ]
+
+
+
+    const DEEPSEEK_PROMPT_TPL = `# ${TEMPLATES_LANG[0]}:
 {search_results}
-在我给你的搜索结果中，每个结果都是[搜索结果 X begin]...[搜索结果 X end]格式的，X代表每篇文章的数字索引。另外搜索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。
-在回答时，请注意以下几点：
-- 今天是{current_date_time}。
-- 用户所在地区是{user_location}。
-- 不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。
-- 并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。
-- 对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。
-- 对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。
-- 如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。
-- 对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。
-- 你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。
-- 你的回答应该综合多个相关网页来回答，不能重复引用一个网页。
-- 除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。
+${TEMPLATES_LANG[1]}
+${TEMPLATES_LANG[2]}:
+- ${TEMPLATES_LANG[3]}{current_date_time}。
+- ${TEMPLATES_LANG[4]}{user_location}。
+- ${TEMPLATES_LANG[5]}
+- ${TEMPLATES_LANG[6]}
+- ${TEMPLATES_LANG[7]}
+- ${TEMPLATES_LANG[8]}
+- ${TEMPLATES_LANG[9]}
+- ${TEMPLATES_LANG[10]}
+- ${TEMPLATES_LANG[11]}
+- ${TEMPLATES_LANG[12]}
+- ${TEMPLATES_LANG[13]}
 
-# 用户消息为：
-{question}`,
-    DEEPSEEK_SYSTEM_PROMPT_TPL: "",
-    OTHER_PROMPT_TPL: "{question}",
-    OTHER_SYSTEM_PROMPT_TPL: `你是一个擅长搜索网络和回答用户查询的人工智能模型。
+# ${TEMPLATES_LANG[14]}:
+{question}`
 
-根据提供的搜索结果生成信息丰富且与用户查询相关的响应。当前日期和时间为 {current_date_time} ,用户所在地区为 {user_location}。
+    const DEEPSEEK_SYSTEM_PROMPT_TPL = ""
+    const OTHER_PROMPT_TPL = "{question}"
 
+    const OTHER_SYSTEM_PROMPT_TPL = `# ${OTHER_SYSTEM_PROMPT_TPL_LANG[0]}:
+## ${OTHER_SYSTEM_PROMPT_TPL_LANG[1]}:
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[2]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[3]} {current_date_time}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[4]} {user_location}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[5]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[6]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[7]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[8]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[9]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[10]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[11]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[12]}
+- ${OTHER_SYSTEM_PROMPT_TPL_LANG[13]}
+
+## ${OTHER_SYSTEM_PROMPT_TPL_LANG[14]}:
 <search-results>
- {search_results}
-</search-results>`,
-    QUERY_PROMPT_TPL: `# 根据用户的问题，和上一个对话的内容，理解用户意图，生成一个用于搜索引擎搜索的问题，这个问题的搜索结果将会用于帮助智能模型回答用户问题，回答内容中只有一个问题，且只包含问题内容，不包含其它信息。
+{search_results}
+</search-results>`
 
-## 今天的时间是：{current_date_time}
-## 用户所在地点：{user_location}
-## 上一个对话:
+    const  QUERY_PROMPT_TPL = `# ${QUERY_PROMPT_TPL_LANG[0]}
+## ${QUERY_PROMPT_TPL_LANG[1]}: {current_date_time}
+## ${QUERY_PROMPT_TPL_LANG[2]}: {user_location}
+## ${QUERY_PROMPT_TPL_LANG[3]}:
 {chat_history}
 
-## 后续问题： {question}
-用于搜索的问题：`
-};
+## ${QUERY_PROMPT_TPL_LANG[4]}: {question}
+${QUERY_PROMPT_TPL_LANG[5]}:`
+    
+
+
+    return { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL, OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL, QUERY_PROMPT_TPL }
+}
 
 // 搜索引擎映射
 export const searchEngines = {
@@ -65,10 +134,39 @@ export const searchWeb = async (provider: string, query: string): Promise<Search
 };
 
 // 获取当前日期时间字符串
-const getCurrentDateTime = () => new Date().toLocaleString();
+const getCurrentDateTime = () => {
+    // 获取当前日期时间
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
+
+    // 星期几
+    const weekDay = [
+        pub.lang('星期日'), 
+        pub.lang('星期一'), 
+        pub.lang('星期二'),
+        pub.lang('星期三'), 
+        pub.lang('星期四'), 
+        pub.lang('星期五'), 
+        pub.lang('星期六')][now.getDay()];
+
+    // 上午/下午
+    const ampm = hour < 12 ? pub.lang('上午') : pub.lang('下午');
+
+    return `${year}-${month}-${day} ${hour}:${minute}:${second} -- ${ampm}  ${weekDay}`;
+}
 
 // 获取用户所在地区
-const getUserLocation = () => global.area || "未知地区";
+const getUserLocation = () => {
+    if(pub.get_language() == 'zh'){
+        return global.area || pub.lang("未知地区");
+    }
+    return pub.lang("未知地区");
+}
 
 // 获取用于搜索的问题
 export const getSearchQuery = async (query: string, model: string, chatHistory: string): Promise<string> => {
@@ -88,8 +186,8 @@ export const getSearchQuery = async (query: string, model: string, chatHistory: 
 
         const currentDateTime = getCurrentDateTime();
         const userLocation = getUserLocation();
-
-        const queryPrompt = TEMPLATES.QUERY_PROMPT_TPL
+        const { QUERY_PROMPT_TPL } = getTemplate();
+        const queryPrompt = QUERY_PROMPT_TPL
            .replace("{question}", query)
            .replace("{chat_history}", chatHistory)
            .replace("{current_date_time}", currentDateTime)
@@ -122,20 +220,21 @@ const generateDeepSeekPrompt = (searchResultList: SearchResult[], query: string)
 
     const search_results = searchResultList.map(
         (result, idx) =>
-            `[搜索结果 ${idx+1} begin]
-连接: ${result.link}
-标题: ${result.title}
-内容:${result.content}
-[搜索结果 ${idx} end]`
+            `[${pub.lang('搜索结果')} ${idx+1} begin]
+${pub.lang('连接')}: ${result.link}
+${pub.lang('标题')}: ${result.title}
+${pub.lang('内容')}:${result.content}
+[${pub.lang('搜索结果')} ${idx} end]`
     ).join("\n");
 
-    const userPrompt = TEMPLATES.DEEPSEEK_PROMPT_TPL
+    const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate();
+    const userPrompt = DEEPSEEK_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
        .replace("{question}", query)
        .replace("{user_location}", userLocation);
 
-    const systemPrompt = TEMPLATES.DEEPSEEK_SYSTEM_PROMPT_TPL;
+    const systemPrompt = DEEPSEEK_SYSTEM_PROMPT_TPL;
 
     return { userPrompt, systemPrompt, searchResultList,query };
 };
@@ -150,12 +249,13 @@ const generateOtherPrompt = (searchResultList: SearchResult[], query: string): {
             `<result source="${result.link}" id="${idx+1}">${result.content}</result>`
     ).join("\n");
 
-    const systemPrompt = TEMPLATES.OTHER_SYSTEM_PROMPT_TPL
+    const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
+    const systemPrompt = OTHER_SYSTEM_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
        .replace("{user_location}", userLocation);
 
-    const userPrompt = TEMPLATES.OTHER_PROMPT_TPL.replace("{question}", query);
+    const userPrompt = OTHER_PROMPT_TPL.replace("{question}", query);
 
     return { userPrompt, systemPrompt ,searchResultList,query};
 };
@@ -168,14 +268,15 @@ export const getDefaultPrompt = (query: string,model:string): { userPrompt: stri
     let searchResultList = [];
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
+    const { DEEPSEEK_SYSTEM_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
     if (model.indexOf("deepseek") !== -1) {
-        userPrompt = TEMPLATES.DEEPSEEK_SYSTEM_PROMPT_TPL
+        userPrompt = DEEPSEEK_SYSTEM_PROMPT_TPL
         .replace("{current_date_time}", currentDateTime)
         .replace("{user_location}", userLocation)
         .replace("{question}", query)
         .replace("{search_results}", '');
     }else{
-        systemPrompt = TEMPLATES.OTHER_SYSTEM_PROMPT_TPL
+        systemPrompt = OTHER_SYSTEM_PROMPT_TPL
         .replace("{current_date_time}", currentDateTime)
         .replace("{user_location}", userLocation)
         .replace("{question}", query)

@@ -394,5 +394,9 @@
     "DuckDuckGo": {
         "src": "DuckDuckGo",
         "dst": "DuckDuckGo"
+    },
+    "360搜索": {
+        "src": "360搜索",
+        "dst": "360蒐索"
     }
 }

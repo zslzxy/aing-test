@@ -22,6 +22,7 @@ export type InstallProgress = {
 
 export type ChatInfo = Map<string, {
     content: string,
+    id?:string
     stat?: {
         model?: string,
         created_at?: string,
@@ -41,6 +42,8 @@ const useIndexStore = defineStore("indexStore", () => {
     const isFold = ref(false)
     // 提问内容
     const questionContent = ref("")
+    // 提问内容缓存
+    
     // 答案的代码内容
     const answerCodeContent = ref("")
     // 已安裝模型列表
