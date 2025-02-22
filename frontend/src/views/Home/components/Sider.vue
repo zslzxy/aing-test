@@ -28,14 +28,13 @@
                         @click.stop="handleChoose($event, item)" v-for="item in chatList" :key="item.context_id">
                         <div class="flex items-center" style="height: 100%;">
                             <i class="i-common:comu w-16 h-16 mr-10 ml-8"></i>
-                            {{ item.title ? item.title : $t("对话内容") }}
+                            <div class="comu-title">{{ item.title ? item.title : $t("对话内容") }}</div>
                         </div>
 
                         <NPopselect trigger="click" :options='[
-                                { label: $t("删除对话"), value: "delChat" },
-                                { label: $t("修改标题"), value: "modifyTitle" }
-                            ]'
-                            :on-update:value="(val) => doChatOperateSelect(val, item.context_id)">
+                            { label: $t("删除对话"), value: "delChat" },
+                            { label: $t("修改标题"), value: "modifyTitle" }
+                        ]' :on-update:value="(val) => doChatOperateSelect(val, item.context_id)">
                             <div class="flex justify-center items-center" style="height: 100%; padding: 0 8px;">
                                 <i class="i-common:more-operation w-16 h-16"></i>
                             </div>
@@ -88,7 +87,8 @@
             <div class="modal-footer">
                 <NButton type="default" ghost @click="chatModifyConfirm = false">{{ $t("取消") }}</NButton>
                 <NButton type="success" ghost
-                    @click="modifyChatTitle({ context_id: contextIdForModify, title: newChatTitle })">{{ $t("确认") }}</NButton>
+                    @click="modifyChatTitle({ context_id: contextIdForModify, title: newChatTitle })">{{ $t("确认") }}
+                </NButton>
             </div>
         </NCard>
     </NModal>
@@ -104,7 +104,7 @@ import logoImage from "@/assets/images/logo.png"
 import logoDark from "@/assets/images/logo-dark.png"
 import Storage from "@/utils/storage"
 import { useI18n } from "vue-i18n";
-const {t:$t} = useI18n()
+const { t: $t } = useI18n()
 const {
     chatList,
     currentContextId,
@@ -134,10 +134,10 @@ const {
  * @description 计算不同模式下logo的图片
  */
 
-const logo = computed(()=>{
-    if(themeMode.value == "light"){
+const logo = computed(() => {
+    if (themeMode.value == "light") {
         return logoImage
-    }else{
+    } else {
         return logoDark
     }
 })
@@ -225,7 +225,7 @@ function openModelManage() {
 /**
  * @description 切换模式
  */
-function changeThemeMode(val:string){
+function changeThemeMode(val: string) {
     themeMode.value = val
     Storage.themeMode = val
 }
@@ -307,6 +307,13 @@ function changeThemeMode(val:string){
 
                     &.active {
                         background-color: rgba(22, 163, 74, .1);
+                    }
+
+                    .comu-title {
+                        width: 200px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
                 }
 

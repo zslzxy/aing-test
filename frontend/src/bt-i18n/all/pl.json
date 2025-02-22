@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Dostępne"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "udział"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Czy na pewno usuniesz model?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Udostępnij AingDesk z przyjaciółmi"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Proszę wprowadzić nazwę"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Zmień udział"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Czy potwierdzić usunięcie bieżącego udostępnienia"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "nazwa"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Adres odwiedzenia"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Modyfikacja"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Pobieranie"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Wybieranie węzła pobierania, proszę później"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Pobieranie menedżera modeli, proszę poczekać"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Instalowanie menedżera modeli może potrwać kilka minut, proszę poczekać cierpliwości"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Udostępnianie udostępniania"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Zmiana udana"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Wykonanie wyszukiwania w sieci..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Połączone wyszukiwanie {0} adresów internetowych"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Nie używaj wyszukiwania internetowego"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Bez sieci"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Szukaj psa"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google'a"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

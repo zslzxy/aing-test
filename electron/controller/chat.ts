@@ -3,6 +3,7 @@ import Stream from 'stream';
 import { ChatService, ChatContext, ChatHistory } from '../service/chat';
 import { pub } from '../class/public';
 import { logger } from 'ee-core/log';
+import { getPromptForWeb } from '../search_engines/search';
 
 /**
  * 定义模型信息的类型
@@ -152,8 +153,8 @@ class ChatController {
      * @param {any} event - 事件对象，用于处理HTTP响应
      * @returns {Promise<any>} - 可读流，用于流式响应对话结果
      */
-    async chat(args: { context_id: string; model: string; parameters: string; user_content: string }, event: any): Promise<any> {
-        const { context_id: uuid, model: modelName, parameters, user_content } = args;
+    async chat(args: { context_id: string; model: string; parameters: string; user_content: string ,search?:string,regenerate_id?:string}, event: any): Promise<any> {
+        let { context_id: uuid, model: modelName, parameters, user_content,search,regenerate_id } = args;
         const modelStr = `${modelName}:${parameters}`;
         const chatService = new ChatService();
         // 构建用户的聊天上下文
@@ -196,7 +197,10 @@ class ChatController {
             tool_calls: "",
             created_at: "",
             create_time: pub.time(),
-            tokens: 0
+            tokens: 0,
+            search_result:[],
+            search_type: search,
+            search_query: "", 
         };
 
 
@@ -221,11 +225,39 @@ class ChatController {
             tool_calls: "",
             created_at: "",
             create_time: pub.time(),
-            tokens: 0
+            tokens: 0,
+            search_result:[],
+            search_type: search,
+            search_query: "", 
         };
 
-
         chatService.save_chat_history(uuid, chatHistory,chatHistoryRes, modelInfo.contextLength);
+        if (search) {
+            // 获取上一次的对话历史
+            let lastHistory = "";
+            if(history.length > 2) {
+                lastHistory += "问题：" + history[history.length - 3].content + "\n";
+                lastHistory += "回答：" + history[history.length - 2].content + "\n";
+            }
+
+            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(user_content,modelStr,lastHistory,search);
+            chatHistoryRes.search_query = query;
+            chatHistoryRes.search_type = search;
+            chatHistoryRes.search_result = searchResultList;
+
+            if (systemPrompt) {
+                // 将系统提示词插入到对话历史的第一条
+                history.unshift({
+                    role: 'system',
+                    content: systemPrompt
+                });
+            }
+
+            if (userPrompt) {
+                // 将用户提示词替换历史的最后一条
+                history[history.length - 1].content = userPrompt;
+            }
+        }
 
         // 发送消息到大模型
         const model = `${modelName}:${parameters}`;

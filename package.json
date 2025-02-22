@@ -1,6 +1,6 @@
 {
   "name": "aingdesk",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Simple and easy-to-use AI big model deployment and usage software",
   "main": "./public/electron/main.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "debug-electron": "cross-env DEBUG=ee-* ee-bin dev --serve=electron",
     "debug-move": "ee-bin move --flag=frontend_dist"
   },
-  "repository": "https://github.com/aapanel/aingdesk",
+  "repository": "https://github.com/aingdesk/aingdesk",
   "keywords": [
     "AingDesk",
     "baota",
@@ -57,6 +57,7 @@
   "dependencies": {
     "@vueuse/core": "^12.5.0",
     "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
     "dayjs": "^1.11.13",
     "ee-core": "^4.0.0",
     "electron-notarize": "^1.2.2",
@@ -64,6 +65,7 @@
     "iconv-lite": "^0.6.3",
     "node-cache": "^5.1.2",
     "ollama": "^0.5.12",
+    "undici": "^7.3.0",
     "uuid": "^11.0.5"
   }
 }

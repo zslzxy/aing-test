@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Elérhető"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "részesedés"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Biztos, hogy törli a modellt? Ez a művelet visszafordíthatatlan?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Az AingDesk megosztása barátaival"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Kérjük, adja meg a nevét"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Megosztás módosítása"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Az aktuális megosztás törlésének megerősítése"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "név"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Látogasson el címre"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Módosítás"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Letöltés"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Letöltési csomópont kiválasztása, várjon"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "A modellkezelő letöltése, kérjük később"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "A Model Manager telepítése néhány percig tarthat, kérjük, legyen türelmes"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Sikeres megosztás létrehozása"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "A módosítás sikeres"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Hálózati keresés végrehajtása"
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Interneten keresett {0} URL"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Ne használjon internetes keresést"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Nincs internetkapcsolat"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Kutya keresés"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "a Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Kullanılabilir"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "paylaş"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Modelin silinmesini onayladınız mı ve bu işlem geri dönüşümüz?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "AingDesk'i arkadaşlarıyla paylaşın"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Lütfen adınızı girin"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Paylaşımı Değiştir"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Mevcut paylaşımın silinmesini onaylayıp onaylamayacağını"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "isim"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Ziyaret Adresi"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Değiştir"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "İndiriliyor"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "İndirme düğümü seçiliyor, lütfen daha sonra"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Model yöneticisi indiriliyor, lütfen daha sonra"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Model yöneticisi yüklüyor, birkaç dakika sürebilir, lütfen sabırla bekleyin"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Paylaşmayı başarıyla yarattı"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Değiştirme başarılı"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "İnternet araması yapılıyor..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "{0} URL'leri online araştırıldı"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "İnternet Arama Kullanmayın"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "İnternet'e bağlanmadı"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Köpek Arama"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google'ın"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

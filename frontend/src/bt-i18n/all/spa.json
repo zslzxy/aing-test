@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Disponible"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "Compartir"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "¿¿ se confirma la eliminación del modelo y la operación es irreversible?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Comparte aingdesk con tus amigos"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Por favor, introduzca el nombre"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Modificar compartir"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Si confirmar la eliminación del intercambio actual"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Nombre"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Dirección de acceso"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Modificación"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Descargando"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Se está seleccionando el nodo de descarga, por favor espere"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Se está descargando el gestor de modelos, por favor espere"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Se está instalando el gestor de modelos, puede tardar unos minutos, por favor espere pacientemente"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Crear compartir exitoso"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Modificación exitosa"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Realizando búsquedas en línea..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Se ha buscado en la red ('0') direcciones web"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "No use búsquedas en línea"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Sin conexión a Internet"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Sogou"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

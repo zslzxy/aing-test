@@ -7,7 +7,7 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 - Deploy DeepSeek or other AI models with one click.
 - Simple to operate.
 - Built - in chat interface.
-- Share it with friends online (coming soon).
+- Share it with friends online .
   
 ✨ **Technical Highlights**
 - Visual one - click deployment.
@@ -15,4 +15,4 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 📥 **Quick Installation**
 - [Download from the official website.](https://www.aingdesk.com/en/download.html)
 - [Download from GitHub.](https://github.com/aingdesk/AingDesk/releases)
-- [Download from CNB](https://cnb.cool/aingdesk/AingDesk/-/releases/)
+- [Download from CNB。](https://cnb.cool/aingdesk/AingDesk/-/releases/)

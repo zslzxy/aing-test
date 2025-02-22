@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "available"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "share"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Are you sure to delete the model? This operation is irreversible?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Share AingDesk with friends to use together"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Please enter a name"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Modify Share"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Are you sure to delete the current share"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "name"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Access address"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "modify"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Downloading"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Selecting download node, please wait"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Downloading Model Manager, please wait"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Installing Model Manager, may take a few minutes, please be patient"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Successfully created sharing"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Modified successfully"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Executing network search"
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Searched for {0} URLs online"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Do not use internet search"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Not connected to the internet"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Sogou"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

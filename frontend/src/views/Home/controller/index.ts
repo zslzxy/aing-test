@@ -96,7 +96,7 @@ type ChatParams = {
     regenerate_id?: string
 }
 export async function sendChat(params: ChatParams) {
-    const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat } = getIndexStore()
+    const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat, targetNet } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
 
     // 如果当前对话不存在则创建对话
@@ -109,6 +109,7 @@ export async function sendChat(params: ChatParams) {
         model,
         parameters,
         context_id: currentContextId.value,
+        search: targetNet.value,
         ...params
     }, {
         responseType: 'text',
@@ -125,6 +126,7 @@ export async function sendChat(params: ChatParams) {
     if (chatHistory.value.get(params.user_content)) {
         // chatHistory.value.get(params.user_content)!.stat = lastChhat.message.eval_count
         Object.assign(chatHistory.value.get(params.user_content)!.stat as Object, lastChhat.message.stat)
+        chatHistory.value.get(params.user_content)!.search_result = lastChhat.message.search_result as Array<any>
     }
     isInChat.value = false
 }
@@ -225,13 +227,14 @@ export async function installModel() {
  * @description 获取大模型安装进度
  */
 export async function getModelInstallProgress() {
-    const { modelInstallProgress, installShow, modelNameForInstall, downloadText } = getIndexStore();
+    const { modelInstallProgress, installShow, modelNameForInstall, downloadText, settingsShow } = getIndexStore();
     let timer = setInterval(async () => {
         const res = await post("/manager/get_model_install_progress", modelNameForInstall.value)
         if (res.message.status == 3) {
             message.success($t("安装成功"))
             installShow.value = false
             downloadText.value = $t("正在连接，请稍候...")
+            settingsShow.value = false
             clearInterval(timer)
             get_model_list()
             getVisibleModelList()
@@ -287,7 +290,8 @@ function generateObject(arr: any) {
         let value = arr[i + 1] ? (arr[i + 1].reasoning + arr[i + 1].content) : $t("模型异常，请重新生成");
         result.set(`${i}--${key}`, {
             content: value,
-            stat: arr[i + 1].stat
+            stat: arr[i + 1].stat,
+            search_result: arr[i + 1].search_result
         });
     }
     return result;
@@ -297,10 +301,11 @@ function generateObject(arr: any) {
  * @description 安装模型管理器
  */
 export async function installModelManager() {
-    const { managerForInstall, modelManagerInstallProgresShow, managerInstallConfirm } = getIndexStore()
+    const { managerForInstall, modelManagerInstallProgresShow, managerInstallConfirm, modelManagerInstallNotice } = getIndexStore()
     modelManagerInstallProgresShow.value = true
     managerInstallConfirm.value = false
     post("/manager/install_model_manager", { manager_name: managerForInstall.value })
+    modelManagerInstallNotice.value = $t("正在下载")
     getModelManagerInstallProgress()
 }
 
@@ -308,10 +313,14 @@ export async function installModelManager() {
  * @description 获取模型管理器安装进度
  */
 export async function getModelManagerInstallProgress() {
-    const { managerForInstall, modelManagerInstallProgresShow, modelManagerInstallProgress, isInstalledManager, isResetModelList } = getIndexStore();
+    const { managerForInstall, modelManagerInstallProgresShow, modelManagerInstallProgress, isInstalledManager, isResetModelList, modelManagerInstallNotice } = getIndexStore();
     let timer = setInterval(async () => {
         const res = await post("/manager/get_model_manager_install_progress", { manager_name: managerForInstall.value })
+        if (res.message.status == 0) modelManagerInstallNotice.value = $t("正在选择下载节点，请稍后")
+        if (res.message.status == 1) modelManagerInstallNotice.value = $t("正在下载模型管理器，请稍后")
+        if (res.message.status == 2) modelManagerInstallNotice.value = $t("正在安装模型管理器，可能要几分钟时间，请耐心等待")
         if (res.message.status == 3) {
+            modelManagerInstallNotice.value = $t("安装成功")
             message.success($t("模型管理器安装成功"))
             modelManagerInstallProgresShow.value = false
             isInstalledManager.value = true

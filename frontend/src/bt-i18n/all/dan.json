@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Tilgængelig"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "Del"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Er du sikker på at slette modellen? Denne operation er irreversibel?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Del AingDesk med venner"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Indtast venligst navn"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Ændring af deling"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Bekræft sletning af den aktuelle deling"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "navn"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Besøg adresse"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Ændring"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Downloader"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Vælger download node, vent venligst"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Henter modelhåndtering senere"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Installation af Model Manager, kan tage et par minutter, vær tålmodig"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Opret en vellykket deling"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Ændret med succes"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Kører internetsøgning..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Søgte efter {0} webadresser online"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Brug ikke internetsøgning"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Ikke forbundet til internettet"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baiduworld. kgm"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Søg hund"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "af Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

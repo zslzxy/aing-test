@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Dostupno"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "Dijeli"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Je li potvrđeno da je brisanje modela nepovratno?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Podijelite AingDesk s prijateljima"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Molim vas, zapišite ime"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Promjena dijeljenja"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Da li potvrditi brisanje trenutnog dijeljenja"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Ime"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Adresa pristupa"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "izmijeni"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Preuzimanje"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Odaberam čvor za preuzimanje, molim vas kasnije"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Preuzimanje upravitelja modela, molim vas kasnije"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Instalacija upravitelja modela može potrajati nekoliko minuta, molimo strpljenje"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Uspješno stvoreno dijeljenje"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Promjena uspješna"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Izvršava se mrežna pretraga..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Internetsko pretraživanje {0} URL-ova"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Ne koristite internet pretragu"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Nije povezano s internetom"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Pretraživanje psa"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "GoogleQuery"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

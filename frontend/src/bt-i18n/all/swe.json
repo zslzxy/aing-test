@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Tillgänglig"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "Dela"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Är du säker på att ta bort modellen, är åtgärden irreversibel?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Dela AingDesk med vänner att använda tillsammans"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Ändra andel"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Om du vill bekräfta att du tar bort den aktuella delningen"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Namn"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Ändra"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Väljer nedladdningsnod, vänligen senare"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Ladda ner modellhanteraren, vänta"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Installerar modellhanteraren, kan ta några minuter, vänta tålamod"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Skapa en framgångsrik delning"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Ändringen lyckades"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Kör nätverkssökning"
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Sökt på {0} webbadresser"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Ange ett namn"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Besöksadress"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Hämtar"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Använd inte nätsökning"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Inte ansluten till internet"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Sök hund"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Googles"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

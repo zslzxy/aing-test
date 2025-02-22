@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Saatavilla"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "osuus"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Oletko varma, että poistat mallin? Tämä toiminto on peruuttamaton?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Jaa AingDesk ystävien kanssa"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Syötä nimi"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Muokkaa jakamista"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Varmistaako nykyisen jakamisen poistaminen"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Nimi"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Käyttöosoite"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Muokkaa"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Lataa"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Lataussolmu valitaan, myöhemmin"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Lataa Mallinhallinta, odota"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Asennus Model Manager, voi kestää muutaman minuutin, ole kärsivällinen"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Osaamisen luominen onnistui"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Muutos onnistui"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Suoritetaan verkkohakua"
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Etsi {0} verkko-osoitetta"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Älä käytä verkko-hakua"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Ei liity internetiin"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Etsi koiraa"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Googlen"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

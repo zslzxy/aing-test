@@ -30,8 +30,9 @@ export type ChatInfo = Map<string, {
         prompt_eval_count?: string,
         prompt_eval_duration?: string,
         eval_count?: string,
-        eval_duration?: string
-    }
+        eval_duration?: string,
+    },
+    search_result?: Array<{ content: string; link: string; title: string }>
 }>
 const useIndexStore = defineStore("indexStore", () => {
     // 侧边栏宽度
@@ -117,6 +118,8 @@ const useIndexStore = defineStore("indexStore", () => {
         progress: 0,
         speed: 0
     })
+    // 模型管理器安装提示
+    const modelManagerInstallNotice = ref("")
     // 模型管理器安装进度弹窗
     const modelManagerInstallProgresShow = ref(false)
     // 模型管理器安装问询
@@ -160,6 +163,10 @@ const useIndexStore = defineStore("indexStore", () => {
     const languageOptions = ref([])
     // 当前语言
     const currentLanguage = ref(storage.language || "zh")
+    // 联网搜索
+    const targetNet = ref("")
+    // 联网搜索结果
+    const searchResult = ref([])
     return {
         answerCodeContent,
         modelList,
@@ -205,7 +212,10 @@ const useIndexStore = defineStore("indexStore", () => {
         shareUrl,
         shareHistory,
         modifyShareShow,
-        delShareConfirmShow
+        delShareConfirmShow,
+        modelManagerInstallNotice,
+        targetNet,
+        searchResult
     }
 })
 

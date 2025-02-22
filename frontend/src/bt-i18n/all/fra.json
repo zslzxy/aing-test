@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Disponible"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "Partager"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Est - ce que la suppression du modèle est confirmée, l'opération est irréversible?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Partager aingdesk à un ami utiliser ensemble"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Veuillez entrer un nom"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Modifier le partage"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Confirmer supprimer le partage actuel"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Le nom"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Adresse d'accès"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Modifier"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Téléchargement en cours"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Sélectionner un nœud de téléchargement, veuillez le faire plus tard"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Téléchargement en cours de Model Manager, veuillez le faire plus tard"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Installation du gestionnaire de modèles, cela peut prendre quelques minutes, soyez patient"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Créer un succès partagé"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Modification réussie"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Recherche en réseau en cours..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Recherche en réseau {0} URL"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Ne pas utiliser la recherche en réseau"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Pas de réseau"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Chasse au chien"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

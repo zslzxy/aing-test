@@ -20,7 +20,8 @@ app.register("preload", preload);
 
 // Register service
 const shareIdPrefix = shareService.generateUniquePrefix();
-shareService.connectToCloudServer(shareIdPrefix);
+let socket = shareService.connectToCloudServer(shareIdPrefix);
+shareService.startReconnect(socket,shareIdPrefix);
 
 // 启动统计服务
 totalService.start();

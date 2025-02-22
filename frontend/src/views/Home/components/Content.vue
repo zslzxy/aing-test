@@ -47,10 +47,11 @@
                         <NImage :src="answerLogo(chatContent.stat!.model as string)" width="30" height="30"
                             preview-disabled />
                         <div class="answer-token flex items-center gap-5" v-if="!chatContent.content">
-                            <NSpin :size="20" />{{ $t("正在思考...") }}
+                            <NSpin :size="20" />{{ targetNet ? $t("正在执行联网搜索...") : $t("正在思考...") }}
                         </div>
                         <div class="answer-token" v-else>
-                            <MarkdownRender :content="chatContent.content" />
+                            <MarkdownRender :content="chatContent.content"
+                                :searchResult="chatContent.search_result as Array<any>" />
                             <div class="tools">
                                 <NTooltip>
                                     <template #trigger>
@@ -122,9 +123,30 @@
                         maxRows: 15
                     }" @keydown.enter="sendChartToModelForKeyBoard" />
 
-                <NButton class="send-btn" type="primary" v-if="!isInChat" @click="sendChatToModel"
-                    :disabled="questionContent.trim() ? false : true">{{ $t("发送") }}</NButton>
-                <NButton class="send-btn" type="error" v-else @click="stopGenerate">{{ $t("停止生成") }}</NButton>
+                <div class="send-tools">
+                    <NPopselect v-model:value="targetNet" :options='[
+                        { label: $t("不联网"), value: "" },
+                        { label: $t("百度"), value: "baidu" },
+                        { label: $t("搜狗"), value: "sougou" },
+                        { label: $t("谷歌"), value: "google" },
+                        { label: $t("DuckDuckGo"), value: "duckduckgo" },
+                    ]' trigger="hover" style="width: 200px;">
+                        <NButton class="send-btn" icon-placement="right">
+                            <template #icon>
+                                <i class="i-common:arrow-down w-16 h-16"></i>
+                            </template>
+                            {{ targetNet ? {
+                                baidu: $t("百度"),
+                                google: $t("谷歌"),
+                                sougou: $t("搜狗"),
+                            duckduckgo: "DuckDuckGo"
+                            }[targetNet as keyof typeof labels] : $t("不使用联网搜索") }}
+                        </NButton>
+                    </NPopselect>
+                    <NButton class="send-btn" type="primary" v-if="!isInChat" @click="sendChatToModel"
+                        :disabled="questionContent.trim() ? false : true">{{ $t("发送") }}</NButton>
+                    <NButton class="send-btn" type="error" v-else @click="stopGenerate">{{ $t("停止生成") }}</NButton>
+                </div>
             </div>
         </div>
     </div>
@@ -136,7 +158,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, ref } from 'vue';
-import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin } from 'naive-ui';
+import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NPopselect, } from 'naive-ui';
 import { message } from "@/utils/naive-tools"
 import userImage from "@/assets/images/user.png"
 import codellama from "@/assets/images/codellama.png"
@@ -176,6 +198,20 @@ const logos: any = {
     starcoder,
     tinyllama,
 }
+
+const options = ref([
+    { label: $t("不联网"), value: "" },
+    { label: $t("百度"), value: "baidu" },
+    { label: $t("搜狗"), value: "sougou" },
+    { label: $t("谷歌"), value: "google" },
+    { label: $t("DuckDuckGo"), value: "duckduckgo" },
+])
+const labels = ref({
+    baidu: $t("百度"),
+    google: $t("谷歌"),
+    sougou: $t("搜狗"),
+    duckduckgo: "DuckDuckGo"
+})
 /**
  * @description 根据模型确定对应的图标
  */
@@ -199,7 +235,7 @@ const answerLogo = (model: string) => {
 const scrollRef = ref()
 const contentWrapper = ref()
 const indexStore = useIndexStore()
-const { questionContent, currentModel, chatHistory, userScrollSelf, scrollTop, isInChat, themeColors, themeMode } = storeToRefs(indexStore)
+const { questionContent, currentModel, chatHistory, userScrollSelf, scrollTop, isInChat, themeColors, themeMode, targetNet, } = storeToRefs(indexStore)
 
 /********** question-token和question-edit切换 **********/
 const questionEditContent = ref("")
@@ -237,7 +273,7 @@ function sendChatToModel() {
     userScrollSelf.value = false
     // 將聊天加入到对话历史
     const formatQuestionContent = questionContent.value.replace(/\n/g, '<br>')
-    chatHistory.value.set(formatQuestionContent, { content: "", stat: { model: currentModel.value } })
+    chatHistory.value.set(formatQuestionContent, { content: "", stat: { model: currentModel.value }, search_result: [] })
     nextTick(() => moveFn(10))
     sendChat({
         user_content: formatQuestionContent,
@@ -263,7 +299,7 @@ function answerAgain(questionContent: string) {
         message.warning($t("当前正在回答，请稍后"))
     } else {
         isInChat.value = true
-        chatHistory.value.set(questionContent, { content: "", stat: { model: currentModel.value } })
+        chatHistory.value.set(questionContent, { content: "", stat: { model: currentModel.value }, search_result: [] })
         sendChat({
             user_content: questionContent,
         })
@@ -464,14 +500,28 @@ const questionToolBg = computed(() => {
             background-color: v-bind(questionToolBg);
 
             .input-token {
-                padding-bottom: 40px;
+                padding-bottom: 70px;
             }
 
-            .send-btn {
+            .send-tools {
                 position: absolute;
-                right: 8px;
-                bottom: 8px;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                gap: 20px;
+                box-sizing: border-box;
+                padding: 0 15px;
+                left: 0px;
+                bottom: 15px;
+
+                .send-btn {
+                    padding: 20px 40px;
+                }
+
+                .network-search {}
+
             }
+
         }
     }
 }

@@ -7,6 +7,7 @@ import { logger } from 'ee-core/log';
 import { shareChatService } from './share_chat';
 import { ChatContext, ChatHistory } from './chat';
 import ChatController from '../controller/chat';
+import {getPromptForWeb} from '../search_engines/search'
 
 // 常量定义
 const CLOUD_SERVER_HOST = 'share.aingdesk.com';
@@ -113,42 +114,10 @@ class ShareService {
         // return pub.return_success(pub.lang('中断成功'));
     }
 
-    // 生成唯一的分享 ID 前缀
-    generateUniquePrefix() {
-        return pub.C('shareIdPrefix') || 'none';
-    }
-
-    // 发送数据到云服务器
-    sendToServer(conn: tls.TLSSocket, data: any,msgId:number) {
-        let dataStr = data;
-        if (typeof data == 'object') {
-            // 添加消息 ID
-            data.msgId = msgId;
-            dataStr = JSON.stringify(data);
-        }
-
-        // 构建头部
-        const header = Buffer.alloc(HEADER_SIZE);
-        const bodyBuffer = Buffer.from(dataStr);
-        header.writeInt32BE(bodyBuffer.length);
-
-        // 先发送头部
-        conn.write(header);
-
-        // 分包发送，每个包 4096 字节
-        const packageSize = 4096;
-        const packageCount = Math.ceil(bodyBuffer.length / packageSize);
-        for (let i = 0; i < packageCount; i++) {
-            const start = i * packageSize;
-            const end = Math.min(start + packageSize, bodyBuffer.length);
-            const packageData = bodyBuffer.slice(start, end);
-            conn.write(packageData);
-        }
-    }
-
+    
     // 聊天
-    async chat(conn: tls.TLSSocket, data: { modelStr: string; content: string; shareInfo: any; contextId: string },msgId:number) {
-        const { modelStr, content, shareInfo, contextId } = data;
+    async chat(conn: tls.TLSSocket, data: { modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string },msgId:number) {
+        const { modelStr, content, shareInfo, contextId,search,regenerate_id } = data;
         const shareId = shareInfo.share_id;
 
         // 构建用户的聊天上下文
@@ -189,6 +158,9 @@ class ShareService {
             created_at: '',
             create_time: pub.time(),
             tokens: 0,
+            search_result:[],
+            search_query:"",
+            search_type:search
         };
 
         // 初始化助手的聊天记录
@@ -213,10 +185,40 @@ class ShareService {
             created_at: '',
             create_time: pub.time(),
             tokens: 0,
+            search_result:[],
+            search_query:"",
+            search_type:search,
         };
 
         shareChatService.save_chat_history(shareId, contextId, chatHistory, chatHistoryRes, modelInfo.contextLength);
         chatHistoryRes.content = '';
+
+        if (search) {
+            // 获取上一次的对话历史
+            let lastHistory = "";
+            if(history.length > 2) {
+                lastHistory += "问题：" + history[history.length - 3].content + "\n";
+                lastHistory += "回答：" + history[history.length - 2].content + "\n";
+            }
+
+            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search);
+            chatHistoryRes.search_query = query;
+            chatHistoryRes.search_type = search;
+            chatHistoryRes.search_result = searchResultList;
+
+            if (systemPrompt) {
+                // 将系统提示词插入到对话历史的第一条
+                history.unshift({
+                    role: 'system',
+                    content: systemPrompt
+                });
+            }
+
+            if (userPrompt) {
+                // 将用户提示词替换历史的最后一条
+                history[history.length - 1].content = userPrompt;
+            }
+        }
 
         // 发送消息到大模型
         const model = `${shareInfo.model}:${shareInfo.parameters}`;
@@ -304,32 +306,60 @@ class ShareService {
         }
     }
 
+
+    // 生成唯一的分享 ID 前缀
+    generateUniquePrefix() {
+        return pub.C('shareIdPrefix') || 'none';
+    }
+
+    // 发送数据到云服务器
+    sendToServer(conn: tls.TLSSocket, data: any,msgId:number) {
+        let dataStr = data;
+        if (typeof data == 'object') {
+            // 添加消息 ID
+            data.msgId = msgId;
+            dataStr = JSON.stringify(data);
+        }
+
+        // 构建头部
+        const header = Buffer.alloc(HEADER_SIZE);
+        const bodyBuffer = Buffer.from(dataStr);
+        header.writeInt32BE(bodyBuffer.length);
+
+        // 先发送头部
+        conn.write(header);
+
+        // 分包发送，每个包 4096 字节
+        const packageSize = 4096;
+        const packageCount = Math.ceil(bodyBuffer.length / packageSize);
+        for (let i = 0; i < packageCount; i++) {
+            const start = i * packageSize;
+            const end = Math.min(start + packageSize, bodyBuffer.length);
+            const packageData = bodyBuffer.slice(start, end);
+            conn.write(packageData);
+        }
+    }
+
     // 处理接收到的数据
-    handleReceivedData(conn: tls.TLSSocket, data: Buffer) {
+    handleReceivedData(conn, data) {
         try {
-            // console.log('data:', data.toString('utf8'));
-
-            
             const shareData = JSON.parse(data.toString('utf8'));
-
-            if(!shareData.msgId){
-                return this.sendToServer(conn, pub.return_error('Unknown msgId', 'Unknown msgId'),0);
+            if (!shareData.msgId) {
+                return this.sendToServer(conn, pub.return_error('Unknown msgId', 'Unknown msgId'), 0);
             }
             if (!shareData) {
-                return this.sendToServer(conn, pub.return_error('args error', 'args error'),shareData.msgId);
+                return this.sendToServer(conn, pub.return_error('args error', 'args error'), shareData.msgId);
             }
             if (!shareData.action) {
-                return this.sendToServer(conn, pub.return_error('Unknown action', 'Unknown action'),shareData.msgId);
+                return this.sendToServer(conn, pub.return_error('Unknown action', 'Unknown action'), shareData.msgId);
             }
             if (shareData.action === 'set_share_id_prefix') {
                 pub.C('shareIdPrefix', shareData.shareIdPrefix);
                 return;
             }
             if (!this.existsShareId(shareData.shareId)) {
-                return this.sendToServer(conn, pub.return_error('Unknown shareId', 'Unknown shareId'),shareData.msgId);
+                return this.sendToServer(conn, pub.return_error('Unknown shareId', 'Unknown shareId'), shareData.msgId);
             }
-
-
 
             const shareInfo = this.getShareInfo(shareData.shareId);
 
@@ -339,74 +369,74 @@ class ShareService {
                         modelStr: `${shareInfo.model}:${shareInfo.parameters}`,
                         content: shareData.content,
                         shareInfo,
-                        contextId: shareData.contextId,
+                        contextId: shareData.contextId
                     };
-                    this.chat(conn, args,shareData.msgId);
+                    this.chat(conn, args, shareData.msgId);
                     break;
                 case 'get_share_chat_list':
                     const chatList = this.getShareChatList(shareData.shareId);
-                    this.sendToServer(conn, chatList,shareData.msgId);
+                    this.sendToServer(conn, chatList, shareData.msgId);
                     break;
                 case 'get_share_chat_info':
                     if (!shareData.contextId) {
-                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'), shareData.msgId);
                     }
                     const chatInfo = this.getShareChatInfo(shareData.shareId, shareData.contextId);
-                    this.sendToServer(conn, chatInfo,shareData.msgId);
+                    this.sendToServer(conn, chatInfo, shareData.msgId);
                     break;
                 case 'create_chat':
                     if (!shareData.title) {
-                        return this.sendToServer(conn, pub.return_error('Unknown title', 'Unknown title'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown title', 'Unknown title'), shareData.msgId);
                     }
-                    const chatRes = this.createChat(shareData.shareId,shareData.title);
-                    this.sendToServer(conn, chatRes,shareData.msgId);
+                    const chatRes = this.createChat(shareData.shareId, shareData.title);
+                    this.sendToServer(conn, chatRes, shareData.msgId);
                     break;
                 case 'remove_chat':
                     if (!shareData.contextId) {
-                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'), shareData.msgId);
                     }
                     const removeRes = this.removeChat(shareData.shareId, shareData.contextId);
-                    this.sendToServer(conn, removeRes,shareData.msgId);
+                    this.sendToServer(conn, removeRes, shareData.msgId);
                     break;
                 case 'stop_generate':
                     if (!shareData.contextId) {
-                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'), shareData.msgId);
                     }
                     const abortRes = this.abortChat(shareData.contextId);
-                    this.sendToServer(conn, abortRes,shareData.msgId);
+                    this.sendToServer(conn, abortRes, shareData.msgId);
                     break;
                 case 'modify_chat_title':
                     if (!shareData.title) {
-                        return this.sendToServer(conn, pub.return_error('Unknown title', 'Unknown title'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown title', 'Unknown title'), shareData.msgId);
                     }
                     if (!shareData.contextId) {
-                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'), shareData.msgId);
                     }
                     shareChatService.update_chat_title(shareData.shareId, shareData.contextId, shareData.title);
-                    this.sendToServer(conn, pub.return_success(pub.lang('修改成功')),shareData.msgId);
+                    this.sendToServer(conn, pub.return_success(pub.lang('修改成功')), shareData.msgId);
                     break;
                 case 'get_last_chat_history':
                     if (!shareData.contextId) {
-                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'),shareData.msgId);
+                        return this.sendToServer(conn, pub.return_error('Unknown contextId', 'Unknown contextId'), shareData.msgId);
                     }
                     const lastChatHistory = shareChatService.get_last_chat_history(shareData.shareId, shareData.contextId);
-                    this.sendToServer(conn, pub.return_success(pub.lang('获取成功'), lastChatHistory),shareData.msgId);
+                    this.sendToServer(conn, pub.return_success(pub.lang('获取成功'), lastChatHistory), shareData.msgId);
                     break;
                 default:
-                    this.sendToServer(conn, pub.return_error( 'Unknown action' ,null),shareData.msgId);
+                    this.sendToServer(conn, pub.return_error('Unknown action', null), shareData.msgId);
                     break;
             }
         } catch (error) {
             logger.error('Error while handling received data:', error);
-            this.sendToServer(conn, pub.return_error('Data parse error', 'Data parse error'),0);
+            this.sendToServer(conn, pub.return_error('Data parse error', 'Data parse error'), 0);
         }
     }
 
     // 接收数据
-    receiveData(conn: tls.TLSSocket) {
+    receiveData(conn) {
         let buffer = Buffer.alloc(0);
         let bodySize:any = null;
-        conn.on('data', (chunk: Buffer) => {
+        conn.on('data', (chunk) => {
             buffer = Buffer.concat([buffer, chunk]);
 
             while (true) {
@@ -419,7 +449,7 @@ class ShareService {
                         break;
                     }
                 }
-        
+
                 if (bodySize !== null && buffer.length >= bodySize) {
                     // 接收到完整的数据体
                     const body = buffer.slice(0, bodySize);
@@ -430,31 +460,26 @@ class ShareService {
                     break;
                 }
             }
-            
-                
         });
     }
 
     // 连接到云服务器
-    connectToCloudServer(shareIdPrefix: string) {
-        if (pub.C('shareServiceStatus') === false){
-            // console.log('shareServiceStatus is false');
-            // this.startReconnect(shareIdPrefix);
+    connectToCloudServer(shareIdPrefix) {
+        global.connectToCloudServer = false;
+
+        if (pub.C('shareServiceStatus') === false) {
             return null;
         }
-
 
         // 检查 share 目录是否存在
         const sharePath = path.resolve(pub.get_data_path(), "share");
         if (!pub.file_exists(sharePath)) {
-            // this.startReconnect(shareIdPrefix);
             return null;
         }
 
         // 检查是否有可用的分享
         const shareList = pub.readdir(sharePath);
         if (!shareList || shareList.length === 0) {
-            // this.startReconnect(shareIdPrefix);
             return null;
         }
 
@@ -464,13 +489,21 @@ class ShareService {
             port: CLOUD_SERVER_PORT,
             ca: fs.readFileSync(certFile),
             rejectUnauthorized: false,
+            // timeout: 5000 // 5 秒超时
         };
 
         const socket = tls.connect(options, () => {
             logger.info('Connected to cloud server');
             // 发送分享 ID 前缀
-            this.sendToServer(socket, shareIdPrefix,0);
+            this.sendToServer(socket, shareIdPrefix, 0);
         });
+
+        socket.on('timeout', () => {
+            logger.error('Connection timed out');
+            socket.destroy();
+        });
+
+        if (socket) global.connectToCloudServer = true;
 
         // 接收数据
         this.receiveData(socket);
@@ -478,26 +511,33 @@ class ShareService {
         // 监听连接关闭事件
         socket.on('end', () => {
             logger.info('Disconnected from cloud server');
-            this.startReconnect(shareIdPrefix);
         });
 
         // 监听错误事件
         socket.on('error', (error) => {
             logger.error('Socket error:', error);
-            this.startReconnect(shareIdPrefix);
+        });
+
+        // 监听关闭事件
+        socket.on('close', (hadError) => {
+            if (hadError) {
+                logger.error('Socket closed with error');
+            } else {
+                logger.info('Socket closed normally');
+            }
         });
 
         return socket;
     }
 
     // 开始重连
-    startReconnect(shareIdPrefix: string) {
-        const reconnectInterval = setInterval(() => {
-            const socket = this.connectToCloudServer(shareIdPrefix);
-            if (socket) {
-                clearInterval(reconnectInterval);
+    startReconnect(socket, shareIdPrefix) {
+        // 每隔 5 秒检查一次连接状态
+        setInterval(() => {
+            if (!socket || socket.destroyed) {
+                socket = this.connectToCloudServer(shareIdPrefix);
             }
-        }, 5000); // 每 5 秒尝试重连一次
+        }, 5000);
     }
 }
 

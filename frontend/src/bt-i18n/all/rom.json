@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "Disponibil"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "share"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Confirmați că ștergerea modelului este ireversibilă?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Partajează AingDesk cu prietenii tăi"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Introduceți numele dvs."
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Modificarea partajarii"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Confirmați dacă ștergeți partajarea curentă"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Numele"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Adresa de vizitare"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Modifică"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Descărcare"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Selectează nodul de descărcare, așteaptă"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Descărcarea managerului de modele, mai târziu"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Se instalează managerul de modele, poate dura câteva minute, vă rugăm să aveți răbdare"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Crearea partajarii cu succes"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Modificarea a avut succes"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Execută căutarea rețelei"
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "URL-uri căutate pe internet {0}"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Fără căutare online"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Fără rețea"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baiduworld. kgm"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Căutare câine"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "pe Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

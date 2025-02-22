@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "disponível"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "Compartilhar"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Você tem certeza de excluir o modelo? Esta operação é irreversível?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Compartilhe o AingDesk com amigos"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Por favor, insira o nome"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Modificar Compartilhamento"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Confirmar a exclusão da partilha atual"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "Nome"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Endereço de acesso"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "Modificação"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "A baixar"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "A seleccionar o nó de transferência, aguarde por favor"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "A transferir o Gestor de Modelos, aguarde por favor"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Instalar o Model Manager, pode demorar alguns minutos, por favor, seja paciente"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Partilha criada com sucesso"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "A executar a pesquisa na Internet..."
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Procurado por {0} URLs online"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Modificação bem sucedida"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Não usar pesquisa na Internet"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Não conectado"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Procurar cães"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

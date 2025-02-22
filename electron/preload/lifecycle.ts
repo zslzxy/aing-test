@@ -70,6 +70,19 @@ class Lifecycle {
     });
 
 
+    // 处理打开连接
+    win.webContents.on('new-window', (event, url) => {
+      event.preventDefault();
+      require('electron').shell.openExternal(url);
+    });
+
+    // 处理连接跳转
+    win.webContents.on('will-navigate', (event, url) => {
+      event.preventDefault();
+      require('electron').shell.openExternal(url);
+    });
+
+
     
   }
 

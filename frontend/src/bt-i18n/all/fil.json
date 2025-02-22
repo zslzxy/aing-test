@@ -302,5 +302,97 @@
     "可用": {
         "src": "可用",
         "dst": "available"
+    },
+    "分享": {
+        "src": "分享",
+        "dst": "share"
+    },
+    "是否确认删除模型，该操作不可逆？": {
+        "src": "是否确认删除模型，该操作不可逆？",
+        "dst": "Sigurado ka bang i-delete ang modelo? Ang operasyon na ito ay hindi babalik?"
+    },
+    "将AingDesk分享给好友一起使用": {
+        "src": "将AingDesk分享给好友一起使用",
+        "dst": "Ibahagi ang AingDesk sa mga kaibigan na gamitin nang magkasama"
+    },
+    "请输入名称": {
+        "src": "请输入名称",
+        "dst": "Pakiusap ipasok ang pangalan"
+    },
+    "修改分享": {
+        "src": "修改分享",
+        "dst": "Baguhin ang Share"
+    },
+    "是否确认删除当前分享": {
+        "src": "是否确认删除当前分享",
+        "dst": "Sigurado ka bang i-delete ang kasalukuyang bahagi"
+    },
+    "名称": {
+        "src": "名称",
+        "dst": "pangalan"
+    },
+    "访问地址": {
+        "src": "访问地址",
+        "dst": "Access address"
+    },
+    "修改": {
+        "src": "修改",
+        "dst": "ayusin"
+    },
+    "正在下载": {
+        "src": "正在下载",
+        "dst": "Kinukuha"
+    },
+    "正在选择下载节点，请稍后": {
+        "src": "正在选择下载节点，请稍后",
+        "dst": "Pagpipili ng download node, mangyaring maghintay"
+    },
+    "正在下载模型管理器，请稍后": {
+        "src": "正在下载模型管理器，请稍后",
+        "dst": "Kinukuha ang Model Manager, mangyaring maghintay"
+    },
+    "正在安装模型管理器，可能要几分钟时间，请耐心等待": {
+        "src": "正在安装模型管理器，可能要几分钟时间，请耐心等待",
+        "dst": "Pag-install ng Model Manager, maaaring magtatagal ng ilang minuto, mangyaring maging pasyente"
+    },
+    "创建分享成功": {
+        "src": "创建分享成功",
+        "dst": "Ang matagumpay na pagbabahagi"
+    },
+    "修改成功": {
+        "src": "修改成功",
+        "dst": "Binago matagumpay"
+    },
+    "正在执行联网搜索...": {
+        "src": "正在执行联网搜索...",
+        "dst": "Kinukuha ang paghahanap ng network"
+    },
+    "已联网搜索{0}个网址": {
+        "src": "已联网搜索{0}个网址",
+        "dst": "Hinahanap ang {0} URLs online"
+    },
+    "不使用联网搜索": {
+        "src": "不使用联网搜索",
+        "dst": "Huwag gamitin ang paghahanap sa internet"
+    },
+    "不联网": {
+        "src": "不联网",
+        "dst": "Hindi konektado sa internet"
+    },
+    "百度": {
+        "src": "百度",
+        "dst": "Baidu"
+    },
+    "搜狗": {
+        "src": "搜狗",
+        "dst": "Sogou"
+    },
+    "谷歌": {
+        "src": "谷歌",
+        "dst": "Google"
+    },
+    "DuckDuckGo": {
+        "src": "DuckDuckGo",
+        "dst": "DuckDuckGo"
     }
 }

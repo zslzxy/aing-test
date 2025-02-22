@@ -4,7 +4,9 @@ import * as path from 'path';
 import axios from 'axios';
 import * as fs from 'fs';
 import { logger } from 'ee-core/log';
+import { selectFastestNode } from '../class/test_node';
 const { exec, execSync } = require('child_process');
+
 
 // 存储每个模型的下载速度和进度信息，键为模型全名，值为包含下载信息的对象
 let ModelDownloadSpeed = new Map<string, Object>();
@@ -94,8 +96,8 @@ class OllamaService {
      */
     async is_running(): Promise<boolean> {
         try{
-            let ps = await ollama.ps();
-            logger.info('Ollama is running',ps);
+            await ollama.ps();
+            logger.info('Ollama is running');
             return true;
         }catch(e){
             logger.warn('Ollama is not running', e);
@@ -405,7 +407,7 @@ class OllamaService {
     async install_ollama(): Promise<boolean> {
         try {
             // 根据不同操作系统确定下载 URL 和文件路径
-            const { downloadUrl, downloadFile } = this.getOllamaDownloadInfo();
+            const { downloadUrl, downloadFile } = await this.getOllamaDownloadInfo();
             if (!downloadUrl || !downloadFile) {
                 return false;
             }
@@ -551,20 +553,21 @@ class OllamaService {
      * 根据操作系统获取 Ollama 的下载信息
      * @returns {{downloadUrl: string | null, downloadFile: string | null}} 包含下载 URL 和文件路径的对象
      */
-    private getOllamaDownloadInfo(): { downloadUrl: string | null, downloadFile: string | null } {
+    private async getOllamaDownloadInfo(): Promise<{ downloadUrl: string | null, downloadFile: string | null }> {
+        let nodeUrl = await selectFastestNode()
         if (pub.is_windows()) {
             return {
-                downloadUrl: 'https://download.bt.cn/ollama/OllamaSetup.exe',
+                downloadUrl: `${nodeUrl}/ollama/OllamaSetup.exe`,
                 downloadFile: path.resolve(pub.get_resource_path(), 'OllamaSetup.exe')
             };
         } else if (pub.is_mac()) {
             return {
-                downloadUrl: 'https://download.bt.cn/ollama/ollama-darwin.zip',
+                downloadUrl: `${nodeUrl}/ollama/ollama-darwin.zip`,
                 downloadFile: path.resolve(pub.get_resource_path(), 'ollama-darwin.zip')
             };
         } else if (pub.is_linux()) {
             return {
-                downloadUrl: 'https://download.bt.cn/ollama/ollama-linix-amd64.tgz',
+                downloadUrl: `${nodeUrl}/ollama/ollama-linix-amd64.tgz`,
                 downloadFile: path.resolve(pub.get_resource_path(), 'ollama-linix-amd64.tgz')
             };
         }
@@ -657,7 +660,7 @@ WantedBy=default.target
                         resolve(false);
                     }
                 }
-            }, 1000);
+            }, 4000);
         });
     }
 

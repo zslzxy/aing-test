@@ -1,4 +1,24 @@
 <template>
+    <!-- 联网搜索 -->
+    <NCollapse v-if="searchResult && searchResult.length">
+        <NCollapseItem :title="$t('已联网搜索{0}个网址', [searchResult.length])">
+            <NList>
+                <NListItem v-for="(item, index) in searchResult" :key="item.link">
+                    <NTooltip trigger="hover">
+                        <template #trigger>
+                            <div>
+                                [{{ index + 1 }}] <NButton text @click="jumpThroughLink(item.link)">{{
+                                    item.title ? item.title : item.link }}</NButton>
+                            </div>
+                            <!-- <NTag style="width: 40px;display: inline-flex;justify-content: center;align-items: center;margin-right: 10px;" type="success">{{ index + 1 }}</NTag> <NButton text @click="jumpThroughLink(item.link)">{{ item.title?item.title:item.link }}</NButton> -->
+                        </template>
+                        {{ item.link }}
+                    </NTooltip>
+                </NListItem>
+            </NList>
+        </NCollapseItem>
+    </NCollapse>
+    <NDivider v-if="searchResult && searchResult.length" />
     <ThinkWrapper
         :content="content.match(/<think>([\s\S]*?)(?:<\/think>|$)/) ? content.match(/<think>([\s\S]*?)(?:<\/think>|$)/)![1] : ''"
         v-if="content.match(/<think>([\s\S]*?)(?:<\/think>|$)/)" />
@@ -9,6 +29,7 @@
 import { computed, nextTick, onMounted, onUpdated, ref, watch, } from 'vue';
 import markdownit from 'markdown-it'
 import hljs from 'highlight.js';
+import { NCollapseItem, NCollapse, NList, NListItem, NDivider, NButton, NTag, NTooltip } from "naive-ui"
 import useIndexStore from '../store';
 import { storeToRefs } from 'pinia';
 import { useClipboard } from '@vueuse/core'
@@ -17,10 +38,10 @@ import ThinkWrapper from './ThinkWrapper.vue';
 import { eventBUS } from '../utils/tools';
 import { useI18n } from 'vue-i18n';
 import i18n from "@/lang"
-const {t:$t} = useI18n()
-const { questionContent, themeColors, themeMode, currentLanguage} = storeToRefs(useIndexStore())
+const { t: $t } = useI18n()
+const { questionContent, themeColors, themeMode, currentLanguage } = storeToRefs(useIndexStore())
 const { copy: copyFn } = useClipboard({ source: "" })
-const props = defineProps<{ content: string }>()
+const props = defineProps<{ content: string, searchResult: Array<{ content: string, link: string, title: string }> }>()
 const answerContent = ref("")
 const markdownRef = ref<HTMLElement | null>()
 const md = markdownit({
@@ -127,16 +148,24 @@ const themeMarkdownBg = computed(() => {
 })
 
 // 监听当前语言变化
-watch(currentLanguage,val=>{
+watch(currentLanguage, val => {
     const copySpanList = document.querySelectorAll(".tool-copy")
-    copySpanList.forEach((span)=>{
+    copySpanList.forEach((span) => {
         (span as HTMLSpanElement).innerText = $t("复制")
     })
     const referenceSpanList = document.querySelectorAll(".tool-reference")
-    referenceSpanList.forEach(span=>{
+    referenceSpanList.forEach(span => {
         (span as HTMLSpanElement).innerText = $t("引用")
     })
 })
+
+/**
+ * @description 跳转到对应目标页
+ */
+function jumpThroughLink(link: string) {
+    // window.location.href = link
+    window.open(link)
+}
 </script>
 
 <style lang="scss">

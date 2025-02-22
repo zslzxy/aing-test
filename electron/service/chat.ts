@@ -26,6 +26,9 @@ export type ChatHistory = {
     create_time: number;
     stat: object;
     tokens: number;
+    search_result: any[];
+    search_type: string | undefined | null;
+    search_query: string | undefined | null;
 };
 
 /**

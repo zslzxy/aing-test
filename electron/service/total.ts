@@ -38,7 +38,7 @@ class TotalService {
         let req = https.request(options, (res) => {
             res.setEncoding('utf8');
             res.on('data', (data) => {
-                logger.info("res:",data);
+                // logger.info("res:",data);
                 let result = JSON.parse(data);
                 if(result.status === true){
                     if(result.data && result.data.shareid_prefix){
@@ -46,6 +46,8 @@ class TotalService {
                         if(!pub.C('shareIdPrefix')){
                             pub.C('shareIdPrefix', result.data.shareid_prefix);
                         }
+
+                        global.area = result.data.area;
                     }
                 }
             });

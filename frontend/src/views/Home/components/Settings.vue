@@ -78,7 +78,7 @@
     <!-- 模型管理器安装进度 -->
     <NModal v-model:show="modelManagerInstallProgresShow" :close-on-esc="false" :closable="false"
         :mask-closable="false">
-        <NCard :title='$t("正在安装模型管理器，请稍后")' style="width: 40%;max-width: 560px; min-width: 500px;">
+        <NCard :title='modelManagerInstallNotice' style="width: 40%;max-width: 560px; min-width: 500px;">
             <NProgress :percentage="modelManagerInstallProgress.progress" indicator-placement="inside" processing />
             <div class="flex mt-20 justify-start gap-10 items-center">
                 <span>{{ $t("大小:") }} {{ getByteUnit(modelManagerInstallProgress.total, true) }}</span>
@@ -138,7 +138,8 @@ const {
     modelManagerInstallProgress,
     isResetModelList,
     currentLanguage,
-    modelDelConfirm
+    modelDelConfirm,
+    modelManagerInstallNotice
 } = storeToRefs(useIndexStore())
 
 const filterList = ref<any[]>([])
