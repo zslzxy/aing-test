@@ -1,6 +1,6 @@
 {
   "name": "aingdesk",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simple and easy-to-use AI big model deployment and usage software",
   "main": "./public/electron/main.js",
   "scripts": {
@@ -45,7 +45,7 @@
   "license": "MIT",
   "devDependencies": {
     "@electron/rebuild": "^3.7.1",
-    "@types/node": "^20.16.0",
+    "@types/node": "^20.17.19",
     "cross-env": "^7.0.3",
     "debug": "^4.4.0",
     "ee-bin": "^4.1.1",

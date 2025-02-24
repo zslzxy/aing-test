@@ -2,6 +2,7 @@ import { withTimeout,SearchResult,getUrlsContent,FETCH_HEADERS } from "./utils";
 
 // 本地百度搜索函数
 export const localBaiduSearch = async (query: string): Promise<SearchResult[]> => {
+
     const TOTAL_SEARCH_RESULTS = 10;
     // 构建请求 URL
     const url = `http://www.baidu.com/s?wd=${encodeURIComponent(query)}&tn=json&rn=${TOTAL_SEARCH_RESULTS}`;
@@ -25,7 +26,8 @@ export const localBaiduSearch = async (query: string): Promise<SearchResult[]> =
 
         // 过滤掉没有链接的结果
         let resultList = searchResults.filter((result) => result?.link);
-        return await getUrlsContent(resultList);
+        resultList = await getUrlsContent(resultList);
+        return resultList;
     } catch (error) {
         console.error('Search request failed:', error);
         // 返回空数组表示搜索失败

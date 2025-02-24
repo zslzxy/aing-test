@@ -98,7 +98,6 @@ type ChatParams = {
 export async function sendChat(params: ChatParams) {
     const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat, targetNet } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
-
     // 如果当前对话不存在则创建对话
     if (!currentContextId.value) {
         await create_chat(params.user_content)

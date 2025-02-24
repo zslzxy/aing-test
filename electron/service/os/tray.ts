@@ -54,14 +54,14 @@ class TrayService {
     ]
   
     // 设置关闭行为
-    // setCloseAndQuit(true);
-    // mainWindow.on('close', (event: any) => {
-    //   if (getCloseAndQuit()) {
-    //     return;
-    //   }
-    //   mainWindow.hide();
-    //   event.preventDefault();
-    // });
+    setCloseAndQuit(false);
+    mainWindow.on('close', (event: any) => {
+      if (getCloseAndQuit()) {
+        return;
+      }
+      mainWindow.hide();
+      event.preventDefault();
+    });
     
     // Initialize the tray
     this.tray = new Tray(iconPath);

@@ -20,12 +20,8 @@ export const local360Search = async (query: string): Promise<SearchResult[]> => 
             var title = $(item).find("a").text();
             var content = $(item).find(".res-desc").text();
             searchResults.push({title, link, content});
-            console.log(title, link, content);
         });
         let searchResultList = searchResults.filter((result) => result.link && result.title && result.content);
-
-        console.log(searchResultList);
-
         return getUrlsContent(searchResultList);
     } catch (error) {
         console.error('Search request failed:', error);

@@ -308,7 +308,7 @@ class Public {
                 let lang_full = Intl.DateTimeFormat().resolvedOptions().locale;
                 lang = lang_full.split('-')[0];
             }catch(e){
-                lang = 'en';
+                lang = 'zh';
             }
         }
 
@@ -401,7 +401,7 @@ class Public {
         if(Object.keys(lang_data).length == 0){
             let lang = this.get_language();
             if (typeof lang !== 'string') {
-                lang = 'en';
+                lang = 'zh';
             }
             let lang_file = path.resolve(this.get_language_path(), lang as string , 'server.json');
             lang_data = {};
@@ -435,7 +435,7 @@ class Public {
      * @param {any} key 缓存键
      * @returns 
      */
-    cache_get(key:any){
+    cache_get(key:any):any{
         return Cache.get(key);
 
     }

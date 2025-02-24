@@ -209,7 +209,6 @@ function jumpThroughLink(link: string) {
         background-color: v-bind("themeMarkdownBg.code");
         padding: 40px var(--bt-pd-normal) 0;
         position: relative;
-        width: 100%;
 
         .tool-header {
             height: 40px;

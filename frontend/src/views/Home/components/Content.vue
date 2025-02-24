@@ -1,6 +1,6 @@
 <template>
     <div class="content-wrapper" ref="contentWrapper">
-        <div class="chat-window">
+        <div class="chat-window" @mouseleave="mouseLeave">
             <NScrollbar style="height: 100%;padding:0 var(--bt-pd-small)" ref="scrollRef"
                 content-style="overflow: hidden;" :on-scroll="scrollCallback">
                 <!-- 新对话默认展示内容 -->
@@ -51,7 +51,7 @@
                         </div>
                         <div class="answer-token" v-else>
                             <MarkdownRender :content="chatContent.content"
-                                :searchResult="chatContent.search_result as Array<any>" />
+                                :searchResult="chatContent.search_result as Array<any>?chatContent.search_result as Array<any>:[]" />
                             <div class="tools">
                                 <NTooltip>
                                     <template #trigger>
@@ -309,7 +309,11 @@ function scrollMove() {
         if (!timer) {
             const scrollWrapper = document.querySelector(".n-scrollbar-content") as HTMLDivElement
             timer = setTimeout(() => {
-                if (userScrollSelf.value) return
+                if (userScrollSelf.value) {
+                    clearTimeout(timer)
+                    timer = null
+                    return
+                }
                 if (scrollRef.value) {
                     scrollRef.value.scrollTo({
                         top: scrollWrapper.offsetHeight,
@@ -349,6 +353,18 @@ const questionToolBg = computed(() => {
         return themeColors.value.questionToolBgDark
     }
 })
+
+
+/**
+ * @description 鼠标离开
+ *      - 鼠标离开chat-window后，如果当前正在对话，则开启滚动，滑动到最底部
+ */
+function mouseLeave(){
+    userScrollSelf.value = false
+    if(isInChat.value){
+        moveFn(100)
+    }
+}
 </script>
 
 <style scoped lang="scss">
@@ -388,7 +404,7 @@ const questionToolBg = computed(() => {
     height: 100%;
 
     .chat-window {
-        width: 70%;
+        width: 85%;
         margin: var(--bt-mg-large) auto 0;
         position: relative;
 
@@ -442,7 +458,7 @@ const questionToolBg = computed(() => {
         .answer {
             width: 100%;
             display: grid;
-            grid-template-columns: 30px 80%;
+            grid-template-columns: 30px 1fr;
             column-gap: 10px;
             justify-content: start;
 

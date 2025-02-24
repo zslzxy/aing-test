@@ -127,10 +127,19 @@ export const searchEngines = {
 
 // 搜索网页函数
 export const searchWeb = async (provider: string, query: string): Promise<SearchResult[]> => {
+    let queryKey = pub.md5(`${provider}-${query}`);
+    // 本地搜索缓存
+    let cache = pub.cache_get(queryKey);
+    if (cache) {
+        return cache;
+    }
     if (!searchEngines[provider]) {
         throw new Error(`Search provider ${provider} not found`);
     }
-    return searchEngines[provider](query);
+    const searchResults = await searchEngines[provider](query);
+    // 设置搜索结果缓存
+    pub.cache_set(queryKey, searchResults, 3600);
+    return searchResults;
 };
 
 // 获取当前日期时间字符串
@@ -171,11 +180,7 @@ const getUserLocation = () => {
 // 获取用于搜索的问题
 export const getSearchQuery = async (query: string, model: string, chatHistory: string): Promise<string> => {
     try {
-        if (chatHistory.length === 0 && query.length < 30) {
-            return query;
-        }
-
-        if(query.length < 20){
+        if (chatHistory.length === 0) {
             return query;
         }
 

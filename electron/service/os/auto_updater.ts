@@ -13,6 +13,7 @@ class AutoUpdaterService {
     macOS: boolean;
     linux: boolean;
     options: any;
+    force: boolean;
   };
   constructor() {
     this.config = {
@@ -21,8 +22,9 @@ class AutoUpdaterService {
       linux: true,
       options: {
         provider: 'generic', 
-        url: 'https://download.bt.cn/AingDesk'
+        url: 'https://download.bt.cn/AingDesk/'
       },
+      force: true,
     }
   }
 
@@ -64,13 +66,14 @@ class AutoUpdaterService {
     }
 
     autoUpdater.on('checking-for-update', () => {
-      // sendStatusToWindow('正在检查更新...');
+       logger.info('[autoUpdater] checking-for-update');
     });
     autoUpdater.on('update-available', () => {
       const data = {
         status: status.available,
         desc: '有可用更新',
       };
+      logger.info("Available for updates");
       this.sendStatusToWindow(data);
     });
     autoUpdater.on('update-not-available', () => {
@@ -78,6 +81,7 @@ class AutoUpdaterService {
         status: status.noAvailable,
         desc: '没有可用更新',
       };
+      logger.info("Not available for updates");
       this.sendStatusToWindow(data);
     });
     autoUpdater.on('error', (err) => {
@@ -85,6 +89,8 @@ class AutoUpdaterService {
         status: status.error,
         desc: err,
       };
+
+      logger.error('[addon:autoUpdater] error: ', err);
       this.sendStatusToWindow(data);
     });
     autoUpdater.on('download-progress', (progressObj) => {
@@ -117,6 +123,9 @@ class AutoUpdaterService {
       // Install updates and exit the application
       autoUpdater.quitAndInstall();
     });
+
+    autoUpdater.checkForUpdates();
+
   }
 
   /**
@@ -140,6 +149,7 @@ class AutoUpdaterService {
     const textJson = JSON.stringify(content);
     const channel = 'custom/app/updater';
     const win = getMainWindow();
+    logger.info('[addon:autoUpdater] sendStatusToWindow: ', textJson);
     win.webContents.send(channel, textJson);
   }
 

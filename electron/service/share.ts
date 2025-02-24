@@ -224,11 +224,20 @@ class ShareService {
         // 发送消息到大模型
         const model = `${shareInfo.model}:${shareInfo.parameters}`;
         try {
-            const res = await ollama.chat({
+            const requestOption:any = {
                 model,
                 messages: history,
                 stream: true,
-            });
+            }
+            
+            // 设置deepseek温度参数
+            if (model.indexOf('deepseek') !== -1) {
+                requestOption.options = {
+                    temperature: 0.6
+                }
+            }
+
+            const res = await ollama.chat(requestOption);
 
             // 处理大模型的流式响应
             for await (const chunk of res) {
@@ -367,7 +376,9 @@ class ShareService {
                         modelStr: `${shareInfo.model}:${shareInfo.parameters}`,
                         content: shareData.content,
                         shareInfo,
-                        contextId: shareData.contextId
+                        contextId: shareData.contextId,
+                        search:shareData.search,
+                        regenerate_id:shareData.regenerate_id
                     };
                     this.chat(conn, args, shareData.msgId);
                     break;

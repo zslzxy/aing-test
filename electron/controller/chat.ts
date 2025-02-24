@@ -264,11 +264,18 @@ class ChatController {
 
         // 发送消息到大模型
         const model = `${modelName}:${parameters}`;
-        const res = await ollama.chat({
+        const requestOption:any = {
             model,
             messages: history,
-            stream: true
-        });
+            stream: true,
+        }
+
+        if (modelName.indexOf('deepseek') !== -1) {
+            requestOption.options = {
+                temperature: 0.6
+            }
+        }
+        const res = await ollama.chat(requestOption);
 
         // 设置HTTP响应头
         event.response.set("Content-Type", "text/event-stream;charset=utf-8");
