@@ -1,5 +1,7 @@
 # AingDesk
 
+[简体中文](README.zh_cn.md)
+
 🚀 **Brief Introduction in One Sentence**  
 
 Deploy DeepSeek or other AI models on your computer with just one click.
