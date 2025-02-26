@@ -4,6 +4,10 @@ import { ChatService, ChatContext, ChatHistory } from '../service/chat';
 import { pub } from '../class/public';
 import { logger } from 'ee-core/log';
 import { getPromptForWeb } from '../search_engines/search';
+import { time } from 'console';
+
+// 模型列表获取重试次数
+let MODEL_LIST_RETRY = 0;
 
 /**
  * 定义模型信息的类型
@@ -73,13 +77,16 @@ class ChatController {
         ModelListInfo = [];
         try {
             // 获取所有模型信息
+            MODEL_LIST_RETRY++;
             const res = await ollama.list();
             // 遍历模型信息，将其添加到 ModelListInfo 中
             res.models.forEach((modelInfo) => {
                 if(modelInfo.name.indexOf('embed') == -1 
                 && modelInfo.name.indexOf('bge-m3') == -1  
                 && modelInfo.name.indexOf('all-minilm') == -1  
-                && modelInfo.name.indexOf('multilingual') == -1) {
+                && modelInfo.name.indexOf('multilingual') == -1
+                && modelInfo.name.indexOf('r1-1776') == -1)
+                {
                     ModelListInfo.push({
                         model: modelInfo.name,
                         size: modelInfo.size,
@@ -99,6 +106,11 @@ class ChatController {
                 }
             }
         } catch (error) {
+            // 重试3次
+            if (MODEL_LIST_RETRY < 4) {
+                await pub.sleep(1000);
+                return this.get_model_list();
+            }
             // 记录错误信息
             logger.error(pub.lang('获取模型列表时出错:'), error);
         }

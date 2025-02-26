@@ -167,7 +167,7 @@ watch(currentLanguage, () => {
 const handleSearch = () => {
     filterList.value = visibleModelList.value.filter((item) => {
         //模型含有搜索内容，且功能类型为选中的功能类型
-        return item.full_name.toLowerCase().includes(search.value.toLowerCase()) && (modeType.value == "all" ? true : modeType.value === 'installed' ? isInstalled(item.full_name as string) : item.capability.includes(modeType.value))
+        return item.full_name.toLowerCase().includes(search.value.toLowerCase()) && (modeType.value == "all" ? true : modeType.value === 'installed' ? item.install : item.capability.includes(modeType.value))
     })
 
     if (search.value == "") {
@@ -223,9 +223,10 @@ const modelColumns = ref<DataTableColumns>([
         width: "80px",
         render(row) {
             return <div class="flex justify-between items-center" style="width:100%">
-                {isInstalled(row.full_name as string) ?
+                { row.install?
                     <NButton size="small" type="error" class="cursor-pointer" onClick={() => removeModelConfirm(row.full_name as string)}>{$t("刪除")}</NButton> :
-                    <NButton size="small" type="success" class="cursor-pointer" onClick={() => installModelConfirm({ model: row.model as string, parameters: row.parameters as string })}>{$t("安装")}</NButton>}
+                    <NButton size="small" type="success" class="cursor-pointer" onClick={() => installModelConfirm({ model: row.model as string, parameters: row.parameters as string })}>{$t("安装")}</NButton>
+                }
             </div>
         }
     }

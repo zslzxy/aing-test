@@ -1,7 +1,8 @@
 {
   "name": "aingdesk",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Simple and easy-to-use AI big model deployment and usage software",
+  "productName": "AingDesk",
   "main": "./public/electron/main.js",
   "scripts": {
     "dev": "ee-bin dev",
@@ -22,7 +23,7 @@
     "encrypt": "ee-bin encrypt",
     "icon": "ee-bin icon",
     "re-sqlite": "electron-rebuild -f -w better-sqlite3",
-    "build-w": "ee-bin build --cmds=win64",
+    "build-w": "ee-bin build --cmds=frontend && ee-bin move --flag=frontend_dist && ee-bin build --cmds=electron && ee-bin build --cmds=win64",
     "build-we": "ee-bin build --cmds=win_e",
     "build-m": "ee-bin build --cmds=mac",
     "build-m-arm64": "ee-bin build --cmds=mac_arm64",

@@ -54,7 +54,7 @@ class TrayService {
     ]
   
     // 设置关闭行为
-    setCloseAndQuit(false);
+    setCloseAndQuit(true);
     mainWindow.on('close', (event: any) => {
       if (getCloseAndQuit()) {
         return;

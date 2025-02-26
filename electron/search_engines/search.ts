@@ -180,6 +180,10 @@ const getUserLocation = () => {
 // 获取用于搜索的问题
 export const getSearchQuery = async (query: string, model: string, chatHistory: string): Promise<string> => {
     try {
+        // 调整为直接响应
+        return query;
+
+
         if (chatHistory.length === 0) {
             return query;
         }

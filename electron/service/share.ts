@@ -270,7 +270,7 @@ class ShareService {
 
                 // 检查是否中断生成
                 if (!ContextStatusMap.get(contextId)) {
-                    console.log('中断请求');
+                    // console.log('中断请求');
                     // 中断请求
                     res.abort();
                     // 结束流

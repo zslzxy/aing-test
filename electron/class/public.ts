@@ -526,7 +526,7 @@ class Public {
      * @param {string} error_msg 响应数据
      * @returns {ReturnMsg}
      */
-    return_error(msg:string,error_msg:any):ReturnMsg{
+    return_error(msg:string,error_msg?:any):ReturnMsg{
         return this.return_msg(-1,500,msg,error_msg,'');
     }
 
@@ -724,6 +724,32 @@ class Public {
             this.C('client_id',client_id);
         }
         return client_id;
+    }
+
+
+    /**
+     * Convert bytes to a more readable format
+     */
+    bytesChange(limit: number): string {
+        let size = "";
+        if (limit < 0.1 * 1024) {
+        size = limit.toFixed(2) + "B";
+        } else if (limit < 0.1 * 1024 * 1024) {
+        size = (limit / 1024).toFixed(2) + "KB";
+        } else if (limit < 0.1 * 1024 * 1024 * 1024) {
+        size = (limit / (1024 * 1024)).toFixed(2) + "MB";
+        } else {
+        size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB";
+        }
+
+        let sizeStr = size + "";
+        let index = sizeStr.indexOf(".");
+        let dou = sizeStr.substring(index + 1, index + 3);
+        if (dou === "00") {
+        return sizeStr.substring(0, index) + sizeStr.substring(index + 3, index + 5);
+        }
+
+        return size;
     }
 
 }

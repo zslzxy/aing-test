@@ -101,7 +101,7 @@ class OllamaService {
             logger.info('Ollama is running');
             return true;
         }catch(e){
-            logger.warn('Ollama is not running', e);
+            logger.warn('Ollama is not running');
             return false;
         }
     }
@@ -143,6 +143,59 @@ class OllamaService {
             }
             // 获取 Ollama 服务中的模型列表
             const { models } = await ollama.list();
+
+            // 将models中存在，但modelListSrc中不存在的模型添加到modelListSrc中
+            for (let model of models) {
+                // console.log(model)
+                let isExist = false;
+                for (let modelSrc of modelListSrc) {
+                    // 转小写后比较
+                    let srcName = modelSrc['full_name'].toLowerCase();
+                    let dstName = model.name.toLowerCase();
+                    if (srcName === dstName) {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if (!isExist) {
+                    let arr = model.name.split(':');
+                    let modelSrc = {
+                        full_name: model.name,
+                        name: arr[1],
+                        parameters: '',
+                        size: pub.bytesChange(model.size),
+                        msg: '',
+                        zh_cn_msg: '',
+                        link: '',
+                        pull_count: 0,
+                        tag_count: 0,
+                        updated: '',
+                        updated_time: 0,
+                        capability: [],
+                    }
+                    
+                    // 读取模型的详细信息
+                    for(let modelInfo of modelListSrc){
+                        if (modelInfo['name'].toLowerCase() === arr[0]){
+                            modelSrc['pull_count'] = modelInfo.pull_count;
+                            modelSrc['tag_count'] = modelInfo.tag_count;
+                            modelSrc['updated'] = modelInfo.updated;
+                            modelSrc['updated_time'] = modelInfo.updated_time;
+                            modelSrc['capability'] = modelInfo.capability;
+                            modelSrc['zh_cn_msg'] = modelInfo.zh_cn_msg;
+                            modelSrc['msg'] = modelInfo.msg;
+                            modelSrc['link'] = modelInfo.link;
+                            break;
+                        }
+                    }
+
+                    modelListSrc.push(modelSrc);
+                }
+            }
+
+
+
             // 处理模型信息，添加安装状态等信息
             const modelList = modelListSrc.map((modelInfoSrc) => {
                 const modelInfo = {
@@ -167,13 +220,16 @@ class OllamaService {
                     performance: -1
                 };
                 // 检查模型是否已安装
-                const installedModel = models.find((m) => m.name === modelInfoSrc['full_name']);
+                const installedModel = models.find((m) => {
+                    return m.name.toLowerCase() === modelInfoSrc['full_name'].toLowerCase()
+                });
                 if (installedModel) {
                     modelInfo.install = true;
                     modelInfo.size = installedModel.size;
                 }
                 return modelInfo;
             });
+
             return modelList;
         } catch (error) {
             logger.error(pub.lang('获取 Ollama 模型列表时出错:'), error);
@@ -188,9 +244,14 @@ class OllamaService {
      */
     download_speed_monitoring(fullModel:string) {
         // 获取模型下载信息
-        let data:any = ModelDownloadSpeed.get(fullModel);
-        if (!data) {
-            return;
+        let data:any = null;
+        if (fullModel === 'ollama') {
+            data = OllamaDownloadSpeed;
+        }else{
+            data = ModelDownloadSpeed.get(fullModel);
+            if (!data) {
+                return;
+            }
         }
 
         // 如果下载状态不是正在下载，则不进行检测
@@ -199,7 +260,7 @@ class OllamaService {
         }
 
         // 如果下载速度列表长度小于60，则不进行检测
-        if(ModelDownLoadSpeedList.length < 60){
+        if(ModelDownLoadSpeedList.length < 10){
             return;
         }
 
@@ -366,6 +427,7 @@ class OllamaService {
      */
     reconnect_model_download() {
         ReconnectModelDownload = true;
+        ReconnectOllamaDownload = true;
     }
 
 
@@ -432,6 +494,7 @@ class OllamaService {
      * @returns {Promise<boolean>} 安装成功返回 true，否则返回 false
      */
     async install_ollama(): Promise<boolean> {
+        ReconnectOllamaDownload = false;
         // 根据不同操作系统确定下载 URL 和文件路径
         const { downloadUrl, downloadFile } = await this.getOllamaDownloadInfo();
         // 创建写入流
@@ -445,8 +508,6 @@ class OllamaService {
             if (pub.file_exists(downloadFile)) {
                 downloadBytes = pub.filesize(downloadFile);
             }
-
-            // console.log(downloadUrl, downloadFile, downloadBytes);
             
             // 发起下载请求
             let headers = {
@@ -456,8 +517,6 @@ class OllamaService {
             if (downloadBytes > 0) {
                 headers['Range'] = `bytes=${downloadBytes}-`;
             }
-
-            console.log(headers);
 
             let abort = new AbortController();
             const response = await axios({
@@ -498,13 +557,13 @@ class OllamaService {
                     OllamaDownloadSpeed.speed = speed / (currentTime - startTime);
                     startTime = currentTime;
                     speed = 0;
+
+                    // 更新下载速度
+                    this.append_speed_to_list(OllamaDownloadSpeed.speed);
+                    this.download_speed_monitoring('ollama');
                 }
                 OllamaDownloadSpeed.status = 1;
                 OllamaDownloadSpeed.progress = Math.round((OllamaDownloadSpeed.completed / OllamaDownloadSpeed.total) * 100);
-
-                // 更新下载速度
-                this.append_speed_to_list(OllamaDownloadSpeed.speed);
-                this.download_speed_monitoring('ollama');
 
                 // 检查是否断开重新下载，PS: 断点续传
                 if(ReconnectOllamaDownload) {
@@ -530,6 +589,9 @@ class OllamaService {
             });
             // 监听错误事件，处理下载错误
             const handleError = async (error) => {
+                if (error.code === 'ERR_CANCELED') {
+                    return;
+                }
                 logger.error(pub.lang('下载过程中出现错误:'), error);
                 OllamaDownloadSpeed.status = -1;
                 
@@ -551,6 +613,8 @@ class OllamaService {
                 writer.close();
                 this.ollama_download_end(downloadFile);
                 return true;
+            }else if(error.code === 'ERR_CANCELED'){
+                return false;
             }else{
                 logger.error(pub.lang('安装过程中出现未知错误:'), error);
                 return false;
@@ -668,29 +732,32 @@ class OllamaService {
             setTimeout(() => {
                 OllamaDownloadSpeed.status = 2;
                 if (pub.is_windows()) {
-                    exec(downloadFile + " /SILENT /NORESTART", (error: any, stdout: any, stderr: any) => {
-                        if (error) {
-                            logger.error(`ollama install error: ${error.message}`);
-                            resolve(false);
-                        }
-                        if (stderr) {
-                            logger.error(`ollama install stderr: ${stderr}`);
-                            resolve(false);
-                        }
-                        if (stdout) {
-                            logger.info(`ollama install stdout: ${stdout}`);
-                        }
+                    // 设置环境变量 OLLAMA_HOST=127.0.0.1
+                    exec('setx OLLAMA_HOST "127.0.0.1"', () => {
+                        exec(downloadFile + " /SILENT /NORESTART", (error: any, stdout: any, stderr: any) => {
+                            if (error) {
+                                logger.error(`ollama install error: ${error.message}`);
+                                resolve(false);
+                            }
+                            if (stderr) {
+                                logger.error(`ollama install stderr: ${stderr}`);
+                                resolve(false);
+                            }
+                            if (stdout) {
+                                logger.info(`ollama install stdout: ${stdout}`);
+                            }
 
-                        OllamaDownloadSpeed = {
-                            total: 0,
-                            completed: 0,
-                            speed: 0,
-                            progress: 0,
-                            status: 0
+                            OllamaDownloadSpeed = {
+                                total: 0,
+                                completed: 0,
+                                speed: 0,
+                                progress: 0,
+                                status: 0
 
-                        }
+                            }
 
-                        checkInstallStatus();
+                            checkInstallStatus();
+                        });
                     });
                 } else if (pub.is_mac()) {
                     try {
