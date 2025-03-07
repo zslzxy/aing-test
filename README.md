@@ -15,6 +15,9 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 - Simple to operate with a user-friendly interface.
   ![image](https://github.com/user-attachments/assets/2c7a419b-aeaa-4b5a-8c80-6bee720d366c)
 
+- Multi-source knowledge base support for enhanced data management.
+  ![image](https://github.com/user-attachments/assets/a0c8cb7e-5f77-4b5d-a892-0101d328eb8d)
+
 - Built-in chat interface for seamless interaction.  
 - Share your projects with friends online.  
 - Support for web search and dynamic data fetching.  
@@ -29,7 +32,6 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 🎯 **Development Plan**  
 
 - Support for various third-party API integrations.
-- Multi-source knowledge base support for enhanced data management.  
 - Local deployment of text-to-image hybrid models for creative workflows.
 
 📥 **Quick Installation**  
