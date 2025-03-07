@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 Arama"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Aranıyor..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "İnternet Arama"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Dosya Yükle"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Yükleme Süresi"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI Özet"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Referanslar {0}"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Yeni bir konuşma oluştur"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Konuşmayı boşaltın"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Bilim tabanı"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Yeni bilgi tabanı"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Dil Seçimi"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Öntanımlı arama motoru"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "AingDesk iletişim grubuna katılın"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Mevcut Sürüm"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Dizini yükle"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Yüklemek için tıklayın"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Dosya desteği türleri"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": " {0} dosya türü desteklenmez"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Bilgi tabanı başarılı oluşturuldu"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Bilim temel yaratılması başarısız oldu"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Bilgi tabanı listesi elde edilemedi, lütfen tekrar deneyin"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": " {0} ve altındaki tüm belgelerin silinmesinden emin misiniz? İşlem geri dönüşümüz."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Bilgi tabanı başarıyla kaldırıldı"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Bilgi tabanı silinmedi, lütfen tekrar deneyin"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Bilgi tabanı başarıyla değiştirildi"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Bilim tabanını değiştirmedi, lütfen tekrar deneyin"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Belge analiz ediliyor, bu birkaç dakika sürebilir."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": " {0} belgesinin silinmesinden emin misiniz? İşlem geri dönüşümüz."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Belge başarıyla silindi"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} dosyaları"
     }
 }

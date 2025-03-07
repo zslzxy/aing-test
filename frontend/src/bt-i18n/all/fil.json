@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 Paghahanap"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Paghahanap"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Paghahanap online"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "I-upload ang mga file"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "i-upload"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "Stock label"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Kabilang ng mga materyales ng reference {0}"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Maglikha ng bagong pag-uusap"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Linisin ang pag-uusap"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "knowledge base"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Maglikha ng bagong pangunahing kaalaman"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "pagpili ng wika"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "default search engine"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Magsumali sa grupong komunikasyon ng AingDesk"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "kasalukuyang bersyon"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "I-upload ang folder"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Mag-click para i-upload"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Mga uri ng file support"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Ang uri ng file ng {0} ay hindi suportado"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Ang knowledge base ay naglikha ng matagumpay"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Nabigo ang paglikha ng Knowledge Base"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Hindi makuha ang listahan ng base ng kaalaman, subukan muli"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Sigurado ka bang i-delete ang knowledge base {0} at ang lahat ng dokumento sa ilalim nito? Ang operasyon na ito ay hindi maibabalik"
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Ang matagumpay na pinaalis na knowledge base"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Hindi ma-delete ang knowledge base, mangyaring subukan muli"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Ang matagumpay na pagbabago ng base ng kaalaman"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Nabigo sa pagbabago ng knowledge base, mangyaring subukan muli"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Ang pagsusuri ng dokumento ay maaaring magtatagal ng ilang minuto"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Sigurado ka bang i-delete ang dokumento {0}? Ang operasyon na ito ay hindi maibabalik"
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Ang dokumento ay matagumpay na naialis"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} file"
     }
 }

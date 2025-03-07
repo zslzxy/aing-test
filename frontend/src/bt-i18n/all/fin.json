@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360Haku"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Etsitään"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Verkko-haku"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Lataa tiedostot"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Lataamisaika"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI Yhteenveto"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Vertailumateriaalit yhteensä"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Luo uusi keskustelu"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Tyhjennä keskustelu"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Tietokanta"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Uusi tietokanta"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Kielen valinta"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "oletushakukone"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Liity AingDesk-ryhmään"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Nykyinen versio"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Lähetä kansio"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Klikkaa lataamaan"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Tiedoston tuketyypit"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Tiedostotyyppiä {0} ei tueta"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Tietokanta luotiin onnistuneesti"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Tietokannan luominen epäonnistui"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Tietokantaluettelon hankkiminen epäonnistui, yritä uudelleen"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Oletko varma, että poistat tietokannan {0} ja sen alla olevien asiakirjojen? Toiminta on peruuttamaton."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Tietokannan poistaminen onnistui"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Tietokannan poistaminen epäonnistui, yritä uudelleen"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Onnistunut tietopohja"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Tietokannan muutos epäonnistui, yritä uudelleen"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Asiakirjan analysointi. Tämä voi kestää muutaman minuutin..."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Oletko varma, että poistat asiakirjan {0}? Toiminta on peruuttamaton."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Asiakirjan poistaminen onnistui"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} tiedostoa"
     }
 }

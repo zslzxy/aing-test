@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "Pretraživanje 360"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Tražim"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Internet pretraživanje"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Prenos datoteke"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Vrijeme uploada"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "Sažetak AI"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Referencije {0}"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Novi dijalog"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Izprazni razgovor"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Baza znanja"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Nova baza znanja"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Izabranje jezika"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "default search engine"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Pridružite se AingDesk grupi"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Trenutna verzija"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Prenos mape"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Kliknite za prijenos"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Vrsta podrške datotekama"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Tip datoteke nije podržan za {0}"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Uspješno stvorenje baze znanja"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Neuspjelo stvaranje baze znanja"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Nije uspjelo dobiti popis baze znanja, pokušajte ponovo"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Jeste li sigurni da ćete izbrisati sve dokumente iz baze znanja {0} i ispod nje? Operacija je nepovratna."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Uspješno uklanjanje baze znanja"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Brisanje baze znanja nije uspjelo, pokušajte ponovo"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Uspješna promjena baze znanja"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Promjena baze znanja nije uspjela. Pokušajte ponovo."
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Analiziranje dokumenta, ovo može potrajati par minuta"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Jeste li sigurni da ćete izbrisati dokument {0}? Operacija je nepovratna."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Dokument uspješno izbrisan"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} datoteka"
     }
 }

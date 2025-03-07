@@ -41,7 +41,7 @@ export const getByteUnit = (
 /**
  * @description 年月日时分秒转换方法
  */
-export function isoToLocalDateTime(isoStr: string) {
+export function isoToLocalDateTime(isoStr: string|number) {
   const date = new Date(isoStr);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -65,4 +65,16 @@ export function fixedStrNum(strNum: string | number) {
   // 保留两位小数
   return Number(num.toFixed(2));
 
+}
+
+
+/**
+ * @description 模拟发送请求
+ */
+export async function testRequest() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true)
+    }, 1000)
+  })
 }

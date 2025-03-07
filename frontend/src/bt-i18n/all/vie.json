@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 tìm kiếm"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Mạng tìm kiếm"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Tải lên tập tin"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Thời gian tải lên"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "Tóm tắt AI"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Tham khảo {0} thông tin"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Hội thoại mới"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Đối thoại trống"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Cơ sở kiến thức"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Cơ sở kiến thức mới"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Lựa chọn ngôn ngữ"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Công cụ tìm kiếm mặc định"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Tham gia nhóm trao đổi AingDesk"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Phiên bản hiện tại"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Tải lên thư mục"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Click vào Upload"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Loại hỗ trợ tập tin"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "{0} Loại tập tin không được hỗ trợ"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Kiến thức xây dựng thành công"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Lỗi tạo cơ sở kiến thức"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Nhận danh sách cơ sở kiến thức không thành công, hãy thử lại"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Xác nhận xóa cơ sở kiến thức {0} và tất cả các tài liệu bên dưới nó? Hoạt động không thể đảo ngược"
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Xóa cơ sở kiến thức thành công"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Xóa cơ sở kiến thức không thành công, hãy thử lại"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Sửa đổi cơ sở kiến thức thành công"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Sửa đổi cơ sở kiến thức không thành công, hãy thử lại"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Đang phân tích tài liệu, có thể mất vài phút..."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Xác nhận xóa tài liệu {0}? Hoạt động không thể đảo ngược"
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Xóa tài liệu thành công"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Đang tìm kiếm......"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} Tài liệu"
     }
 }

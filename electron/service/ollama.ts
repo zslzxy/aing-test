@@ -144,9 +144,10 @@ class OllamaService {
             // 获取 Ollama 服务中的模型列表
             const { models } = await ollama.list();
 
+            let isCn = pub.get_language() == 'zh';
+
             // 将models中存在，但modelListSrc中不存在的模型添加到modelListSrc中
             for (let model of models) {
-                // console.log(model)
                 let isExist = false;
                 for (let modelSrc of modelListSrc) {
                     // 转小写后比较
@@ -205,7 +206,7 @@ class OllamaService {
                     download_size: modelInfoSrc['size'],
                     size: 0,
                     msg: modelInfoSrc['msg'],
-                    title: modelInfoSrc['zh_cn_msg'],
+                    title: isCn?modelInfoSrc['zh_cn_msg']:modelInfoSrc['msg'],
                     link: modelInfoSrc['link'],
                     pull_count: modelInfoSrc['pull_count'],
                     tag_count: modelInfoSrc['tag_count'],
@@ -260,7 +261,7 @@ class OllamaService {
         }
 
         // 如果下载速度列表长度小于60，则不进行检测
-        if(ModelDownLoadSpeedList.length < 10){
+        if(ModelDownLoadSpeedList.length < 60){
             return;
         }
 
@@ -511,7 +512,7 @@ class OllamaService {
             
             // 发起下载请求
             let headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+                'User-Agent': 'AingDesk/' + pub.version()
             };
 
             if (downloadBytes > 0) {
@@ -684,18 +685,18 @@ class OllamaService {
      * @returns {downloadUrl: string, downloadFile: string } 包含下载 URL 和文件路径的对象
      */
     private async getOllamaDownloadInfo(): Promise<{ downloadUrl: string , downloadFile: string }> {
-        let nodeUrl = await selectFastestNode()
         if (pub.is_windows()) {
             return {
-                downloadUrl: `${nodeUrl}/ollama/OllamaSetup.exe`,
+                downloadUrl: `http://aingdesk.bt.cn/OllamaSetup.exe`,
                 downloadFile: path.resolve(pub.get_resource_path(), 'OllamaSetup.exe')
             };
         } else if (pub.is_mac()) {
             return {
-                downloadUrl: `${nodeUrl}/ollama/ollama-darwin.zip`,
+                downloadUrl: `http://aingdesk.bt.cn/Ollama-darwin.zip`,
                 downloadFile: path.resolve(pub.get_resource_path(), 'ollama-darwin.zip')
             };
         } else if (pub.is_linux()) {
+            let nodeUrl = await selectFastestNode()
             return {
                 downloadUrl: `${nodeUrl}/ollama/ollama-linix-amd64.tgz`,
                 downloadFile: path.resolve(pub.get_resource_path(), 'ollama-linix-amd64.tgz')
@@ -723,7 +724,7 @@ class OllamaService {
                     } else {
                         OllamaDownloadSpeed.status = -1;
                         logger.error('Ollama install failed');
-                        pub.delete_file(downloadFile);
+                        // pub.delete_file(downloadFile);
                         resolve(false);
                     }
                 }, 5000);

@@ -1,8 +1,9 @@
 <template>
     <NModal v-model:show="settingsShow" :close-on-esc="false" :closable="false" :mask-closable="false">
-        <NCard style="width: 49%;min-width: 850px;max-width: 1000px;" title="设置">
+        <NCard style="width: 49%;min-width: 920px;max-width: 1000px;" :title="$t('设置')">
             <template #header-extra>
-                <i class="i-common:close w-24 h-24 cursor-pointer" @click="settingsShow = false"></i>
+                <i class="i-tdesign:close-circle w-24 h-24 cursor-pointer text-[#909399]"
+                    @click="settingsShow = false"></i>
             </template>
             <NAlert type="success">
                 <div class="mb-10">{{ $t("处理器:") }} {{ pcInfo.cpu_model }} {{ pcInfo.cpu_cores }} {{ pcInfo.cpu_clock }}
@@ -115,11 +116,11 @@
 </template>
 
 <script lang="tsx" setup>
-import { ref, watch } from "vue";
+import { nextTick, ref, watch } from "vue";
 import { NModal, NCard, NSpin, NAlert, NSelect, NButton, NDataTable, NInputGroup, NInput, NRadioGroup, NRadioButton, NTooltip, type DataTableColumns, NTag, NProgress } from "naive-ui"
 import useIndexStore from "../store";
 import { storeToRefs } from "pinia";
-import { getConfigurationInfo, getVisibleModelList, getDiskList, installModel, isInstalled, removeModel, installModelManager, reconnect_model_download } from "../controller"
+import { getConfigurationInfo, getVisibleModelList, getDiskList, installModel, isInstalled, removeModel, installModelManager, reconnect_model_download } from "../controller/index.tsx"
 import { getByteUnit } from "@/utils/tools"
 import Install from "./Install.vue";
 import { useI18n } from "vue-i18n";
@@ -165,6 +166,7 @@ watch(currentLanguage, () => {
 })
 // 搜索
 const handleSearch = () => {
+    console.log("搜索")
     filterList.value = visibleModelList.value.filter((item) => {
         //模型含有搜索内容，且功能类型为选中的功能类型
         return item.full_name.toLowerCase().includes(search.value.toLowerCase()) && (modeType.value == "all" ? true : modeType.value === 'installed' ? item.install : item.capability.includes(modeType.value))
@@ -223,7 +225,7 @@ const modelColumns = ref<DataTableColumns>([
         width: "80px",
         render(row) {
             return <div class="flex justify-between items-center" style="width:100%">
-                { row.install?
+                {row.install ?
                     <NButton size="small" type="error" class="cursor-pointer" onClick={() => removeModelConfirm(row.full_name as string)}>{$t("刪除")}</NButton> :
                     <NButton size="small" type="success" class="cursor-pointer" onClick={() => installModelConfirm({ model: row.model as string, parameters: row.parameters as string })}>{$t("安装")}</NButton>
                 }
@@ -262,6 +264,8 @@ watch(settingsShow, (val) => {
          * @description 获取本地盘符信息
          */
         getDiskList()
+    } else {
+        modeType.value = "all"
     }
 })
 
@@ -286,7 +290,7 @@ function removeModelConfirm(model: string) {
 /**
  * @description 确认删除模型
  */
-function doRemoveModel(){
+function doRemoveModel() {
     modelDelLoading.value = true
     removeModel()
 }
@@ -294,7 +298,7 @@ function doRemoveModel(){
 /**
  * @description 取消删除模型
  */
-function cancelRemoveModel(){
+function cancelRemoveModel() {
     modelDelConfirm.value = false
     modelForDel.value = ""
 }

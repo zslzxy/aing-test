@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "Zoeken 360"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Zoeken..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Online zoeken"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Bestand uploaden"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Uploadtijd"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI samenvatting"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Totaal {0} referenties"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Nieuwe dialoog aanmaken"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Het gesprek wissen"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "kennisbank"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Nieuwe kennisbank"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Selectie van taal"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Standaard zoekmachine"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Sluit je aan bij AingDesk"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "huidige versie"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Map uploaden"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Klik om te uploaden"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Bestandsondersteuningstypen"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Het bestandstype {0} wordt niet ondersteund"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Kennisbank succesvol aangemaakt"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Aanmaken van kennisbank mislukt"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Het ophalen van de kennisbanklijst is mislukt, probeer het opnieuw"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Bent u zeker van het verwijderen van Knowledge Base {0} en alle documenten hieronder? Deze operatie is onomkeerbaar."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Kennisbank met succes verwijderd"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Het verwijderen van de kennisbank is mislukt, probeer het opnieuw"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Kennisbasis gewijzigd met succes"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Het wijzigen van de kennisbank is mislukt, probeer het opnieuw"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Het document wordt geanalyseerd, dit kan een paar minuten duren..."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Bent u zeker van het verwijderen van document {0}? Deze operatie is onomkeerbaar."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Document succesvol verwijderd"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} bestanden"
     }
 }

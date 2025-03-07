@@ -1,11 +1,12 @@
 <template>
-    <div class="content-wrapper" ref="contentWrapper">
+    <div class="content-wrapper" ref="contentWrapper"  v-if="!activeKnowledge">
         <div class="chat-window" @mouseleave="mouseLeave">
             <NScrollbar style="height: 100%;padding:0 var(--bt-pd-small)" ref="scrollRef"
-                content-style="overflow: hidden;" :on-scroll="scrollCallback">
+                content-style="overflow: hidden;" :on-scroll="scrollCallback" id="scroll-bar">
                 <!-- 新对话默认展示内容 -->
-                <div class="answer" v-if="Object.values(chatHistory).length == 0">
-                    <NImage :src="userImage" width="30" height="30" preview-disabled />
+                <!--  条件展示：v-if="chatHistory.size == 0" -->
+                <div class="answer" style="margin-bottom: 20px;">
+                    <NImage :src="AingDesk" width="30" height="30" preview-disabled />
                     <div class="answer-token">
                         <p>{{ $t("让我们开启一段新的对话吧") }}</p>
                     </div>
@@ -47,11 +48,11 @@
                         <NImage :src="answerLogo(chatContent.stat!.model as string)" width="30" height="30"
                             preview-disabled />
                         <div class="answer-token flex items-center gap-5" v-if="!chatContent.content && isInChat">
-                            <NSpin :size="20" />{{ targetNet ? $t("正在执行联网搜索...") : $t("正在思考...") }}
+                            <NSpin :size="20" />{{ targetNet ? $t("正在搜索...") : $t("正在思考...") }}
                         </div>
                         <div class="answer-token" v-else>
                             <MarkdownRender :content="chatContent.content"
-                                :searchResult="chatContent.search_result as Array<any>?chatContent.search_result as Array<any>:[]" />
+                                :searchResult="chatContent.search_result as Array<any> ? chatContent.search_result as Array<any> : []" />
                             <div class="tools">
                                 <NTooltip>
                                     <template #trigger>
@@ -101,7 +102,8 @@
                                 </NTooltip>
                                 <NTooltip>
                                     <template #trigger>
-                                        <span class="tool-item" @click="answerAgain(key.replace(/^\d+--/, ''),chatContent.id as string)"><i
+                                        <span class="tool-item"
+                                            @click="answerAgain(key.replace(/^\d+--/, ''), chatContent.id as string)"><i
                                                 class="i-common:refresh w-20 h-20"></i></span>
                                     </template>
                                     {{ $t("重新生成") }}
@@ -114,7 +116,7 @@
         </div>
     </div>
 
-    <div class="search-tools-wrapper">
+    <div class="search-tools-wrapper"  v-if="!activeKnowledge">
         <div class="search-tools ">
             <div class="tools">
                 <NInput :placeholder="$t('请输入对话内容')" class="input-token" type="textarea" v-model:value="questionContent"
@@ -124,7 +126,21 @@
                     }" @keydown.enter="sendChartToModelForKeyBoard" />
 
                 <div class="send-tools">
-                    <NPopselect v-model:value="targetNet" :options='[
+                    <!-- 对话时选择知识库 -->
+                    <NPopover trigger="click">
+                        <template #trigger>
+                            <NButton :type="activeKnowledgeForChat.length ? 'primary' : 'default'" ghost
+                                style="height: 40px;" icon-placement="left" :focusable="false">
+                                <template #icon>
+                                    <i class="i-tdesign:folder"></i>
+                                </template>
+                                知识库
+                            </NButton>
+                        </template>
+                        <KnowledgeChoosePanel />
+                    </NPopover>
+
+                    <!-- <NPopselect v-model:value="targetNet" :options='[
                         { label: $t("不联网"), value: "" },
                         { label: $t("百度"), value: "baidu" },
                         { label: $t("搜狗"), value: "sogou" },
@@ -140,7 +156,14 @@
                                 sogou: $t("搜狗"),
                             }[targetNet as keyof typeof labels] : $t("不使用联网搜索") }}
                         </NButton>
-                    </NPopselect>
+                    </NPopselect> -->
+                    <NButton class="h-40" ghost :type="netActive ? 'primary' : 'default'" @click="useSearchEngine"
+                        :focusable="false">
+                        <template #icon>
+                            <i class="i-proicons:globe"></i>
+                        </template>
+                        {{ $t("联网搜索") }}
+                    </NButton>
                     <NButton class="send-btn" type="primary" v-if="!isInChat" @click="sendChatToModel"
                         :disabled="questionContent.trim() ? false : true">{{ $t("发送") }}</NButton>
                     <NButton class="send-btn" type="error" v-else @click="stopGenerate">{{ $t("停止生成") }}</NButton>
@@ -152,11 +175,16 @@
     <Settings />
     <!-- 分享弹窗 -->
     <Share />
+
+    <!-- 文档预览 -->
+    <div class="doc-content">
+        <MarkdownRender :content="docContent" />
+    </div>
 </template>
 
 <script setup lang="ts">
 import { computed, nextTick, ref } from 'vue';
-import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NPopselect, } from 'naive-ui';
+import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NPopselect, NPopover } from 'naive-ui';
 import { message } from "@/utils/naive-tools"
 import userImage from "@/assets/images/user.png"
 import codellama from "@/assets/images/codellama.png"
@@ -173,6 +201,7 @@ import tinyllama from "@/assets/images/tinyllama.png"
 import AingDesk from "@/assets/images/logo.png"
 
 import MarkdownRender from './MarkdownRender.vue';
+import KnowledgeChoosePanel from './KnowledgeChoosePanel.vue';
 import useIndexStore from '../store';
 import { storeToRefs } from 'pinia';
 import { sendChat, stopGenerate } from '../controller';
@@ -227,7 +256,21 @@ const answerLogo = (model: string) => {
 const scrollRef = ref()
 const contentWrapper = ref()
 const indexStore = useIndexStore()
-const { questionContent, currentModel, chatHistory, userScrollSelf, scrollTop, isInChat, themeColors, themeMode, targetNet, } = storeToRefs(indexStore)
+const {
+    questionContent,
+    currentModel,
+    chatHistory,
+    userScrollSelf,
+    scrollTop,
+    isInChat,
+    themeColors,
+    themeMode,
+    targetNet,
+    netActive,
+    activeKnowledgeForChat,
+    activeKnowledge,
+    docContent
+} = storeToRefs(indexStore)
 
 /********** question-token和question-edit切换 **********/
 const questionEditContent = ref("")
@@ -286,7 +329,7 @@ function sendChartToModelForKeyBoard(event: KeyboardEvent) {
 /**
  * @description 重新回答
  */
-function answerAgain(questionContent: string,id:string) {
+function answerAgain(questionContent: string, id: string) {
     if (isInChat.value) {
         message.warning($t("当前正在回答，请稍后"))
     } else {
@@ -294,7 +337,7 @@ function answerAgain(questionContent: string,id:string) {
         chatHistory.value.set(questionContent, { content: "", stat: { model: currentModel.value }, search_result: [] })
         sendChat({
             user_content: questionContent,
-            regenerate_id:id
+            regenerate_id: id
         })
     }
 
@@ -307,8 +350,8 @@ function scrollMove() {
     let timer: any = null
     return (delay: number) => {
         if (!timer) {
-            const scrollWrapper = document.querySelector(".n-scrollbar-content") as HTMLDivElement
             timer = setTimeout(() => {
+                const scrollWrapper = document.querySelector("#scroll-bar .n-scrollbar-content") as HTMLDivElement
                 if (userScrollSelf.value) {
                     clearTimeout(timer)
                     timer = null
@@ -359,11 +402,19 @@ const questionToolBg = computed(() => {
  * @description 鼠标离开
  *      - 鼠标离开chat-window后，如果当前正在对话，则开启滚动，滑动到最底部
  */
-function mouseLeave(){
+function mouseLeave() {
     userScrollSelf.value = false
-    if(isInChat.value){
+    if (isInChat.value) {
         moveFn(100)
     }
+}
+
+/**
+ * @description 是否启用联网搜索
+ */
+function useSearchEngine() {
+    netActive.value = !netActive.value
+    
 }
 </script>
 
@@ -399,26 +450,21 @@ function mouseLeave(){
 
 .content-wrapper {
     display: grid;
-    grid-template-rows: calc(100% - 130px);
+    grid-template-rows: calc(100% - 170px);
     row-gap: 20px;
     height: 100%;
 
     .chat-window {
-        width: 85%;
+        width: calc(100% - 80px);
         margin: var(--bt-mg-large) auto 0;
         position: relative;
 
         .question {
             width: 100%;
-            /* display: grid;
-            grid-template-columns: 1fr 30% 30px;
-            column-gap: 10px;
-            justify-content: end; */
             display: flex;
             justify-content: flex-start;
             gap: 10px;
-            margin: var(--bt-mg-normal) 0 50px 0;
-            font-size: 16px;
+            margin: 0px 0 30px 0;
 
 
             .question-token {
@@ -465,7 +511,7 @@ function mouseLeave(){
             .answer-token {
                 box-sizing: border-box;
                 border-radius: 5px;
-                padding: 4px var(--bt-pd-normal) 30px 0;
+                padding: 4px var(--bt-pd-normal) 20px 0;
                 position: relative;
 
                 .info-pop {
@@ -507,6 +553,11 @@ function mouseLeave(){
             width: 100%;
             position: relative;
             background-color: v-bind(questionToolBg);
+            border-top: 1px solid rgb(224, 224, 230);
+
+            :deep(.n-input) {
+                --n-border: none !important;
+            }
 
             .input-token {
                 padding-bottom: 70px;
@@ -533,5 +584,12 @@ function mouseLeave(){
 
         }
     }
+}
+
+.doc-content {
+    width: 100%;    
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
 }
 </style>

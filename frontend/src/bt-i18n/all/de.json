@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360-Suche"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Suchen..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Internetsuche"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Datei hochladen"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "hochgeladen"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "KI Zusammenfassung"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Insgesamt {0} Referenzen"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Neuer Dialog erstellen"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Dialog leeren"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Wissensdatenbank"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Neue Wissensbank"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Sprachauswahl"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Standardsuchmaschine"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Beitritt zur AingDesk-Gruppe"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Aktuelle Version"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Ordner hochladen"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Zum Hochladen klicken"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Dateiunterstützungstypen"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Dateityp für {0} wird nicht unterstützt"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Erfolgreich erstellte Wissensbasis"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Erstellung der Wissensbank fehlgeschlagen"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Das Abrufen der Knowledgebase-Liste ist fehlgeschlagen, bitte versuchen Sie es erneut"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Sind Sie sicher, dass Sie die Knowledgebase {0} und alle Dokumente unter ihr löschen möchten? Diese Operation ist irreversibel."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Wissenbank gelöscht erfolgreich"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Das Löschen der Knowledgebase ist fehlgeschlagen, bitte versuchen Sie es erneut"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Änderung der Wissensbank erfolgreich"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Die Wissensdatenbank konnte nicht geändert werden, bitte versuchen Sie es erneut"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Dokument wird analysiert. Das kann einige Minuten dauern..."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Löschen Sie das Dokument {0}? Diese Operation ist irreversibel."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Dokument gelöscht erfolgreich"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} Dateien"
     }
 }

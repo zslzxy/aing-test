@@ -217,6 +217,7 @@ export class ChatService {
         // 读取上下文目录下的所有子目录
         const contextDirList = pub.readdir(contextPath);
         const contextList: object[] = [];
+        const ragPath = pub.get_data_path() + "/rag";
         // 遍历每个子目录
         for (const dir of contextDirList) {
             // 获取配置文件的完整路径
@@ -237,6 +238,23 @@ export class ChatService {
                     contextConfigObj.create_time = 0;
                 }
             }
+
+            if (!contextConfigObj.rag_list) {
+                contextConfigObj.rag_list = [];
+            }
+
+            // 遍历知识库，移除不存在的知识库配置
+            let rag_list:string[] = [];
+            for(let ragName of contextConfigObj.rag_list) {
+                const ragDir = ragPath + "/" + ragName;
+                const ragConfigFilePath = path.resolve(ragDir, 'config.json');
+                if (!pub.file_exists(ragConfigFilePath)) {
+                    continue;
+                }
+                rag_list.push(ragName);
+            }
+            contextConfigObj.rag_list = rag_list;
+
             // 将配置信息添加到对话列表中
             contextList.push(contextConfigObj);
         }
@@ -379,6 +397,29 @@ export class ChatService {
         this.save_chat(uuid, contextConfigObj);
         return true;
     }
+
+
+    /**
+     * 更新指定对话的配置项
+     * @param {string} uuid - 对话的唯一标识符
+     * @param {string} key - 配置项的键
+     * @param {any} value - 配置项的值
+     * @returns {boolean} - 如果更新成功返回 true，否则返回 false
+     */
+    update_chat_config(uuid: string, key: string, value: any): boolean {
+        // 读取对话的配置信息
+        const contextConfigObj = this.read_chat(uuid);
+        // 检查配置信息是否为空
+        if (Object.keys(contextConfigObj).length === 0) {
+            return false;
+        }
+        // 更新指定配置项
+        contextConfigObj[key] = value;
+        // 保存更新后的配置信息到文件
+        this.save_chat(uuid, contextConfigObj);
+        return true;
+    }
+
 
     /**
      * 删除指定对话中的某条历史记录

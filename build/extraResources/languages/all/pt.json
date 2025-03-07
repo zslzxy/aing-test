@@ -486,5 +486,181 @@
     "2d711b09bd0db0ad240cc83b30dd8014": {
         "src": "内容",
         "dst": "Conteúdo"
+    },
+    "e7158b6c60cab4b337fd171b0f4e1a90": {
+        "src": "知识库组件正常",
+        "dst": "Componente da base de conhecimento normal"
+    },
+    "13a109691debc3eb78e2f77f2b6485cb": {
+        "src": "请先安装bge-m3:latest",
+        "dst": "Instale primeiro o bge- m3 latest"
+    },
+    "299af36d68e3abcf35380a1983dd6819": {
+        "src": "知识库名称不能为空",
+        "dst": "O nome da base de conhecimento não pode estar vazio"
+    },
+    "0a91f11455228e88c663edde9f62f6d8": {
+        "src": "知识库名称不能为vector_db",
+        "dst": "O nome da base de conhecimento não pode ser vector_db"
+    },
+    "6c2acda40bbb0f9d3815b271c4990882": {
+        "src": "指定知识库名称已存在",
+        "dst": "O nome da base de conhecimento especificado já existe"
+    },
+    "e3572dd02769cfd7e46a1b9877c6498d": {
+        "src": "知识库创建成功",
+        "dst": "Criação bem sucedida da base de conhecimento"
+    },
+    "978b3c73e0a5163b71a7dd9fa371401b": {
+        "src": "知识库不存在",
+        "dst": "A base de conhecimento não existe."
+    },
+    "586930318474afa34ba772b84d0e3a47": {
+        "src": "知识库删除成功",
+        "dst": "A base de conhecimento foi eliminada com êxito"
+    },
+    "c30122116a4c66b7ecdfe50a1ac71b7f": {
+        "src": "知识库修改成功",
+        "dst": "Base de conhecimento modificada com sucesso"
+    },
+    "c0795f34a87fcd1e4b035da51b2869af": {
+        "src": "文件路径不能为空",
+        "dst": "O caminho do arquivo não pode estar vazio"
+    },
+    "fe9b59474a71661dd529d2279d980035": {
+        "src": "文件路径列表不能为空",
+        "dst": "A lista de caminhos de arquivos não pode estar vazia"
+    },
+    "d9523e347c0a2971241d3ac4120a2854": {
+        "src": "文件不存在",
+        "dst": "O ficheiro não existe"
+    },
+    "679c4b3144c33adc7a3ddc09c173d2c8": {
+        "src": "文件上传成功",
+        "dst": "Ficheiro carregado com sucesso"
+    },
+    "7fc78323135943edf1052b94fd10f990": {
+        "src": "文档名称不能为空",
+        "dst": "O nome do documento não pode estar vazio"
+    },
+    "7c3cfe22ac6f31530a9ef74d9678305d": {
+        "src": "文档不存在",
+        "dst": "O documento não existe"
+    },
+    "e1b4869d50b89963c92fed36d817d683": {
+        "src": "文档名称列表不能为空",
+        "dst": "A lista de nomes de documentos não pode estar vazia"
+    },
+    "9760f9928a22ce2702ee7db8f92ed470": {
+        "src": "文档删除成功",
+        "dst": "Apagação do documento com sucesso"
+    },
+    "e9233122d7e5a63de7d802ced002c641": {
+        "src": "新文档名称不能为空",
+        "dst": "O nome do novo documento não pode estar vazio"
+    },
+    "1ccc988fb083b9fc57772e4244bc1b3c": {
+        "src": "文档名称修改成功",
+        "dst": "O nome do documento foi modificado com sucesso"
+    },
+    "5fa802bef51f52b1f7bcf35ade3512cf": {
+        "src": "操作失败",
+        "dst": "Operação falhada"
+    },
+    "33130f5c465d732d68ebdfbb80f4284b": {
+        "src": "操作成功",
+        "dst": "Operação bem sucedida"
+    },
+    "af3374317f93035c7b05d96b2373d651": {
+        "src": "以下内容是基于用户发送的消息的知识库检索结果",
+        "dst": "O conteúdo a seguir é baseado nos resultados de recuperação da base de conhecimento de mensagens enviadas pelos usuários"
+    },
+    "42f7696278cc9fb46842ff689c4d7693": {
+        "src": "在我给你的检索结果中，每个结果都是[检索结果 X begin]...[检索结果 X end]格式的，X代表每段知识内容的的数字索引。另外检索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。",
+        "dst": "Cada um dos resultados que eu lhe dei é [resultados de busca X começar]... No formato X end, X representa o índice numérico de cada conteúdo do conhecimento. Além disso, os resultados podem conter informações irrelevantes que você pode escolher de acordo com a necessidade."
+    },
+    "62a354056ef9ad11ce6178292e3f70b3": {
+        "src": "不要在回答内容中提及检索结果的具体来源，也不要提及检索结果的具体排名。",
+        "dst": "Não mencione a origem específica dos resultados ou a classificação específica dos resultados em suas respostas."
+    },
+    "42c790004f8809cee479461e64d56377": {
+        "src": "并非检索结果的所有内容都与用户的问题密切相关，你需要结合问题，对检索结果进行甄别、筛选。",
+        "dst": "Nem todo o conteúdo dos resultados de busca está intimamente relacionado com a questão do usuário, você precisa combinar a questão para selecionar e filtrar os resultados."
+    },
+    "6dbd064709d5d6ecb805d7d3920c087a": {
+        "src": "对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看检索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户检索结果未提供的内容。",
+        "dst": "Para listar perguntas (como listar todas as informações de voo), tente manter a resposta dentro de 10 pontos-chave e informe o usuário de que ele pode visualizar a fonte de pesquisa e obter informações completas. Priorizar o fornecimento de informações listadas completas e mais relevantes; A menos que necessário, não informe proativamente os usuários de conteúdo que não foi fornecido nos resultados da pesquisa."
+    },
+    "039d151f74cb8e630ae47a9be3fc7e40": {
+        "src": "对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用检索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。",
+        "dst": "Para questões criativas (como escrever um artigo), você precisa interpretar e resumir os requisitos do tema do usuário, escolher o formato apropriado, tirar o máximo proveito dos resultados da pesquisa e extrair informações importantes para gerar respostas que atendam às necessidades do usuário, com profundidade, criatividade e profissionalismo. Seu trabalho deve ser o mais extenso possível, especular a intenção do usuário para cada argumento, dar o maior número possível de pontos de resposta, e ser informativo e detalhado."
+    },
+    "27dd62bde1d6558167ae77e97fcf728f": {
+        "src": "你是一个擅长检索网络和回答用户查询的人工智能模型。",
+        "dst": "Você é um modelo de inteligência artificial que é bom em recuperar redes e responder consultas de usuários."
+    },
+    "c125214e36f14b5fb4f33d6dccd8e2b8": {
+        "src": "根据提供的检索结果生成信息丰富且与用户查询相关的回答。",
+        "dst": "Gerar respostas ricas em informações e relevantes para consultas do usuário com base nos resultados de busca fornecidos."
+    },
+    "efc8221ad85396ad566a79bbe44ea1e4": {
+        "src": "以下内容是基于用户发送的消息的检索结果",
+        "dst": "Os resultados abaixo são baseados em mensagens enviadas pelo usuário"
+    },
+    "a152d2aa2ce916d951f267e8d720f44b": {
+        "src": "根据用户的问题，和上一个对话的内容，理解用户意图，生成一个用于检索引擎检索的问题，这个问题的检索结果将会用于帮助智能模型回答用户问题，回答内容中只有一个问题，且只包含问题内容，不包含其它信息。",
+        "dst": "De acordo com a pergunta do usuário e o conteúdo da conversa anterior, compreender a intenção do usuário e gerar uma pergunta para a busca do mecanismo de busca, os resultados dessa pergunta serão usados ​​para ajudar o modelo inteligente a responder à pergunta do usuário, respondendo apenas a uma pergunta no conteúdo e contém apenas o conteúdo da pergunta e não contém outras informações."
+    },
+    "ba8e98fd3e7bca856654d9e74884f57d": {
+        "src": "用于检索的问题",
+        "dst": "Perguntas para a recuperação"
+    },
+    "abb88af2e5bae65d45635080fafe23e4": {
+        "src": "检索结果",
+        "dst": "Resultados da pesquisa"
+    },
+    "26ca20b161c33362d88eb0ba0bc90751": {
+        "src": "来源",
+        "dst": "Fonte"
+    },
+    "40704569a8c280888588553b86ec7f9a": {
+        "src": "图片名称不能为空",
+        "dst": "O nome da imagem não pode estar vazio"
+    },
+    "da6d5ef2244a37d46d941dfc8562dd02": {
+        "src": "图片不存在",
+        "dst": "A imagem não existe"
+    },
+    "03411ebecd9b7381523249f0112d0e27": {
+        "src": "你的回答应该综合多个相关知识片段来回答，不能重复引用一个知识片段。",
+        "dst": "Sua resposta deve ser uma combinação de vários fragmentos de conhecimento relevantes para responder, e não citar repetidamente um fragmento de conhecimento."
+    },
+    "1b31dbed84a6ca393a8275fca4c66c59": {
+        "src": "你是一个擅长根据知识库检索结果回答用户查询的人工智能模型。",
+        "dst": "Você é um modelo de inteligência artificial que é bom em responder a consultas de usuários com base nos resultados da base de conhecimento."
+    },
+    "4c599487be1fd817d4e144c4502331db": {
+        "src": "根据提供的检索结果生成信息丰富且与用户查询相关的回答，如果知识库检索结果中有图片引用信息，可根据需要引用这些图片来强化内容结构。",
+        "dst": "Gerar respostas ricas em informações e relevantes para consultas do usuário com base nos resultados de pesquisa fornecidos, que podem ser referenciadas conforme necessário para reforçar a estrutura de conteúdo se houver referências a imagens nos resultados de pesquisa da base de conhecimento."
+    },
+    "6715ab8742075a868a3aaa8caef38b67": {
+        "src": "不要提及检索结果的具体排名。",
+        "dst": "Não mencione o ranking específico dos resultados da pesquisa."
+    },
+    "73fc1478be004898b85ee84eb9e258b2": {
+        "src": "并非检索结果的所有内容都与用户的问题密切相关，你需要结合用户的意图，对检索结果进行甄别、筛选。",
+        "dst": "Nem todo o conteúdo dos resultados de busca está intimamente relacionado com o problema do usuário, você precisa combinar as intenções do usuário para selecionar e filtrar os resultados de busca."
+    },
+    "57beb596805cbbaffe8c690e1329611b": {
+        "src": "对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看检索来源、获得完整信息。优先提供信息完整、最相关的列举项",
+        "dst": "Para perguntas que listam categorias (por exemplo, listar todas as informações de voo), tente limitar as respostas a 10 pontos principais e diga aos usuários que podem ver as fontes de busca para obter informações completas. Priorizar informações completas e listagens mais relevantes"
+    },
+    "dc518bc56c69606aea350037fe9e9254": {
+        "src": "如果回答很长，请尽量结构化、分段落总结。如果需要分点作答。",
+        "dst": "Se a resposta for longa, tente ser estruturada e resumida em parágrafos. Se precisar de respostas."
+    },
+    "e52bb25a146139d8f90a0d3ec62b9a2b": {
+        "src": "你的回答结构要包含是什么？为什么？怎么做？这三要素。",
+        "dst": "Qual é a sua estrutura de resposta? Porquê? Como? esses três elementos."
     }
 }

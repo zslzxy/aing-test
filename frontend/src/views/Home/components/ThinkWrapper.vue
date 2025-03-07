@@ -18,6 +18,8 @@ import { ref, watch,computed } from 'vue';
 import hljs from 'highlight.js';
 import useIndexStore from '../store';
 import { storeToRefs } from 'pinia';
+import markdownit from 'markdown-it'
+// import mathJax3 from "markdown-it-mathjax3"
 const {
     themeColors,
     themeMode 
@@ -26,7 +28,6 @@ const props = defineProps<{ content: string }>()
 const isClose = ref(false)
 const wrapperRef = ref()
 const thinkContent = ref("")
-import markdownit from 'markdown-it'
 const md = markdownit({
     html: true,
     linkify: true,
@@ -42,6 +43,8 @@ const md = markdownit({
         return md.utils.escapeHtml(str);
     }
 })
+
+// md.use(mathJax3)
 watch(() => props.content, () => {
     const res = md.render(props.content)  // 正文渲染时取消think部分
     thinkContent.value = res

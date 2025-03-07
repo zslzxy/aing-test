@@ -3,6 +3,7 @@ import { Lifecycle } from './preload/lifecycle';
 import { preload } from './preload';
 import { totalService } from './service/total';
 
+
 // New app
 const app = new ElectronEgg();
 
@@ -18,14 +19,29 @@ app.register("preload", preload);
 
 // Register service
 setTimeout(() => {
+    // 分享服务
     const { shareService } = require('./service/share');
     const shareIdPrefix = shareService.generateUniquePrefix();
     let socket = shareService.connectToCloudServer(shareIdPrefix);
     shareService.startReconnect(socket,shareIdPrefix);
+
+    // RAG后台任务
+    const { RagTask } = require('./rag/rag_task');
+    let ragTaskObj = new RagTask()
+    ragTaskObj.parseTask()
+
+    // 创建索引
+    ragTaskObj.switchToCosineIndex()
+
 }, 1000);
 
 // 启动统计服务
 totalService.start();
+
+
+
+
+
 
 
 // Run

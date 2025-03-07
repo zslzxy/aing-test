@@ -1,4 +1,6 @@
 import i18n from "@/lang";
+import { createDiscreteApi, darkTheme, lightTheme, NButton, type ConfigProviderProps, type DialogOptions } from "naive-ui";
+import { computed, ref } from "vue";
 export function sendStreamedRequest(url: any, data: any, onProgress: any, onLoad: any, onError: any) {
     // 将数据转换为查询字符串
     const queryString = Object.keys(data).map(key => {
@@ -54,3 +56,7 @@ export const eventBUS: EventBUS = {
         })
     }
 }
+
+/**
+ * @description naive-ui独立api
+ */

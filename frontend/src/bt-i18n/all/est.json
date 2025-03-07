@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 otsingut"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Otsing"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Veebiotsing"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Faili üleslaadimine"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Laadimise aeg"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI kokkuvõte"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Võrdlusmaterjalid kokku"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Uue vestluse loomine"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Dialoogi tühjendamine"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "teadmistebaas"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Uue teadmistebaasi loomine"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "keele valik"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Vaikimisi otsingumootor"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Liitu AingDeski suhtlusrühmaga"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Praegune versioon"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Kausta üleslaadimine"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Kliki üleslaadimiseks"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Faili toetuse tüüp"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Failitüübi {0} ei toetata"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Teadmisbaasi edukas loomine"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Teadmistebaasi loomine nurjus"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Teadmisbaasi nimekirja hankimine nurjus, palun proovi uuesti"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Kas kustutad kindlasti teadmistebaasi {0} ja kõik selle all olevad dokumendid? See operatsioon on pöördumatu."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Teadmisbaasi eemaldamine õnnestus"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Teadmisbaasi kustutamine nurjus, palun proovi uuesti"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Teadmisbaasi muutmine õnnestus"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Teadmisbaasi muutmine nurjus, palun proovi uuesti"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Dokumendi analüüsimine võib võtta paar minutit"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Kas kustutad dokumendi {0}? See operatsioon on pöördumatu."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Dokument kustutati edukalt"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} failid"
     }
 }

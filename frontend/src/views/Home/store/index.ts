@@ -1,16 +1,20 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import i18n from "@/lang";
+import { type DialogReactive } from "naive-ui"
 import storage from "@/utils/storage";
+
 export type ChatItemInfo = {
     contextPath: string
     context_id: string
     model: string
     parameters: string,
-    title: string
+    title: string,
+    rag_list?: string[],
+    search_type?: string
 }
 
-
+// 模型安装进度实体
 export type InstallProgress = {
     status?: number
     digest?: string
@@ -19,10 +23,10 @@ export type InstallProgress = {
     progress?: number
     speed?: number
 }
-
+// 对话信息实体
 export type ChatInfo = Map<string, {
     content: string,
-    id?:string
+    id?: string
     stat?: {
         model?: string,
         created_at?: string,
@@ -35,15 +39,36 @@ export type ChatInfo = Map<string, {
     },
     search_result?: Array<{ content: string; link: string; title: string }>
 }>
+// 知识库类型实体
+export type KnowledgeDocumentInfo = {
+    ragDesc: string
+    ragName: string
+}
+// 当前选中知识库类型实体
+export type ActiveKnowledgeDto = KnowledgeDocumentInfo
+
+// 当前知识库的文档实体（单个）
+export type ActiveKnowledgeDocDto = {
+    doc_abstract: string
+    doc_file: string
+    doc_id: string
+    doc_keywords: string[]
+    doc_name: string
+    doc_rag: string
+    is_parsed: number
+    md_file: string
+    update_time: number
+}
+
 const useIndexStore = defineStore("indexStore", () => {
     // 侧边栏宽度
-    const siderWidth = ref(280)
+    const siderWidth = ref(220)
     // 是否关闭侧边栏
     const isFold = ref(false)
     // 提问内容
     const questionContent = ref("")
     // 提问内容缓存
-    
+
     // 答案的代码内容
     const answerCodeContent = ref("")
     // 已安裝模型列表
@@ -54,6 +79,10 @@ const useIndexStore = defineStore("indexStore", () => {
     const currentContextId = ref("")
     // 当前对话标题
     const currentChatTitle = ref("")
+    // 当前对话的知识库
+    const currentChatKnowledge = ref<Array<string> | null>(null)
+    // 当前对的搜索
+    const currentChatSearch = ref<string | null>(null)
     // 当前正在进行对话的id
     const currentTalkingChatId = ref("")
     // 删除对话弹窗
@@ -167,9 +196,54 @@ const useIndexStore = defineStore("indexStore", () => {
     // 当前语言
     const currentLanguage = ref(storage.language || "zh")
     // 联网搜索
-    const targetNet = ref("")
+    const targetNet = ref("baidu")
+    // 激活联网搜索
+    const netActive = ref(false)
     // 联网搜索结果
     const searchResult = ref([])
+    // 知识库宽度
+    const knowledgeSiderWidth = ref(0)
+    // 是否安装了bge-m3:latest（用于支持知识库）
+    const isInstalledBge = ref(false)
+    // 知识库列表
+    const knowledgeList = ref<Array<KnowledgeDocumentInfo>>([])
+    // 当前正在新增知识库（input出现）
+    const addingKnowledge = ref(false)
+    // 新建知识库的数据体
+    const createKnowledgeFormData = ref({
+        ragName: "",
+        ragDesc: "",
+    })
+    // 新建知识库的弹窗ref
+    const createKnowledgeModelRef = ref()
+    // 新建知识库的弹窗实例
+    const createKnowledgeDialogIns = ref<DialogReactive>()
+    // 当前激活的知识库
+    const activeKnowledge = ref<string | null>(null)
+    // 当前激活的知识库的实体
+    const activeKnowledgeDto = ref<ActiveKnowledgeDto | null>(null)
+    // 知识库拖拽上传
+    const knowledgeDragable = ref(false)
+    // 等待上传的文档集合
+    const knowledgeDocFileList = ref([])
+    // 等待上传的目录集合
+    const knowledgeDirList = ref([])
+    // 上传类型
+    const uploadMode = ref("file")
+    // 等待上传的文件/文件夹列表
+    const fileOrDirList = ref<string[]>([])
+    // 当前是否正在上传
+    const isUploadingDoc = ref(false)
+    // 实际选择的文件列表
+    const chooseList = ref<any>([])
+    // 当前知识库文档列表
+    const activeKnowledgeDocList = ref<ActiveKnowledgeDocDto[]>([])
+    // 文档解析状态
+    const docParseStatus = ref(false)
+    // 用于聊天的知识库
+    const activeKnowledgeForChat = ref<string[]>([])
+    // 单篇知识库文档内容
+    const docContent = ref("这是一篇知识库的内容文档，这是一个知识库的内容")
     return {
         answerCodeContent,
         modelList,
@@ -218,7 +292,30 @@ const useIndexStore = defineStore("indexStore", () => {
         delShareConfirmShow,
         modelManagerInstallNotice,
         targetNet,
-        searchResult
+        searchResult,
+        knowledgeSiderWidth,
+        knowledgeList,
+        addingKnowledge,
+        netActive,
+        createKnowledgeFormData,
+        createKnowledgeModelRef,
+        createKnowledgeDialogIns,
+        activeKnowledge,
+        knowledgeDragable,
+        isInstalledBge,
+        activeKnowledgeDto,
+        knowledgeDocFileList,
+        knowledgeDirList,
+        uploadMode,
+        fileOrDirList,
+        activeKnowledgeDocList,
+        chooseList,
+        activeKnowledgeForChat,
+        isUploadingDoc,
+        currentChatKnowledge,
+        currentChatSearch,
+        docParseStatus,
+        docContent
     }
 })
 

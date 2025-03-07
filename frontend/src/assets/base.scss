@@ -3,6 +3,7 @@
     --bt-bg: #f7f7f7;
     // 主题色
     --bt-theme-color: rgb(29, 149, 52);
+    --bt-theme-warning:#E6A23C;
     // 边距
     --bt-mg-normal: 20px;
     --bt-mg-small: 10px;
@@ -13,12 +14,20 @@
     --bt-pd-large: 30px;
     // 边框
     --bt-border-normal: 1px;
-    // 圆角
-    --bt-border-radius-normal:
-        // 文字
-        --bt-text-color:#333;
+    // 文字
+    --bt-text-color: #333;
     // 文字尺寸
     --bt-fz: 14px;
+    // 主要文字颜色
+    --bt-text-color-primary: #000;
+    // 次要标题文字颜色
+    --bt-tit-color-secondary: #73767a;
+    // 提示文字颜色
+    --bt-notice-text-color: #545454;
+    // 列表项悬浮颜色
+    --bt-list-item-hover: rgba(22, 163, 74, .1);
+    // 面板颜色
+    --bt-panel: #fff;
 }
 
 html,
@@ -29,4 +38,47 @@ p {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+/**
+* @description 文本颜色分级
+*/
+$secondary-text-color: var(--bt-text-color-primary);
+$sub-tit-color: var(--bt-tit-color-secondary);
+$common-icon-color: $sub-tit-color;
+$notice-text: var(--bt-notice-text-color);
+
+// 列表项悬浮色
+$list-item-hover: var(--bt-list-item-hover);
+
+
+/**
+ * 通用列表项
+ */
+@mixin common-list-item {
+    height: 34px;
+    transition: .2s;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+/**
+ * 水平flex-水平两端
+ */
+@mixin row-flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+/**
+ * 水平flex-垂直居中
+ */
+@mixin column-flex-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }

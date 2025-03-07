@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 Keresés"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Keresés..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Internetes keresés"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Fájl feltöltése"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Feltöltési idő"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI összefoglaló"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Összesen {0} hivatkozás"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Új párbeszéd"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "A beszélgetés törlése"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Tudásbázis"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Új tudásbázis létrehozása"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Nyelvválasztás"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Alapértelmezett keresőmotor"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Csatlakozzon az AingDesk kommunikációs csoportjához"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "aktuális verzió"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Mappa feltöltése"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Kattintson a Feltöltésre"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Fájltámogatási típusok"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Nem támogatott fájltípus {0}"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Tudásbázis sikeres létrehozása"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Tudásbázis létrehozása nem sikerült"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Nem sikerült megszerezni a tudásbázis listáját, próbálja meg újra"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Biztosan törli a tudásbázist {0} és az alábbi összes dokumentumot? A művelet visszafordíthatatlan."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Tudásbázis sikeres törlése"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "A tudásbázis törlése nem sikerült, próbálja meg újra"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "A tudásbázis módosítása sikeres"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "A tudásbázis módosítása nem sikerült, próbálja meg újra"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "A dokumentum feldolgozása folyamatban van. Ez néhány percig tarthat..."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Biztos, hogy törli a {0} dokumentumot? Ez a művelet visszafordíthatatlan."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "A dokumentum sikeres törlése"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} fájlok"
     }
 }

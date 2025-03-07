@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "Pencarian 360"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Mencari..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Pencarian Internet"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Mengunggah File"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Waktu Upload"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "Ringkasan AI"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Total Referensi {0}"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Dialog Baru"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Kosongkan dialog"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Pangkalan pengetahuan"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Pembangunan Pangkalan Pengetahuan Baru"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Pilih bahasa"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "mesin pencarian default"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Bergabunglah dengan grup AingDesk"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Versi saat ini"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Mengunggah folder"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Klik untuk mengunggah"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Jenis dukungan berkas"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Jenis file tidak didukung untuk {0}"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Pembangunan basis pengetahuan yang sukses"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Gagal membuat basis pengetahuan"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Gagal memperoleh daftar dasar pengetahuan, silakan coba lagi"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Apakah Anda yakin untuk menghapus dasar pengetahuan {0} dan semua dokumen di bawahnya? Operasi ini tidak bisa dikembalikan"
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Pangkalan pengetahuan dihapus dengan sukses"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Gagal menghapus pangkalan pengetahuan, cobalah lagi"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Mengubah basis pengetahuan berhasil"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Gagal mengubah dasar pengetahuan, silakan coba lagi"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Menganalisis dokumen, ini mungkin butuh beberapa menit"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Apakah Anda yakin untuk menghapus dokumen {0}? Operasi ini tidak bisa dikembalikan"
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Dokumen dihapus dengan sukses"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} berkas"
     }
 }

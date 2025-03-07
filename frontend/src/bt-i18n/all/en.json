@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 Search"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Searching"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Online search"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Upload files"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "uploaded"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI Summary"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Reference {0} materials in total"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "New Chat"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Clear the conversation"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "knowledge base"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Create a new knowledge base"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "language selection"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "default search engine"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Join the AingDesk communication group"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "current version"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Upload folder"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Click to upload"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "File support types"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "The file type of {0} is not supported"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Knowledge base created successfully"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Knowledge base creation failed"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Failed to retrieve the knowledge base list, please try again"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Are you sure to delete the knowledge base {0} and all documents under it? This operation is irreversible"
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Successfully deleted knowledge base"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Failed to delete knowledge base, please try again"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Successfully modified knowledge base"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Failed to modify knowledge base, please try again"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Analyzing document, this may take a few minutes"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Are you sure to delete document {0}? This operation is irreversible"
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Document deleted successfully"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} files"
     }
 }

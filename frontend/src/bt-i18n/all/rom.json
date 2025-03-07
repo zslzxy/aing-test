@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 Căutare"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Căutare"
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Căutare online"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Încărcați fișiere"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Timp de încărcare"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "Rezumat AI"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Referințe {0}"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Dialog nou"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Goleşte dialogul"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Baza de cunoștințe"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Noua bază de cunoștințe"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "selectarea limbii"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "motor de căutare implicit"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Alăturați-vă grupului AingDesk"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Versiunea curentă"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Încărcați un dosar"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Faceți clic pentru a încărca"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Tipuri de suport pentru fișiere"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Tipul de fişier nu este suportat pentru {0}"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Crearea cu succes a bazei de cunoștințe"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Crearea bazei de cunoștințe a eșuat"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Obținerea listei bazei de cunoștințe a eșuat, încercați din nou"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Verificați ștergerea bazei de cunoștințe {0} și a tuturor documentelor aflate sub ea? Operaţia este ireversibilă."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Ştergerea cu succes a bazei de cunoştinţe"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Ştergerea bazei de cunoştinţe a eşuat, încercaţi din nou"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Modificarea cu succes a bazei de cunoștințe"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Modificarea bazei de cunoștințe a eșuat, vă rugăm să încercați din nou"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Analizând documentul, acest lucru poate dura câteva minute"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Verificați ștergerea documentului {0}? Operaţia este ireversibilă."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Ştergerea cu succes a documentului"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": "{0} fișiere"
     }
 }

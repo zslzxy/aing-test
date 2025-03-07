@@ -1,7 +1,7 @@
 <template>
     <!-- 联网搜索 -->
     <NCollapse v-if="searchResult && searchResult.length">
-        <NCollapseItem :title="$t('已联网搜索{0}个网址', [searchResult.length])">
+        <NCollapseItem :title="$t('共参考{0}份资料', [searchResult.length])">
             <NList>
                 <NListItem v-for="(item, index) in searchResult" :key="item.link">
                     <NTooltip trigger="hover">
@@ -33,15 +33,15 @@ import { NCollapseItem, NCollapse, NList, NListItem, NDivider, NButton, NTag, NT
 import useIndexStore from '../store';
 import { storeToRefs } from 'pinia';
 import { useClipboard } from '@vueuse/core'
-import { message } from '@/utils/naive-tools';
+import { message } from '@/utils/naive-tools.tsx';
 import ThinkWrapper from './ThinkWrapper.vue';
-import { eventBUS } from '../utils/tools';
+import { eventBUS } from '../utils/tools.tsx';
 import { useI18n } from 'vue-i18n';
-import i18n from "@/lang"
+import mk from "@vscode/markdown-it-katex"
 const { t: $t } = useI18n()
 const { questionContent, themeColors, themeMode, currentLanguage } = storeToRefs(useIndexStore())
 const { copy: copyFn } = useClipboard({ source: "" })
-const props = defineProps<{ content: string, searchResult: Array<{ content: string, link: string, title: string }> }>()
+const props = defineProps<{ content: string, searchResult?: Array<{ content: string, link: string, title: string }> }>()
 const answerContent = ref("")
 const markdownRef = ref<HTMLElement | null>()
 const md = markdownit({
@@ -56,26 +56,39 @@ const md = markdownit({
             } catch (__) { }
         }
 
-        return md.utils.escapeHtml(str);
+        return str;
     }
 })
-
+md.use(mk,{
+    throwOnError: false,
+})
 
 md.renderer.rules.fence = function (tokens, idx, options, env, self) {
     const token = tokens[idx];
     const lang = token.info || '';
     const code = token.content;
     const highlightedCode = options.highlight!(code, lang, "");
+    // console.log(self.rules.math_block(token,code))
     const toolbarPlaceholder = `<div class="tool-header" data-lang="${lang}"><div class="tool-header-tit">${lang}</div><div class="tool-placeholder"><div class="tool-wrapper"><span class="tool-copy" data-code="${encodeURIComponent(code)}">${$t("复制")}</span><span class="tool-reference" data-code="${encodeURIComponent(code)}">${$t("引用")}</span></div></div></div>`;
     return `<pre class="hljs"><div class="hljs-wrapper">${toolbarPlaceholder}<code${lang ? ` class="${lang} code-block"` : ''}>${highlightedCode}</code></div></pre>`
 };
 
+// TODO:目前不确定AI返回的latex公式是否正确，参考Latex和Katex的规范，先全面使用$$...$$代替
+function replaceLatexMathDelimiters(text:string) {
+    // 替换块级公式：\[...\] → $$...$$
+    text = text.replace(/\\\[/g, '$$').replace(/\\\]/g, '$$');
+    // 替换行内公式：\(...\) → $$...$$
+    text = text.replace(/\\\(/g, '$$').replace(/\\\)/g, '$$');
+    // 替换公式环境：\begin{xxx}...\end{xxx} → $$...$$
+    text = text.replace(/\\begin\{(\w+)\}/g, '$$').replace(/\\end\{(\w+)\}/g, '$$');
+    
+    return text;
+}
 
 watch(() => props.content, () => {
     const res = md.render(props.content.replace(/<think>([\s\S]*?)(?:<\/think>|$)/, ""))  // 正文渲染时取消think部分
-    answerContent.value = res
+    answerContent.value = replaceLatexMathDelimiters(res);
 }, { immediate: true })
-
 
 
 /**
@@ -169,6 +182,8 @@ function jumpThroughLink(link: string) {
 </script>
 
 <style lang="scss">
+@import 'katex/dist/katex.min.css';
+
 .tool-wrapper {
     padding: 0 var(--bt-pd-normal) 0 0;
     height: 40px;
@@ -183,7 +198,7 @@ function jumpThroughLink(link: string) {
 }
 
 .markdown-content {
-    font-size: 16px;
+    // font-size: 16px;
 
     p {
         margin-block-end: 1em;

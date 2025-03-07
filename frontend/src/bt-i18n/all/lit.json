@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 paieškos"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Ieškoma..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Interneto paieška"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Įkelti failą"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "atsiųsta"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "AI santrauka"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Iš viso {0} nuorodų"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Naujas dialogas"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Išvalyti dialogą"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Žinių bazė"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Nauja žinių bazė"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "Kalbos pasirinkimas"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Numatytas paieškos variklis"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Prisijunkite prie AingDesk grupės"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "dabartinė versija"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Įkelti aplanką"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Spauskite įkelti"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Failų palaikymo tipai"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Failo tipas nepalaikomas {0}"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Žinių bazės sukūrimas sėkmingas"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Nepavyko sukurti žinių bazės"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Nepavyko gauti žinių bazės sąrašo, pabandykite dar kartą"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Norite ištrinti žinių bazę {0} ir visus jos dokumentus? Ši operacija yra negrįžtama."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Žinių bazės pašalinimas sėkmingas"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Nepavyko pašalinti žinių bazės, pabandykite dar kartą"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Žinių bazės keitimas sėkmingas"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Nepavyko pakeisti žinių bazės, pabandykite dar kartą"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Išnagrinėjamas dokumentas. Tai gali užtrukti kelias minutes..."
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Norite ištrinti dokumentą {0}? Ši operacija yra negrįžtama."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Dokumentas sėkmingai ištrintas"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} failų"
     }
 }

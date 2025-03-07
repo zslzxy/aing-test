@@ -398,5 +398,125 @@
     "360搜索": {
         "src": "360搜索",
         "dst": "360 Søgning"
+    },
+    "正搜索...": {
+        "src": "正搜索...",
+        "dst": "Søger..."
+    },
+    "联网搜索": {
+        "src": "联网搜索",
+        "dst": "Online søgning"
+    },
+    "上传文件": {
+        "src": "上传文件",
+        "dst": "Upload filer"
+    },
+    "上传时间": {
+        "src": "上传时间",
+        "dst": "Uploadtid"
+    },
+    "AI摘要": {
+        "src": "AI摘要",
+        "dst": "Resumé af AI"
+    },
+    "共参考{0}份资料": {
+        "src": "共参考{0}份资料",
+        "dst": "Referencer til {0}"
+    },
+    "新建对话": {
+        "src": "新建对话",
+        "dst": "Opret en ny samtale"
+    },
+    "清空对话": {
+        "src": "清空对话",
+        "dst": "Tøm dialog"
+    },
+    "知识库": {
+        "src": "知识库",
+        "dst": "Videnskab"
+    },
+    "新建知识库": {
+        "src": "新建知识库",
+        "dst": "Ny videnbase"
+    },
+    "语言选择": {
+        "src": "语言选择",
+        "dst": "sprogvalg"
+    },
+    "默认搜索引擎": {
+        "src": "默认搜索引擎",
+        "dst": "Standard søgemaskine"
+    },
+    "加入AingDesk交流群": {
+        "src": "加入AingDesk交流群",
+        "dst": "Tilmeld dig AingDesk-gruppen"
+    },
+    "当前版本": {
+        "src": "当前版本",
+        "dst": "Aktuel version"
+    },
+    "上传文件夹": {
+        "src": "上传文件夹",
+        "dst": "Upload mappe"
+    },
+    "点击上传": {
+        "src": "点击上传",
+        "dst": "Klik for at uploade"
+    },
+    "文件支持类型": {
+        "src": "文件支持类型",
+        "dst": "Filstøttetyper"
+    },
+    "{0}的文件类型不支持": {
+        "src": "{0}的文件类型不支持",
+        "dst": "Filtypen {0} understøttes ikke"
+    },
+    "知识库创建成功": {
+        "src": "知识库创建成功",
+        "dst": "Udvikling af videnbase"
+    },
+    "知识库创建失败": {
+        "src": "知识库创建失败",
+        "dst": "Kunne ikke oprette videnbase"
+    },
+    "获取知识库列表失败，请重试": {
+        "src": "获取知识库列表失败，请重试",
+        "dst": "Kunne ikke hente vidensdatabaselisten, prøv igen"
+    },
+    "是否确认删除知识库{0}及其下的所有文档？该操作不可逆": {
+        "src": "是否确认删除知识库{0}及其下的所有文档？该操作不可逆",
+        "dst": "Er du sikker på at slette Knowledgebase{0} og alle dokumenter under den? Denne operation er irreversibel."
+    },
+    "删除知识库成功": {
+        "src": "删除知识库成功",
+        "dst": "Slettelse af videnbasen lykkedes"
+    },
+    "删除知识库失败，请重试": {
+        "src": "删除知识库失败，请重试",
+        "dst": "Kunne ikke slette videnbasen, prøv igen"
+    },
+    "修改知识库成功": {
+        "src": "修改知识库成功",
+        "dst": "Endring af videnbasen lykkedes"
+    },
+    "修改知识库失败，请重试": {
+        "src": "修改知识库失败，请重试",
+        "dst": "Kunne ikke ændre vidensbase, prøv igen"
+    },
+    "正在解析文档，这可能要几分钟时间...": {
+        "src": "正在解析文档，这可能要几分钟时间...",
+        "dst": "Analysere dokument, dette kan tage et par minutter"
+    },
+    "是否确认删除文档{0}？该操作不可逆": {
+        "src": "是否确认删除文档{0}？该操作不可逆",
+        "dst": "Er du sikker på at slette dokument {0}? Denne operation er irreversibel."
+    },
+    "文档删除成功": {
+        "src": "文档删除成功",
+        "dst": "Dokument slettet med succes"
+    },
+    "{0}个文件": {
+        "src": "{0}个文件",
+        "dst": " {0} filer"
     }
 }

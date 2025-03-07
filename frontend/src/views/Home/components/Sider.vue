@@ -1,67 +1,150 @@
 <template>
-    <div class="logo">
-        <div class=logo-left>
-            <NImage :src="logo" object-fit="cover" class="h-50" preview-disabled />
-            <span>AingDesk</span>
-        </div>
-        <div>
-            <i class="i-common:fold w-22 h-22 mr-14 cursor-pointer" @click="doFold"></i>
-        </div>
-    </div>
-    <div class="sider-wrapper">
-        <!-- 侧边栏上部分 -->
-        <div class="sider-top">
-            <div class="gap-2.5 flex justify-end pl-10">
-                <div class="flex gap-2.5 items-center justify-end">
-                    <span>{{ themeMode == 'light' ? $t("浅色模式") : $t("深色模式") }}</span>
-                    <NSwitch size="small" active-color="#000" checked-value="dark" unchecked-value="light"
-                        v-model:value="themeMode" :on-update:value="changeThemeMode"></NSwitch>
-                </div>
+    <div class="layout-sider-wrapper">
+        <div class="logo">
+            <div class=logo-left>
+                <NImage :src="logo" object-fit="cover" class="h-30" preview-disabled />
+                <span class="text-[var(--bt-tit-color-secondary)]">AingDesk</span>
             </div>
-            <div class="recent-comunication">
-                <div class="recent-header">
-                    {{ $t("对话") }}
-                </div>
-                <!-- 最近对话列表 -->
-                <ul class="recent-list">
-                    <li :class="{ active: currentContextId == item.context_id }"
-                        @click.stop="handleChoose($event, item)" v-for="item in chatList" :key="item.context_id">
-                        <div class="flex items-center" style="height: 100%;">
-                            <i class="i-common:comu w-16 h-16 mr-10 ml-8"></i>
-                            <div class="comu-title">{{ item.title ? item.title : $t("对话内容") }}</div>
-                        </div>
+            <div>
+                <i class="i-common:fold w-18 h-18  cursor-pointer" @click="doFold"></i>
+            </div>
+        </div>
 
-                        <NPopselect trigger="click" :options='[
-                            { label: $t("删除对话"), value: "delChat" },
-                            { label: $t("修改标题"), value: "modifyTitle" }
-                        ]' :on-update:value="(val) => doChatOperateSelect(val, item.context_id)">
-                            <div class="flex justify-center items-center" style="height: 100%; padding: 0 8px;">
-                                <i class="i-common:more-operation w-16 h-16"></i>
-                            </div>
-                        </NPopselect>
-                    </li>
-                </ul>
-            </div>
+        <div class="flex justify-center items-center">
+            <NButton type="default" style="width:100%" @click="createNewComu">
+                <template #icon>
+                    <i class="i-tdesign:chat-add w-16 h-16"></i>
+                </template>
+                {{ $t("新建对话") }}
+            </NButton>
+        </div>
+
+        <div class="recent-header">
+            <span class="ml-8 text-[var(--bt-notice-text-color)]">{{ $t("对话") }}</span>
+            <!-- <NTooltip trigger="hover">
+                <template #trigger>
+                    <i class="i-ant-design:clear-outlined w-16 h-16 text-[var(--bt-notice-text-color)] cursor-pointer" ></i>
+                </template>
+                {{ $t("清空对话") }}
+            </NTooltip> -->
+        </div>
+
+        <div class="sider-wrapper" style="overflow: hidden;">
+            <!-- 侧边栏上部分 -->
+            <NScrollbar :style="{ height: '100%' }">
+                <div class="sider-top">
+                    <div class="recent-comunication">
+                        <!-- 最近对话列表 -->
+                        <ul class="recent-list">
+                            <li :class="{ active: currentContextId == item.context_id }"
+                                @click.stop="handleChoose($event, item)" v-for="item in chatList"
+                                :key="item.context_id">
+                                <div class="flex items-center" style="height: 100%;">
+                                    <i
+                                        class="i-tdesign:chat w-16 h-16 mr-10 ml-8 text-[var(--bt-tit-color-secondary)]"></i>
+                                    <div class="comu-title">{{ item.title ? item.title : $t("对话内容") }}</div>
+                                </div>
+
+                                <NPopselect trigger="click" :options='[
+                                    { label: $t("删除对话"), value: "delChat" },
+                                    { label: $t("修改标题"), value: "modifyTitle" }
+                                ]' :on-update:value="(val) => doChatOperateSelect(val, item.context_id)">
+                                    <div class="flex justify-center items-center" style="height: 100%; padding: 0 8px;">
+                                        <i class="i-common:more-operation w-16 h-16"></i>
+                                    </div>
+                                </NPopselect>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </NScrollbar>
+            <div class="sider-divider"></div>
+        </div>
+
+        <div class="recent-header">
+            <span class=" text-[var(--bt-notice-text-color)] flex justify-start items-center">{{ $t("知识库") }}</span>
+        </div>
+
+        <!-- 知识库 -->
+        <div class="sider-wrapper" style="overflow: hidden; gap:10px">
+            <NScrollbar :style="{ height: '100%' }">
+                <div class="sider-top">
+                    <div class="recent-comunication">
+                        <!-- 列表 -->
+                        <ul class="recent-list">
+                            <li :class="[{ active: item.ragName == activeKnowledge }]" @click="openKnowledgeStore(item)"
+                                v-for="item in knowledgeList">
+                                <div class="flex items-center" style="height: 100%;">
+                                    <i class="i-tdesign:folder w-16 h-16 mr-10 ml-8"></i>
+                                    <div class="comu-title">{{ item.ragName }}</div>
+                                </div>
+
+                                <NPopselect trigger="click" :options='[
+                                    { label: $t("删除"), value: "delChat" },
+                                    { label: $t("修改"), value: "modifyTitle" }
+                                ]' :on-update:value="(val) => dealPopOperation(val, item)">
+                                    <div class="flex justify-center items-center" style="height: 100%; padding: 0 8px;"
+                                        @click.stop>
+                                        <i class="i-common:more-operation w-16 h-16"></i>
+                                    </div>
+                                </NPopselect>
+                            </li>
+
+                            <li @click.stop="createNewKnowledgeStore" :class="{ 'add-knowledge': addingKnowledge }">
+                                <div class="flex items-center" style="height: 100%;">
+                                    <i
+                                        class="i-proicons:add-circle w-16 h-16 mr-10 ml-8 text-[var(--bt-tit-color-secondary)]"></i>
+                                    <div class="comu-title">{{ $t("新建知识库") }}</div>
+                                </div>
+                                <!-- 
+                                 v-if="!addingKnowledge"
+                                <div class="flex items-center" style="height: 100%;width: 100%;" v-else>
+                                    <NInputGroup>
+                                        <NInput size="small" id="focus-input" />
+                                        <NButton size="small" type="primary">添加</NButton>
+                                    </NInputGroup>
+                                </div> -->
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </NScrollbar>
         </div>
 
         <!-- 侧边栏下部分 -->
         <div class="sider-bottom">
             <div class="sider-divider"></div>
-            <div class="create-comunication" @click="createNewComu">
-                <i class="i-common:new-comu w-16 h-16"></i>
-                <span>{{ $t("新对话") }}</span>
-            </div>
-            <div class="create-comunication" @click="openModelManage">
-                <i class="i-common:model-manage w-16 h-16"></i>
-                <span>{{ $t("模型管理") }}</span>
-            </div>
-            <!-- <div class="create-comunication" @click="openSettings">
-                <i class="i-common:settings w-16 h-16"></i>
-                <span>{{ $t("设置") }}</span>
-            </div> -->
 
+            <ul class="recent-list">
+                <!-- <li>
+                    <div class="create-comunication" @click="createNewComu">
+                        <i class="i-tdesign:chat-add w-17 h-17 ml-8 mr-10"></i>
+                        <span>{{ $t("新对话") }}</span>
+                    </div>
+                </li> -->
+
+                <!-- <div class="create-comunication" @click="openThirdPartyModelApi">
+                <i class="i-ant-design:robot-outlined w-16 h-16"></i>
+                <span>{{ $t("第三方模型API") }}</span>
+            </div> -->
+                <li @click="openModelManage">
+                    <div class="flex items-center justify-start">
+                        <i class="i-common:model-manage w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                        <span>{{ $t("模型管理") }}</span>
+                    </div>
+                </li>
+                <li @click="openSoftSettings">
+                    <div class="flex items-center justify-start">
+                        <i
+                            class="i-ant-design:setting-outlined w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                        <span>{{ $t("设置") }}</span>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
+
     <!-- 删除对话问询 -->
     <NModal v-model:show="chatRemoveConfirm" :close-on-esc="false" :closable="false" :mask-closable="false">
         <NCard :title='$t("删除对话")' style="width: 45%;max-width: 460px;">
@@ -95,14 +178,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
-import { NModal, NButton, NImage, NCard, NPopselect, NInput, NSwitch, NSelect } from 'naive-ui';
-import { get_chat_list, removeChat, modifyChatTitle, getChatInfo } from "../controller";
-import useIndexStore, { type ChatItemInfo } from "../store";
+import { computed, nextTick, ref, watch } from "vue"
+import { NModal, NButton, NImage, NCard, NPopselect, NInput, NSwitch, NScrollbar, NTooltip, NInputGroup } from 'naive-ui';
+import {
+    get_chat_list,
+    removeChat,
+    modifyChatTitle,
+    getChatInfo,
+    openKnowledgeStore,
+    openThirdPartyModelApi,
+    openSoftSettings,
+    createNewKnowledgeStore,
+    removeRag,
+    removeRagConfirm,
+    modifyRag,
+    createNewComu,
+    singleActive
+} from "../controller";
+import useIndexStore, { type ChatItemInfo, type KnowledgeDocumentInfo } from "../store";
 import { storeToRefs } from "pinia";
 import logoImage from "@/assets/images/logo.png"
 import logoDark from "@/assets/images/logo-dark.png"
-import Storage from "@/utils/storage"
+
 import { useI18n } from "vue-i18n";
 const { t: $t } = useI18n()
 const {
@@ -123,6 +220,14 @@ const {
     currentModel,
     userScrollSelf,
     themeMode,
+    knowledgeList,
+    addingKnowledge,
+    activeKnowledge,
+    createKnowledgeFormData,
+    currentChatKnowledge,
+    currentChatSearch,
+    activeKnowledgeForChat,
+    netActive
 } = storeToRefs(useIndexStore())
 
 /* const chartPopSelectOptions = ref<{ label: string, value: string }[]>([
@@ -152,6 +257,7 @@ get_chat_list()
  * @description 选择已有对话
  */
 async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
+
     if ((e.target! as HTMLElement).classList.contains("i-common:more-operation")) {
         return
     } else {
@@ -161,26 +267,14 @@ async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
         currentChatTitle.value = chat.title
         currentModel.value = `${chat.model}:${chat.parameters}`
         getChatInfo(currentContextId.value)
+        singleActive("chat", chat.context_id)
     }
+    activeKnowledgeForChat.value = chat.rag_list ? chat.rag_list : []
+    chat.search_type ? netActive.value = true : netActive.value = false
 }
 
 
-/**
- * @description 创建对话
- */
-function createNewComu() {
-    if (currentContextId.value == "") return
-    // chatList.value.push({
-    //     contextPath: "",
-    //     context_id: "",
-    //     model: "",
-    //     parameters: "",
-    //     title: "新对话"
-    // })
-    currentContextId.value = ""
-    currentChatTitle.value = $t("新对话")
-    chatHistory.value = new Map()
-}
+
 
 /**
  * @description 对话操作
@@ -222,144 +316,150 @@ function openModelManage() {
     }
 }
 
-/**
- * @description 切换模式
+
+/***
+ * @description 知识库操作
  */
-function changeThemeMode(val: string) {
-    themeMode.value = val
-    Storage.themeMode = val
+function dealPopOperation(val: string, knowledge: KnowledgeDocumentInfo) {
+    if (val == "delChat") {
+        removeRagConfirm(knowledge.ragName)
+    } else {
+        createKnowledgeFormData.value = knowledge
+        modifyRag()
+    }
 }
+
+
+// /**
+//  * @description 点击空白取消知识库添加
+//  */
+// document.addEventListener(("click"), (e) => {
+//     addingKnowledge.value = false
+// })
+
+// /**
+//  * @description 新建知识库时文本框是否聚焦
+//  */
+// watch(addingKnowledge, (val) => {
+//     nextTick(() => {
+//         if (val) {
+//             const inputDom = document.querySelector("#focus-input")?.querySelector("input")
+//             inputDom?.focus()
+//         }
+//     })
+// })
 
 </script>
 
 <style scoped lang="scss">
-.logo {
+@use "@/assets/base";
+
+@mixin comu-list-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    margin: var(--bt-mg-small) 0 var(--bt-mg-small) 5px;
+    text-align: left;
+    cursor: pointer;
+    transition: .2s;
 
-    .logo-left {
-        display: flex;
-        gap: 10px;
-        justify-content: flex-start;
-        align-items: center;
-
-        span {
-            font-size: 26px;
-            font-weight: bold;
-        }
+    &:hover {
+        background-color: base.$list-item-hover;
     }
-
-    //TODO: 用例代码，后续删除
-    // font-size: 18px;
-    // height: 50px;
-    // padding: var(--bt-pd-small);
-    // box-sizing: border-box;
-    // font-weight: bold;
 }
 
-.sider-wrapper {
-    --hover-bg: #e3e3e3;
-    --item-height: 34px;
-    --item-border-radius: 10px;
 
+@mixin comu-tit {
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin recent-list-style {
+    box-sizing: border-box;
+    margin-top: var(--bt-mg-small);
+
+    li {
+        @include base.row-flex-between;
+        @include base.common-list-item;
+
+        &:hover:not(.add-knowledge) {
+            background-color: base.$list-item-hover;
+        }
+
+        &.active {
+            background-color: base.$list-item-hover;
+        }
+
+        .comu-title {
+            @include comu-tit;
+        }
+    }
+
+    .pd-10 {
+        padding: 0 0 0 var(--bt-pd-small);
+        width: 100%;
+        text-align: left;
+
+        :deep(.n-button__content) {
+            align-items: flex-start;
+        }
+    }
+}
+
+.layout-sider-wrapper {
+    display: grid;
+    // grid-template-rows: 50px 22px 2fr 22px 1fr 140px;
+    grid-template-rows: 50px 64px 22px 2fr 22px 1fr 140px;
+    height: 100%;
     box-sizing: border-box;
     padding: var(--bt-pd-small);
-    display: flex;
-    gap: var(--bt-mg-normal);
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    height: calc(100% - 70px);
 
-    .sider-top {
-        width: 100%;
+    .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        .recent-comunication {
-            width: 100%;
-
-            .recent-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: var(--bt-mg-small) 0;
-                box-sizing: border-box;
-                padding: 0 5px 0 var(--bt-pd-small);
-            }
-
-            .recent-list {
-                box-sizing: border-box;
-                margin-top: var(--bt-mg-small);
-
-                li {
-                    height: var(--item-height);
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    transition: .2s;
-                    cursor: pointer;
-                    margin-bottom: 5px;
-
-                    &:hover {
-                        background-color: rgba(22, 163, 74, .1);
-                    }
-
-                    &.active {
-                        background-color: rgba(22, 163, 74, .1);
-                    }
-
-                    .comu-title {
-                        width: 200px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                }
-
-                .pd-10 {
-                    padding: 0 0 0 var(--bt-pd-small);
-                    width: 100%;
-                    text-align: left;
-
-                    :deep(.n-button__content) {
-                        align-items: flex-start;
-                    }
-                }
-            }
-        }
-    }
-
-    .sider-bottom {
-        width: 100%;
-
-        .sider-divider {
-            height: 1px;
-            width: calc(100% - var(--bt-pd-normal)*2);
-            background-color: rgba(0, 0, 0, .12);
-            margin: var(--bt-mg-small) auto;
-        }
-
-        .create-comunication {
+        .logo-left {
             display: flex;
+            gap: 10px;
             justify-content: flex-start;
             align-items: center;
-            gap: 10px;
-            padding-left: 9px;
-            text-align: left;
-            height: var(--item-height);
-            cursor: pointer;
-            transition: .2s;
 
-            &:hover {
-                background-color: rgba(22, 163, 74, .1);
+            span {
+                font-size: 18px;
+                font-weight: bold;
             }
         }
+
+        //TODO: 用例代码，后续删除
+        // font-size: 18px;
+        // height: 50px;
+        // padding: var(--bt-pd-small);
+        // box-sizing: border-box;
+        // font-weight: bold;
     }
 
+    .sider-wrapper {
+        --hover-bg: #e3e3e3;
+        --item-border-radius: 10px;
+
+        box-sizing: border-box;
+        @include base.row-flex-between;
+        gap: var(--bt-mg-normal);
+        flex-direction: column;
+
+        .sider-top {
+            width: 100%;
+
+            .recent-comunication {
+                width: 100%;
 
 
-    /* .search-comunication {
+            }
+        }
+
+        /* .search-comunication {
         position: relative;
         width: 100%;
 
@@ -381,9 +481,12 @@ function changeThemeMode(val: string) {
         }
     } */
 
+    }
 
+    .sider-bottom {
+        width: 100%;
+    }
 }
-
 
 .modal-footer {
     width: 100%;
@@ -391,5 +494,40 @@ function changeThemeMode(val: string) {
     justify-content: flex-end;
     margin-top: 40px;
     gap: 20px;
+}
+
+.recent-list {
+    @include recent-list-style;
+}
+
+.create-comunication {
+    @include comu-list-item;
+}
+
+.recent-header {
+    @include base.row-flex-between;
+    margin: var(--bt-mg-small) 0;
+    box-sizing: border-box;
+}
+
+.sider-divider {
+    height: 1px;
+    width: calc(100% - var(--bt-pd-normal)*2);
+    background-color: rgba(0, 0, 0, .12);
+    margin: var(--bt-mg-small) auto;
+}
+
+.knowledge-store-list {
+    .create-comunication {
+        @include comu-list-item;
+
+        .comu-tit {
+            @include comu-tit;
+        }
+    }
+
+    .knowledge-list {
+        @include recent-list-style;
+    }
 }
 </style>

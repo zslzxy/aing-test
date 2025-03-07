@@ -131,16 +131,17 @@ class Public {
         if (fileStat.ctimeMs == undefined) {
             return 0;
         }
-        return fileStat.ctimeMs;
+        return Math.floor(fileStat.ctimeMs / 1000);
     }
 
     // 获取文件修改时间
     filemtime(file: string): number {
         let fileStat = this.stat(file);
-        if (fileStat.mtimeMs == undefined) {
+        if (!fileStat.mtimeMs) {
             return 0;
         }
-        return fileStat.mtimeMs;
+        // 返回秒级时间戳（整数）
+        return Math.floor(fileStat.mtimeMs / 1000);
     }
 
     // 获取uuid
@@ -173,7 +174,9 @@ class Public {
      * @example get_root_path()
      */
     get_root_path():string{
-        return Ps.getRootDir()
+        let result =  Ps.getRootDir()
+        if(!result) return path.resolve(__dirname,'../');
+        return result;
     }
         
     /**

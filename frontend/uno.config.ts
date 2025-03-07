@@ -29,14 +29,15 @@ export default defineConfig({
       warn: true,
       prefix: ['i-'],
       extraProperties: {
-        display: 'inline-block'
+        display: 'inline-block',
+        // color:"currentColor",
       },
-      collections
+      collections,
     })
   ],
   theme: {
-    colors:{
-      "bt-theme":"#16a34a"  // 堡塔主题色
+    colors: {
+      "bt-theme": "#16a34a"  // 堡塔主题色
     }
   },
   rules: [
