@@ -8,7 +8,8 @@
   ![image](https://github.com/user-attachments/assets/d1c2499e-61c1-4253-a8a9-63b10853877a)
 
 - 多数据源知识库支持
-  ![image](https://github.com/user-attachments/assets/5c7a3ee0-044e-4df8-9d08-c6cfffc308bc)
+  ![image](https://github.com/user-attachments/assets/343f2a43-6439-4dd3-8519-a6e45c5d2ff3)
+
 
 - 操作简单
 - 内置聊天界面
