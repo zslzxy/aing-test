@@ -16,7 +16,8 @@ Deploy DeepSeek or other AI models on your computer with just one click.
   ![image](https://github.com/user-attachments/assets/2c7a419b-aeaa-4b5a-8c80-6bee720d366c)
 
 - Multi-source knowledge base support for enhanced data management.
-  ![image](https://github.com/user-attachments/assets/a0c8cb7e-5f77-4b5d-a892-0101d328eb8d)
+  ![image](https://github.com/user-attachments/assets/51a9dc96-ba1c-419d-9d27-1be6268778da)
+
 
 - Built-in chat interface for seamless interaction.  
 - Share your projects with friends online.  
