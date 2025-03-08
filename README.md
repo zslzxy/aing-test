@@ -9,7 +9,7 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 ✅ **Core Features**  
 
 - Deploy DeepSeek or other AI models with one click.
-  ![image](https://github.com/user-attachments/assets/8e3f72e2-f172-45b5-b439-ca1af0613326)
+  ![image](.github/assets/img/1_en.png)
 
   
 - Simple to operate with a user-friendly interface.

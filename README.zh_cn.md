@@ -5,10 +5,10 @@
 **✅核心功能**
 
 - 一键部署DeepSeek或其他AI模型
-  ![image](https://github.com/user-attachments/assets/d1c2499e-61c1-4253-a8a9-63b10853877a)
+  ![image](.github/assets/img/1_zh.png)
 
 - 多数据源知识库支持
-  ![image](https://github.com/user-attachments/assets/343f2a43-6439-4dd3-8519-a6e45c5d2ff3)
+  ![alt text](.github/assets/img/2_zh.png)
 
 
 - 操作简单
