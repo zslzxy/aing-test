@@ -884,7 +884,7 @@ export function openSoftSettings() {
         },
         action: () => {
             return <div>
-                <NButton onClick={() => dialog.destroy()}>确认</NButton>
+                <NButton onClick={() => dialog.destroy()}>{$t("确认")}</NButton>
             </div>
         }
     })
