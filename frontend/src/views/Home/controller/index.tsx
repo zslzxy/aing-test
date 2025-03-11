@@ -803,8 +803,8 @@ export async function openDocUploadDialog() {
         },
         action: () => {
             return <div class="flex justify-end items-center gap-5">
-                <NButton onClick={doCancel} disabled={isUploadingDoc.value ? true : false}>取消</NButton>
-                <NButton type="primary" onClick={doOk} disabled={isUploadingDoc.value || fileOrDirList.value.length == 0 ? true : false}>确认</NButton>
+                <NButton onClick={doCancel} disabled={isUploadingDoc.value ? true : false}>{$t("取消")}</NButton>
+                <NButton type="primary" onClick={doOk} disabled={isUploadingDoc.value || fileOrDirList.value.length == 0 ? true : false}>{$t("确认")}</NButton>
             </div>
         },
 
@@ -884,7 +884,7 @@ export function openSoftSettings() {
         },
         action: () => {
             return <div>
-                <NButton onClick={() => dialog.destroy()}>确认</NButton>
+                <NButton onClick={() => dialog.destroy()}>{$t("确认")}</NButton>
             </div>
         }
     })

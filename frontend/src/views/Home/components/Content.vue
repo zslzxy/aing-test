@@ -31,7 +31,7 @@
                                     <span class="tool-item" @click="copyQuestion(key.replace(/^\d+--/, ''))"><i
                                             class="i-common:copy w-20 h-20"></i></span>
                                 </template>
-                                复制
+                                {{ $t("复制") }}
                             </NTooltip>
                             <!-- <NTooltip>
                                 <template #trigger>
@@ -134,7 +134,7 @@
                                 <template #icon>
                                     <i class="i-tdesign:folder"></i>
                                 </template>
-                                知识库
+                                {{ $t("知识库") }}
                             </NButton>
                         </template>
                         <KnowledgeChoosePanel />
