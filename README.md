@@ -2,6 +2,9 @@
 
 [简体中文](README.zh_cn.md)
 
+AingDesk是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，它还在飞快成长中。
+AingDesk is a simple and easy-to-use AI assistant that supports knowledge bases, model APIs, sharing, internet search, and intelligent agents. It is still growing rapidly.
+
 🚀 **Brief Introduction in One Sentence**  
 
 Deploy DeepSeek or other AI models on your computer with just one click.
@@ -32,8 +35,9 @@ Deploy DeepSeek or other AI models on your computer with just one click.
 
 🎯 **Development Plan**  
 
-- Support for various third-party API integrations.
-- Local deployment of text-to-image hybrid models for creative workflows.
+- Intelligent Agents
+- Simultaneous conversation with multiple models in a single session
+- Docker deployment support
 
 📥 **Quick Installation**  
 
