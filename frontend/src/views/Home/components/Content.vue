@@ -1,5 +1,5 @@
 <template>
-    <div class="content-wrapper" ref="contentWrapper"  v-if="!activeKnowledge">
+    <div class="content-wrapper" ref="contentWrapper" v-if="!activeKnowledge">
         <div class="chat-window" @mouseleave="mouseLeave">
             <NScrollbar style="height: 100%;padding:0 var(--bt-pd-small)" ref="scrollRef"
                 content-style="overflow: hidden;" :on-scroll="scrollCallback" id="scroll-bar">
@@ -14,33 +14,41 @@
 
                 <template v-for="[key, chatContent] in chatHistory" :key="key">
                     <!-- 提问 -->
-                    <div class="question-edit" v-if="questionEditContent == key">
+                    <!-- <div class="question-edit" v-if="questionEditContent == key">
                         <NInput type="textarea" style="width: 60%;" v-model:value="questionEditCOntentForSend" />
                         <div class="operation-btns">
-                            <!-- <NButton type="default" @click="questionEditCancel">取消</NButton>
-                            <NButton type="primary" @click="questionEditConfirm">确认并重新回答</NButton> -->
                         </div>
-                    </div>
+                    </div>  v-else-->
 
-                    <div class="question" v-else>
+                    <div class="question">
                         <NImage :src="userImage" width="30" height="30" class="mt-6px" preview-disabled />
-                        <div class="question-token" v-html="key.replace(/^\d+--/, '')"></div>
-                        <div class="tools">
-                            <NTooltip>
-                                <template #trigger>
-                                    <span class="tool-item" @click="copyQuestion(key.replace(/^\d+--/, ''))"><i
-                                            class="i-common:copy w-20 h-20"></i></span>
-                                </template>
-                                {{ $t("复制") }}
-                            </NTooltip>
-                            <!-- <NTooltip>
-                                <template #trigger>
-                                    <span class="tool-item" @click="editQuestion(key)"><i
-                                            class="i-common:edit w-20 h-20"></i></span>
-                                </template>
-                                编辑
-                            </NTooltip> -->
+                        <!-- <div class="question-token" v-html="key.replace(/^\d+--/, '')"></div> -->
+                        <div class="question-token-wrapper">
+                            <div class="files" v-if="key.files?.length">
+                                <div class="file-item cursor-pointer" v-for="(item, index) in key.files" :key="index"
+                                    @click="openFile(item)">
+                                    <NImage :src="pdf" width="40px" preview-disabled />
+                                    <span class="show-tit">{{ getFileNameFromPath(item) }}</span>
+                                </div>
+                            </div>
+                            <div class="images" v-if="key.images?.length">
+                                <NImage :src="item" width="240px" v-for="item in key.images" :key="item" />
+                            </div>
+                            <div class="question-content">
+                                <div class="question-token" v-html="key.content.replace(/^\d+--/, '')"></div>
+                                <div class="tools">
+                                    <NTooltip v-if="!key.files?.length && !key.files?.length">
+                                        <template #trigger>
+                                            <span class="tool-item"
+                                                @click="copyQuestion(key.content.replace(/^\d+--/, ''))"><i
+                                                    class="i-common:copy w-20 h-20"></i></span>
+                                        </template>
+                                        {{ $t("复制") }}
+                                    </NTooltip>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
                     <!-- 回答 -->
@@ -102,8 +110,7 @@
                                 </NTooltip>
                                 <NTooltip>
                                     <template #trigger>
-                                        <span class="tool-item"
-                                            @click="answerAgain(key.replace(/^\d+--/, ''), chatContent.id as string)"><i
+                                        <span class="tool-item" @click="answerAgain(key, chatContent.id as string)"><i
                                                 class="i-common:refresh w-20 h-20"></i></span>
                                     </template>
                                     {{ $t("重新生成") }}
@@ -116,9 +123,32 @@
         </div>
     </div>
 
-    <div class="search-tools-wrapper"  v-if="!activeKnowledge">
+    <div class="search-tools-wrapper" v-if="!activeKnowledge">
+        <div class="chat-mask" v-if="chatMask.status">
+            <span>{{ chatMask.notice }}</span>
+        </div>
         <div class="search-tools ">
             <div class="tools">
+                <div class="upload-file-list" v-if="questionFiles.length">
+                    <div class="file-item" v-for="(item, index) in questionFileList" :key="index">
+                        <i class="i-tdesign:close-circle-filled w-18 h-18 cursor-pointer del-file text-red5"
+                            @click="removeFile(index)"></i>
+                        <NImage :src="pdf" width="40px" preview-disabled />
+                        <NTooltip trigger="hover">
+                            <template #trigger>
+                                <span class="show-tit">{{ item }}</span>
+                            </template>
+                            <span>{{ item }}</span>
+                        </NTooltip>
+                    </div>
+                </div>
+                <div class="upload-file-list" v-if="questionImageList.length">
+                    <div class="file-item" v-for="(item, index) in questionImageList" :key="index">
+                        <i class="i-tdesign:close-circle-filled w-18 h-18 cursor-pointer del-file text-red5"
+                            @click="removeImage(index)"></i>
+                        <NImage :src="questionImages[index]" width="40px" />
+                    </div>
+                </div>
                 <NInput :placeholder="$t('请输入对话内容')" class="input-token" type="textarea" v-model:value="questionContent"
                     :autosize="{
                         minRows: 3,
@@ -126,6 +156,35 @@
                     }" @keydown.enter="sendChartToModelForKeyBoard" />
 
                 <div class="send-tools">
+                    <NTooltip trigger="hover">
+                        <template #trigger>
+                            <NButton class="h-40" ghost :type="temp_chat ? 'primary' : 'default'" @click="useTempChat"
+                                :focusable="false">
+                                {{ $t("无记忆") }}
+                                <template #icon>
+                                    <i class="i-tdesign:brush"></i>
+                                </template>
+                            </NButton>
+                        </template>
+                        {{ $t(" 能提升单次回复质量，但大模型将没有上下文记忆") }}
+                    </NTooltip>
+                    <div>
+                        <!-- :disabled="netActive" -->
+                        <input type="file" style="display: none;" ref="questionFilesRef" @change="filesChange"
+                            :accept="acceptFileType">
+                        <NTooltip trigger="hover">
+                            <template #trigger>
+                                <NButton @click="chooseQuestionFiles" class="h-40">
+                                    <template #icon>
+                                        <i class="i-tdesign:attach"></i>
+                                    </template>
+                                    {{ $t("上传附件") }}
+                                </NButton>
+                            </template>
+                            <!-- netActive ? $t("联网搜索暂不支持上传文件") : -->
+                            {{ $t("支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式") }}
+                        </NTooltip>
+                    </div>
                     <!-- 对话时选择知识库 -->
                     <NPopover trigger="click">
                         <template #trigger>
@@ -139,24 +198,6 @@
                         </template>
                         <KnowledgeChoosePanel />
                     </NPopover>
-
-                    <!-- <NPopselect v-model:value="targetNet" :options='[
-                        { label: $t("不联网"), value: "" },
-                        { label: $t("百度"), value: "baidu" },
-                        { label: $t("搜狗"), value: "sogou" },
-                        { label: $t("360搜索"), value: "360" },
-                    ]' trigger="hover" style="width: 200px;">
-                        <NButton class="send-btn" icon-placement="right">
-                            <template #icon>
-                                <i class="i-common:arrow-down w-16 h-16"></i>
-                            </template>
-                            {{ targetNet ? {
-                                baidu: $t("百度"),
-                                "360": $t("360搜索"),
-                                sogou: $t("搜狗"),
-                            }[targetNet as keyof typeof labels] : $t("不使用联网搜索") }}
-                        </NButton>
-                    </NPopselect> -->
                     <NButton class="h-40" ghost :type="netActive ? 'primary' : 'default'" @click="useSearchEngine"
                         :focusable="false">
                         <template #icon>
@@ -177,15 +218,18 @@
     <Share />
 
     <!-- 文档预览 -->
-    <div class="doc-content">
-        <MarkdownRender :content="docContent" />
+    <div class="doc-content" v-if="activeKnowledge">
+        <NScrollbar>
+            <MarkdownRender :content="docContent" />
+        </NScrollbar>
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed, nextTick, ref } from 'vue';
-import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NPopselect, NPopover } from 'naive-ui';
+import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NUpload, NPopover, NBadge } from 'naive-ui';
 import { message } from "@/utils/naive-tools"
+// 聊天头像
 import userImage from "@/assets/images/user.png"
 import codellama from "@/assets/images/codellama.png"
 import deepseek from "@/assets/images/deepseek.png"
@@ -200,14 +244,18 @@ import starcoder from "@/assets/images/starcoder.png"
 import tinyllama from "@/assets/images/tinyllama.png"
 import AingDesk from "@/assets/images/logo.png"
 
+// 附件图标
+import pdf from "@/assets/images/PDF.png"
+
 import MarkdownRender from './MarkdownRender.vue';
 import KnowledgeChoosePanel from './KnowledgeChoosePanel.vue';
-import useIndexStore from '../store';
+import useIndexStore, { type MultipeQuestionDto } from '../store';
 import { storeToRefs } from 'pinia';
 import { sendChat, stopGenerate } from '../controller';
 import Settings from './Settings.vue';
 import { useClipboard } from '@vueuse/core'
 import { eventBUS } from '../utils/tools';
+import { getFileNameFromPath } from "@/utils/tools"
 import { isoToLocalDateTime, fixedStrNum } from "@/utils/tools"
 import { useI18n } from 'vue-i18n';
 import Share from "./Share.vue"
@@ -258,6 +306,8 @@ const contentWrapper = ref()
 const indexStore = useIndexStore()
 const {
     questionContent,
+    questionFiles,
+    questionImages,
     currentModel,
     chatHistory,
     userScrollSelf,
@@ -269,7 +319,10 @@ const {
     netActive,
     activeKnowledgeForChat,
     activeKnowledge,
-    docContent
+    docContent,
+    cuttentChatFileList,
+    chatMask,
+    temp_chat
 } = storeToRefs(indexStore)
 
 /********** question-token和question-edit切换 **********/
@@ -308,18 +361,32 @@ function sendChatToModel() {
     userScrollSelf.value = false
     // 將聊天加入到对话历史
     const formatQuestionContent = questionContent.value.replace(/\n/g, '<br>')
-    chatHistory.value.set(formatQuestionContent, { content: "", stat: { model: currentModel.value }, search_result: [] })
+    // 拼接完整key
+    const chatKey = {
+        content: formatQuestionContent,
+        files: questionFiles.value,
+        images: questionImages.value
+    }
+    chatHistory.value.set(chatKey, { content: "", stat: { model: currentModel.value }, search_result: [] })
     nextTick(() => moveFn(10))
     sendChat({
         user_content: formatQuestionContent,
+        images: questionImages.value.join(","),
+        doc_files: questionFiles.value.join(",")
     })
     questionContent.value = ""
+    questionFiles.value = []
+    questionImages.value = []
+    questionFileList.value = []
+    questionImageList.value = []
+    questionFilesCache.value = []
 }
 
 /**
  * @description 键盘发送
  */
 function sendChartToModelForKeyBoard(event: KeyboardEvent) {
+    if (isInChat.value) return
     if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
         sendChatToModel()
@@ -329,14 +396,23 @@ function sendChartToModelForKeyBoard(event: KeyboardEvent) {
 /**
  * @description 重新回答
  */
-function answerAgain(questionContent: string, id: string) {
+function answerAgain(question: MultipeQuestionDto, id: string) {
     if (isInChat.value) {
         message.warning($t("当前正在回答，请稍后"))
     } else {
         isInChat.value = true
-        chatHistory.value.set(questionContent, { content: "", stat: { model: currentModel.value }, search_result: [] })
+        // 拼接完整key  
+        // TODO:此处暂时的方案是追加一个重新回答的记录，后续根据情况决定是否优化
+        const chatKey = {
+            content: question.content.replace(/^\d+--/, ''),
+            files: question.files,
+            images: question.images
+        }
+        chatHistory.value.set(chatKey, { content: "", stat: { model: currentModel.value }, search_result: [] })
         sendChat({
-            user_content: questionContent,
+            user_content: chatKey.content,
+            images: chatKey.images?.join(","),
+            doc_files: chatKey.files?.join(","),
             regenerate_id: id
         })
     }
@@ -414,11 +490,126 @@ function mouseLeave() {
  */
 function useSearchEngine() {
     netActive.value = !netActive.value
-    
+}
+
+
+
+/********** 上传附件处理 ***********/
+// 文件上传限制
+const fileLimit = [
+    "docx",
+    "doc",
+    "xlsx",
+    "xls",
+    "csv",
+    "pptx",
+    "ppt",
+    "pdf",
+    "html",
+    "htm",
+    "md",
+    "markdown",
+    "txt",
+    "log",
+]
+
+const imageLimit = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "bmp",
+    "webp",
+]
+
+const acceptFileType = [...fileLimit, ...imageLimit].reduce((p, v) => {
+    return p + `.${v},`
+}, "")
+// 提问框展示的文件列表
+const questionFileList = ref<any>([])
+const questionImageList = ref<any>([])
+// 文件域
+const questionFilesRef = ref()
+// 选择文件
+function chooseQuestionFiles() {
+    questionFilesRef.value.click()
+}
+// 文件缓存
+const questionFilesCache = ref<File[]>([])
+// 清除缓存中的指定文件
+function removeFileFromeCache(fileName: string) {
+    questionFilesCache.value = questionFilesCache.value.filter(item => item.name !== fileName)
+}
+// 计算文件缓存中所有文件大小总和与20mb的比较
+function checkFileSize(file: File) {
+    const totalSize = questionFilesCache.value.reduce((p, v) => {
+        return p + v.size
+    }, 0)
+    if (totalSize + file.size > 20 * 1024 * 1024) {
+        message.warning($t("附件总大小不能超过20MB"))
+        return false
+    }
+    return true
+}
+
+
+/**
+ * @description 上传附件：文件选择回调
+ */
+function filesChange() {
+    const sizeCheck = checkFileSize(questionFilesRef.value.files[0])
+    if (!sizeCheck) return
+    const ext = questionFilesRef.value.files[0].name.split('.').pop()
+    if (fileLimit.includes(ext)) {
+        questionFileList.value.push(questionFilesRef.value.files[0].name)
+        questionFiles.value.push(questionFilesRef.value.files[0].path)
+        questionFilesCache.value.push(questionFilesRef.value.files[0])
+    } else if (imageLimit.includes(ext)) {
+        questionImageList.value.push(questionFilesRef.value.files[0].name)
+        questionImages.value.push(questionFilesRef.value.files[0].path)
+        questionFilesCache.value.push(questionFilesRef.value.files[0])
+    }
+    questionFilesRef.value.value = '';
+}
+
+/**
+ * @description 删除上传的文件
+ */
+function removeFile(index: number) {
+    const fileName = questionFileList.value.splice(index, 1)
+    questionFiles.value.splice(index, 1)
+    removeFileFromeCache(fileName[0])
+    console.log(questionFilesCache.value)
+}
+
+/**
+ * @description 删除上传的图片
+ */
+function removeImage(index: number) {
+    const fileName = questionImageList.value.splice(index, 1)
+    questionImages.value.splice(index, 1)
+    removeFileFromeCache(fileName[0])
+    console.log(questionFilesCache.value)
+}
+
+/**
+ * @description 打开文件
+ */
+function openFile(filePath: string) {
+    window.open(`file://${filePath}`)
+}
+
+/**
+ * @description 打开临时对话
+ */
+function useTempChat() {
+    temp_chat.value = !temp_chat.value
 }
 </script>
 
 <style scoped lang="scss">
+@use "@/assets/base";
+
 @mixin tools {
     height: 40px;
     visibility: hidden;
@@ -448,6 +639,27 @@ function useSearchEngine() {
     }
 }
 
+@mixin file-item {
+    box-sizing: border-box;
+    padding: 10px;
+    @include base.row-flex-between;
+    justify-content: flex-start;
+    gap: 5px;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+
+    span.show-tit {
+        @include base.single-line-ellipsis;
+    }
+
+    .del-file {
+        position: absolute;
+        right: -8px;
+        top: -8px;
+    }
+}
+
 .content-wrapper {
     display: grid;
     grid-template-rows: calc(100% - 170px);
@@ -467,23 +679,61 @@ function useSearchEngine() {
             margin: 0px 0 30px 0;
 
 
-            .question-token {
-                // background-color: #F5F5F5;
-                box-sizing: border-box;
-                border-radius: 5px;
-                display: flex;
-                padding: 4px var(--bt-pd-small);
-                align-items: center
-            }
-
-            .tools {
-                @include tools();
+            .question-token-wrapper {
+                @include base.column-flex-center;
                 align-items: flex-start;
-                justify-content: flex-end;
-                margin-top: 9px
+
+
+                .files {
+                    background-color: #F5F5F5;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    @include base.row-flex-between;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+
+                    .file-item {
+                        @include file-item;
+                    }
+                }
+
+                .images {
+                    background-color: #F5F5F5;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    @include base.row-flex-between;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+
+                }
+
+                .question-content {
+                    @include base.row-flex-between;
+                    justify-content: flex-start;
+
+                    .question-token {
+                        // background-color: #F5F5F5;
+                        box-sizing: border-box;
+                        border-radius: 5px;
+                        display: flex;
+                        padding: 4px var(--bt-pd-small);
+                        align-items: center;
+                    }
+
+                    .tools {
+                        @include tools();
+                        align-items: flex-start;
+                        justify-content: flex-end;
+                        margin-top: 9px
+                    }
+
+                    @include tools-visible();
+                }
             }
 
-            @include tools-visible();
+
+
+
 
         }
 
@@ -568,7 +818,7 @@ function useSearchEngine() {
                 width: 100%;
                 display: flex;
                 justify-content: flex-end;
-                gap: 20px;
+                gap: 10px;
                 box-sizing: border-box;
                 padding: 0 15px;
                 left: 0px;
@@ -584,12 +834,37 @@ function useSearchEngine() {
 
         }
     }
+
+    .chat-mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 20;
+        @include base.row-flex-between;
+        justify-content: center;
+        color: #fff;
+    }
 }
 
 .doc-content {
-    width: 100%;    
+    width: 100%;
     height: 100%;
     box-sizing: border-box;
     padding: 20px;
+}
+
+
+
+.upload-file-list {
+    box-sizing: border-box;
+    padding: 10px;
+    background: base.$gray-2;
+    @include base.row-flex-between;
+    justify-content: flex-start;
+
+    .file-item {
+        @include file-item;
+    }
 }
 </style>

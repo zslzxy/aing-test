@@ -20,7 +20,8 @@
                 </div> -->
                 <div class="language-setting w-100% flex-between">
                     <span>{{ $t("语言选择") }} </span>
-                   <NSelect :options="languageOptions" v-model:value="currentLanguage" :on-update:value="changeLanguage" style="width:120px"></NSelect>
+                    <NSelect :options="languageOptions" v-model:value="currentLanguage"
+                        :on-update:value="changeLanguage" style="width:120px"></NSelect>
                 </div>
             </NListItem>
             <NListItem>
@@ -37,14 +38,35 @@
                 </div>
             </NListItem>
             <NListItem>
+                <div class="flex justify-between items-center">
+                    <span>Github</span>
+                    <NButtonGroup>
+                        <NButton @click="toStar">
+                            <template #icon>
+                                <i class="i-common:star w-20 h-20"></i>
+                            </template>
+                            star
+                        </NButton>
+
+                        <NButton @click="toIssue">
+                            <template #icon>
+                                <i class="i-common:issues w-20 h-20"></i>
+                            </template>
+                            反馈
+                        </NButton>
+                    </NButtonGroup>
+                </div>
+            </NListItem>
+            <NListItem>
                 <div class="flex justify-center flex-col items-center gap-2.5">
                     <span>{{ $t("加入AingDesk交流群") }}</span>
                     <NImage :src="wechat" width="100px" />
                 </div>
             </NListItem>
             <NListItem>
-                <div class="flex justify-center text-[#5c5c5c]">
-                    {{ $t("当前版本") }}: v1.1.1
+                <div class="flex justify-center gap-2.5 text-[#5c5c5c]">
+                    <span>{{ $t("当前版本") }}: v{{ version }}</span>
+                    <span @click="jumpToTutorial" class="underline text-green-6 cursor-pointer">{{ $t("文档教程") }}</span>
                 </div>
             </NListItem>
         </NList>
@@ -52,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { NSwitch, NPopselect, NList, NListItem, NSelect, NImage, NAlert } from "naive-ui"
+import { NSwitch, NPopselect, NList, NListItem, NSelect, NImage, NAlert, NButton, NButtonGroup } from "naive-ui"
 import Storage from "@/utils/storage"
 import useIndexStore, { type ChatItemInfo } from "../store";
 import { storeToRefs } from "pinia";
@@ -67,7 +89,8 @@ const {
     themeMode,
     languageOptions,
     currentLanguage,
-    targetNet
+    targetNet,
+    version
 } = storeToRefs(useIndexStore())
 // 搜索引擎列表
 const labels = ref({
@@ -108,6 +131,24 @@ const currentLnaguageLabel = computed(() => {
         }
     }, "")
 })
+
+/**
+ * @descriiption github相关跳转
+ */
+function toStar() {
+    window.open("https://github.com/aingdesk/AingDesk")
+}
+
+function toIssue() {
+    window.open("https://github.com/aingdesk/AingDesk/issues")
+}
+
+/**
+ * @description 跳转教程
+ */
+function jumpToTutorial(){
+    window.open("https://docs.aingdesk.com/zh-Hans/")
+}
 </script>
 
 <style scoped lang="scss">

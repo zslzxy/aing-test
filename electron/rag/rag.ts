@@ -38,7 +38,7 @@ const getTemplate = ():{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:
         pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
         pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
         pub.lang('你的回答应该综合多个相关知识片段来回答，不能重复引用一个知识片段。'),
-        pub.lang('你的回答结构要包含是什么？为什么？怎么做？这三要素。'),
+        pub.lang(''),
         pub.lang('以下内容是基于用户发送的消息的检索结果'),
     ]
 
@@ -70,6 +70,8 @@ ${TEMPLATES_LANG[2]}:
 - ${TEMPLATES_LANG[12]}
 - ${TEMPLATES_LANG[13]}
 
+{doc_files}
+
 # ${TEMPLATES_LANG[14]}:
 {question}`
 
@@ -94,7 +96,8 @@ ${TEMPLATES_LANG[2]}:
 ## ${OTHER_SYSTEM_PROMPT_TPL_LANG[14]}:
 <search-results>
 {search_results}
-</search-results>`
+</search-results>
+{doc_files}`
 
     const  QUERY_PROMPT_TPL = `# ${QUERY_PROMPT_TPL_LANG[0]}
 ## ${QUERY_PROMPT_TPL_LANG[1]}: {current_date_time}
@@ -149,7 +152,7 @@ const getUserLocation = () => {
 
 
 // 生成 DeepSeek 类型的提示信息
-const generateDeepSeekPrompt = (searchResultList: any[], query: string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateDeepSeekPrompt = (searchResultList: any[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -161,12 +164,24 @@ ${pub.lang('内容')}:${result.content}
 [${pub.lang('检索结果')} ${idx} end]`
     ).join("\n");
 
+
+    let doc_files_str = doc_files.map(
+        (doc_file, idx) =>
+            `[${pub.lang('用户文档')} ${idx+1} begin]
+${pub.lang('内容')}: ${doc_file}
+[${pub.lang('用户文档')} ${idx} end]`
+    ).join("\n");
+
+
+    doc_files_str = `${pub.lang('以下是用户上传的文档内容，每个文档内容都是[用户文档 X begin]...[用户文档 X end]格式的，你可以根据需要选择其中的内容。')}
+${doc_files_str}`
     const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate();
     const userPrompt = DEEPSEEK_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
        .replace("{question}", query)
-       .replace("{user_location}", userLocation);
+       .replace("{user_location}", userLocation)
+        .replace("{doc_files}", doc_files_str);
 
     const systemPrompt = DEEPSEEK_SYSTEM_PROMPT_TPL;
 
@@ -174,7 +189,7 @@ ${pub.lang('内容')}:${result.content}
 };
 
 // 生成其他类型的提示信息
-const generateOtherPrompt = (searchResultList: any[], query: string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateOtherPrompt = (searchResultList: any[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -183,11 +198,21 @@ const generateOtherPrompt = (searchResultList: any[], query: string): { userProm
             `<result source="${result.link}" id="${idx+1}">${result.content}</result>`
     ).join("\n");
 
+
+    let doc_files_str = doc_files.map(
+        (doc_file, idx) =>
+            `<doc source="${doc_file}" id="${idx+1}">${doc_file}</doc>`
+    ).join("\n");
+    doc_files_str = `${pub.lang('以下是用户上传的文档内容')}
+<doc_files>
+${doc_files_str}
+</doc_files>`;
     const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
     const systemPrompt = OTHER_SYSTEM_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
-       .replace("{user_location}", userLocation);
+       .replace("{user_location}", userLocation)
+         .replace("{doc_files}", doc_files_str);
 
     const userPrompt = OTHER_PROMPT_TPL.replace("{question}", query);
 
@@ -384,7 +409,9 @@ export class Rag {
     public async getRagInfo(ragName:string) {
         let ragConfigFile = path.resolve(pub.get_data_path(), 'rag',ragName, 'config.json');
         if (pub.file_exists(ragConfigFile)) {
-            return JSON.parse(pub.read_file(ragConfigFile));
+            let result =  JSON.parse(pub.read_file(ragConfigFile));
+            if (!result.supplierName) result.supplierName = 'ollama'
+            return result;
         }
         return null;
     }
@@ -425,26 +452,38 @@ export class Rag {
      * @param ragList:string[] rag列表
      * @param model:string 模型名称
      * @param queryText:string 查询文本
+     * @param doc_files:string[] 文档内容列表
      * @returns Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }>
      */
-    public async searchAndSuggest(ragList: string[], model: string, queryText: string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> {
-        let docContentList = await this.searchDocument(ragList, queryText)
+    public async searchAndSuggest(ragList: string[], model: string, queryText: string,doc_files:string[]): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> {
+        try{
+            let docContentList = await this.searchDocument(ragList, queryText)
 
-        // 兼容搜索引擎的格式，link => doc_file,title=>doc_name,content=>doc
-        let searchResultList:any[] = [];
-        for(let docContent of docContentList){
-            
-            searchResultList.push({
-                link: docContent.docFile,
-                title: docContent.docName,
-                content: docContent.doc
-            });
-        }
+            // 兼容搜索引擎的格式，link => doc_file,title=>doc_name,content=>doc
+            let searchResultList:any[] = [];
+            for(let docContent of docContentList){
+                if(!docContent.docFile || !docContent.docName){
+                    continue;
+                }
+                searchResultList.push({
+                    link: docContent.docFile,
+                    title: docContent.docName,
+                    content: docContent.doc
+                });
+            }
 
-        if (model.indexOf("deepseek") !== -1) {
-            return generateDeepSeekPrompt(searchResultList, queryText);
-        } else {
-            return generateOtherPrompt(searchResultList, queryText);
+            if (model.indexOf("deepseek") !== -1) {
+                return generateDeepSeekPrompt(searchResultList, queryText,doc_files);
+            } else {
+                return generateOtherPrompt(searchResultList, queryText,doc_files);
+            }
+        }catch(e:any){
+            return {
+                userPrompt: queryText,
+                systemPrompt: '',
+                searchResultList:[],
+                query:`${queryText}, error: ${e.message}`
+            }
         }
     }
 

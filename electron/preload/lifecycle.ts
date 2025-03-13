@@ -82,6 +82,18 @@ class Lifecycle {
       require('electron').shell.openExternal(url);
     });
 
+    // 拦截window.open
+    win.webContents.setWindowOpenHandler((Details) => {
+      const { url } = Details;
+      if(url.startsWith('http')){
+        require('electron').shell.openExternal(url);
+      }else{
+        // 直接打开文件
+        pub.openFile(decodeURIComponent(url.replace('file:///', '')));
+      }
+      return { action: 'deny' };
+    })
+
 
     
   }

@@ -1,10 +1,10 @@
 import { pub } from '../class/public';
-import { logger } from 'ee-core/log';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Rag } from '../rag/rag';
 import { LanceDBManager } from '../rag/vector_database/vector_lancedb';
-import ollama from 'ollama';
+import { GetSupplierEmbeddingModels } from '../service/model';
+import { ollamaService } from '../service/ollama';
 
 // 知识库保存路径
 const RAG_PATH = pub.get_data_path() + "/rag";
@@ -22,21 +22,44 @@ class RagController {
      */
     async rag_status() {
         try {
-            await ollama.show({ model: 'bge-m3:latest' });
-            return pub.return_success(pub.lang('知识库组件正常'));
+            // 检查是否有嵌套模型
+            let result = await GetSupplierEmbeddingModels();
+            if(Object.keys(result).length > 0){
+                return pub.return_success(pub.lang('知识库组件正常'));
+            }
+
+            let ollamaResult = await ollamaService.get_embedding_model_list();
+            if(ollamaResult.length > 0){
+                return pub.return_success(pub.lang('知识库组件正常'));
+            }
+            return pub.return_error(pub.lang('请选安装或接入嵌入模型'));
+
         } catch (e: any) {
-            return pub.return_error(pub.lang('请先安装bge-m3:latest'), e.message);
+            return pub.return_error(pub.lang('请选安装或接入嵌入模型'), e.message);
         }
     }
 
 
+
+    /**
+     * 获取嵌套模型列表
+     * @returns {Promise<any>} - 嵌套模型列表
+     */
+    async get_embedding_models() {
+        let result = await GetSupplierEmbeddingModels()
+        result['ollama'] = await ollamaService.get_embedding_model_list();
+        return pub.return_success(pub.lang('获取成功'), result);
+    }
+
+
+    
     /**
      * 创建知识库
      * @param {string} ragName - 知识库名称
      * @param {string} ragDesc - 知识库描述
      * @returns {Promise<any>} - 创建结果
      */
-    async create_rag(args: { ragName: string, ragDesc: string }): Promise<any> {
+    async create_rag(args: { ragName: string, ragDesc: string,enbeddingModel?:string,supplierName?:string }): Promise<any> {
         // logger.info("create rag");
 
         // 检查参数
@@ -46,6 +69,14 @@ class RagController {
 
         if (args.ragName == 'vector_db') {
             return pub.return_error(pub.lang('知识库名称不能为vector_db'));
+        }
+
+        if(!args.enbeddingModel){
+            args.enbeddingModel = 'bge-m3:latest';
+        }
+
+        if(!args.supplierName){
+            args.supplierName = 'ollama';
         }
 
         // 知识库保存路径
@@ -65,7 +96,8 @@ class RagController {
             ragName: args.ragName, // 知识库名称
             ragDesc: args.ragDesc,  // 知识库描述
             ragCreateTime: pub.time(), // 创建时间
-            embeddingModel: 'bge-m3:latest', // 嵌套模型
+            supplierName: args.supplierName, // 嵌套模型供应商名称
+            embeddingModel: args.enbeddingModel, // 嵌套模型
             searchStrategy: 1,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
             maxRecall: 10,  // 最大召回数
             recallAccuracy: 0.1,  // 召回精度
@@ -152,7 +184,7 @@ class RagController {
                     ragDesc.ragCreateTime = pub.time() // 创建时间
                     ragDesc.embeddingModel = 'bge-m3:latest' // 嵌套模型
                     ragDesc.searchStrategy = 1 // 检索策略 1=混合检索 2=向量检索 3=全文检索
-                    ragDesc.maxRecall = 10 // 最大召回数
+                    ragDesc.maxRecall = 5 // 最大召回数
                     ragDesc.recallAccuracy = 0.1 // 召回精度
                     ragDesc.resultReordering = 1 // 结果重排序 1=开启 0=关闭 PS: 目前仅语义重排
                     ragDesc.rerankModel = '' // 重排序模型 PS: 未实现
@@ -161,6 +193,11 @@ class RagController {
                     ragDesc.keywordWeight = 0.3 // 关键词权重
 
                     // 重新写入文件
+                    pub.write_file(ragDescFile, JSON.stringify(ragDesc, null, 4));
+                }
+
+                if(!ragDesc.supplierName){
+                    ragDesc.supplierName = 'ollama';
                     pub.write_file(ragDescFile, JSON.stringify(ragDesc, null, 4));
                 }
 

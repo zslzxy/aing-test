@@ -67,6 +67,19 @@ export function fixedStrNum(strNum: string | number) {
 
 }
 
+/**
+ * @description 生成随机英文字符
+ */
+export function getRandomStringFromSet(length:number) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+  }
+  return result;
+}
+
 
 /**
  * @description 模拟发送请求
@@ -77,4 +90,16 @@ export async function testRequest() {
       resolve(true)
     }, 1000)
   })
+}
+
+/**
+ * @description 获取文件路径中的文件名+后缀
+ */
+export function getFileNameFromPath(filePath:string) {
+  // 先将可能存在的反斜杠替换为正斜杠，统一处理
+  const normalizedPath = filePath.replace(/\\/g, '/');
+  // 按正斜杠分割路径字符串
+  const parts = normalizedPath.split('/');
+  // 获取最后一个部分，即文件名（包含后缀）
+  return parts[parts.length - 1];
 }

@@ -518,5 +518,325 @@
     "{0}个文件": {
         "src": "{0}个文件",
         "dst": "{0} dosyaları"
+    },
+    "正在搜索...": {
+        "src": "正在搜索...",
+        "dst": "Aranıyor..."
+    },
+    "请输入知识库名称": {
+        "src": "请输入知识库名称",
+        "dst": "Lütfen bilgi tabanı adını girin"
+    },
+    "描述": {
+        "src": "描述",
+        "dst": "Açıklama"
+    },
+    "请输入知识库描述": {
+        "src": "请输入知识库描述",
+        "dst": "Lütfen bilgi tabanı açıklamasını girin"
+    },
+    "嵌入模型": {
+        "src": "嵌入模型",
+        "dst": "Gömülü Model"
+    },
+    "选择模型": {
+        "src": "选择模型",
+        "dst": "Model Seçin"
+    },
+    "选择知识库": {
+        "src": "选择知识库",
+        "dst": "Bilgi tabanı seçin"
+    },
+    "文档嵌入中，请稍后": {
+        "src": "文档嵌入中，请稍后",
+        "dst": "Belge gömülü, lütfen daha sonra"
+    },
+    "已嵌入完成, 可正常调用": {
+        "src": "已嵌入完成, 可正常调用",
+        "dst": "Gömülü tamamlandı, normal çağrılabilir"
+    },
+    "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "İçeri girişinde, bekleme zamanı dosyaların sayısına bağlı. Bu birkaç dakika on dakika sürebilir."
+    },
+    "第三方模型API": {
+        "src": "第三方模型API",
+        "dst": "Üçüncü Taraf Model API"
+    },
+    "本地模型": {
+        "src": "本地模型",
+        "dst": "Yerel Model"
+    },
+    "添加模型服务商": {
+        "src": "添加模型服务商",
+        "dst": "Model Servis Sağlayıcısı Ekle"
+    },
+    "使用教程": {
+        "src": "使用教程",
+        "dst": "Öğreticileri Kullanma"
+    },
+    "删除服务商": {
+        "src": "删除服务商",
+        "dst": "Servis Sağlayıcısını Sil"
+    },
+    "API密钥": {
+        "src": "API密钥",
+        "dst": "API anahtarı"
+    },
+    "请输入API密钥": {
+        "src": "请输入API密钥",
+        "dst": "API anahtarını girin"
+    },
+    "检查": {
+        "src": "检查",
+        "dst": "Kontrol"
+    },
+    "点次获取密钥": {
+        "src": "点次获取密钥",
+        "dst": "Anahtarı Alın"
+    },
+    "API地址": {
+        "src": "API地址",
+        "dst": "API Adresi"
+    },
+    "请输入API地址": {
+        "src": "请输入API地址",
+        "dst": "Lütfen API adresini girin"
+    },
+    "示例": {
+        "src": "示例",
+        "dst": "Örnek"
+    },
+    "保存API": {
+        "src": "保存API",
+        "dst": "API kaydetme"
+    },
+    "默认从/models获取所有模型": {
+        "src": "默认从/models获取所有模型",
+        "dst": "Öntanımlı olarak, tüm modeller/modellerden alınır."
+    },
+    "开关所有": {
+        "src": "开关所有",
+        "dst": "Hepsini değiştir"
+    },
+    "修改别名": {
+        "src": "修改别名",
+        "dst": "Takma Adı Değiştir"
+    },
+    "当前服务商下属暂无模型可用": {
+        "src": "当前服务商下属暂无模型可用",
+        "dst": "Mevcut hizmet sağlayıcısı tarafından mevcut bir model yok"
+    },
+    "添加模型": {
+        "src": "添加模型",
+        "dst": "Modeli Ekle"
+    },
+    "模型ID": {
+        "src": "模型ID",
+        "dst": "Model ID'si"
+    },
+    "请输入模型ID": {
+        "src": "请输入模型ID",
+        "dst": "Lütfen model kimliğini girin"
+    },
+    "模型别名": {
+        "src": "模型别名",
+        "dst": "Model alias"
+    },
+    "请输入模型别名": {
+        "src": "请输入模型别名",
+        "dst": "Lütfen model takma adını girin"
+    },
+    "模型功能": {
+        "src": "模型功能",
+        "dst": "Model Özellikleri"
+    },
+    "添加": {
+        "src": "添加",
+        "dst": "ekle"
+    },
+    "供应商名称": {
+        "src": "供应商名称",
+        "dst": "Tedarikçi Adı"
+    },
+    "接口地址": {
+        "src": "接口地址",
+        "dst": "Arayüz Adresi"
+    },
+    "需要兼容openAI格式的接口": {
+        "src": "需要兼容openAI格式的接口",
+        "dst": "OpenAI formatı ile uyumlu bir arayüz gerektirir"
+    },
+    "密钥": {
+        "src": "密钥",
+        "dst": "gizli anahtar"
+    },
+    "请选择模型功能": {
+        "src": "请选择模型功能",
+        "dst": "Lütfen model seçin"
+    },
+    "请输入供应商名称": {
+        "src": "请输入供应商名称",
+        "dst": "Lütfen tedarikçi adını girin"
+    },
+    "模型添加成功": {
+        "src": "模型添加成功",
+        "dst": "Model başarıyla eklendi"
+    },
+    "是否确定删除当前模型？该操作不可逆": {
+        "src": "是否确定删除当前模型？该操作不可逆",
+        "dst": "Mevcut modeli kaldırdığınızdan emin misiniz? İşlem geri dönüşümüz."
+    },
+    "请填写完整配置信息": {
+        "src": "请填写完整配置信息",
+        "dst": "Lütfen tam yapılandırma bilgilerini doldurun."
+    },
+    "配置保存成功": {
+        "src": "配置保存成功",
+        "dst": "Yapılandırma başarıyla kaydedildi"
+    },
+    "缺少API密钥": {
+        "src": "缺少API密钥",
+        "dst": "API anahtarı eksik"
+    },
+    "缺少API地址": {
+        "src": "缺少API地址",
+        "dst": "API adresi eksik"
+    },
+    "模型启用成功": {
+        "src": "模型启用成功",
+        "dst": "Model başarıyla etkinleştirildi"
+    },
+    "模型禁用成功": {
+        "src": "模型禁用成功",
+        "dst": "Model devre dışı bırakılması başarılı"
+    },
+    "已启用全部模型": {
+        "src": "已启用全部模型",
+        "dst": "Tüm modeller etkinleştirildi"
+    },
+    "已禁用全部模型": {
+        "src": "已禁用全部模型",
+        "dst": "Tüm modeller etkisizlendi"
+    },
+    "添加成功": {
+        "src": "添加成功",
+        "dst": "Başarılı ekle"
+    },
+    "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！": {
+        "src": "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！",
+        "dst": "Mevcut hizmet teminatçısını silmek ister misiniz? Bu operasyon aynı anda bütün altı modelleri silecek, lütfen dikkatli devam edin!"
+    },
+    "删除成功": {
+        "src": "删除成功",
+        "dst": "Başarılı sil"
+    },
+    "一键把AI模型部署在你的电脑": {
+        "src": "一键把AI模型部署在你的电脑",
+        "dst": "Bir tıklama ile AI modelini bilgisayarınıza dağıtın"
+    },
+    "免费开源无限制": {
+        "src": "免费开源无限制",
+        "dst": "Sınırları olmayan özgür açık kaynak"
+    },
+    "可在线分享他人使用": {
+        "src": "可在线分享他人使用",
+        "dst": "Başkalarının kullanılması için internette paylaşılabilir."
+    },
+    "支持联网大幅度提升答案质量": {
+        "src": "支持联网大幅度提升答案质量",
+        "dst": "Ağ desteği, cevap kalitesini önemli ölçüde artırır"
+    },
+    "使用第三方模型": {
+        "src": "使用第三方模型",
+        "dst": "Üçüncü taraf modeli kullanın"
+    },
+    "使用本地模型": {
+        "src": "使用本地模型",
+        "dst": "Yerel model kullanın"
+    },
+    "简单好用的AI助手": {
+        "src": "简单好用的AI助手",
+        "dst": "Basit ve kolay kullanılan AI asistanı"
+    },
+    "支持联网搜索和知识库": {
+        "src": "支持联网搜索和知识库",
+        "dst": "Ağ arama ve bilgi tabanı desteği"
+    },
+    "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型": {
+        "src": "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型",
+        "dst": "İpucu: Paylaşım listesi boş ise, paylaşım bağlantısı hizmeti otomatik olarak durur ve AingDesk üzerinden herhangi bir modele erişilemez."
+    },
+    "上传附件": {
+        "src": "上传附件",
+        "dst": "Ekler yükle"
+    },
+    "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Şu anda kullandığınız [{0}] modeli etkinleştirildi ya da silildi. Lütfen modelleri tekrar etkinleştirin ya da değiştirin."
+    },
+    "请安装或接入嵌入模型": {
+        "src": "请安装或接入嵌入模型",
+        "dst": "Lütfen içerikli modeli kurun ya da bağlayın"
+    },
+    "使用本地模型嵌入（推荐）": {
+        "src": "使用本地模型嵌入（推荐）",
+        "dst": "Yerel modeli içeri alın (önerildi)"
+    },
+    "请选择从Ollama安装-Embedding-安装bge-m3:latest": {
+        "src": "请选择从Ollama安装-Embedding-安装bge-m3:latest",
+        "dst": "Lütfen Ollama'dan kurulmayı seçin - İçeri - bge- m3 kurulmayı: latest"
+    },
+    "使用第三方API提供模型嵌入": {
+        "src": "使用第三方API提供模型嵌入",
+        "dst": "Üçüncü parti APIleri kullanarak model içerikliği sağlamak için"
+    },
+    "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动": {
+        "src": "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动",
+        "dst": "Lütfen silikon tabanlı hareket gibi, içeri giren üçüncü parti APIleri destekleyen üçüncü parti modellere bağlanmayı seçin"
+    },
+    "从Ollama安装": {
+        "src": "从Ollama安装",
+        "dst": "Ollama'dan Yükle"
+    },
+    "接入第三方模型": {
+        "src": "接入第三方模型",
+        "dst": "Üçüncü taraf modellerine erişim"
+    },
+    "已启用模型该服务商": {
+        "src": "已启用模型该服务商",
+        "dst": "Bu hizmet sağlayıcısı etkinleştirilmiş model"
+    },
+    "已禁用模型该服务商": {
+        "src": "已禁用模型该服务商",
+        "dst": "Model bu hizmet teminatçısı için etkisizlendi"
+    },
+    "无记忆": {
+        "src": "无记忆",
+        "dst": "Hafızasız"
+    },
+    " 能提升单次回复质量，但大模型将没有上下文记忆": {
+        "src": " 能提升单次回复质量，但大模型将没有上下文记忆",
+        "dst": "Tek bir cevapın kalitesini geliştirebilir, ama büyük modelde anlaşılan hafıza olmayacak."
+    },
+    "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式": {
+        "src": "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式",
+        "dst": "Dosyalar ve resimler yüklemeyi (20 MB'e kadar) destekler ve PDF, DOC, TXT gibi formatları destekler."
+    },
+    "附件总大小不能超过20MB": {
+        "src": "附件总大小不能超过20MB",
+        "dst": "Bağlantıların toplam boyutu 20MB'den fazla kalamaz"
+    },
+    "请选择知识库": {
+        "src": "请选择知识库",
+        "dst": "Lütfen bilgi tabanı seçin"
+    },
+    "文档教程": {
+        "src": "文档教程",
+        "dst": "Belge Öğretmeni"
+    },
+    "查看知识库教程": {
+        "src": "查看知识库教程",
+        "dst": "Bilim Temel Öğretmeni Göster"
     }
 }

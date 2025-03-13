@@ -7,6 +7,11 @@ import { logger } from 'ee-core/log';
  * @class
  */
 class IndexController {
+
+    async get_version(): Promise<any> {
+        return pub.return_success(pub.lang("获取成功"),{version:pub.version()});
+    }
+
     /**
      * 获取当前语言和支持的语言列表
      * @returns {Promise<Object>} 包含语言列表和当前语言的对象，封装在成功响应中返回
@@ -141,6 +146,8 @@ class IndexController {
         // 返回成功响应
         return pub.return_success(languagePack, null);
     }
+
+
 }
 
 /**

@@ -1,7 +1,7 @@
 <template>
     <div class="knowledge-choose-panel">
         <div class="header mb-10">
-            <span class="header-tit"><i class="i-tdesign:folder w-18 h-18 text-[var(--bt-tit-color-secondary)]"></i>选择知识库</span>
+            <span class="header-tit"><i class="i-tdesign:folder w-18 h-18 text-[var(--bt-tit-color-secondary)]"></i>{{$t("选择知识库")  }}</span>
         </div>
 
         <NList hoverable clickable>
@@ -20,6 +20,8 @@
 import { NList, NListItem } from 'naive-ui';
 import { storeToRefs } from 'pinia';
 import useIndexStore from '../store';
+import { useI18n } from 'vue-i18n';
+const { t: $t } = useI18n();
 const { knowledgeList, activeKnowledgeForChat } = storeToRefs(useIndexStore());
 
 /***

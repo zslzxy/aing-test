@@ -1,16 +1,17 @@
 <template>
     <NForm label-placement="top" class="mt-20" :model="createKnowledgeFormData" :rules="rules"
         ref="createKnowledgeModelRef">
-        <NFormItem label="名称" path="ragName">
-            <NInput placeholder="请输入知识库名称" v-model:value="createKnowledgeFormData.ragName"
-                @keydown.enter="createConfirm" :disabled="disabledKey == 'ragName'" />
+        <NFormItem :label="$t('名称')" path="ragName">
+            <NInput :placeholder="$t('请输入知识库名称')" v-model:value="createKnowledgeFormData.ragName"
+                :disabled="disabledKey == 'ragName'" />
         </NFormItem>
-        <NFormItem label="描述" path="ragDesc">
-            <NInput placeholder="请输入知识库描述" v-model:value="createKnowledgeFormData.ragDesc"
-                @keydown.enter="createConfirm" type="textarea" :disabled="disabledKey == 'ragDesc'" />
+        <NFormItem :label="$t('描述')" path="ragDesc">
+            <NInput :placeholder="$t('请输入知识库描述')" v-model:value="createKnowledgeFormData.ragDesc" type="textarea"
+                :disabled="disabledKey == 'ragDesc'" />
         </NFormItem>
-        <NFormItem label="嵌入模型">
-            <NSelect placeholder="选择模型" v-model:value="placeKey" disabled />
+        <NFormItem :label="$t('嵌入模型')">
+            <NSelect :placeholder="$t('选择模型')" v-model:value="createKnowledgeFormData.enbeddingModel"
+                :options="embeddingModelsList" label-field="title" value-field="model" @update:value="doSelectModel" />
         </NFormItem>
     </NForm>
 </template>
@@ -20,20 +21,21 @@ import { NForm, NFormItem, NInput, NSelect } from "naive-ui"
 import { storeToRefs } from "pinia";
 import useIndexStore from "../store";
 import { ref, watch } from "vue";
-import { useI18n } from "vue-i18n";
+import i18n from "@/lang";
+const $t = i18n.global.t
 defineProps<{ disabledKey?: string }>()
-const { createKnowledgeFormData, createKnowledgeModelRef } = storeToRefs(useIndexStore())
+const { createKnowledgeFormData, createKnowledgeModelRef, embeddingModelsList } = storeToRefs(useIndexStore())
 const rules = ref({
-    ragName: [{ required: true, message: '请输入知识库名称', trigger: 'blur' }],
-    ragDesc: [{ required: true, message: '请输入知识库描述', trigger: 'blur' }],
+    ragName: [{ required: true, message: $t('请输入知识库名称'), trigger: 'blur' }],
+    ragDesc: [{ required: true, message: $t('请输入知识库描述'), trigger: 'blur' }],
 })
-const placeKey = ref("bge-m3:latest")
+const placeKey = ref("")
 
 /**
- * @description enter确认提交知识库创建 
+ * @description 选择模型回调 
  */
-function createConfirm() {
-    console.log(1111111)
+function doSelectModel(_: any, option: any) {
+    createKnowledgeFormData.value.supplierName = option.supplierName
 }
 
 watch(() => createKnowledgeFormData.value.ragName, (val) => {

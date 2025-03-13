@@ -166,7 +166,6 @@ watch(currentLanguage, () => {
 })
 // 搜索
 const handleSearch = () => {
-    console.log("搜索")
     filterList.value = visibleModelList.value.filter((item) => {
         //模型含有搜索内容，且功能类型为选中的功能类型
         return item.full_name.toLowerCase().includes(search.value.toLowerCase()) && (modeType.value == "all" ? true : modeType.value === 'installed' ? item.install : item.capability.includes(modeType.value))
@@ -293,6 +292,7 @@ function removeModelConfirm(model: string) {
 function doRemoveModel() {
     modelDelLoading.value = true
     removeModel()
+    getVisibleModelList()
 }
 
 /**
@@ -327,7 +327,7 @@ watch(() => settingsShow.value, (val) => {
     } else {
         filterList.value = visibleModelList.value
     }
-})
+},{immediate:true})
 </script>
 
 <style scoped lang="scss">

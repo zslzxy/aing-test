@@ -4,9 +4,10 @@ import { v1 as uuidv1 } from 'uuid';
 import NodeCache from 'node-cache';
 import * as path from 'path';
 import * as Ps from 'ee-core/ps';
-import { execSync } from 'child_process';
+import {exec, execSync } from 'child_process';
+import axios from 'axios'
 
-type ReturnMsg = {
+export type ReturnMsg = {
     status:number, // 状态 0成功 -1失败
     code:number, // 状态码
     msg:string,  // 消息
@@ -60,6 +61,20 @@ class Public {
             return '';
         }
         return fs.readFileSync(file, 'utf-8');
+    }
+
+
+    // 读取JSON文件
+    read_json(file: string): any {
+        if (!fs.existsSync(file)) {
+            return {};
+        }
+        return JSON.parse(fs.readFileSync(file, 'utf-8'));
+    }
+
+    // 写入JSON文件
+    write_json(file: string, data: any): void {
+        fs.writeFileSync(file, JSON.stringify(data, null, 4));
     }
 
     // 写文件
@@ -169,6 +184,80 @@ class Public {
     }
 
     /**
+     * 发送异步HTTP请求
+     * @param {string} url - 请求的URL
+     * @param {Object} options - 请求选项
+     * @param {string} [options.method='GET'] - 请求方法 ('GET', 'POST', 'PUT', 'DELETE' 等)
+     * @param {Object} [options.headers={}] - 请求头
+     * @param {Object|string} [options.data] - 发送的数据
+     * @param {number} [options.timeout=10000] - 超时时间(毫秒)
+     * @param {string} [options.encoding='utf8'] - 响应编码
+     * @param {boolean} [options.json=true] - 是否自动解析JSON响应
+     * @returns {Promise<Object>} 响应对象，包含statusCode, body, headers
+     */
+    async httpRequest(url:string, options:{
+        method?:string, // 请求方法 ('GET', 'POST', 'PUT', 'DELETE' 等)
+        headers?:any, // 请求头
+        data?:any, // 发送的数据
+        timeout?:number, // 超时时间(毫秒)
+        encoding?:string, // 响应编码
+        json?:boolean // 是否自动解析JSON响应
+    } = {}):Promise<{statusCode:number,body:any,headers:any,error?:boolean}>{
+        try {
+            const method = options.method?.toUpperCase() || 'GET';
+            const timeout = options.timeout || 10000;
+            const shouldParseJson = options.json !== false;
+            
+            // 构建请求配置
+            const requestOptions:any = {
+                method: method,
+                url: url,
+                headers: options.headers || { 'User-Agent': 'AingDesk/'+this.version() },
+                timeout: timeout,
+                responseType: shouldParseJson ? 'json' : 'text',
+                responseEncoding: options.encoding || 'utf8',
+                proxy: false
+            };
+
+            // 处理请求体数据
+            if (options.data) {
+                if (method === 'GET') {
+                    console.warn('Data provided with GET request will be ignored');
+                } else {
+                    requestOptions.data = options.data;
+                }
+            }
+
+            // 发送请求
+            const response = await axios(requestOptions);
+            
+            return {
+                statusCode: response.status,
+                body: response.data,
+                headers: response.headers
+            };
+        } catch (error:any) {
+            if (error.response) {
+                // 服务器响应了，但状态码不在2xx范围
+                return {
+                    statusCode: error.response.status,
+                    body: error.response.data,
+                    headers: error.response.headers,
+                    error: true
+                };
+            } else if (error.request) {
+                // 请求已发送但没有收到响应
+                throw new Error(`请求超时或无响应: ${error.message}`);
+            } else {
+                // 请求配置有问题
+                throw new Error(`请求配置错误: ${error.message}`);
+            }
+        }
+    }
+
+
+
+    /**
      * @name 获取根目录
      * @returns {string} 根目录
      * @example get_root_path()
@@ -260,7 +349,13 @@ class Public {
             let default_config = {"max_common_use":10}
             this.write_file(config_file,JSON.stringify(default_config));
         }
-        let config = JSON.parse(this.read_file(config_file));
+        let config = {}
+        try{
+            config = JSON.parse(this.read_file(config_file));
+        }catch(e){
+            config = {};
+        }
+        
         if(key === undefined) return config;
         return config[key];
     }
@@ -289,7 +384,11 @@ class Public {
         let config_file = path.resolve(this.get_data_path() , 'config.json');
         let config = {};
         if(fs.existsSync(config_file)){
-            config = JSON.parse(this.read_file(config_file));
+            try{
+                config = JSON.parse(this.read_file(config_file));
+            }catch(e){
+                config = {};
+            }
         }
         config[key] = value;
         this.write_file(config_file,JSON.stringify(config));
@@ -755,11 +854,85 @@ class Public {
         return size;
     }
 
+    /**
+     * 将图片转为base64
+     * @param file 文件路径
+     * @returns string
+     */
+    imageToBase64(file:string):string{
+        let data = fs.readFileSync(file);
+        let base64Data = data.toString('base64');
+
+        // 增加图片格式前缀
+        let ext = path.extname(file).replace('.','');
+        let imgBase64 = `data:image/${ext};base64,${base64Data}`;
+        return imgBase64;
+    }
+
+
+    // 获取当前日期时间字符串
+    getCurrentDateTime = () => {
+        // 获取当前日期时间
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const hour = now.getHours();
+        const minute = now.getMinutes();
+        const second = now.getSeconds();
+
+        // 星期几
+        const weekDay = [
+            this.lang('星期日'), 
+            this.lang('星期一'), 
+            this.lang('星期二'),
+            this.lang('星期三'), 
+            this.lang('星期四'), 
+            this.lang('星期五'), 
+            this.lang('星期六')][now.getDay()];
+
+        // 上午/下午
+        const ampm = hour < 12 ? this.lang('上午') : this.lang('下午');
+
+        return `${year}-${month}-${day} ${hour}:${minute}:${second} -- ${ampm}  ${weekDay}`;
+    }
+
+    // 获取用户所在地区
+    getUserLocation = () => {
+        if(pub.get_language() == 'zh'){
+            return global.area || this.lang("未知地区");
+        }
+        return this.lang("未知地区");
+    }
+
+    // 打开文件
+    openFile(filePath) {
+        let command;
+        // 根据操作系统确定命令
+        switch (process.platform) {
+          case 'win32': // Windows
+            command = `start "" "${filePath}"`;
+            break;
+          case 'darwin': // macOS
+            command = `open "${filePath}"`;
+            break;
+          case 'linux': // Linux
+            command = `xdg-open "${filePath}"`;
+            break;
+          default:
+            console.error('不支持的操作系统');
+            return;
+        }
+        
+        // 执行命令
+        exec(command, (error) => {
+          if (error) {
+            return;
+          }
+        });
+    }
+
 }
 
 const pub = new Public();
 export{ pub,Public };
-
-export type {
-    ReturnMsg
-}

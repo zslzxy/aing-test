@@ -20,7 +20,7 @@ type UseDialogOptions = {
     onClose?: () => void
     onDestroy?: () => void
 } & DialogOptions
-export function useDialog(options: UseDialogOptions) {
+export function useDialog(options: UseDialogOptions & {selfClosable?: boolean}) {
     /**
      * @description 点击取消
      */
@@ -66,7 +66,8 @@ export function useDialog(options: UseDialogOptions) {
     }, options, {
         title: () => <div class="w-100% flex justify-between items-center">
             <span>{options.title}</span>
-            {options.closable && <i class="i-tdesign:close-circle w-24 h-24 cursor-pointer text-[#909399]" onClick={dialogClose}></i>}
+            {/* @ts-ignore */}
+            {options.selfClosable && <i class="i-tdesign:close-circle w-24 h-24 cursor-pointer text-[#909399]" onClick={dialogClose}></i>}
         </div>
     }))
 

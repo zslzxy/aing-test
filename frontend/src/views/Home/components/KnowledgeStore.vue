@@ -42,7 +42,7 @@
             <div style="overflow: hidden;">
                 <NScrollbar style="height: 100%;">
                     <div class="flex justify-start items-center gap-1.25" v-if="docParseStatus">
-                        <i class="i-svg-spinners:180-ring-with-bg w-20 h-20 text-[var(--bt-theme-warning)] ml-8"></i>文档嵌入中，请稍后...
+                        <i class="i-svg-spinners:180-ring-with-bg w-20 h-20 text-[var(--bt-theme-warning)] ml-8"></i>{{ $t("文档嵌入中，请稍后") }}...
                     </div>
                     <ul class="list">
                         <li v-for="item in activeKnowledgeDocList" :key="item.doc_name" @click="getDocContent(item)">
@@ -61,8 +61,8 @@
                                     <div class="desc">
                                         {{ $t("AI摘要") }}: {{ item.doc_abstract }}
                                     </div>
-                                    <div class="text-[var(--bt-theme-color)]" v-if="item.is_parsed == 1">已嵌入完成, 可正常调用</div>
-                                    <div class="text-[var(--bt-theme-warning)]" v-else>正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟</div>
+                                    <div class="text-[var(--bt-theme-color)]" v-if="item.is_parsed == 1">{{ $t("已嵌入完成, 可正常调用") }}</div>
+                                    <div class="text-[var(--bt-theme-warning)]" v-else>{{ $t("正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟") }}</div>
                                 </div>
                             </NPopover>
                             <i class="i-ri:close-circle-line w-20 h-20 text-[#909399] del-icon"
@@ -81,7 +81,8 @@ import useIndexStore from '../store';
 import { storeToRefs } from 'pinia';
 import { isoToLocalDateTime } from '@/utils/tools';
 import { getRagList, openDocUploadDialog, delKnowledgeDoc, knowledgeIsClose,getDocContent } from '../controller';
-
+import { useI18n } from 'vue-i18n';
+const { t: $t } = useI18n();
 // 获取知识库列表
 getRagList()
 

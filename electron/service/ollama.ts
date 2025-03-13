@@ -70,9 +70,27 @@ class OllamaService {
      * 获取 Ollama 的版本信息
      * @returns {string} 若成功获取到版本信息则返回版本号，否则返回空字符串
      */
-    version(): string {
+    async version(): Promise<string> {
         try {
-            // 获取 Ollama 可执行文件的路径列表
+            try{
+                // 尝试从11434端口获取版本信息
+                let url = 'http://127.0.0.1:11434/api/version';
+                let res = await pub.httpRequest(url,{
+                    timeout: 1000,
+                    method: 'GET',
+                    json: true
+                });
+                
+                if (res.statusCode === 200) {
+                    if(res.body && res.body.version){
+                        return res.body.version;
+                    }
+                }
+            }catch(e){
+                logger.error('Get ollama version error:',e);
+            }
+
+            // 尝试从命令行获取版本信息
             const ollamaBinList = this.get_ollama_bin();
             for (const bin of ollamaBinList) {
                 // 执行命令获取 Ollama 版本信息
@@ -123,6 +141,39 @@ class OllamaService {
 
         return true;
     }
+
+
+    /**
+     * 获取嵌套模型列表
+     * @returns {Promise<any[]>} 包含模型信息的数组，若出错则返回空数组
+     */
+    async get_embedding_model_list(): Promise<any[]> {
+        const models  = await this.model_list();
+
+        // 过滤出支持嵌套的模型
+        let result = models.filter((model) => {
+            return model.install && model.capability.includes('embedding');
+        });
+
+        // 构建模型信息
+        result = result.map((model) => {
+            let supplierName = "ollama";
+            let title = `${supplierName}/${model.full_name}`;
+            
+            let modelInfo = {
+                title: title,
+                supplierName,
+                model: model.full_name,
+                size: model.size,
+                contextLength: 512
+            }
+            return modelInfo;
+        });
+
+        return result;
+        
+    }
+
 
     /**
      * 获取 Ollama 模型列表
@@ -714,8 +765,8 @@ class OllamaService {
     private async installOllamaAfterDownload(downloadFile: string): Promise<boolean> {
         return new Promise((resolve) => {
             const checkInstallStatus = () => {
-                setTimeout(() => {
-                    const version = this.version();
+                setTimeout(async () => {
+                    const version = await this.version();
                     if (version.length > 0) {
                         OllamaDownloadSpeed.status = 3;
                         logger.info('Ollama install successify');
@@ -735,7 +786,7 @@ class OllamaService {
                 if (pub.is_windows()) {
                     // 设置环境变量 OLLAMA_HOST=127.0.0.1
                     exec('setx OLLAMA_HOST "127.0.0.1"', () => {
-                        exec(downloadFile + " /SILENT /NORESTART", (error: any, stdout: any, stderr: any) => {
+                        exec(`"${downloadFile}" /SILENT /NORESTART`, (error: any, stdout: any, stderr: any) => {
                             if (error) {
                                 logger.error(`ollama install error: ${error.message}`);
                                 resolve(false);

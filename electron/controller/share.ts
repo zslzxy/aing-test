@@ -86,6 +86,12 @@ class ShareController {
                 // 异步获取分享的聊天历史记录
                 let historys = await this.get_share_chat_history({ share_id: shareId });
                 shareConfig['chats'] = historys.message;
+                if(!shareConfig.rag_list){
+                    shareConfig.rag_list = [];
+                }
+                if(!shareConfig.supplierName){
+                    shareConfig.supplierName = 'ollama';
+                }
                 shareList.push(shareConfig);
             }
         }
@@ -120,13 +126,15 @@ class ShareController {
     /**
      * 创建分享
      * @param {object} args - 创建分享所需的参数对象
+     * @param {string} [args.supplierName] - 供应商名称
      * @param {string} args.model - 模型名称
      * @param {string} args.parameters - 模型参数
      * @param {string} args.title - 分享标题
      * @param {string} [args.password] - 分享密码（可选）
+     * @param {string} [args.rag_list] - 分享权限列表（可选）
      * @returns {Promise<any>} - 表示创建成功的响应对象
      */
-    async create_share(args: { model: string; parameters: string; title: string; password?: string }): Promise<any> {
+    async create_share(args: {supplierName?:string ;model: string; parameters: string; title: string; password?: string ,rag_list?:string}): Promise<any> {
         const shareId = pub.uuid();
         const sharePath = path.resolve(pub.get_data_path(), "share", shareId);
 
@@ -138,7 +146,12 @@ class ShareController {
             return pub.return_error(pub.lang('创建分享目录失败'), null);
         }
 
+        let supplierName = args.supplierName || 'ollama';
+        let rag_list = args.rag_list?JSON.parse(args.rag_list):'';
+
         const shareConfig = {
+            supplierName: supplierName,
+            rag_list: rag_list,
             share_id: shareId,
             model: args.model,
             parameters: args.parameters,
@@ -166,18 +179,23 @@ class ShareController {
      * @param {string} [args.password] - 分享密码（可选）
      * @returns {Promise<any>} - 表示修改成功的响应对象，如果分享不存在则返回错误响应
      */
-    async modify_share(args: { share_id: string; model: string; parameters: string; title: string; password?: string }): Promise<any> {
+    async modify_share(args: { share_id: string;supplierName?:string; model: string; parameters: string; title: string; password?: string;rag_list?:string }): Promise<any> {
         const sharePath = path.resolve(pub.get_data_path(), "share", args.share_id);
         if (!pub.file_exists(sharePath)) {
             return pub.return_error(pub.lang('分享不存在'), null);
         }
 
+        let supplierName = args.supplierName || 'ollama';
+        let rag_list = args.rag_list?JSON.parse(args.rag_list):'';
+
         const shareConfig = {
             share_id: args.share_id,
+            supplierName: supplierName,
             model: args.model,
             parameters: args.parameters,
             title: args.title,
             password: args.password,
+            rag_list: rag_list,
         };
 
         const shareConfigPath = this.getShareConfigFilePath(args.share_id);

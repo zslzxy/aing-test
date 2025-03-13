@@ -518,5 +518,325 @@
     "{0}个文件": {
         "src": "{0}个文件",
         "dst": " {0} filer"
+    },
+    "正在搜索...": {
+        "src": "正在搜索...",
+        "dst": "Søger efter"
+    },
+    "请输入知识库名称": {
+        "src": "请输入知识库名称",
+        "dst": "Indtast navnet på videnbasen"
+    },
+    "描述": {
+        "src": "描述",
+        "dst": "Beskrivelse"
+    },
+    "请输入知识库描述": {
+        "src": "请输入知识库描述",
+        "dst": "Indtast venligst en beskrivelse af videnbasen"
+    },
+    "嵌入模型": {
+        "src": "嵌入模型",
+        "dst": "Indlejret model"
+    },
+    "选择模型": {
+        "src": "选择模型",
+        "dst": "Vælg model"
+    },
+    "选择知识库": {
+        "src": "选择知识库",
+        "dst": "Vælg videnbase"
+    },
+    "文档嵌入中，请稍后": {
+        "src": "文档嵌入中，请稍后",
+        "dst": "Indlejret dokument, bedes senere"
+    },
+    "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Er indlejret, ventetid afhænger af antallet af filer, som kan tage et par minutter til et dusin minutter"
+    },
+    "第三方模型API": {
+        "src": "第三方模型API",
+        "dst": "Tredjepartsmodel API"
+    },
+    "本地模型": {
+        "src": "本地模型",
+        "dst": "Lokale modeller"
+    },
+    "添加模型服务商": {
+        "src": "添加模型服务商",
+        "dst": "Tilføj model udbyder"
+    },
+    "使用教程": {
+        "src": "使用教程",
+        "dst": "Brug tutorial"
+    },
+    "删除服务商": {
+        "src": "删除服务商",
+        "dst": "Slet tjenesteudbyder"
+    },
+    "API密钥": {
+        "src": "API密钥",
+        "dst": "API- nøgle"
+    },
+    "请输入API密钥": {
+        "src": "请输入API密钥",
+        "dst": "Indtast venligst API-nøglen"
+    },
+    "检查": {
+        "src": "检查",
+        "dst": "inspicere"
+    },
+    "点次获取密钥": {
+        "src": "点次获取密钥",
+        "dst": "Hent nøglen"
+    },
+    "API地址": {
+        "src": "API地址",
+        "dst": "API-adresse"
+    },
+    "请输入API地址": {
+        "src": "请输入API地址",
+        "dst": "Indtast venligst API-adressen"
+    },
+    "示例": {
+        "src": "示例",
+        "dst": "Eksempler"
+    },
+    "保存API": {
+        "src": "保存API",
+        "dst": "Gem API"
+    },
+    "默认从/models获取所有模型": {
+        "src": "默认从/models获取所有模型",
+        "dst": "Som standard hentes alle modeller fra/modeller"
+    },
+    "开关所有": {
+        "src": "开关所有",
+        "dst": "Skift til alle"
+    },
+    "修改别名": {
+        "src": "修改别名",
+        "dst": "Ændring af alias"
+    },
+    "当前服务商下属暂无模型可用": {
+        "src": "当前服务商下属暂无模型可用",
+        "dst": "Der er ingen modeller tilgængelige for nuværende udbyder"
+    },
+    "添加模型": {
+        "src": "添加模型",
+        "dst": "Tilføj en model"
+    },
+    "模型ID": {
+        "src": "模型ID",
+        "dst": "Model ID"
+    },
+    "请输入模型ID": {
+        "src": "请输入模型ID",
+        "dst": "Indtast venligst model-id"
+    },
+    "模型别名": {
+        "src": "模型别名",
+        "dst": "Modellens alias"
+    },
+    "请输入模型别名": {
+        "src": "请输入模型别名",
+        "dst": "Indtast venligst modellens alias"
+    },
+    "模型功能": {
+        "src": "模型功能",
+        "dst": "Modellfunktioner"
+    },
+    "添加": {
+        "src": "添加",
+        "dst": "Tilføj"
+    },
+    "供应商名称": {
+        "src": "供应商名称",
+        "dst": "Leverandørnavn"
+    },
+    "接口地址": {
+        "src": "接口地址",
+        "dst": "Adresse til grænseflade"
+    },
+    "需要兼容openAI格式的接口": {
+        "src": "需要兼容openAI格式的接口",
+        "dst": "Kræver en grænseflade, der er kompatibel med openAI-format"
+    },
+    "密钥": {
+        "src": "密钥",
+        "dst": "Nøglen"
+    },
+    "请选择模型功能": {
+        "src": "请选择模型功能",
+        "dst": "Vælg venligst modellens funktionalitet"
+    },
+    "请输入供应商名称": {
+        "src": "请输入供应商名称",
+        "dst": "Angiv leverandørens navn"
+    },
+    "模型添加成功": {
+        "src": "模型添加成功",
+        "dst": "Tilføjelse af model lykkedes"
+    },
+    "是否确定删除当前模型？该操作不可逆": {
+        "src": "是否确定删除当前模型？该操作不可逆",
+        "dst": "Er du sikker på at slette den aktuelle model? Denne operation er uoprettelig"
+    },
+    "请填写完整配置信息": {
+        "src": "请填写完整配置信息",
+        "dst": "Udfyld venligst alle konfigurationsoplysninger"
+    },
+    "配置保存成功": {
+        "src": "配置保存成功",
+        "dst": "Indstillingen blev gemt vellykket"
+    },
+    "缺少API密钥": {
+        "src": "缺少API密钥",
+        "dst": "Manglende API-nøgle"
+    },
+    "缺少API地址": {
+        "src": "缺少API地址",
+        "dst": "Manglende API-adresse"
+    },
+    "模型启用成功": {
+        "src": "模型启用成功",
+        "dst": "Aktivering af model lykkedes"
+    },
+    "模型禁用成功": {
+        "src": "模型禁用成功",
+        "dst": "Model deaktivering lykkedes"
+    },
+    "已启用全部模型": {
+        "src": "已启用全部模型",
+        "dst": "Alle modeller aktiveret"
+    },
+    "已禁用全部模型": {
+        "src": "已禁用全部模型",
+        "dst": "Alle modeller deaktiveret"
+    },
+    "添加成功": {
+        "src": "添加成功",
+        "dst": "Tilføjelse lykkedes"
+    },
+    "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！": {
+        "src": "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！",
+        "dst": "Sletter du den nuværende udbyder? Dette vil fjerne alle underordnede modeller samtidigt, så vær forsigtig!"
+    },
+    "删除成功": {
+        "src": "删除成功",
+        "dst": "Sletting lykkedes"
+    },
+    "一键把AI模型部署在你的电脑": {
+        "src": "一键把AI模型部署在你的电脑",
+        "dst": "Implementer en AI-model på din computer med ét klik"
+    },
+    "免费开源无限制": {
+        "src": "免费开源无限制",
+        "dst": "Gratis Open Source Ubegrænset"
+    },
+    "可在线分享他人使用": {
+        "src": "可在线分享他人使用",
+        "dst": "Kan deles med andre online"
+    },
+    "支持联网大幅度提升答案质量": {
+        "src": "支持联网大幅度提升答案质量",
+        "dst": "Støtte netværk for at forbedre svarkvaliteten betydeligt"
+    },
+    "使用第三方模型": {
+        "src": "使用第三方模型",
+        "dst": "Brug af tredjepartsmodeller"
+    },
+    "使用本地模型": {
+        "src": "使用本地模型",
+        "dst": "Brug lokal model"
+    },
+    "已嵌入完成, 可正常调用": {
+        "src": "已嵌入完成, 可正常调用",
+        "dst": "Indlejret færdig, kan kaldes normalt"
+    },
+    "简单好用的AI助手": {
+        "src": "简单好用的AI助手",
+        "dst": "En nem og nyttig AI-assistent"
+    },
+    "支持联网搜索和知识库": {
+        "src": "支持联网搜索和知识库",
+        "dst": "Understøtter internetsøgning og videnbaser"
+    },
+    "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型": {
+        "src": "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型",
+        "dst": "Tip: Hvis den delte liste er tom, stopper tjenesten for delte forbindelser automatisk, og der er ikke adgang til nogen model via AingDesk"
+    },
+    "上传附件": {
+        "src": "上传附件",
+        "dst": "Upload vedhæftede filer"
+    },
+    "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Den [{0}] model du bruger i øjeblikket er blevet deaktiveret eller slettet. Aktivér eller skift modeller igen"
+    },
+    "请安装或接入嵌入模型": {
+        "src": "请安装或接入嵌入模型",
+        "dst": "Installer eller forbind den integrerede model"
+    },
+    "使用本地模型嵌入（推荐）": {
+        "src": "使用本地模型嵌入（推荐）",
+        "dst": "Brug lokal modelindlejring (anbefales)"
+    },
+    "请选择从Ollama安装-Embedding-安装bge-m3:latest": {
+        "src": "请选择从Ollama安装-Embedding-安装bge-m3:latest",
+        "dst": "Vælg venligst at installere fra Ollama - Embedding - Installation bge-m3: latest"
+    },
+    "使用第三方API提供模型嵌入": {
+        "src": "使用第三方API提供模型嵌入",
+        "dst": "Brug af tredjeparts API'er til at levere model integrering"
+    },
+    "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动": {
+        "src": "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动",
+        "dst": "Vælg adgang til tredjepartsmodeller, adgang til understøttelse af Embedding tredjepartsapier, såsom silicium-baseret mobilitet"
+    },
+    "从Ollama安装": {
+        "src": "从Ollama安装",
+        "dst": "Anlæg fra Ollama"
+    },
+    "接入第三方模型": {
+        "src": "接入第三方模型",
+        "dst": "Integrere tredjepartsmodeller"
+    },
+    "已启用模型该服务商": {
+        "src": "已启用模型该服务商",
+        "dst": "Aktiveret model af denne udbyder"
+    },
+    "已禁用模型该服务商": {
+        "src": "已禁用模型该服务商",
+        "dst": "Deaktiveret model af denne udbyder"
+    },
+    "无记忆": {
+        "src": "无记忆",
+        "dst": "Ingen hukommelse"
+    },
+    " 能提升单次回复质量，但大模型将没有上下文记忆": {
+        "src": " 能提升单次回复质量，但大模型将没有上下文记忆",
+        "dst": "Kan forbedre kvaliteten af et enkelt svar, men den store model vil ikke have kontekstuel hukommelse"
+    },
+    "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式": {
+        "src": "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式",
+        "dst": "Understøtter upload af filer og billeder (op til 20MB), og understøtter formater som PDF, DOC, TXT osv."
+    },
+    "附件总大小不能超过20MB": {
+        "src": "附件总大小不能超过20MB",
+        "dst": "Den samlede størrelse på vedhæftede filer må ikke overstige 20MB"
+    },
+    "请选择知识库": {
+        "src": "请选择知识库",
+        "dst": "Vælg venligst en vidensbase"
+    },
+    "文档教程": {
+        "src": "文档教程",
+        "dst": "Dokumentvejledning"
+    },
+    "查看知识库教程": {
+        "src": "查看知识库教程",
+        "dst": "Vis videnbase- vejledning"
     }
 }

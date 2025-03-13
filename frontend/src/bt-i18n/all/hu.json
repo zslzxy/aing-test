@@ -518,5 +518,325 @@
     "{0}个文件": {
         "src": "{0}个文件",
         "dst": "{0} fájlok"
+    },
+    "正在搜索...": {
+        "src": "正在搜索...",
+        "dst": "Keresés..."
+    },
+    "描述": {
+        "src": "描述",
+        "dst": "Leírás"
+    },
+    "请输入知识库描述": {
+        "src": "请输入知识库描述",
+        "dst": "Kérjük, adja meg a tudásbázis leírását"
+    },
+    "嵌入模型": {
+        "src": "嵌入模型",
+        "dst": "Beágyazott modell"
+    },
+    "选择模型": {
+        "src": "选择模型",
+        "dst": "Modell kiválasztása"
+    },
+    "选择知识库": {
+        "src": "选择知识库",
+        "dst": "Tudásbázis kiválasztása"
+    },
+    "文档嵌入中，请稍后": {
+        "src": "文档嵌入中，请稍后",
+        "dst": "A dokumentum beágyazása, kérjük, később"
+    },
+    "已嵌入完成, 可正常调用": {
+        "src": "已嵌入完成, 可正常调用",
+        "dst": "Beágyazott befejezve, normálisan hívható"
+    },
+    "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Beágyazás, várakozási idő a fájlok számától függően, ez néhány perctől tíz percig tarthat"
+    },
+    "第三方模型API": {
+        "src": "第三方模型API",
+        "dst": "Harmadik fél modell API"
+    },
+    "本地模型": {
+        "src": "本地模型",
+        "dst": "Helyi modell"
+    },
+    "添加模型服务商": {
+        "src": "添加模型服务商",
+        "dst": "Modellszolgáltató hozzáadása"
+    },
+    "使用教程": {
+        "src": "使用教程",
+        "dst": "Tutorial használata"
+    },
+    "删除服务商": {
+        "src": "删除服务商",
+        "dst": "Szolgáltató törlése"
+    },
+    "API密钥": {
+        "src": "API密钥",
+        "dst": "API kulcs"
+    },
+    "请输入API密钥": {
+        "src": "请输入API密钥",
+        "dst": "Kérjük, adja meg az API kulcsot"
+    },
+    "检查": {
+        "src": "检查",
+        "dst": "ellenőrzés"
+    },
+    "点次获取密钥": {
+        "src": "点次获取密钥",
+        "dst": "A kulcs megszerzése"
+    },
+    "API地址": {
+        "src": "API地址",
+        "dst": "API cím"
+    },
+    "请输入API地址": {
+        "src": "请输入API地址",
+        "dst": "Kérjük, adja meg az API címét."
+    },
+    "示例": {
+        "src": "示例",
+        "dst": "Példák"
+    },
+    "保存API": {
+        "src": "保存API",
+        "dst": "API mentése"
+    },
+    "默认从/models获取所有模型": {
+        "src": "默认从/models获取所有模型",
+        "dst": "Minden modell alapértelmezett beszerzése /models"
+    },
+    "开关所有": {
+        "src": "开关所有",
+        "dst": "Kapcsolás minden"
+    },
+    "修改别名": {
+        "src": "修改别名",
+        "dst": "Álnév módosítása"
+    },
+    "当前服务商下属暂无模型可用": {
+        "src": "当前服务商下属暂无模型可用",
+        "dst": "Jelenleg nincs modell elérhető a szolgáltatónak"
+    },
+    "添加模型": {
+        "src": "添加模型",
+        "dst": "Modell hozzáadása"
+    },
+    "模型ID": {
+        "src": "模型ID",
+        "dst": "Modell ID"
+    },
+    "请输入模型ID": {
+        "src": "请输入模型ID",
+        "dst": "Kérjük, adja meg a modell azonosítóját"
+    },
+    "模型别名": {
+        "src": "模型别名",
+        "dst": "Modell alias"
+    },
+    "请输入模型别名": {
+        "src": "请输入模型别名",
+        "dst": "Adja meg a modell álnevét"
+    },
+    "模型功能": {
+        "src": "模型功能",
+        "dst": "Modellfunkciók"
+    },
+    "添加": {
+        "src": "添加",
+        "dst": "Hozzáadás"
+    },
+    "供应商名称": {
+        "src": "供应商名称",
+        "dst": "Szállító neve"
+    },
+    "接口地址": {
+        "src": "接口地址",
+        "dst": "Interfész címe"
+    },
+    "需要兼容openAI格式的接口": {
+        "src": "需要兼容openAI格式的接口",
+        "dst": "OpenAI-kompatibilis interfész szükséges"
+    },
+    "密钥": {
+        "src": "密钥",
+        "dst": "titkos kulcs"
+    },
+    "请选择模型功能": {
+        "src": "请选择模型功能",
+        "dst": "Válassza ki a modellfunkciót"
+    },
+    "请输入供应商名称": {
+        "src": "请输入供应商名称",
+        "dst": "Kérjük, adja meg a beszállító nevét"
+    },
+    "模型添加成功": {
+        "src": "模型添加成功",
+        "dst": "Modell hozzáadása sikeres"
+    },
+    "是否确定删除当前模型？该操作不可逆": {
+        "src": "是否确定删除当前模型？该操作不可逆",
+        "dst": "Biztosan törli az aktuális modellt? A művelet visszafordíthatatlan."
+    },
+    "请填写完整配置信息": {
+        "src": "请填写完整配置信息",
+        "dst": "Kérjük, töltse ki a teljes adatait"
+    },
+    "配置保存成功": {
+        "src": "配置保存成功",
+        "dst": "A beállítás sikeres mentése"
+    },
+    "缺少API密钥": {
+        "src": "缺少API密钥",
+        "dst": "Hiányzik az API kulcs"
+    },
+    "缺少API地址": {
+        "src": "缺少API地址",
+        "dst": "Hiányzik az API cím"
+    },
+    "模型启用成功": {
+        "src": "模型启用成功",
+        "dst": "A modell sikeres engedélyezése"
+    },
+    "模型禁用成功": {
+        "src": "模型禁用成功",
+        "dst": "A modell sikeres letiltása"
+    },
+    "已启用全部模型": {
+        "src": "已启用全部模型",
+        "dst": "Minden modell engedélyezve van"
+    },
+    "已禁用全部模型": {
+        "src": "已禁用全部模型",
+        "dst": "Minden modell letiltva"
+    },
+    "添加成功": {
+        "src": "添加成功",
+        "dst": "Sikeres hozzáadás"
+    },
+    "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！": {
+        "src": "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！",
+        "dst": "Törölni szeretné az aktuális szolgáltatót? Ez a művelet egyidejűleg törli az összes alárendelt modellt, kérjük, folytassa óvatosan!"
+    },
+    "删除成功": {
+        "src": "删除成功",
+        "dst": "Törlés sikeres"
+    },
+    "一键把AI模型部署在你的电脑": {
+        "src": "一键把AI模型部署在你的电脑",
+        "dst": "Egy kattintással telepítse az AI modellt a számítógépére"
+    },
+    "免费开源无限制": {
+        "src": "免费开源无限制",
+        "dst": "Ingyenes nyílt forráskódú korlátlan"
+    },
+    "可在线分享他人使用": {
+        "src": "可在线分享他人使用",
+        "dst": "Online megosztás másokkal"
+    },
+    "支持联网大幅度提升答案质量": {
+        "src": "支持联网大幅度提升答案质量",
+        "dst": "A hálózatépítés támogatása a válaszok minőségének jelentős javítása érdekében"
+    },
+    "使用第三方模型": {
+        "src": "使用第三方模型",
+        "dst": "Harmadik féltől származó modellek használata"
+    },
+    "使用本地模型": {
+        "src": "使用本地模型",
+        "dst": "Helyi modell használata"
+    },
+    "请输入知识库名称": {
+        "src": "请输入知识库名称",
+        "dst": "Kérjük, adja meg a tudásbázis nevét"
+    },
+    "简单好用的AI助手": {
+        "src": "简单好用的AI助手",
+        "dst": "Egyszerű és hasznos AI asszisztens"
+    },
+    "支持联网搜索和知识库": {
+        "src": "支持联网搜索和知识库",
+        "dst": "Támogatja az internetes keresést és a tudásbázist"
+    },
+    "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型": {
+        "src": "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型",
+        "dst": "Tipp: Ha a megosztási lista üres, a megosztási csatlakozási szolgáltatás automatikusan leáll, és az extranet nem tud hozzáférni semmilyen modellhez az AingDesken keresztül"
+    },
+    "上传附件": {
+        "src": "上传附件",
+        "dst": "Mellékletek feltöltése"
+    },
+    "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Az Ön által jelenleg használt [{0}] modell letiltott vagy törölt, kérjük, engedélyezze újra vagy váltsa a modellt"
+    },
+    "请安装或接入嵌入模型": {
+        "src": "请安装或接入嵌入模型",
+        "dst": "Kérjük, telepítse vagy csatlakoztassa a beágyazott modellt"
+    },
+    "使用本地模型嵌入（推荐）": {
+        "src": "使用本地模型嵌入（推荐）",
+        "dst": "Helyi modell beágyazása (ajánlott)"
+    },
+    "请选择从Ollama安装-Embedding-安装bge-m3:latest": {
+        "src": "请选择从Ollama安装-Embedding-安装bge-m3:latest",
+        "dst": "Kérjük, válassza ki, hogy telepítse Ollama - Beágyazás - Telepítés bge-m3: latest"
+    },
+    "使用第三方API提供模型嵌入": {
+        "src": "使用第三方API提供模型嵌入",
+        "dst": "Harmadik féltől származó API-k használata modellbeágyazás biztosításához"
+    },
+    "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动": {
+        "src": "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动",
+        "dst": "Kérjük, válasszon olyan harmadik féltől származó modellekhez, amelyek támogatják a harmadik féltől származó API-k beágyazását, például a szilícium alapú mobilitást"
+    },
+    "从Ollama安装": {
+        "src": "从Ollama安装",
+        "dst": "Ollamából származó létesítmény"
+    },
+    "接入第三方模型": {
+        "src": "接入第三方模型",
+        "dst": "Harmadik fél modelljeihez való hozzáférés"
+    },
+    "已启用模型该服务商": {
+        "src": "已启用模型该服务商",
+        "dst": "Engedélyezve modell a szolgáltató"
+    },
+    "已禁用模型该服务商": {
+        "src": "已禁用模型该服务商",
+        "dst": "A modell le lett tiltva e szolgáltató számára"
+    },
+    "无记忆": {
+        "src": "无记忆",
+        "dst": "Emlékmentes"
+    },
+    " 能提升单次回复质量，但大模型将没有上下文记忆": {
+        "src": " 能提升单次回复质量，但大模型将没有上下文记忆",
+        "dst": "Javíthatja az egyetlen válasz minőségét, de a nagy modell nem rendelkezik kontextuális memóriával"
+    },
+    "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式": {
+        "src": "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式",
+        "dst": "Támogatja a fájlok és képek feltöltését (legfeljebb 20 MB), és támogatja a formátumokat, mint például PDF, DOC, TXT stb."
+    },
+    "附件总大小不能超过20MB": {
+        "src": "附件总大小不能超过20MB",
+        "dst": "A mellékletek teljes mérete nem haladhatja meg a 20MB-ot"
+    },
+    "请选择知识库": {
+        "src": "请选择知识库",
+        "dst": "Válasszon tudásbázist"
+    },
+    "文档教程": {
+        "src": "文档教程",
+        "dst": "Dokumentumbemutató"
+    },
+    "查看知识库教程": {
+        "src": "查看知识库教程",
+        "dst": "Tudásbázis oktatóanyag megtekintése"
     }
 }

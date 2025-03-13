@@ -4,6 +4,7 @@ import i18n from "@/lang";
 import { type DialogReactive } from "naive-ui"
 import storage from "@/utils/storage";
 
+
 export type ChatItemInfo = {
     contextPath: string
     context_id: string
@@ -11,7 +12,8 @@ export type ChatItemInfo = {
     parameters: string,
     title: string,
     rag_list?: string[],
-    search_type?: string
+    search_type?: string,
+    supplierName?: string
 }
 
 // 模型安装进度实体
@@ -23,8 +25,15 @@ export type InstallProgress = {
     progress?: number
     speed?: number
 }
+
+// 带有文本、图片、文件的提问实体
+export type MultipeQuestionDto = {
+    content: string,
+    files?: string[],
+    images?: string[]
+}
 // 对话信息实体
-export type ChatInfo = Map<string, {
+export type ChatInfo = Map<MultipeQuestionDto, {
     content: string,
     id?: string
     stat?: {
@@ -59,30 +68,102 @@ export type ActiveKnowledgeDocDto = {
     md_file: string
     update_time: number
 }
+// 第三方api服务商实体
+export type ThirdPartyApiServiceItem = {
+    apiKey: string
+    baseUrl: string
+    baseUrlExample: string
+    help: string
+    home: string
+    isUseUrlExample: boolean
+    supplierName: string
+    supplierTitle: string
+    status: boolean,
+    icon: string,
+    sort: string
+}
+
+// api服务商下的模型列表
+export type SupplierModelItem = {
+    capability: Array<string>
+    modelName: string
+    supplierName: string,
+    status: boolean,
+    title: string
+}
+
+// 添加模型服务商表单数据
+export type AddSupplierFormData = {
+    supplierTitle: string,
+    supplierName: string,
+    baseUrl: string,
+    apiKey: string,
+}
+
+// 服务商配置信息
+export type SupplierConfigInfo = {
+    baseUrl: string,
+    apiKey: string,
+}
+
+// 当前模型的可选实体
+export type CurrentModelDto = {
+    model?: string,
+    parameters?: string,
+    supplierName?: string,
+}
+
+// 供应商图片
+const supplierLogs = new Map([
+    ["DeepSeek", ""],
+    ["HunYuan", ""],
+    ["Kimi", ""],
+    ["PaddleAI", ""],
+    ["qanwen", ""],
+    ["QianFan", ""],
+    ["SiliconFlow", ""],
+    ["VolcEngine", ""],
+])
 
 const useIndexStore = defineStore("indexStore", () => {
+    // 版本号
+    const version = ref("1.0.0")
     // 侧边栏宽度
     const siderWidth = ref(220)
     // 是否关闭侧边栏
     const isFold = ref(false)
     // 提问内容
     const questionContent = ref("")
+    // 提问携带的文件
+    const questionFiles = ref<string[]>([])
+    // 提问携带的图片
+    const questionImages = ref<string[]>([])
     // 提问内容缓存
-
     // 答案的代码内容
     const answerCodeContent = ref("")
     // 已安裝模型列表
-    const modelList = ref([])
+    const modelList = ref<any>([])
+    // 当前模型实体
+    const currentModelDto = ref<CurrentModelDto | null>()
     // 当前使用的模型
     const currentModel = ref("")
     // 当前对话的id
     const currentContextId = ref("")
     // 当前对话标题
     const currentChatTitle = ref("")
+    // 开启单次临时对话
+    const temp_chat = ref(false)
     // 当前对话的知识库
     const currentChatKnowledge = ref<Array<string> | null>(null)
     // 当前对的搜索
     const currentChatSearch = ref<string | null>(null)
+    // 当前对话的文件附件
+    const cuttentChatFileList = ref([])
+    // 根据模型状态确定当前对话是否可用
+    const chatMask = ref({
+        status: false,
+        notice: ""
+    })
     // 当前正在进行对话的id
     const currentTalkingChatId = ref("")
     // 删除对话弹窗
@@ -205,6 +286,8 @@ const useIndexStore = defineStore("indexStore", () => {
     const knowledgeSiderWidth = ref(0)
     // 是否安装了bge-m3:latest（用于支持知识库）
     const isInstalledBge = ref(false)
+    // 嵌入模型列表
+    const embeddingModelsList = ref<any>([])
     // 知识库列表
     const knowledgeList = ref<Array<KnowledgeDocumentInfo>>([])
     // 当前正在新增知识库（input出现）
@@ -213,6 +296,8 @@ const useIndexStore = defineStore("indexStore", () => {
     const createKnowledgeFormData = ref({
         ragName: "",
         ragDesc: "",
+        enbeddingModel: [],
+        supplierName: ""
     })
     // 新建知识库的弹窗ref
     const createKnowledgeModelRef = ref()
@@ -243,7 +328,41 @@ const useIndexStore = defineStore("indexStore", () => {
     // 用于聊天的知识库
     const activeKnowledgeForChat = ref<string[]>([])
     // 单篇知识库文档内容
-    const docContent = ref("这是一篇知识库的内容文档，这是一个知识库的内容")
+    const docContent = ref("")
+    // 欢迎弹窗显示
+    const welcomeShow = ref(false)
+    // 第三方api配置弹窗
+    const thirdPartyApiShow = ref(false)
+    // 第三方api服务商列表
+    const thirdPartyApiServiceList = ref<ThirdPartyApiServiceItem[]>([])
+    // 当前选中的第三方api服务商
+    const currentChooseApi = ref<ThirdPartyApiServiceItem>()
+    // api服务商下的模型列表
+    const supplierModelList = ref<SupplierModelItem[]>([])
+    // 添加第三方api服务商下属模型弹窗
+    const addSupplierModel = ref(false)
+    // 添加模型的表单对象
+    const addModelFormData = ref<{ modelName: string, capability: string[], title: string }>({ modelName: "", capability: [], title: "" })
+    // 配置模型服务商数据
+    const applierServiceConfig = ref<SupplierConfigInfo>({
+        baseUrl: "",
+        apiKey: ""
+    })
+    // 是否启用了全部模型
+    const isAllModelEnable = ref(false)
+    // 添加模型服务商
+    const addSupplierShow = ref(false)
+    // 添加模型服务商表单数据
+    const addSupplierFormData = ref<AddSupplierFormData>({
+        supplierTitle: "",
+        supplierName: "",
+        baseUrl: "",
+        apiKey: ""
+    })
+    // 是否修改服务商标题
+    const currentModelNameForEdiit = ref("")
+    // 当前使用的服务商
+    const currentSupplierName = ref("")
     return {
         answerCodeContent,
         modelList,
@@ -254,6 +373,8 @@ const useIndexStore = defineStore("indexStore", () => {
         siderWidth,
         isFold,
         questionContent,
+        questionFiles,
+        questionImages,
         chatHistory,
         settingsShow,
         pcInfo,
@@ -315,7 +436,26 @@ const useIndexStore = defineStore("indexStore", () => {
         currentChatKnowledge,
         currentChatSearch,
         docParseStatus,
-        docContent
+        docContent,
+        welcomeShow,
+        thirdPartyApiShow,
+        thirdPartyApiServiceList,
+        currentChooseApi,
+        supplierModelList,
+        addSupplierModel,
+        addModelFormData,
+        applierServiceConfig,
+        isAllModelEnable,
+        addSupplierShow,
+        addSupplierFormData,
+        currentModelNameForEdiit,
+        currentSupplierName,
+        embeddingModelsList,
+        currentModelDto,
+        cuttentChatFileList,
+        chatMask,
+        temp_chat,
+        version
     }
 })
 

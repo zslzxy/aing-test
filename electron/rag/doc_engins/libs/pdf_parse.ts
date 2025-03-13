@@ -109,14 +109,14 @@ export class PdfParser {
         throw new Error(`无法使用canvas库: ${canvasErr.message}`);
       }
 
-      const pdfjsPath = path.dirname(require.resolve('pdfjs-dist/package.json'));
-      const workerPath = path.join(pdfjsPath, 'build', 'pdf.worker.js');
+      // const pdfjsPath = path.dirname(require.resolve('pdfjs-dist/package.json'));
+      // const workerPath = path.join(pdfjsPath, 'build', 'pdf.worker.js');
 
-      if (fs.existsSync(workerPath)) {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `file://${workerPath}`;
-      } else {
-        console.warn(`找不到worker文件: ${workerPath}, PDF.js可能无法正常工作`);
-      }
+      // if (fs.existsSync(workerPath)) {
+      //   pdfjsLib.GlobalWorkerOptions.workerSrc = `file://${workerPath}`;
+      // } else {
+      //   console.warn(`找不到worker文件: ${workerPath}, PDF.js可能无法正常工作`);
+      // }
 
       const data = new Uint8Array(fs.readFileSync(this.filename));
       const loadingTask = pdfjsLib.getDocument({ data });

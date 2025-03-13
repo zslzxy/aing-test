@@ -74,6 +74,8 @@ ${TEMPLATES_LANG[2]}:
 - ${TEMPLATES_LANG[12]}
 - ${TEMPLATES_LANG[13]}
 
+{doc_files}
+
 # ${TEMPLATES_LANG[14]}:
 {question}`
 
@@ -98,7 +100,8 @@ ${TEMPLATES_LANG[2]}:
 ## ${OTHER_SYSTEM_PROMPT_TPL_LANG[14]}:
 <search-results>
 {search_results}
-</search-results>`
+</search-results>
+{doc_files}`
 
     const  QUERY_PROMPT_TPL = `# ${QUERY_PROMPT_TPL_LANG[0]}
 ## ${QUERY_PROMPT_TPL_LANG[1]}: {current_date_time}
@@ -223,7 +226,7 @@ export const getSearchQuery = async (query: string, model: string, chatHistory: 
 };
 
 // 生成 DeepSeek 类型的提示信息
-const generateDeepSeekPrompt = (searchResultList: SearchResult[], query: string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateDeepSeekPrompt = (searchResultList: SearchResult[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -236,12 +239,26 @@ ${pub.lang('内容')}:${result.content}
 [${pub.lang('搜索结果')} ${idx} end]`
     ).join("\n");
 
+
+    let doc_files_str = doc_files.map(
+        (doc_file, idx) =>
+            `[${pub.lang('用户文档')} ${idx+1} begin]
+${pub.lang('内容')}: ${doc_file}
+[${pub.lang('用户文档')} ${idx} end]`
+    ).join("\n");
+
+
+    doc_files_str = `${pub.lang('以下是用户上传的文档内容，每个文档内容都是[用户文档 X begin]...[用户文档 X end]格式的，你可以根据需要选择其中的内容。')}
+${doc_files_str}`
+
+
     const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate();
     const userPrompt = DEEPSEEK_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
        .replace("{question}", query)
-       .replace("{user_location}", userLocation);
+       .replace("{user_location}", userLocation)
+         .replace("{doc_files}", doc_files_str);
 
     const systemPrompt = DEEPSEEK_SYSTEM_PROMPT_TPL;
 
@@ -249,7 +266,7 @@ ${pub.lang('内容')}:${result.content}
 };
 
 // 生成其他类型的提示信息
-const generateOtherPrompt = (searchResultList: SearchResult[], query: string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateOtherPrompt = (searchResultList: SearchResult[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -258,11 +275,22 @@ const generateOtherPrompt = (searchResultList: SearchResult[], query: string): {
             `<result source="${result.link}" id="${idx+1}">${result.content}</result>`
     ).join("\n");
 
+
+    let doc_files_str = doc_files.map(
+        (doc_file, idx) =>
+            `<doc source="${doc_file}" id="${idx+1}">${doc_file}</doc>`
+    ).join("\n");
+    doc_files_str = `${pub.lang('以下是用户上传的文档内容')}
+<doc_files>
+${doc_files_str}
+</doc_files>`;
+
     const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
     const systemPrompt = OTHER_SYSTEM_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
-       .replace("{user_location}", userLocation);
+       .replace("{user_location}", userLocation)
+         .replace("{doc_files}", doc_files_str)
 
     const userPrompt = OTHER_PROMPT_TPL.replace("{question}", query);
 
@@ -296,16 +324,16 @@ export const getDefaultPrompt = (query: string,model:string): { userPrompt: stri
 }
 
 // 获取网页搜索提示信息
-export const getPromptForWeb = async (query: string, model: string, chatHistory: string, searchProvider: string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> => {
+export const getPromptForWeb = async (query: string, model: string, chatHistory: string, searchProvider: string,doc_files:string[]): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> => {
     try {
         if(query.length < 4) return getDefaultPrompt(query,model);
         const searchQuery = await getSearchQuery(query, model, chatHistory);
         const searchResultList = await searchWeb(searchProvider, searchQuery);
 
         if (model.indexOf("deepseek") !== -1) {
-            return generateDeepSeekPrompt(searchResultList, searchQuery);
+            return generateDeepSeekPrompt(searchResultList, searchQuery,doc_files);
         } else {
-            return generateOtherPrompt(searchResultList, searchQuery);
+            return generateOtherPrompt(searchResultList, searchQuery,doc_files);
         }
     } catch (error) {
         console.error('Error getting prompt for web:', error);

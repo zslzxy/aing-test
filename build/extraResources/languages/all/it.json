@@ -658,5 +658,77 @@
     "e52bb25a146139d8f90a0d3ec62b9a2b": {
         "src": "你的回答结构要包含是什么？为什么？怎么做？这三要素。",
         "dst": "Qual è la tua struttura di risposta? Perche'? Come? Questi tre elementi."
+    },
+    "6c96024718300bf395fb132f298e96cf": {
+        "src": "调用模型接口时出错:",
+        "dst": "Errore durante la chiamata dell'interfaccia del modello:"
+    },
+    "36fee61ba46375552deae7844d136d70": {
+        "src": "调用模型接口时出错",
+        "dst": "Errore durante la chiamata dell'interfaccia del modello"
+    },
+    "19f4e893edbd98180b0b9960e883385a": {
+        "src": "文件读取或解析失败",
+        "dst": "Lettura o analisi del file non riuscita"
+    },
+    "3c24da7a412039b7591d2eeb8f7daaf4": {
+        "src": "文件写入失败",
+        "dst": "Scrittura del file non riuscita"
+    },
+    "0d2dd91380f3426336ba59a096977fa8": {
+        "src": "获取供应商信息失败",
+        "dst": "Impossibile ottenere informazioni sul fornitore"
+    },
+    "b3ff9881f37c160158d9b3313576fcf7": {
+        "src": "模型供应商不存在",
+        "dst": "Il fornitore del modello non esiste"
+    },
+    "306be5d47591abbbf1c348ce4d28c6e5": {
+        "src": "模型已存在",
+        "dst": "Il modello esiste già"
+    },
+    "3fdaeadf0e8a3154ae62784f04138c28": {
+        "src": "添加成功",
+        "dst": "Aggiunto correttamente"
+    },
+    "88ef9e602ae78075dfc3ca33d67a1527": {
+        "src": "模型不存在",
+        "dst": "Il modello non esiste"
+    },
+    "551badba57d659eddb826a0373cc5334": {
+        "src": "API配置正确",
+        "dst": "API configurata correttamente"
+    },
+    "23a0b70a2333f939785f0d2b3cbd761a": {
+        "src": "连接失败，请检查",
+        "dst": "Connessione non riuscita, controlla"
+    },
+    "a2735abf9e4a04fcb5610cfd3a525906": {
+        "src": "模型供应商已存在",
+        "dst": "Il fornitore del modello esiste"
+    },
+    "ae2b66f906c0cf9b1d72ab3c9e365f9e": {
+        "src": "请选安装或接入嵌入模型",
+        "dst": "Seleziona installare o accedere al modello incorporato"
+    },
+    "4c599487be1fd817d4e144c4502331db": {
+        "src": "根据提供的检索结果生成信息丰富且与用户查询相关的回答，如果知识库检索结果中有图片引用信息，可根据需要引用这些图片来强化内容结构。",
+        "dst": "Genera risposte ricche di informazioni e pertinenti alle query dell'utente sulla base dei risultati di ricerca forniti, che possono essere citate se necessario per rafforzare la struttura del contenuto se i risultati della ricerca della Knowledge Base contengono riferimenti alle immagini."
+    },
+    "624a89332771dcc40fa21051d2695277": {
+        "src": "以下是用户上传的文档内容，每个文档内容都是[用户文档 X begin]...[用户文档 X end]格式的，你可以根据需要选择其中的内容。",
+        "dst": "Di seguito sono riportati i contenuti del documento caricati dall'utente, ogni contenuto del documento è [User Document X begin] Nel formato [Documento utente X end], è possibile scegliere il contenuto in base alle proprie esigenze."
+    },
+    "5a37bcc89177672fc8743f323497fa49": {
+        "src": "用户输入的内容",
+        "dst": "Contenuto di input utente"
+    },
+    "0e51fafaacc333cf882805ac55d25b05": {
+        "src": "用户文档",
+        "dst": "Documentazione utente"
+    },
+    "c32ea20471d4fc6589aa4cb3b7c6bdec": {
+        "src": "以下是用户上传的文档内容",
+        "dst": "Ecco i contenuti dei documenti caricati dagli utenti"
     }
 }

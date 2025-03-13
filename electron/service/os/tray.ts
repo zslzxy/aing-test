@@ -54,13 +54,14 @@ class TrayService {
     ]
   
     // 设置关闭行为
-    setCloseAndQuit(true);
+    // setCloseAndQuit(true);
     mainWindow.on('close', (event: any) => {
-      if (getCloseAndQuit()) {
-        return;
-      }
-      mainWindow.hide();
-      event.preventDefault();
+      // if (getCloseAndQuit()) {
+      //   return;
+      // }
+      // mainWindow.hide();
+      // event.preventDefault();
+      electronApp.quit();
     });
     
     // Initialize the tray

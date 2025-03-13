@@ -518,5 +518,325 @@
     "{0}个文件": {
         "src": "{0}个文件",
         "dst": " {0} Dateien"
+    },
+    "正在搜索...": {
+        "src": "正在搜索...",
+        "dst": "Suche nach"
+    },
+    "请输入知识库名称": {
+        "src": "请输入知识库名称",
+        "dst": "Bitte geben Sie den Namen der Wissensbank ein"
+    },
+    "描述": {
+        "src": "描述",
+        "dst": "Beschreibung"
+    },
+    "请输入知识库描述": {
+        "src": "请输入知识库描述",
+        "dst": "Bitte geben Sie eine Beschreibung der Wissensdatenbank ein"
+    },
+    "嵌入模型": {
+        "src": "嵌入模型",
+        "dst": "Eingebettetes Modell"
+    },
+    "选择模型": {
+        "src": "选择模型",
+        "dst": "Modell auswählen"
+    },
+    "选择知识库": {
+        "src": "选择知识库",
+        "dst": "Auswahl der Wissensbank"
+    },
+    "文档嵌入中，请稍后": {
+        "src": "文档嵌入中，请稍后",
+        "dst": "Dokumenteinbettung, bitte später"
+    },
+    "已嵌入完成, 可正常调用": {
+        "src": "已嵌入完成, 可正常调用",
+        "dst": "Eingebettet abgeschlossen, kann normal aufgerufen werden"
+    },
+    "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Beim Einbetten, die Wartezeit hängt von der Anzahl der Dateien ab, und dies kann ein paar Minuten bis ein Dutzend Minuten dauern"
+    },
+    "第三方模型API": {
+        "src": "第三方模型API",
+        "dst": "Drittanbieter Modell API"
+    },
+    "本地模型": {
+        "src": "本地模型",
+        "dst": "Lokales Modell"
+    },
+    "添加模型服务商": {
+        "src": "添加模型服务商",
+        "dst": "Modellanbieter hinzufügen"
+    },
+    "使用教程": {
+        "src": "使用教程",
+        "dst": "Tutorials verwenden"
+    },
+    "删除服务商": {
+        "src": "删除服务商",
+        "dst": "Dienstleister löschen"
+    },
+    "API密钥": {
+        "src": "API密钥",
+        "dst": "API-Schlüssel"
+    },
+    "请输入API密钥": {
+        "src": "请输入API密钥",
+        "dst": "Bitte geben Sie den API-Schlüssel ein."
+    },
+    "检查": {
+        "src": "检查",
+        "dst": "Überprüfen"
+    },
+    "点次获取密钥": {
+        "src": "点次获取密钥",
+        "dst": "Schlüssel abrufen"
+    },
+    "API地址": {
+        "src": "API地址",
+        "dst": "API-Adresse"
+    },
+    "请输入API地址": {
+        "src": "请输入API地址",
+        "dst": "Bitte geben Sie die API-Adresse ein."
+    },
+    "示例": {
+        "src": "示例",
+        "dst": "Beispiel"
+    },
+    "保存API": {
+        "src": "保存API",
+        "dst": "API speichern"
+    },
+    "默认从/models获取所有模型": {
+        "src": "默认从/models获取所有模型",
+        "dst": "Standardmäßig alle Modelle von /models abrufen"
+    },
+    "开关所有": {
+        "src": "开关所有",
+        "dst": "Schalter alle"
+    },
+    "修改别名": {
+        "src": "修改别名",
+        "dst": "Alias ändern"
+    },
+    "当前服务商下属暂无模型可用": {
+        "src": "当前服务商下属暂无模型可用",
+        "dst": "Derzeit sind keine Modelle verfügbar"
+    },
+    "添加模型": {
+        "src": "添加模型",
+        "dst": "Modell hinzufügen"
+    },
+    "模型ID": {
+        "src": "模型ID",
+        "dst": "Modell-ID"
+    },
+    "请输入模型ID": {
+        "src": "请输入模型ID",
+        "dst": "Bitte geben Sie die Modell-ID ein"
+    },
+    "模型别名": {
+        "src": "模型别名",
+        "dst": "Modell Alias"
+    },
+    "请输入模型别名": {
+        "src": "请输入模型别名",
+        "dst": "Bitte geben Sie Modellalias ein"
+    },
+    "模型功能": {
+        "src": "模型功能",
+        "dst": "Modellfunktionalität"
+    },
+    "添加": {
+        "src": "添加",
+        "dst": "Hinzufügen"
+    },
+    "供应商名称": {
+        "src": "供应商名称",
+        "dst": "Name des Lieferanten"
+    },
+    "接口地址": {
+        "src": "接口地址",
+        "dst": "Interface-Adresse"
+    },
+    "需要兼容openAI格式的接口": {
+        "src": "需要兼容openAI格式的接口",
+        "dst": "Benötigt eine OpenAI-kompatible Schnittstelle"
+    },
+    "密钥": {
+        "src": "密钥",
+        "dst": "Schlüssel"
+    },
+    "请选择模型功能": {
+        "src": "请选择模型功能",
+        "dst": "Bitte wählen Sie die Modellfunktion"
+    },
+    "请输入供应商名称": {
+        "src": "请输入供应商名称",
+        "dst": "Bitte geben Sie den Namen des Lieferanten ein"
+    },
+    "模型添加成功": {
+        "src": "模型添加成功",
+        "dst": "Modell erfolgreich hinzugefügt"
+    },
+    "是否确定删除当前模型？该操作不可逆": {
+        "src": "是否确定删除当前模型？该操作不可逆",
+        "dst": "Sind Sie sicher, dass Sie das aktuelle Modell löschen möchten? Diese Operation ist irreversibel."
+    },
+    "请填写完整配置信息": {
+        "src": "请填写完整配置信息",
+        "dst": "Bitte füllen Sie die vollständigen Konfigurationsinformationen aus"
+    },
+    "配置保存成功": {
+        "src": "配置保存成功",
+        "dst": "Konfiguration erfolgreich gespeichert"
+    },
+    "缺少API密钥": {
+        "src": "缺少API密钥",
+        "dst": "Fehlender API-Schlüssel"
+    },
+    "缺少API地址": {
+        "src": "缺少API地址",
+        "dst": "Eine fehlende API-Adresse"
+    },
+    "模型启用成功": {
+        "src": "模型启用成功",
+        "dst": "Modell erfolgreich aktiviert"
+    },
+    "模型禁用成功": {
+        "src": "模型禁用成功",
+        "dst": "Modell erfolgreich deaktiviert"
+    },
+    "已启用全部模型": {
+        "src": "已启用全部模型",
+        "dst": "Alle Modelle wurden aktiviert"
+    },
+    "已禁用全部模型": {
+        "src": "已禁用全部模型",
+        "dst": "Alle Modelle deaktiviert"
+    },
+    "添加成功": {
+        "src": "添加成功",
+        "dst": "Erfolgreich hinzugefügt"
+    },
+    "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！": {
+        "src": "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！",
+        "dst": "Löschen Sie den aktuellen Anbieter? Diese Aktion löscht alle Modelle gleichzeitig, bitte vorsichtig!"
+    },
+    "删除成功": {
+        "src": "删除成功",
+        "dst": "Löschen erfolgreich"
+    },
+    "一键把AI模型部署在你的电脑": {
+        "src": "一键把AI模型部署在你的电脑",
+        "dst": "Implementieren Sie ein KI-Modell auf Ihrem Computer mit einem Klick"
+    },
+    "免费开源无限制": {
+        "src": "免费开源无限制",
+        "dst": "Freies Open Source ohne Einschränkungen"
+    },
+    "可在线分享他人使用": {
+        "src": "可在线分享他人使用",
+        "dst": "Online teilen für andere"
+    },
+    "支持联网大幅度提升答案质量": {
+        "src": "支持联网大幅度提升答案质量",
+        "dst": "Unterstützung der Vernetzung zur erheblichen Verbesserung der Antwortqualität"
+    },
+    "使用第三方模型": {
+        "src": "使用第三方模型",
+        "dst": "Verwendung von Drittanbietermodellen"
+    },
+    "使用本地模型": {
+        "src": "使用本地模型",
+        "dst": "Lokales Modell verwenden"
+    },
+    "简单好用的AI助手": {
+        "src": "简单好用的AI助手",
+        "dst": "Einfacher und nützlicher AI-Assistent"
+    },
+    "支持联网搜索和知识库": {
+        "src": "支持联网搜索和知识库",
+        "dst": "Unterstützung für vernetzte Suche und Wissensdatenbank"
+    },
+    "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型": {
+        "src": "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型",
+        "dst": "Tipp: Wenn die Freigabeliste leer ist, wird der Freigabeverbindungsdienst automatisch eingestellt und das Outnet kann über AingDesk auf keine Modelle zugreifen."
+    },
+    "上传附件": {
+        "src": "上传附件",
+        "dst": "Anhänge hochladen"
+    },
+    "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Das von Ihnen verwendete [{0}] Modell wurde deaktiviert oder gelöscht. Bitte aktivieren Sie das Modell erneut oder wechseln Sie es."
+    },
+    "请安装或接入嵌入模型": {
+        "src": "请安装或接入嵌入模型",
+        "dst": "Bitte installieren oder verbinden Sie das eingebettete Modell"
+    },
+    "使用本地模型嵌入（推荐）": {
+        "src": "使用本地模型嵌入（推荐）",
+        "dst": "Lokale Modelleinbettung verwenden (empfohlen)"
+    },
+    "请选择从Ollama安装-Embedding-安装bge-m3:latest": {
+        "src": "请选择从Ollama安装-Embedding-安装bge-m3:latest",
+        "dst": "Bitte wählen Sie aus Ollama installieren-Embedding-installieren bge-m3: latest"
+    },
+    "使用第三方API提供模型嵌入": {
+        "src": "使用第三方API提供模型嵌入",
+        "dst": "Verwendung von Drittanbieter-APIs zur Modelleinbettung"
+    },
+    "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动": {
+        "src": "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动",
+        "dst": "Bitte wählen Sie den Zugang zu Drittanbietermodellen für den Zugang zu Embedding-APIs von Drittanbietern wie Silicon-basierte Mobilität"
+    },
+    "从Ollama安装": {
+        "src": "从Ollama安装",
+        "dst": "Installation von Ollama"
+    },
+    "接入第三方模型": {
+        "src": "接入第三方模型",
+        "dst": "Modelle von Drittanbietern integrieren"
+    },
+    "已启用模型该服务商": {
+        "src": "已启用模型该服务商",
+        "dst": "Das Modell wurde für diesen Dienstleister aktiviert"
+    },
+    "已禁用模型该服务商": {
+        "src": "已禁用模型该服务商",
+        "dst": "Dieser Anbieter hat das Modell deaktiviert"
+    },
+    "无记忆": {
+        "src": "无记忆",
+        "dst": "Erinnerungslos"
+    },
+    " 能提升单次回复质量，但大模型将没有上下文记忆": {
+        "src": " 能提升单次回复质量，但大模型将没有上下文记忆",
+        "dst": "Verbessert die Qualität der einzelnen Antworten, aber das große Modell hat keinen Kontextspeicher"
+    },
+    "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式": {
+        "src": "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式",
+        "dst": "Unterstützt das Hochladen von Dateien und Bildern (bis zu 20MB) und unterstützt Formate wie PDF, DOC, TXT usw."
+    },
+    "附件总大小不能超过20MB": {
+        "src": "附件总大小不能超过20MB",
+        "dst": "Die Gesamtgröße der Anbaugeräte darf 20MB nicht überschreiten"
+    },
+    "请选择知识库": {
+        "src": "请选择知识库",
+        "dst": "Bitte wählen Sie eine Wissensdatenbank"
+    },
+    "文档教程": {
+        "src": "文档教程",
+        "dst": "Dokument-Tutorial"
+    },
+    "查看知识库教程": {
+        "src": "查看知识库教程",
+        "dst": "Wissensdatenbank-Tutorial anzeigen"
     }
 }

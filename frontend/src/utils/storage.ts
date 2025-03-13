@@ -16,5 +16,12 @@ export default {
         localStorage.setItem("themeMode", mode)
     },
 
-    // 
+    // 欢迎窗口关闭
+    get welcomeEnd() {
+        return localStorage.getItem("welcomeEnd") as string
+    },
+
+    set welcomeEnd(end: string) {
+        localStorage.setItem("welcomeEnd", end as string)
+    }
 }

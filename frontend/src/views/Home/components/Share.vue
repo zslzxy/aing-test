@@ -9,17 +9,26 @@
                     <!-- <span class="item-label">{{ $t("对话") }}:</span> -->
                     <NForm inline>
                         <NFormItem>
-                            <NInput style="width:310px" v-model:value="title" :placeholder="$t('请输入名称')" />
+                            <NInput style="width:150px" v-model:value="title" :placeholder="$t('请输入名称')" />
                         </NFormItem>
                         <NFormItem>
-                            <NSelect :options="modelList" v-model:value="shareModel" style="width: 320px;" />
+                            <NSelect :options="knowledgeList" label-field="ragName" value-field="ragName"
+                                v-model:value="knowledges" multiple :ellipsis-tag-popover-props="{ trigger: 'hover' }"
+                                max-tag-count="responsive" style="width: 150px;" :placeholder="$t('请选择知识库')" />
                         </NFormItem>
                         <NFormItem>
-                            <NButton type="success" @click="createShare(title, shareModel)">{{ $t("分享") }}</NButton>
+                            <NSelect :options="visibleModelList" v-model:value="shareModel" style="width: 290px;" />
+                        </NFormItem>
+                        <NFormItem>
+                            <NButton type="success" @click="createShare(title, shareModelDto, knowledges)">{{ $t("分享")
+                            }}
+                            </NButton>
                         </NFormItem>
                     </NForm>
                 </div>
-                <span style="position: absolute;margin-top: -25px;">提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型</span>
+                <span style="position: absolute;margin-top: -25px;">{{
+                    $t("提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型")
+                    }}</span>
             </div>
             <NDataTable :columns="labelColumns" :data="shareHistory" />
         </NCard>
@@ -27,7 +36,7 @@
 
     <!-- 修改分享 -->
     <NModal v-model:show="modifyShareShow" :close-on-esc="false" :closable="false" :mask-closable="false">
-        <NCard :title="$t('修改分享')" style="width: 530px;">
+        <NCard :title="$t('修改分享')" style="width: 670px;">
             <template #header-extra>
                 <i class="i-common:close w-24 h-24 cursor-pointer" @click="closeModifyShare"></i>
             </template>
@@ -35,19 +44,27 @@
                 <div class="inline-info">
                     <NForm inline>
                         <NFormItem>
-                            <NInput style="width:310px" v-model:value="modify_title" :placeholder="$t('请输入名称')" />
+                            <NInput style="width:150px" v-model:value="modify_title" :placeholder="$t('请输入名称')" />
                         </NFormItem>
                         <NFormItem>
-                            <NSelect :options="modelList" v-model:value="modify_shareModel" style="width: 420px;" />
+                            <NSelect :options="knowledgeList" label-field="ragName" value-field="ragName"
+                                v-model:value="modify_knowledges" multiple
+                                :ellipsis-tag-popover-props="{ trigger: 'hover' }" max-tag-count="responsive"
+                                style="width: 150px;" :placeholder="$t('请选择知识库')" />
+                        </NFormItem>
+                        <NFormItem>
+                            <NSelect :options="visibleModelList" v-model:value="modify_shareModel"
+                                style="width: 290px;" :render-option="renderOption"/>
                         </NFormItem>
                     </NForm>
                 </div>
             </div>
             <div class="flex justify-end items-center gap-5">
                 <NButton type="default" @click="closeModifyShare">{{ $t("取消") }}</NButton>
-                <NButton type="success" @click="modifyShare(modify_share_id, modify_shareModel, modify_title)">{{
-                    $t("确认")
-                }}
+                <NButton type="success"
+                    @click="modifyShare(modify_share_id, modify_shareModel_dto, modify_title, modify_knowledges)">{{
+                        $t("确认")
+                    }}
                 </NButton>
             </div>
         </NCard>
@@ -65,7 +82,7 @@
             <div class="flex justify-end items-center gap-5">
                 <NButton type="default" @click="delShareConfirmShow = false">{{ $t("取消") }}</NButton>
                 <NButton type="success" @click="delShare(del_share_id)">{{ $t("确认")
-                    }}
+                }}
                 </NButton>
             </div>
         </NCard>
@@ -79,14 +96,31 @@ import { NModal, NCard, NButton, NInput, NTooltip, NDataTable, type DataTableCol
 import { useI18n } from "vue-i18n";
 import { useClipboard } from "@vueuse/core";
 import { message } from "@/utils/naive-tools";
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { createShare, getShareList, modifyShare, delShare } from "../controller";
-const { shareShow, modelList, shareHistory, modifyShareShow, currentModel, delShareConfirmShow } = storeToRefs(useIndexStore())
+const {
+    shareShow,
+    modelList,
+    shareHistory,
+    modifyShareShow,
+    currentModel,
+    delShareConfirmShow,
+    knowledgeList
+} = storeToRefs(useIndexStore())
 const title = ref("")
 const shareModel = ref("")
+const shareModelDto = computed(() => {
+    return modelList.value.find((item: any) => item.model === shareModel.value)
+})
+const knowledges = ref([])
+
 const modify_title = ref("")
 const modify_shareModel = ref("")
+const modify_shareModel_dto = computed(() => {
+    return modelList.value.find((item: any) => item.model === modify_shareModel.value)
+})
 const modify_share_id = ref("")
+const modify_knowledges = ref([])
 const del_share_id = ref("")
 const { t: $t } = useI18n()
 const { copy } = useClipboard({ source: "" })
@@ -94,6 +128,13 @@ async function copyQuestion(text: string) {
     await copy(text)
     message.success($t("复制成功"))
 }
+
+/**
+ * @description 过滤整个列表，只允许ollama的模型能够分享
+ */
+const visibleModelList = computed(() => {
+    return modelList.value.filter((item: any) => item)
+})
 
 const labelColumns = ref<DataTableColumns>([
     {
@@ -144,6 +185,18 @@ const labelColumns = ref<DataTableColumns>([
 ])
 
 /**
+ * @description 为下拉选项添加tooltip
+ */
+function renderOption({node,option}:any){
+    return <NTooltip>
+        {{
+            default: () => option.label,
+            trigger: () => node
+        }}
+    </NTooltip>
+}
+
+/**
  * @description 监听，弹窗打开时立即获取分享列表
  */
 watch(shareShow, (val) => {
@@ -170,8 +223,14 @@ function closeShare() {
 function openModifyShare(row: any) {
     modifyShareShow.value = true
     modify_title.value = row.title
-    modify_shareModel.value = `${row.model}:${row.parameters}`
+    if (row.supplierName == "ollama") {
+        modify_shareModel.value = `${row.model}:${row.parameters}`
+    } else {
+        modify_shareModel.value = row.model
+    }
+    modify_knowledges.value = row.rag_list
     modify_share_id.value = row.share_id
+
 }
 
 /**
@@ -182,6 +241,8 @@ function closeModifyShare() {
     modify_title.value = ""
     modify_shareModel.value = ""
 }
+
+
 
 </script>
 

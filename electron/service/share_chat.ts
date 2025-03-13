@@ -111,15 +111,35 @@ export class ShareChatService {
      * @param {string} contextId - 对话的唯一标识符
      * @param {string} model - 新的模型名称
      * @param {string} parameters - 新的模型参数
+     * @param {string} supplierName - 供应商名称
      * @returns {boolean} - 如果更新成功返回 true，否则返回 false
      */
-    update_chat_model(shareId: string, contextId: string, model: string, parameters: string): boolean {
+    update_chat_model(shareId: string, contextId: string, model: string, parameters: string,supplierName:string): boolean {
         const contextConfigObj = this.readJsonFile(this.getConfigFilePath(shareId, contextId));
         if (Object.keys(contextConfigObj).length === 0) {
             return false;
         }
         contextConfigObj.model = model;
         contextConfigObj.parameters = parameters;
+        contextConfigObj.supplierName = supplierName;
+        this.saveJsonFile(this.getConfigFilePath(shareId, contextId), contextConfigObj);
+        return true;
+    }
+
+
+    /**
+     * 更新指定对话的配置项
+     * @param {string} shareId - 对话的唯一标识符
+     * @param {string} key - 配置项的键
+     * @param {any} value - 配置项的值
+     * @returns {boolean} - 如果更新成功返回 true，否则返回 false
+     */
+    update_chat_config(shareId: string,contextId:string, key: string, value: any): boolean {
+        const contextConfigObj = this.readJsonFile(this.getConfigFilePath(shareId, contextId));
+        if (Object.keys(contextConfigObj).length === 0) {
+            return false;
+        }
+        contextConfigObj[key] = value;
         this.saveJsonFile(this.getConfigFilePath(shareId, contextId), contextConfigObj);
         return true;
     }
@@ -209,7 +229,7 @@ export class ShareChatService {
      * @param {number} contextLength - 上下文的最大长度
      * @returns {object[]} - 构造后的历史对话记录数组
      */
-    build_chat_history(shareId: string, contextId: string, chatContext: ChatContext, contextLength: number): object[] {
+    build_chat_history(shareId: string, contextId: string, chatContext: ChatContext, contextLength: number): any[] {
         let contextList = this.read_history(shareId, contextId);
         let totalTokens = chatContext.content.length;
         for (const item of contextList) {
@@ -245,9 +265,6 @@ export class ShareChatService {
         const historyMaxContextLength = Math.round(contextLength * 0.5);
 
         historyRes.content = pub.lang("意外中断");
-
-
-
         if(regenerate_id){
             let index = historyList.findIndex((item) => item.id == regenerate_id);
             if(index > -1){

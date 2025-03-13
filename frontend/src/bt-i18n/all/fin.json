@@ -518,5 +518,325 @@
     "{0}个文件": {
         "src": "{0}个文件",
         "dst": " {0} tiedostoa"
+    },
+    "正在搜索...": {
+        "src": "正在搜索...",
+        "dst": "Etsitään..."
+    },
+    "请输入知识库名称": {
+        "src": "请输入知识库名称",
+        "dst": "Syötä tietokannan nimi"
+    },
+    "描述": {
+        "src": "描述",
+        "dst": "Kuvaus"
+    },
+    "请输入知识库描述": {
+        "src": "请输入知识库描述",
+        "dst": "Syötä tietokannan kuvaus"
+    },
+    "嵌入模型": {
+        "src": "嵌入模型",
+        "dst": "Sulautettu malli"
+    },
+    "选择模型": {
+        "src": "选择模型",
+        "dst": "Valitse malli"
+    },
+    "选择知识库": {
+        "src": "选择知识库",
+        "dst": "Valitse tietokanta"
+    },
+    "文档嵌入中，请稍后": {
+        "src": "文档嵌入中，请稍后",
+        "dst": "Asiakirjan upottaminen myöhemmin"
+    },
+    "已嵌入完成, 可正常调用": {
+        "src": "已嵌入完成, 可正常调用",
+        "dst": "Sulautettu valmis, voidaan soittaa normaalisti"
+    },
+    "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "upotettu, odotusaika riippuu tiedostojen määrästä, joka voi kestää muutaman minuutin kymmenen minuuttia"
+    },
+    "第三方模型API": {
+        "src": "第三方模型API",
+        "dst": "Kolmannen osapuolen malli API"
+    },
+    "本地模型": {
+        "src": "本地模型",
+        "dst": "Paikallinen malli"
+    },
+    "添加模型服务商": {
+        "src": "添加模型服务商",
+        "dst": "Mallin palveluntarjoajan lisääminen"
+    },
+    "使用教程": {
+        "src": "使用教程",
+        "dst": "Oppisohjeiden käyttö"
+    },
+    "删除服务商": {
+        "src": "删除服务商",
+        "dst": "Poista palveluntarjoaja"
+    },
+    "API密钥": {
+        "src": "API密钥",
+        "dst": "API avain"
+    },
+    "请输入API密钥": {
+        "src": "请输入API密钥",
+        "dst": "Syötä API-avain"
+    },
+    "检查": {
+        "src": "检查",
+        "dst": "Tarkista"
+    },
+    "点次获取密钥": {
+        "src": "点次获取密钥",
+        "dst": "Hanki avaimet"
+    },
+    "API地址": {
+        "src": "API地址",
+        "dst": "API-osoite"
+    },
+    "请输入API地址": {
+        "src": "请输入API地址",
+        "dst": "Anna API-osoite"
+    },
+    "示例": {
+        "src": "示例",
+        "dst": "Esimerkki"
+    },
+    "保存API": {
+        "src": "保存API",
+        "dst": "Tallenna API"
+    },
+    "默认从/models获取所有模型": {
+        "src": "默认从/models获取所有模型",
+        "dst": "Oletusarvo saada kaikki mallit /models"
+    },
+    "开关所有": {
+        "src": "开关所有",
+        "dst": "Kytke kaikki"
+    },
+    "修改别名": {
+        "src": "修改别名",
+        "dst": "Muuta alias"
+    },
+    "当前服务商下属暂无模型可用": {
+        "src": "当前服务商下属暂无模型可用",
+        "dst": "Palveluntarjoajan alaisille ei tällä hetkellä ole saatavilla malleja"
+    },
+    "添加模型": {
+        "src": "添加模型",
+        "dst": "Lisää malli"
+    },
+    "模型ID": {
+        "src": "模型ID",
+        "dst": "Mallin ID"
+    },
+    "请输入模型ID": {
+        "src": "请输入模型ID",
+        "dst": "Anna mallin tunnus"
+    },
+    "模型别名": {
+        "src": "模型别名",
+        "dst": "Mallin alias"
+    },
+    "请输入模型别名": {
+        "src": "请输入模型别名",
+        "dst": "Syötä mallin alias"
+    },
+    "模型功能": {
+        "src": "模型功能",
+        "dst": "Mallin toiminnot"
+    },
+    "添加": {
+        "src": "添加",
+        "dst": "Lisää"
+    },
+    "供应商名称": {
+        "src": "供应商名称",
+        "dst": "Toimittajan nimi"
+    },
+    "接口地址": {
+        "src": "接口地址",
+        "dst": "Liitännän osoite"
+    },
+    "需要兼容openAI格式的接口": {
+        "src": "需要兼容openAI格式的接口",
+        "dst": "Tarvitaan openAI-muodon yhteensopiva käyttöliittymä"
+    },
+    "密钥": {
+        "src": "密钥",
+        "dst": "salainen avain"
+    },
+    "请选择模型功能": {
+        "src": "请选择模型功能",
+        "dst": "Valitse mallin ominaisuudet"
+    },
+    "请输入供应商名称": {
+        "src": "请输入供应商名称",
+        "dst": "Syötä toimittajan nimi"
+    },
+    "模型添加成功": {
+        "src": "模型添加成功",
+        "dst": "Malli lisätty onnistuneesti"
+    },
+    "是否确定删除当前模型？该操作不可逆": {
+        "src": "是否确定删除当前模型？该操作不可逆",
+        "dst": "Oletko varma, että poistat nykyisen mallin? Toiminta on peruuttamaton."
+    },
+    "请填写完整配置信息": {
+        "src": "请填写完整配置信息",
+        "dst": "Täytä täydet tiedot"
+    },
+    "配置保存成功": {
+        "src": "配置保存成功",
+        "dst": "Asetukset tallennettiin onnistuneesti"
+    },
+    "缺少API密钥": {
+        "src": "缺少API密钥",
+        "dst": "API-avain puuttuu"
+    },
+    "缺少API地址": {
+        "src": "缺少API地址",
+        "dst": "Puuttuva API-osoite"
+    },
+    "模型启用成功": {
+        "src": "模型启用成功",
+        "dst": "Mallin käyttöönotto onnistui"
+    },
+    "模型禁用成功": {
+        "src": "模型禁用成功",
+        "dst": "Mallin poistaminen käytöstä onnistui"
+    },
+    "已启用全部模型": {
+        "src": "已启用全部模型",
+        "dst": "Kaikki mallit käytössä"
+    },
+    "已禁用全部模型": {
+        "src": "已禁用全部模型",
+        "dst": "Kaikki mallit on poistettu käytöstä"
+    },
+    "添加成功": {
+        "src": "添加成功",
+        "dst": "Lisätty onnistuneesti"
+    },
+    "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！": {
+        "src": "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！",
+        "dst": "Poistatko nykyisen palveluntarjoajan? Tämä poistaa kaikki mallit samanaikaisesti, ole varovainen!"
+    },
+    "删除成功": {
+        "src": "删除成功",
+        "dst": "Poista onnistuneesti"
+    },
+    "一键把AI模型部署在你的电脑": {
+        "src": "一键把AI模型部署在你的电脑",
+        "dst": "Laita AI-malli käyttöön tietokoneeseesi yhdellä napsautuksella"
+    },
+    "免费开源无限制": {
+        "src": "免费开源无限制",
+        "dst": "Ilmainen avoimen lähdekoodin rajoittamaton"
+    },
+    "可在线分享他人使用": {
+        "src": "可在线分享他人使用",
+        "dst": "Voit jakaa verkossa muiden kanssa"
+    },
+    "支持联网大幅度提升答案质量": {
+        "src": "支持联网大幅度提升答案质量",
+        "dst": "Tuetaan verkostoitumista vastausten laadun parantamiseksi merkittävästi"
+    },
+    "使用第三方模型": {
+        "src": "使用第三方模型",
+        "dst": "Kolmannen osapuolen mallien käyttö"
+    },
+    "使用本地模型": {
+        "src": "使用本地模型",
+        "dst": "Käytä paikallista mallia"
+    },
+    "简单好用的AI助手": {
+        "src": "简单好用的AI助手",
+        "dst": "Helppo ja hyödyllinen AI-avustaja"
+    },
+    "支持联网搜索和知识库": {
+        "src": "支持联网搜索和知识库",
+        "dst": "Tukee verkko-hakua ja tietokantaa"
+    },
+    "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型": {
+        "src": "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型",
+        "dst": "Vihje: Jos jakoluettelo on tyhjä, jakamisen yhteyspalvelu pysähtyy automaattisesti, eikä missään mallissa ole pääsyä AingDeskin kautta"
+    },
+    "上传附件": {
+        "src": "上传附件",
+        "dst": "Lataa liitteet"
+    },
+    "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Tällä hetkellä käyttämäsi [{0}] malli on poistettu käytöstä tai poistettu. Ota uudelleen käyttöön tai vaihda malleja"
+    },
+    "请安装或接入嵌入模型": {
+        "src": "请安装或接入嵌入模型",
+        "dst": "Asenna tai liitä upotettu malli"
+    },
+    "使用本地模型嵌入（推荐）": {
+        "src": "使用本地模型嵌入（推荐）",
+        "dst": "Käytä paikallista mallin upotusta (suositeltu)"
+    },
+    "请选择从Ollama安装-Embedding-安装bge-m3:latest": {
+        "src": "请选择从Ollama安装-Embedding-安装bge-m3:latest",
+        "dst": "Valitse asennuksesi kohdasta Ollama - Upotus - Asennus bge-m3: latest"
+    },
+    "使用第三方API提供模型嵌入": {
+        "src": "使用第三方API提供模型嵌入",
+        "dst": "Kolmannen osapuolen sovellusliittymien käyttäminen mallien upottamiseen"
+    },
+    "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动": {
+        "src": "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动",
+        "dst": "Valitse yhteys kolmannen osapuolen malleihin, jotka tukevat kolmannen osapuolen rajapintojen sulauttamista, kuten silikonipohjaista liikkuvuutta"
+    },
+    "从Ollama安装": {
+        "src": "从Ollama安装",
+        "dst": "Asennus Ollamasta"
+    },
+    "接入第三方模型": {
+        "src": "接入第三方模型",
+        "dst": "Kolmansien osapuolten mallien integrointi"
+    },
+    "已启用模型该服务商": {
+        "src": "已启用模型该服务商",
+        "dst": "Tämä palveluntarjoaja on ottanut mallin käyttöön"
+    },
+    "已禁用模型该服务商": {
+        "src": "已禁用模型该服务商",
+        "dst": "Malli on poistettu käytöstä tämän palveluntarjoajan osalta"
+    },
+    "无记忆": {
+        "src": "无记忆",
+        "dst": "Muistoton"
+    },
+    " 能提升单次回复质量，但大模型将没有上下文记忆": {
+        "src": " 能提升单次回复质量，但大模型将没有上下文记忆",
+        "dst": "Parantaa yksittäisen vastauksen laatua, mutta suurilla malleilla ei ole kontekstimuistia"
+    },
+    "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式": {
+        "src": "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式",
+        "dst": "Tukee tiedostojen ja kuvien lataamista (jopa 20 Mt) ja tukee formaatteja, kuten PDF, DOC, TXT jne."
+    },
+    "附件总大小不能超过20MB": {
+        "src": "附件总大小不能超过20MB",
+        "dst": "Liitteiden koko ei saa ylittää 20 Mt"
+    },
+    "请选择知识库": {
+        "src": "请选择知识库",
+        "dst": "Valitse tietopohja"
+    },
+    "文档教程": {
+        "src": "文档教程",
+        "dst": "Asiakirjan opetusohjelma"
+    },
+    "查看知识库教程": {
+        "src": "查看知识库教程",
+        "dst": "Näytä tietokannan opetusohjelma"
     }
 }

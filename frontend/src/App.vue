@@ -1,5 +1,5 @@
 <template>
-  <NConfigProvider :theme="themeMode == 'light' ? lightTheme : darkTheme">
+  <NConfigProvider :theme="themeMode == 'light' ? lightTheme : darkTheme" :theme-overrides="themeOverrides">
     <router-view></router-view>
   </NConfigProvider>
   <!-- <div class="drag-upload" v-show="knowledgeDragable">
@@ -12,12 +12,30 @@ import useIndexStore from './views/Home/store';
 import { storeToRefs } from 'pinia';
 import { NConfigProvider, darkTheme, lightTheme } from 'naive-ui';
 import DragUpload from './views/Home/components/DragUpload.vue';
-import { ragStatus } from './views/Home/controller';
-const { themeMode, knowledgeDragable } = storeToRefs(useIndexStore())
+import { ragStatus,getVersion } from './views/Home/controller';
+import storage from './utils/storage';
+import { onMounted } from 'vue';
+const { themeMode, knowledgeDragable,welcomeShow } = storeToRefs(useIndexStore())
 
 // 检测知识库状态
 ragStatus()
+// 获取版本号
+getVersion()
 
+// 调整样式
+const themeOverrides = {
+  Switch: {
+    // railWidthMedium: "20px",
+    // railWidthSmall:"20px"
+  }
+}
+
+// 判断是否出现欢迎界面
+onMounted(()=>{
+  if(storage.welcomeEnd == null){
+    welcomeShow.value = true;
+  }
+})
 
 /********** 拖拽上传 **********/
 // let dragEnterCount = 0;

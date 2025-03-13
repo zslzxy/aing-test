@@ -8,6 +8,8 @@ import { shareChatService } from './share_chat';
 import { ChatContext, ChatHistory } from './chat';
 import ChatController from '../controller/chat';
 import {getPromptForWeb} from '../search_engines/search'
+import { Rag } from '../rag/rag';
+import { ModelService,GetSupplierModels,getModelContextLength } from '../service/model';
 
 // 常量定义
 const CLOUD_SERVER_HOST = 'share.aingdesk.com';
@@ -116,15 +118,22 @@ class ShareService {
 
     
     // 聊天
-    async chat(conn: tls.TLSSocket, data: { modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string },msgId:number) {
-        const { modelStr, content, shareInfo, contextId,search,regenerate_id } = data;
+    async chat(conn: tls.TLSSocket, data: {supplierName?:string; modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string,images?:string[],doc_files?:string[],rag_list?:string[] },msgId:number) {
+        let { supplierName, modelStr, content, shareInfo, contextId,search,regenerate_id,doc_files,images,rag_list } = data;
         const shareId = shareInfo.share_id;
+        supplierName = supplierName || 'ollama';
+        doc_files = doc_files || [];
+        images = images || [];
+        rag_list = rag_list || [];
+        const isOllama = supplierName === 'ollama';
+
 
         // 构建用户的聊天上下文
         const chatContext: ChatContext = {
             role: 'user',
             content,
             images: [],
+            doc_files: [],
             tool_calls: '',
         };
 
@@ -139,13 +148,10 @@ class ShareService {
         // 设置对话状态为正在生成
         ContextStatusMap.set(contextId, true);
         // 保存新的模型信息
-        shareChatService.update_chat_model(shareId, contextId, shareInfo.model, shareInfo.parameters);
+        shareChatService.update_chat_model(shareId, contextId, shareInfo.model, shareInfo.parameters,supplierName);
 
         // 获取对话历史
-        const history = shareChatService.build_chat_history(shareId, contextId, chatContext, modelInfo.contextLength).map((context: any) => ({
-            role: context.role,
-            content: context.content,
-        }));
+        let history = shareChatService.build_chat_history(shareId, contextId, chatContext, modelInfo.contextLength)
 
         // 保存用户的聊天记录
         const chatHistory: ChatHistory = {
@@ -155,6 +161,7 @@ class ShareService {
             stat: {},
             content,
             images: [],
+            doc_files: [],
             tool_calls: '',
             created_at: '',
             create_time: pub.time(),
@@ -182,6 +189,7 @@ class ShareService {
             },
             content: '',
             images: [],
+            doc_files: [],
             tool_calls: '',
             created_at: '',
             create_time: pub.time(),
@@ -194,6 +202,39 @@ class ShareService {
         shareChatService.save_chat_history(shareId, contextId, chatHistory, chatHistoryRes, modelInfo.contextLength,regenerate_id);
         chatHistoryRes.content = '';
 
+
+        // 先使用知识库检索
+        if(rag_list) {
+            // 保存RAG列表到会话配置
+            shareChatService.update_chat_config(shareId,contextId, "rag_list", rag_list);
+
+            if(rag_list.length > 0) {
+                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(rag_list,modelStr,content,history[history.length - 1].doc_files);
+                chatHistoryRes.search_query = query;
+                chatHistoryRes.search_type = "[RAG]:" + rag_list.join(",");
+                chatHistoryRes.search_result = searchResultList;
+    
+                if (systemPrompt) {
+                    // 将系统提示词插入到对话历史的第一条
+                    history.unshift({
+                        role: 'system',
+                        content: systemPrompt
+                    });
+                }
+    
+                if (userPrompt) {
+                    // 将用户提示词替换历史的最后一条
+                    history[history.length - 1].content = userPrompt;
+                }
+
+                // 知识库有召回结果的情况下，不再进行联网搜索
+                if(searchResultList.length > 0) {
+                    search = ''
+                }
+
+            }
+        }
+
         if (search) {
             // 获取上一次的对话历史
             let lastHistory = "";
@@ -202,7 +243,7 @@ class ShareService {
                 lastHistory += pub.lang("回答:") + history[history.length - 2].content + "\n";
             }
 
-            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search);
+            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search,doc_files);
             chatHistoryRes.search_query = query;
             chatHistoryRes.search_type = search;
             chatHistoryRes.search_result = searchResultList;
@@ -221,58 +262,206 @@ class ShareService {
             }
         }
 
-        // 发送消息到大模型
-        const model = `${shareInfo.model}:${shareInfo.parameters}`;
         try {
-            const requestOption:any = {
-                model,
-                messages: history,
-                stream: true,
+            let letHistory = history[history.length - 1];
+
+            // 嵌入system提示
+//             if(letHistory.content === content) {
+//                 let systemPrompt = `# 以下是日期和地区信息，你可以根据需要选择其中的内容。
+// ## ${pub.lang('当前日期和时间为')}: ${pub.getCurrentDateTime()}
+// ## ${pub.lang('用户所在地区为')}: ${pub.getUserLocation()}`
+//                 history.unshift({
+//                     role: 'system',
+//                     content: systemPrompt
+//                 });
+//             }
+
+
+            // 嵌入文档
+            if(letHistory.content === content && letHistory.doc_files.length > 0) {
+                // 将文档内容合并到用户输入
+                letHistory.content = `## ${pub.lang('以下是用户上传的文档内容，每个文档内容都是[用户文档 X begin]...[用户文档 X end]格式的，你可以根据需要选择其中的内容。')}
+{doc_files}
+## ${pub.lang('用户输入的内容')}:{user_content}`;
+
+                const doc_files_str = letHistory.doc_files.map(
+                    (doc_file, idx) =>
+                        `[${pub.lang('用户文档')} ${idx+1} begin]
+${pub.lang('内容')}: ${doc_file}
+[${pub.lang('用户文档')} ${idx} end]`).join("\n");
+
+                letHistory.content = letHistory.content.replace("{doc_files}", doc_files_str);
+                letHistory.content = letHistory.content.replace("{user_content}", content);
             }
-            
-            // 设置deepseek温度参数
-            if (model.indexOf('deepseek') !== -1) {
-                requestOption.options = {
-                    temperature: 0.6
+
+            if(letHistory.tool_calls !== undefined) {
+                // 删除工具调用
+                delete letHistory.tool_calls;
+            }
+
+            if(letHistory.doc_files !== undefined) {
+                // 删除文档
+                delete letHistory.doc_files;
+            }
+
+            if(!isOllama){
+                // 非Ollama模型，图片处理
+                if(letHistory.images && letHistory.images.length > 0) {
+                    let content:any[] = [];
+                    content.push({type:"text",text:letHistory.content});
+                    for(let image of letHistory.images) {
+                        content.push({type:"image_url",image_url: {url:image}});
+                    }
+                }
+
+                if(letHistory.images) delete letHistory.images;
+            }else{
+                // Ollama模型，删除data:image/jpeg;base64,
+                if(letHistory.images && letHistory.images.length > 0) {
+                    let images:string[] = [];
+                    for(let image of letHistory.images) {
+                        images.push(image.split(',')[1])
+                    }
+                    letHistory.images = images;
                 }
             }
 
-            const res = await ollama.chat(requestOption);
+            // 发送消息到大模型
+            const requestOption:any = {
+                model:modelStr,
+                messages: history,
+                stream: true,
+            };
+
+
+            if(isOllama){
+                let modelArr = modelStr.split(":")
+                let parameters = modelArr[1];
+
+                // 计算上下文长度
+                let contextLength = 0;
+                for (const message of history) {
+                    contextLength += message.content.length;
+                }
+                let max_ctx = 4096;
+                let min_ctx = 2048;
+                if(parameters && parameters === '1.5b') max_ctx = 8192;
+                let num_ctx = Math.max(min_ctx, Math.min(max_ctx, contextLength / 2))
+                // num_ctx 为min_ctx的倍数
+                num_ctx = Math.ceil(num_ctx / min_ctx) * min_ctx;
+                requestOption.options = {
+                    num_ctx: num_ctx
+                }
+            }
+    
+            if (modelStr.indexOf('deepseek') !== -1) {
+                if(isOllama){
+                    requestOption.options.temperature = 0.6;
+                }else{
+                    requestOption.temperature = 0.6;
+                }
+            }
+    
+            let res:any;
+            if(isOllama){
+                res = await ollama.chat(requestOption);
+            }else{
+                const modelService = new ModelService(supplierName);
+                try {
+                    res = await modelService.chat(requestOption);
+                } catch (error) {
+                    logger.error(pub.lang('调用模型接口时出错:'), error);
+                    return pub.return_error(pub.lang('调用模型接口时出错'), error);
+                }
+            }
 
             // 处理大模型的流式响应
+            let resTimeMs = 0; // 开始响应时间(毫秒)
+            let isThinking = false; // 是否正在推理
+            let isThinkingEnd = false; // 是否推理结束
             for await (const chunk of res) {
-                if (chunk.done) {
+                if(!isOllama) resTimeMs = new Date().getTime();
+                if ((isOllama && chunk.done) || 
+                (!isOllama && (chunk.choices[0].finish_reason === 'stop' || chunk.choices[0].finish_reason === 'normal' || (chunk.choices[0]?.dalta?.content == "" && chunk.choices[0]?.delta?.reasoning_content == null)))) {
                     // 计算统计信息
-                    const resInfo = {
-                        model: chunk.model,
-                        created_at: chunk.created_at.toString(),
-                        total_duration: chunk.total_duration / 1000000000,
-                        load_duration: chunk.load_duration / 1000000,
-                        prompt_eval_count: chunk.prompt_eval_count,
-                        prompt_eval_duration: chunk.prompt_eval_duration / 1000000,
-                        eval_count: chunk.eval_count,
-                        eval_duration: chunk.eval_duration / 1000000000,
-                    };
-                    chatHistoryRes.created_at = chunk.created_at.toString();
-                    chatHistoryRes.create_time = pub.time();
+                    let resInfo = {};
+                    if(isOllama){
+                        resInfo = {
+                            model: chunk.model,
+                            created_at: chunk.created_at.toString(),
+                            total_duration: chunk.total_duration / 1000000000,
+                            load_duration: chunk.load_duration / 1000000,
+                            prompt_eval_count: chunk.prompt_eval_count,
+                            prompt_eval_duration: chunk.prompt_eval_duration / 1000000,
+                            eval_count: chunk.eval_count,
+                            eval_duration: chunk.eval_duration / 1000000000,
+                        };
+                    }else{
+                        let nowTime = pub.time();
+                        resInfo = {
+                            model: modelStr,
+                            created_at: chunk.created,      // 对话开始时间
+                            total_duration:nowTime - chunk.created,           // 总时长
+                            load_duration: 0,
+                            prompt_eval_count:chunk.usage?.prompt_tokens||0,
+                            prompt_eval_duration: chunk.created * 1000 - resTimeMs,
+                            eval_count:chunk.usage?.completion_tokens||0,
+                            eval_duration: nowTime - resTimeMs / 1000,
+                        }
+
+                        // console.log("chunk:",chunk);
+                    }
+                    chatHistoryRes.created_at = chunk.created_at?chunk.created_at.toString():chunk.created;
+                    chatHistoryRes.create_time = chunk.created?chunk.created:pub.time();
                     chatHistoryRes.stat = resInfo;
 
                     shareChatService.set_chat_history(shareId, contextId, resUUID, chatHistoryRes);
-                    this.sendToServer(conn, { done: true, content: chunk.message.content},msgId);
+                    if(isOllama){
+                        this.sendToServer(conn, { done: true, content: chunk.message.content},msgId);
+                    }else{
+                        this.sendToServer(conn, { done: true, content: chunk.choices[0]?.delta?.content || '' },msgId);
+                    }
+                    
                     break;
                 }
+                if(isOllama){
+                    this.sendToServer(conn, { done: false, content: chunk.message.content || '' },msgId);
+                    chatHistoryRes.content += chunk.message.content;
+                }else{
 
-                // 写入流
-                this.sendToServer(conn, { done: false, content: chunk.message.content },msgId);
-
-                // 保存对话内容
-                chatHistoryRes.content += chunk.message.content;
+                    if(chunk.choices[0]?.delta?.reasoning_content){
+                        let reasoningContent = chunk.choices[0]?.delta?.reasoning_content || '';
+                        if(!isThinking) {
+                            isThinking = true;
+                            if(reasoningContent.indexOf('<think>') === -1) {
+                                this.sendToServer(conn, { done: false, content: '\n<think>\n' },msgId);
+                                chatHistoryRes.content += '\n<think>\n';
+                            }
+                        }
+                        this.sendToServer(conn, { done: false, content: reasoningContent },msgId);
+                        chatHistoryRes.content += reasoningContent;
+                        if(reasoningContent.indexOf('</think>') !== -1) {
+                            isThinkingEnd = true;
+                        }
+                    }else{
+                        if(isThinking) {
+                            isThinking = false;
+                            if(!isThinkingEnd) {
+                                this.sendToServer(conn, { done: false, content: '\n</think>\n' },msgId);
+                                chatHistoryRes.content += '\n</think>\n';
+                                isThinkingEnd = true;
+                            }
+                        }
+                        this.sendToServer(conn, { done: false, content: chunk.choices[0]?.delta?.content || '' },msgId);
+                        chatHistoryRes.content += chunk.choices[0]?.delta?.content || '';
+                    }
+                }
 
                 // 检查是否中断生成
                 if (!ContextStatusMap.get(contextId)) {
                     // console.log('中断请求');
                     // 中断请求
-                    res.abort();
+                    if(isOllama) res.abort();
                     // 结束流
                     const endContent = pub.lang('\n\n---\n**内容不完整:** 用户手动停止生成');
                     chatHistoryRes.content += endContent;
@@ -369,16 +558,20 @@ class ShareService {
             }
 
             const shareInfo = this.getShareInfo(shareData.shareId);
-
+            shareInfo.supplierName = shareInfo.supplierName || 'ollama'
             switch (shareData.action) {
                 case 'chat':
                     const args = {
-                        modelStr: `${shareInfo.model}:${shareInfo.parameters}`,
+                        supplierName:shareInfo.supplierName,
+                        modelStr: shareInfo.supplierName == 'ollama'?`${shareInfo.model}:${shareInfo.parameters}`:shareInfo.model,
                         content: shareData.content,
                         shareInfo,
                         contextId: shareData.contextId,
                         search:shareData.search,
-                        regenerate_id:shareData.regenerate_id
+                        regenerate_id:shareData.regenerate_id,
+                        doc_files:shareData.doc_files || [],
+                        images:shareData.images || [],
+                        rag_list:shareInfo.rag_list || []
                     };
                     this.chat(conn, args, shareData.msgId);
                     break;

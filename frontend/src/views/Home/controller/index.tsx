@@ -1,6 +1,6 @@
 import { get, post } from "@/api";
 import { storeToRefs } from "pinia";
-import useIndexStore, { type ChatInfo, type ActiveKnowledgeDto, type ActiveKnowledgeDocDto, type KnowledgeDocumentInfo } from "../store";
+import useIndexStore, { type ChatInfo, type ActiveKnowledgeDto, type ActiveKnowledgeDocDto, type KnowledgeDocumentInfo, type ThirdPartyApiServiceItem, type MultipeQuestionDto } from "../store";
 import { message, useDialog, modal } from "@/utils/naive-tools"
 import OtherModel from "../components/OtherModel.vue";
 import SoftSettings from "../components/SoftSettings.vue";
@@ -9,11 +9,21 @@ import UploadKnowledgeDoc from "../components/UploadKnowledgeDoc.vue";
 import axios from "axios";
 import { eventBUS } from "../utils/tools";
 import { nextTick, ref } from "vue";
-import { NButton, NSpin } from "naive-ui"
+import { NButton, NSpin, NTooltip } from "naive-ui"
 import i18n from "@/lang";
 // 模拟请求
-import { testRequest } from "@/utils/tools"
+import { getRandomStringFromSet, testRequest } from "@/utils/tools"
 const $t = i18n.global.t
+
+/**
+ * @description 获取版本号
+ */
+export async function getVersion() {
+    const { version } = getIndexStore()
+    const { message: { version: version_val } } = await get("index/get_version")
+    version.value = version_val
+}
+
 /**
  * @description 获取store内容
  */
@@ -26,17 +36,20 @@ function getIndexStore() {
  * @descript 获取已安装模型列表
  */
 export async function get_model_list() {
-    const { currentModel } = getIndexStore()
+    const { modelList, currentModel, currentSupplierName } = getIndexStore()
     const res = await post("/chat/get_model_list")
-    const optionRes = res.message.reduce((p: any, v: any) => {
-        return [...p, {
-            label: v.model,
-            value: v.model,
-        }]
+    modelList.value = Object.values(res.message).reduce((p: any, v: any) => {
+        return [...p, ...v.reduce((_p: any, _v: any) => {
+            return [..._p, {
+                label: _v.title,
+                value: _v.model,
+                ..._v,
+            }]
+        }, [])]
     }, [])
-    const { modelList } = getIndexStore()
-    modelList.value = optionRes
-    if (!currentModel.value && res.message.length) currentModel.value = res.message[0].model
+    if (modelList.value.length && currentSupplierName.value == "") {
+        currentSupplierName.value = modelList.value[0].supplierName
+    }
 }
 
 /**
@@ -56,14 +69,19 @@ export function isInstalled(model: string) {
  * @description 获取对话列表
  */
 export async function get_chat_list() {
-    const { chatList, currentContextId, currentChatTitle, chatHistory, currentModel, contextIdForDel, netActive, activeKnowledgeForChat } = getIndexStore()
+    const { chatList, currentContextId, currentChatTitle, chatHistory, currentModel, currentSupplierName, contextIdForDel, netActive, activeKnowledgeForChat } = getIndexStore()
     const res = await post("/chat/get_chat_list")
     chatList.value = res.message
     if (chatList.value.length) {
         if (currentContextId.value == contextIdForDel.value) {
             currentContextId.value = chatList.value[0].context_id
             currentChatTitle.value = chatList.value[0].title
-            currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
+            if (chatList.value[0].supplierName == "ollama") {
+                currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
+            } else {
+                currentModel.value = chatList.value[0].model
+            }
+            currentSupplierName.value = chatList.value[0].supplierName!
             chatList.value[0].search_type ? netActive.value = true : netActive.value = false
             activeKnowledgeForChat.value = chatList.value[0].rag_list ? chatList.value[0].rag_list : []
             getChatInfo(currentContextId.value)
@@ -119,22 +137,51 @@ export async function getChatInfo(context_id: string) {
     nextTick(() => eventBUS.$emit("doScroll"))
 }
 
+// 拼接对话记录
+function generateObject(arr: any) {
+    const result: ChatInfo = new Map();
+    for (let i = 0; i < arr.length; i += 2) {
+        // const key = arr[i].content;
+        const key = {
+            content: arr[i].content,
+            files: arr[i].doc_files ? arr[i].doc_files : [],
+            images: arr[i].images ? arr[i].images : []
+        }
+        let value = arr[i + 1] ? (arr[i + 1].reasoning + arr[i + 1].content) : $t("模型异常，请重新生成");
+        result.set(key, {
+            content: value,
+            stat: arr[i + 1].stat,
+            search_result: arr[i + 1].search_result,
+            id: arr[i + 1].id
+        });
+    }
+    return result;
+}
+
 /**
  * @description 发送对话
  */
 type ChatParams = {
     user_content: string
-    images?: string[]
+    doc_files?: string
+    images?: string
     regenerate_id?: string
 }
 export async function sendChat(params: ChatParams) {
-    const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat, targetNet, activeKnowledgeForChat, netActive } = getIndexStore()
+    const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat, targetNet, activeKnowledgeForChat, netActive, currentSupplierName, temp_chat } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
     // 如果当前对话不存在则创建对话
     if (!currentContextId.value) {
         await create_chat(params.user_content)
     }
     currentTalkingChatId.value = currentContextId.value
+    // 找到当前对话的记录
+    let currentChat: null | MultipeQuestionDto = null;
+    for (let [key] of chatHistory.value) {
+        if (key.content == params.user_content) {
+            currentChat = key
+        }
+    }
 
     await axios.post("http://127.0.0.1:7071/chat/chat", {
         model,
@@ -142,6 +189,8 @@ export async function sendChat(params: ChatParams) {
         context_id: currentContextId.value,
         search: netActive.value ? targetNet.value : "",
         rag_list: JSON.stringify(activeKnowledgeForChat.value),
+        supplierName: currentSupplierName.value,
+        temp_chat: String(temp_chat.value),
         ...params
     }, {
         responseType: 'text',
@@ -149,17 +198,17 @@ export async function sendChat(params: ChatParams) {
             // 获取当前接收到的部分响应数据
             const currentResponse = progressEvent.event.currentTarget.responseText;
             // 防止切换带来的错误
-            if (currentTalkingChatId.value == currentContextId.value) chatHistory.value.set(params.user_content, { content: currentResponse, stat: { model: currentModel.value }, id: "" })
+            if (currentTalkingChatId.value == currentContextId.value) chatHistory.value.set(currentChat!, { content: currentResponse, stat: { model: currentModel.value }, id: "" })
         }
     })
 
     // 请求结束行为可以在此执行
     const lastChhat = await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
-    if (chatHistory.value.get(params.user_content)) {
+    if (chatHistory.value.get(currentChat!)) {
         // chatHistory.value.get(params.user_content)!.stat = lastChhat.message.eval_count
-        Object.assign(chatHistory.value.get(params.user_content)!.stat as Object, lastChhat.message.stat)
-        chatHistory.value.get(params.user_content)!.search_result = lastChhat.message.search_result as Array<any>
-        chatHistory.value.get(params.user_content)!.id = lastChhat.message.id
+        Object.assign(chatHistory.value.get(currentChat!)!.stat as Object, lastChhat.message.stat)
+        chatHistory.value.get(currentChat!)!.search_result = lastChhat.message.search_result as Array<any>
+        chatHistory.value.get(currentChat!)!.id = lastChhat.message.id
     }
     isInChat.value = false
 }
@@ -211,6 +260,17 @@ export async function modifyChatTitle(params: { context_id: string, title: strin
 }
 
 /**
+ * @description 打开模型管理
+ */
+export function openModelManage() {
+    const { settingsShow, isInstalledManager, managerInstallConfirm } = getIndexStore()
+    settingsShow.value = true
+    if (!isInstalledManager.value) {
+        managerInstallConfirm.value = true
+    }
+}
+
+/**
  * @description 获取机器配置信息
  */
 export async function getConfigurationInfo() {
@@ -232,7 +292,7 @@ export async function getVisibleModelList() {
             settingsShow.value = true
             managerInstallConfirm.value = true
         }
-        isInstalledManager.value = true
+        // isInstalledManager.value = true
         visibleModelList.value = res.message.models
         if (isResetModelList.value.type == 1) {
             isResetModelList.value.status = true
@@ -326,21 +386,7 @@ export async function removeModel() {
     modelDelConfirm.value = false
 }
 
-// 拼接对话记录
-function generateObject(arr: any) {
-    const result: ChatInfo = new Map();
-    for (let i = 0; i < arr.length; i += 2) {
-        const key = arr[i].content;
-        let value = arr[i + 1] ? (arr[i + 1].reasoning + arr[i + 1].content) : $t("模型异常，请重新生成");
-        result.set(`${i}--${key}`, {
-            content: value,
-            stat: arr[i + 1].stat,
-            search_result: arr[i + 1].search_result,
-            id: arr[i + 1].id
-        });
-    }
-    return result;
-}
+
 
 /**
  * @description 安装模型管理器
@@ -421,12 +467,22 @@ export async function getShareList() {
 /**
  * @description 创建分享
  */
-export async function createShare(title: string, modelName: string) {
-    const [model, parameters] = modelName.split(":")
+export async function createShare(title: string, modelDto: any, ragList: string[]) {
+    let parameters = "otherApi"
+    let model = ""
+    // 判断当前为ollama还是三方模型，从而改变参数
+    if (modelDto.supplierName == "ollama") {
+        parameters = modelDto.model.split(":")[1]
+        model = modelDto.model.split(":")[0]
+    } else {
+        model = modelDto.model
+    }
     await post("/share/create_share", {
         model,
         parameters,
-        title: title,
+        title,
+        supplierName: modelDto.supplierName,
+        rag_list: JSON.stringify(ragList)
     })
     getShareList()
     message.success($t("创建分享成功"))
@@ -436,13 +492,24 @@ export async function createShare(title: string, modelName: string) {
 /**
  * @description 修改分享
  */
-export async function modifyShare(share_id: string, modelName: string, title: string) {
+export async function modifyShare(share_id: string, modelDto: any, title: string, ragList: string[]) {
     const { modifyShareShow } = getIndexStore()
-    const [model, parameters] = modelName.split(":")
+    // const [model, parameters] = modelName.split(":")
+    let parameters = "otherApi"
+    let model = ""
+    // 判断当前为ollama还是三方模型，从而改变参数
+    if (modelDto.supplierName == "ollama") {
+        parameters = modelDto.model.split(":")[1]
+        model = modelDto.model.split(":")[0]
+    } else {
+        model = modelDto.model
+    }
     await post("/share/modify_share", {
         share_id,
         model,
         parameters,
+        supplierName: modelDto.supplierName,
+        rag_list: JSON.stringify(ragList),
         title
     })
     await getShareList()
@@ -506,31 +573,63 @@ export async function ragStatus() {
  * @description 提示安装bge,安装完成后继续创建新的知识库
  */
 export function installBge() {
-    const { settingsShow, isInstalledBge } = getIndexStore()
+    const { settingsShow, isInstalledBge, thirdPartyApiShow } = getIndexStore()
+    /**
+     * @description 安装本地模型
+     */
+    function doOllama() {
+        settingsShow.value = true
+        dialog.destroy()
+    }
+
+    /**
+     * @description 接入第三方
+     */
+    function doThird() {
+        thirdPartyApiShow.value = true
+        dialog.destroy()
+    }
+    /**
+     * @description 知识库：本地模型教程
+     */
+    function localModelTutorial() {
+        window.open("https://docs.aingdesk.com/zh-Hans/guide/knowledgebase")
+    }
+
+    /**
+     * @description 立即安装本地知识库嵌套模型
+     */
+    async function installBgeNow() {
+        dialog.destroy()
+        await installModel("bge-m3:latest", () => {
+            isInstalledBge.value = true
+            createNewKnowledgeStore()
+        })
+
+    }
     const dialog = useDialog({
-        title: "提示",
+        title: $t("请安装或接入嵌入模型"),
+        selfClosable: true,
         content: () => {
-            return <div class="flex items-center justify-center">
-                <div class="box-border p-5 flex justify-center items-center gap-1.25 mt-20">
-                    <i class="i-jam:alert-f w-24 h-24 text-[#E6A23C]"></i><span>请先安装bge-m3:latest</span>
+            return <div class="flex flex-col items-start justify-center gap-2.5 mt-20">
+                <div class="w-100%">
+                    <span>{$t("请选择从Ollama安装-Embedding-安装bge-m3:latest")}</span>
+                    <NButton type="primary" class="w-100%" onClick={installBgeNow} >{$t("使用本地模型嵌入（推荐）")}</NButton>
+                </div>
+                <div class="w-100%">
+                    <span>{$t("请选择接入第三方模型,接入支持Embedding三方API,如硅基流动")}</span>
+                    <NButton type="primary" ghost class="w-100%" onClick={doThird}>{$t("使用第三方API提供模型嵌入")}</NButton>
+                </div>
+                <div class="flex justify-center w-100%">
+                    <span class="cursor-pointer underline text-green-5" onClick={localModelTutorial}>{$t("查看知识库教程")}</span>
                 </div>
             </div>
         },
         action: () => {
-            return <div class="flex items-center justify-center gap-5">
-                <NButton type="default" onClick={() => dialog.destroy()}>暂不安装</NButton>
-                <NButton type="primary" onClick={async () => {
-                    dialog.destroy()
-                    await installModel("bge-m3:latest", () => {
-                        isInstalledBge.value = true
-                        createNewKnowledgeStore()
-                    })
-
-                }}>立即安装</NButton>
-            </div>
+            return <></>
         },
         style: {
-            width: "480px",
+            width: "460px",
         }
     })
 }
@@ -668,6 +767,7 @@ export async function removeRag(ragName: string) {
  */
 export async function modifyRag() {
     const { createKnowledgeFormData } = getIndexStore()
+    await getEmbeddingModels()
     const dialog = useDialog({
         title: "修改知识库",
         content: () => <CreateKnowledgeStore disabledKey="ragName" />,
@@ -691,10 +791,21 @@ export async function modifyRag() {
 }
 
 /**
+ * @description 获取嵌入模型列表
+ */
+export async function getEmbeddingModels() {
+    const { embeddingModelsList } = getIndexStore()
+    const res = await post("/rag/get_embedding_models")
+    embeddingModelsList.value = Object.values(res.message).flat()
+}
+
+/**
  * @description 新建知识库：点击按钮后续交互逻辑
  */
-export function createNewKnowledgeStore() {
-    const { createKnowledgeModelRef, createKnowledgeFormData, createKnowledgeDialogIns, knowledgeList, activeKnowledge, isInstalledBge, settingsShow, } = getIndexStore()
+export async function createNewKnowledgeStore() {
+    const { createKnowledgeModelRef, createKnowledgeFormData, createKnowledgeDialogIns, activeKnowledge, isInstalledBge } = getIndexStore()
+    await ragStatus()
+    await getEmbeddingModels()
     if (!isInstalledBge.value) {
         installBge()
         return
@@ -702,7 +813,7 @@ export function createNewKnowledgeStore() {
     // 重置表单
     function resetForm() {
         createKnowledgeModelRef.value.restoreValidation()
-        createKnowledgeFormData.value = { ragName: "", ragDesc: "" }
+        createKnowledgeFormData.value = { ragName: "", ragDesc: "", enbeddingModel: [], supplierName: "" }
         createKnowledgeDialogIns.value!.destroy()
     }
     createKnowledgeDialogIns.value = useDialog({
@@ -919,4 +1030,148 @@ export function singleActive(type: "chat" | "knowledge", sign: any) {
         currentContextId.value = ""
         activeKnowledge.value = sign
     }
+}
+
+/**
+ * @description 获取第三方供应商列表
+ */
+export async function getSupplierList() {
+    const { thirdPartyApiServiceList, currentChooseApi, applierServiceConfig } = getIndexStore()
+    const res = await post("/model/get_supplier_list")
+    thirdPartyApiServiceList.value = res.message
+    currentChooseApi.value = res.message[0]
+    getSupplierConfig(res.message[0])
+}
+
+/**
+ * @description 获取指定服务商下的模型列表
+ */
+export async function getSupplierModelList(supplierName: string) {
+    const { supplierModelList, isAllModelEnable } = getIndexStore()
+    const res = await post("/model/get_models_list", { supplierName })
+    supplierModelList.value = res.message.filter((item: any) => item.title !== "")
+    isAllModelEnable.value = supplierModelList.value.every(item => item.status == true)
+}
+
+/**
+ * @description 添加模型
+ */
+export async function addModels() {
+    const { addModelFormData, currentChooseApi } = getIndexStore()
+    const res = await post("/model/add_models", {
+        supplierName: currentChooseApi.value?.supplierName,
+        ...addModelFormData.value,
+        capability: JSON.stringify(addModelFormData.value.capability)
+    })
+    await getEmbeddingModels()
+    await get_model_list()
+
+}
+
+/**
+ * @description 删除模型
+ */
+export async function removeSupplierModel(modelName: string) {
+    const { currentChooseApi, } = getIndexStore()
+    await post("/model/remove_models", {
+        supplierName: currentChooseApi.value?.supplierName,
+        modelName
+    })
+}
+
+/**
+ * @description 保存服务商配置
+ */
+export async function setSupplierConfig() {
+    const { applierServiceConfig, currentChooseApi } = getIndexStore()
+    await post("/model/set_supplier_config", { ...applierServiceConfig.value, supplierName: currentChooseApi.value?.supplierName })
+    await get_model_list()
+}
+
+/**
+ * @description 检查配置是否正确
+ */
+export async function checkSupplierConfig() {
+    const { applierServiceConfig, currentChooseApi } = getIndexStore()
+    const res = await post("/model/check_supplier_config", { ...applierServiceConfig.value, supplierName: currentChooseApi.value?.supplierName })
+    return res.msg
+}
+
+/**
+ * @description 获取模型供应商api配置
+ */
+export async function getSupplierConfig(config: ThirdPartyApiServiceItem) {
+    const { currentChooseApi, applierServiceConfig } = getIndexStore()
+    const res = await post("/model/get_supplier_config", {
+        supplierName: currentChooseApi.value?.supplierName
+    })
+    applierServiceConfig.value.apiKey = res.message.apiKey
+    if (config.baseUrl) {
+        applierServiceConfig.value.baseUrl = config.baseUrl
+    } else {
+        applierServiceConfig.value.baseUrl = res.message.baseUrlExample
+    }
+    getSupplierModelList(currentChooseApi.value?.supplierName!)
+}
+
+/**
+ * @description 设置单个模型状态
+ */
+export async function setModelStatus(modelName: string, status: string) {
+    const { currentChooseApi } = getIndexStore()
+    await post("/model/set_model_status", {
+        supplierName: currentChooseApi.value?.supplierName,
+        modelName,
+        status
+    })
+    await getEmbeddingModels()
+    await get_model_list()
+}
+
+/**
+ * @description 添加模型服务商
+ */
+export async function addSupplier() {
+    const { addSupplierFormData } = getIndexStore()
+    const supplierName = getRandomStringFromSet(10)
+    await post("/model/add_supplier", { ...addSupplierFormData.value, supplierName })
+}
+
+/**
+ * @description 删除模型供应商
+ */
+export async function removeSupplier(supplierName: string) {
+    await post("/model/remove_supplier", { supplierName })
+    await getSupplierList()
+    await getEmbeddingModels()
+    await get_model_list()
+}
+
+/**
+ * @description 设置供应商状态
+ */
+export async function setSupplierStatus(supplierName: string, status: boolean) {
+    await post("/model/set_supplier_status", { supplierName, status: String(status) })
+    if (status) {
+        message.success($t("已启用模型该服务商"))
+    } else {
+        message.success($t("已禁用模型该服务商"))
+    }
+    await getEmbeddingModels()
+    await get_model_list()
+}
+
+/**
+ * @description 修改模型别名
+ */
+export async function setModelTitle(newTit: string) {
+    const { currentChooseApi, currentModelNameForEdiit } = getIndexStore()
+    await post("/model/set_model_title", {
+        supplierName: currentChooseApi.value?.supplierName,
+        title: newTit,
+        modelName: currentModelNameForEdiit.value
+    })
+    await getSupplierModelList(currentChooseApi.value?.supplierName!)
+    await getEmbeddingModels()
+    await get_model_list()
 }

@@ -662,5 +662,73 @@
     "e52bb25a146139d8f90a0d3ec62b9a2b": {
         "src": "你的回答结构要包含是什么？为什么？怎么做？这三要素。",
         "dst": "Cấu trúc câu trả lời của bạn cần bao gồm những gì? Tại sao? Bằng cách nào? 3 yếu tố này."
+    },
+    "36fee61ba46375552deae7844d136d70": {
+        "src": "调用模型接口时出错",
+        "dst": "Gặp lỗi khi gọi giao diện mô hình"
+    },
+    "19f4e893edbd98180b0b9960e883385a": {
+        "src": "文件读取或解析失败",
+        "dst": "Lỗi đọc hoặc phân tích tập tin"
+    },
+    "3c24da7a412039b7591d2eeb8f7daaf4": {
+        "src": "文件写入失败",
+        "dst": "Lỗi ghi tập tin"
+    },
+    "0d2dd91380f3426336ba59a096977fa8": {
+        "src": "获取供应商信息失败",
+        "dst": "Lỗi lấy thông tin nhà cung cấp"
+    },
+    "b3ff9881f37c160158d9b3313576fcf7": {
+        "src": "模型供应商不存在",
+        "dst": "Nhà cung cấp mẫu không tồn tại"
+    },
+    "306be5d47591abbbf1c348ce4d28c6e5": {
+        "src": "模型已存在",
+        "dst": "Model đã tồn tại"
+    },
+    "3fdaeadf0e8a3154ae62784f04138c28": {
+        "src": "添加成功",
+        "dst": "Thêm thành công"
+    },
+    "88ef9e602ae78075dfc3ca33d67a1527": {
+        "src": "模型不存在",
+        "dst": "Model không tồn tại"
+    },
+    "551badba57d659eddb826a0373cc5334": {
+        "src": "API配置正确",
+        "dst": "Cấu hình API chính xác"
+    },
+    "23a0b70a2333f939785f0d2b3cbd761a": {
+        "src": "连接失败，请检查",
+        "dst": "Kết nối không thành công, vui lòng kiểm tra"
+    },
+    "a2735abf9e4a04fcb5610cfd3a525906": {
+        "src": "模型供应商已存在",
+        "dst": "Các nhà cung cấp mẫu đã có"
+    },
+    "ae2b66f906c0cf9b1d72ab3c9e365f9e": {
+        "src": "请选安装或接入嵌入模型",
+        "dst": "Chọn Install or Access Embedded Model"
+    },
+    "624a89332771dcc40fa21051d2695277": {
+        "src": "以下是用户上传的文档内容，每个文档内容都是[用户文档 X begin]...[用户文档 X end]格式的，你可以根据需要选择其中的内容。",
+        "dst": "Dưới đây là nội dung của tài liệu được tải lên bởi người dùng, mỗi tài liệu là [User Document X Begin]... Trong định dạng [User Document X end], bạn có thể chọn những gì bạn muốn."
+    },
+    "5a37bcc89177672fc8743f323497fa49": {
+        "src": "用户输入的内容",
+        "dst": "Những gì người dùng đã nhập"
+    },
+    "0e51fafaacc333cf882805ac55d25b05": {
+        "src": "用户文档",
+        "dst": "Tài liệu người dùng"
+    },
+    "6c96024718300bf395fb132f298e96cf": {
+        "src": "调用模型接口时出错:",
+        "dst": "Gặp lỗi khi gọi giao diện mô hình:"
+    },
+    "c32ea20471d4fc6589aa4cb3b7c6bdec": {
+        "src": "以下是用户上传的文档内容",
+        "dst": "Đây là nội dung của tài liệu mà người dùng đã tải lên"
     }
 }

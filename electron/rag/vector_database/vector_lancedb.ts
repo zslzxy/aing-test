@@ -4,6 +4,7 @@ import { pub } from '../../class/public';
 import * as fs from 'fs';
 import * as path from 'path';
 import { logger } from 'ee-core/log';
+import { ModelService } from '../../service/model';
 
 // 类型定义
 interface VectorRecord {
@@ -83,19 +84,32 @@ export class LanceDBManager {
 
     /**
      * 获取文本的向量嵌入
+     * @param supplierName 供应商名称
      * @param model 使用的模型名称
      * @param text 需要嵌入的文本
      * @returns 向量嵌入
      * @throws 如果嵌入生成失败或维度不匹配
      */
-    private static async getEmbedding(model: string, text: string): Promise<number[]> {
+    private static async getEmbedding(supplierName:string,model: string, text: string): Promise<number[]> {
         const metrics = this.startMetrics(`生成嵌入 (${text.substring(0, 30)}...)`);
 
         try {
-            const res = await ollama.embeddings({
-                model: model,
-                prompt: text,
-            });
+            let res:any;
+            if(supplierName == 'ollama'){
+                // 使用ollama服务
+                res = await ollama.embeddings({
+                    model: model,
+                    prompt: text,
+                });
+            }else{
+                // 使用第三方模型服务
+                let modelService = new ModelService(supplierName);
+                res = await modelService.embedding(model,text);
+                modelService.destroy();
+                if(!res){
+                    throw new Error(modelService.error);
+                }
+            }
 
             if (!res.embedding || res.embedding.length !== this.DIMENSION) {
                 throw new Error(`嵌入维度错误: 期望 ${this.DIMENSION}, 实际 ${res.embedding ? res.embedding.length : 0}`);
@@ -131,7 +145,7 @@ export class LanceDBManager {
      * @param initialText 初始文本
      * @returns 成功创建的表名
      */
-    public static async createTable(tableName: string, model: string, initialText: string): Promise<string> {
+    public static async createTable(tableName: string,supplierName:string, model: string, initialText: string): Promise<string> {
         const metrics = this.startMetrics(`创建表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
@@ -144,7 +158,7 @@ export class LanceDBManager {
             }
 
             // 获取初始文本的嵌入
-            const embedding = await this.getEmbedding(model, initialText);
+            const embedding = await this.getEmbedding(supplierName,model, initialText);
 
             // 创建表
             const tableObj = await db.createTable(tableName, [{
@@ -402,7 +416,7 @@ export class LanceDBManager {
      * @param text 要添加的文本
      * @returns 添加的记录ID
      */
-    public static async addDocument(tableName: string, model: string, text: string,keywords:string[], docId: string): Promise<string> {
+    public static async addDocument(tableName: string,supplierName:string, model: string, text: string,keywords:string[], docId: string): Promise<string> {
         const metrics = this.startMetrics(`添加文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
@@ -411,7 +425,7 @@ export class LanceDBManager {
         try {
             // 检查表是否存在
             if (!(await this.tableExists(db, tableName))) {
-                await this.createTable(tableName, model, text);
+                await this.createTable(tableName, supplierName,model, text);
                 await db.close();
                 db = await lancedb.connect(this.DB_PATH);
             }
@@ -419,7 +433,7 @@ export class LanceDBManager {
             const tableObj = await db.openTable(tableName);
 
             // 获取文本的嵌入
-            const embedding = await this.getEmbedding(model, text);
+            const embedding = await this.getEmbedding(supplierName,model, text);
 
             // 生成新ID
             const id = pub.uuid();
@@ -622,7 +636,7 @@ export class LanceDBManager {
      * @param texts 文本数组
      * @returns 添加的记录数量
      */
-    public static async addDocuments(tableName: string, model: string, texts: string[],keywords:string[][], docId: string): Promise<number> {
+    public static async addDocuments(tableName: string,supplierName:string, model: string, texts: string[],keywords:string[][], docId: string): Promise<number> {
         if (!texts.length) {
             return 0;
         }
@@ -641,7 +655,7 @@ export class LanceDBManager {
             const tableObj = await db.openTable(tableName);
 
             // 优化: 并行处理嵌入生成
-            const embeddingPromises = texts.map(text => this.getEmbedding(model, text));
+            const embeddingPromises = texts.map(text => this.getEmbedding(supplierName,model, text));
             const embeddings = await Promise.all(embeddingPromises);
 
             // 创建记录数组
@@ -676,6 +690,7 @@ export class LanceDBManager {
      */
     public static async search(
         tableName: string,
+        supplierName:string,
         model: string,
         queryText: string,
         limit: number = 5
@@ -694,7 +709,7 @@ export class LanceDBManager {
             const tableObj = await db.openTable(tableName);
 
             // 获取查询文本的嵌入
-            const embedding = await this.getEmbedding(model, queryText);
+            const embedding = await this.getEmbedding(supplierName,model, queryText);
 
             // 执行向量搜索
             const results = await tableObj
@@ -736,6 +751,7 @@ export class LanceDBManager {
             ragName: string, // 知识库名称
             ragDesc: string,  // 知识库描述
             ragCreateTime: number // 创建时间
+            supplierName: string, // 供应商名称
             embeddingModel: string, // 嵌套模型
             searchStrategy: number,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
             maxRecall: number,  // 最大召回数
@@ -887,6 +903,7 @@ export class LanceDBManager {
             ragName: string, // 知识库名称
             ragDesc: string,  // 知识库描述
             ragCreateTime: number // 创建时间
+            supplierName: string, // 供应商名称
             embeddingModel: string, // 嵌套模型
             searchStrategy: number,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
             maxRecall: number,  // 最大召回数
@@ -904,7 +921,7 @@ export class LanceDBManager {
         
         try {
             // 生成查询嵌入
-            const embedding = await this.getEmbedding(ragInfo.embeddingModel, queryText);
+            const embedding = await this.getEmbedding(ragInfo.supplierName,ragInfo.embeddingModel, queryText);
             
             // 使用更大的限制获取足够的候选结果
             const searchLimit = Math.max(ragInfo.maxRecall * 3, 50);
@@ -1077,7 +1094,7 @@ export class LanceDBManager {
         const usedDocId = new Map<string, string>();
         for (const [docId, totalLength] of docChunkLength.entries()) {
             const docInfo = docNameMap.get(docId);
-            if (docInfo && docInfo.doc.length * 0.5 < totalLength) {
+            if (docInfo && docInfo.doc.length * 0.1 < totalLength) {
                 usedDocId.set(docId, docInfo.doc);
             }
         }
@@ -1094,7 +1111,7 @@ export class LanceDBManager {
             
             // 去除重复的ID
             const uniqueId = new Set<string>();
-            return results.filter(item => {
+            results = results.filter(item => {
                 if (uniqueId.has(item.id)) {
                     return false;
                 }
@@ -1102,8 +1119,22 @@ export class LanceDBManager {
                 return true;
             });
         }
-        
-        return results;
+
+
+        // 合并同一文档的多个切片
+        const resultsMap = new Map<string, any>();
+        results.forEach(result => {
+            const docId = result.docId;
+            if (!resultsMap.has(docId)) {
+                resultsMap.set(docId, result);
+            } else {
+                const existing = resultsMap.get(docId);
+                existing.doc += result.doc;
+                existing.score = Math.max(existing.score, result.score);
+            }
+        });
+
+        return Array.from(resultsMap.values());
     }
     
     /**
@@ -1609,98 +1640,5 @@ export class LanceDBManager {
             await db.close();
             this.endMetrics(metrics);
         }
-    }
-}
-
-// 为了保持向后兼容，提供原来的函数接口
-/**
- * 创建数据表
- * 使用LanceDBManager创建一个新的向量表
- * @param table - 要创建的表名
- * @param model - 使用的嵌入模型名称
- * @param prompt - 用于创建表的提示信息
- * @returns 返回一个Promise，成功时为void，失败时会记录错误信息
- * @throws {Error} 创建表失败时，错误会被捕获并在控制台记录
- */
-export async function createTable(table: string, model: string, prompt: string): Promise<void> {
-    try {
-        await LanceDBManager.createTable(table, model, prompt);
-    } catch (error: any) {
-        console.error(`创建表失败: ${error.message}`);
-    }
-}
-
-/**
- * 将文本嵌入到指定的 LanceDB 表中
- * 该函数使用指定的模型将文本嵌入到 LanceDB 表中。如果过程中遇到错误，会在控制台打印错误信息但不会中断程序执行。
- * @param table - 目标 LanceDB 表的名称
- * @param model - 用于生成嵌入向量的模型名称
- * @param prompt - 要嵌入的文本内容
- * @param docId - 文档ID
- * @returns Promise<void> - 无返回值的异步操作
- * @throws 虽然内部捕获了错误并进行了日志记录，但仍可能抛出未预期的异步错误
- * @example
- * ```
- * await embed("knowledge_base", "openai", "How to implement a vector database?");
- * ```
- */
-export async function embed(table: string, model: string, prompt: string,keywords:string[], docId: string): Promise<void> {
-    try {
-        await LanceDBManager.addDocument(table, model, prompt,keywords, docId);
-    } catch (error: any) {
-        console.error(`添加文档失败: ${error.message}`);
-    }
-}
-
-/**
- * 对指定的LanceDB表执行语义搜索查询
- * @param table - 要查询的LanceDB表名
- * @param model - 用于将提示文本转换为向量的嵌入模型
- * @param prompt - 查找相似向量的搜索查询文本
- * @param limit - 返回结果的最大数量（默认为5）
- * @returns Promise，解析为QueryResult对象数组，错误时返回空数组
- * @throws 会捕获并记录任何错误，但不会向上传播
- */
-export async function query(table: string, model: string, prompt: string, limit: number = 5): Promise<QueryResult[]> {
-    try {
-        return await LanceDBManager.search(table, model, prompt, limit);
-    } catch (error: any) {
-        console.error(`查询失败: ${error.message}`);
-        return [];
-    }
-}
-
-/**
- * 执行高级关键词搜索
- * @param table 表名
- * @param keywords 关键词或关键词数组
- * @param options 搜索选项
- * @returns 搜索结果
- */
-export async function keywordSearch(
-    table: string,
-    keywords: string | string[],
-    options: {
-        limit?: number;
-        matchMode?: 'any' | 'all' | 'phrase';
-        caseSensitive?: boolean;
-        fuzzyMatch?: boolean;
-    } = {}
-): Promise<QueryResult[]> {
-    try {
-        // 将单个字符串关键词转换为数组
-        const keywordArray = Array.isArray(keywords) ? keywords : [keywords];
-
-        // 过滤掉空关键词
-        const validKeywords = keywordArray.filter(k => k && k.trim().length > 0);
-
-        if (validKeywords.length === 0) {
-            return [];
-        }
-
-        return await LanceDBManager.keywordSearch(table, validKeywords, options);
-    } catch (error: any) {
-        console.error(`关键词搜索失败: ${error.message}`);
-        return [];
     }
 }

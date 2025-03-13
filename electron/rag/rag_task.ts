@@ -236,6 +236,9 @@ export class RagTask {
             let ragObj = new Rag()
             for(let doc of notParseDocument){
                 let md_file =  doc.md_file.replace(repDataDir, dataDir)
+                if(!pub.file_exists(md_file)){
+                    continue
+                }
                 let md_body = pub.read_file(md_file)
                 let chunks =  await this.docChunk(md_body)
 
@@ -252,7 +255,7 @@ export class RagTask {
                 let table = pub.md5(doc.doc_rag)
                 let ragInfo:any = await ragObj.getRagInfo(doc.doc_rag)
                 for (let checkInfo of chunkList){
-                    await LanceDBManager.addDocument(table,ragInfo.embeddingModel,checkInfo.text,checkInfo.keywords,checkInfo.docId)
+                    await LanceDBManager.addDocument(table,ragInfo.supplierName,ragInfo.embeddingModel,checkInfo.text,checkInfo.keywords,checkInfo.docId)
                 }
 
                 // 更新文档状态

@@ -18,7 +18,7 @@ class ManagerController {
         // 创建 OllamaService 实例
         const ollamaService = new OllamaService();
         // 获取 Ollama 版本信息
-        const version = ollamaService.version();
+        const version = await ollamaService.version();
         if (version){
             // 检查服务是否启动
             if (!await ollamaService.is_running()){

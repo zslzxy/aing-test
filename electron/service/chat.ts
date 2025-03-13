@@ -1,6 +1,7 @@
 import { logger } from 'ee-core/log';
 import { pub } from '../class/public';
 import * as path from 'path';
+import { parseDocument } from '../rag/doc_engins/doc';
 
 /**
  * 定义聊天历史记录的类型
@@ -21,6 +22,7 @@ export type ChatHistory = {
     role: string;
     content: string;
     images: string[];
+    doc_files: string[];
     tool_calls: string;
     created_at: string;
     create_time: number;
@@ -36,12 +38,14 @@ export type ChatHistory = {
  * @property {string} role - 角色
  * @property {string} content - 聊天内容
  * @property {string[]} images - 图片数组
+ * @property {string[]} doc_files - 文档文件数组
  * @property {string} tool_calls - 工具调用信息
  */
 export type ChatContext = {
     role: string;
     content: string;
     images: string[];
+    doc_files: string[];
     tool_calls: string;
 };
 
@@ -124,9 +128,10 @@ export class ChatService {
      * @param {string} model - 使用的模型名称
      * @param {string} parameters - 模型的参数
      * @param {string} [title=""] - 对话的标题，默认为空字符串
+     * @param {string} supplierName - 供应商名称
      * @returns {object} - 包含对话配置信息的对象
      */
-    create_chat(model: string, parameters: string, title: string = ""): object {
+    create_chat(model: string, parameters: string, title: string = "",supplierName:string): object {
         // 记录创建对话的日志信息
         logger.info('create_chat', `${model}:${parameters}`);
         // 生成对话的唯一标识符
@@ -137,6 +142,7 @@ export class ChatService {
         }
         // 构建对话配置对象
         const contextConfig = {
+            supplierName,
             model,
             title,
             parameters,
@@ -154,9 +160,10 @@ export class ChatService {
      * @param {string} uuid - 对话的唯一标识符
      * @param {string} model - 新的模型名称
      * @param {string} parameters - 新的模型参数
+     * @param {string} supplierName - 供应商名称
      * @returns {boolean} - 如果更新成功返回 true，否则返回 false
      */
-    update_chat_model(uuid: string, model: string, parameters: string): boolean {
+    update_chat_model(uuid: string, model: string, parameters: string,supplierName:string): boolean {
         // 读取对话配置信息
         const contextConfigObj = this.readJsonFile(this.getConfigFilePath(uuid));
         // 检查配置信息是否为空
@@ -166,6 +173,7 @@ export class ChatService {
         // 更新模型和参数信息
         contextConfigObj.model = model;
         contextConfigObj.parameters = parameters;
+        contextConfigObj.supplierName = supplierName;
         // 保存更新后的配置信息到文件
         this.saveJsonFile(this.getConfigFilePath(uuid), contextConfigObj);
         return true;
@@ -239,6 +247,10 @@ export class ChatService {
                 }
             }
 
+            if(contextConfigObj.supplierName == undefined){
+                contextConfigObj.supplierName = "ollama";
+            }
+
             if (!contextConfigObj.rag_list) {
                 contextConfigObj.rag_list = [];
             }
@@ -272,14 +284,41 @@ export class ChatService {
         return this.read_history(uuid);
     }
 
+
+    /**
+     * 处理文档和图片文件
+     * @param chatContext <ChatContext> 聊天上下文
+     * @param uuid <string> 对话的唯一标识符
+     */
+    async handle_files(chatContext: ChatContext): Promise<ChatContext> {
+        
+        // 将图片转换为base64格式
+        chatContext.images = chatContext.images.map((image) => {
+            return pub.imageToBase64(image);
+        });
+
+        // 处理文档文件
+        let doc_files:string[] = []
+        for(let doc_file of chatContext.doc_files){
+            let parseDocBody = await parseDocument(doc_file,"temp",false);
+            doc_files.push(parseDocBody.content);
+        }
+
+        chatContext.doc_files = doc_files;
+
+        return chatContext;
+    }
+
+
     /**
      * 构造传递给模型的历史对话记录，根据上下文长度进行截断
      * @param {string} uuid - 对话的唯一标识符
      * @param {ChatContext} chatContext - 当前的聊天上下文
      * @param {number} contextLength - 上下文的最大长度
+     * @param {boolean} isTempChat - 是否是临时聊天
      * @returns {object[]} - 构造后的历史对话记录数组
      */
-    build_chat_history(uuid: string, chatContext: ChatContext, contextLength: number): object[] {
+    async build_chat_history(uuid: string, chatContext: ChatContext, contextLength: number,isTempChat:boolean): Promise<any[]> {
         // 读取对话的历史记录
         let contextList = this.read_history(uuid);
         // 计算当前聊天上下文和历史记录的总 tokens 数量
@@ -297,8 +336,15 @@ export class ChatService {
             }
         }
         // 提取历史记录中的角色和内容信息
-        const historyList = contextList.map(item => ({ role: item.role, content: item.content }));
+        let historyList = contextList.map(item => ({ role: item.role, content: item.content }));
+
+        chatContext = await this.handle_files(chatContext);
+        
         // 添加当前聊天上下文到历史记录中
+        // 如果有images或doc_files的情况下，不引用上下文
+        if(chatContext.images.length > 0 || chatContext.doc_files.length > 0 || isTempChat){
+            historyList = [];
+        }
         historyList.push(chatContext);
         return historyList;
     }

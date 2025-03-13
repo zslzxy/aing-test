@@ -518,5 +518,325 @@
     "{0}个文件": {
         "src": "{0}个文件",
         "dst": "{0} file"
+    },
+    "正在搜索...": {
+        "src": "正在搜索...",
+        "dst": "Hinahanap"
+    },
+    "请输入知识库名称": {
+        "src": "请输入知识库名称",
+        "dst": "Mangyaring ipasok ang pangalan ng base ng kaalaman"
+    },
+    "描述": {
+        "src": "描述",
+        "dst": "description"
+    },
+    "请输入知识库描述": {
+        "src": "请输入知识库描述",
+        "dst": "Mangyaring ipasok ang paglalarawan ng base ng kaalaman"
+    },
+    "嵌入模型": {
+        "src": "嵌入模型",
+        "dst": "Embedded model"
+    },
+    "选择模型": {
+        "src": "选择模型",
+        "dst": "Piliin ang Modelo"
+    },
+    "选择知识库": {
+        "src": "选择知识库",
+        "dst": "Piliin ang Knowledge Base"
+    },
+    "文档嵌入中，请稍后": {
+        "src": "文档嵌入中，请稍后",
+        "dst": "Pag-embed ng dokumento, mangyaring maghintay"
+    },
+    "已嵌入完成, 可正常调用": {
+        "src": "已嵌入完成, 可正常调用",
+        "dst": "query-sort"
+    },
+    "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Ang pag-uumpisa ay nagaganap, ang oras ng paghihintay ay depende sa bilang ng mga file, na maaaring magtatagal ng ilang minuto hanggang sampung minuto"
+    },
+    "第三方模型API": {
+        "src": "第三方模型API",
+        "dst": "Third party model API"
+    },
+    "本地模型": {
+        "src": "本地模型",
+        "dst": "Lokal na modelo"
+    },
+    "添加模型服务商": {
+        "src": "添加模型服务商",
+        "dst": "Idagdag ang modelong provider ng serbisyo"
+    },
+    "使用教程": {
+        "src": "使用教程",
+        "dst": "Gamit ang mga Tutorial"
+    },
+    "删除服务商": {
+        "src": "删除服务商",
+        "dst": "Stock label"
+    },
+    "API密钥": {
+        "src": "API密钥",
+        "dst": "Key ng API"
+    },
+    "请输入API密钥": {
+        "src": "请输入API密钥",
+        "dst": "Paki-pasok ang API key"
+    },
+    "检查": {
+        "src": "检查",
+        "dst": "suriin"
+    },
+    "点次获取密钥": {
+        "src": "点次获取密钥",
+        "dst": "Klik para makuha ang susi"
+    },
+    "API地址": {
+        "src": "API地址",
+        "dst": "API address"
+    },
+    "请输入API地址": {
+        "src": "请输入API地址",
+        "dst": "Paki-enter ang address ng API"
+    },
+    "示例": {
+        "src": "示例",
+        "dst": "Halimbawa"
+    },
+    "保存API": {
+        "src": "保存API",
+        "dst": "I-save ang API"
+    },
+    "默认从/models获取所有模型": {
+        "src": "默认从/models获取所有模型",
+        "dst": "Sa pamamagitan ng default, lahat ng modelo ay nakukuha mula sa/modelo"
+    },
+    "开关所有": {
+        "src": "开关所有",
+        "dst": "Baguhin ang lahat"
+    },
+    "修改别名": {
+        "src": "修改别名",
+        "dst": "Baguhin ang pangalan"
+    },
+    "当前服务商下属暂无模型可用": {
+        "src": "当前服务商下属暂无模型可用",
+        "dst": "Walang mga modelo para sa mga subordinate ng service provider"
+    },
+    "添加模型": {
+        "src": "添加模型",
+        "dst": "Idagdag ang Modelo"
+    },
+    "模型ID": {
+        "src": "模型ID",
+        "dst": "ID ng Model"
+    },
+    "请输入模型ID": {
+        "src": "请输入模型ID",
+        "dst": "Pakipasok ang ID ng modelo"
+    },
+    "模型别名": {
+        "src": "模型别名",
+        "dst": "Pangalan ng modelo"
+    },
+    "请输入模型别名": {
+        "src": "请输入模型别名",
+        "dst": "Pakiusap ipasok ang pangalan ng modelo"
+    },
+    "模型功能": {
+        "src": "模型功能",
+        "dst": "Fungsyalidad ng modelo"
+    },
+    "添加": {
+        "src": "添加",
+        "dst": "dagdag"
+    },
+    "供应商名称": {
+        "src": "供应商名称",
+        "dst": "Pangalan ng Supplier"
+    },
+    "接口地址": {
+        "src": "接口地址",
+        "dst": "Address ng interface"
+    },
+    "需要兼容openAI格式的接口": {
+        "src": "需要兼容openAI格式的接口",
+        "dst": "Kailangang magkaroon ng interface na kompatible sa openAI format"
+    },
+    "密钥": {
+        "src": "密钥",
+        "dst": "lihim na key"
+    },
+    "请选择模型功能": {
+        "src": "请选择模型功能",
+        "dst": "Mangyaring piliin ang modelong fungsyon"
+    },
+    "请输入供应商名称": {
+        "src": "请输入供应商名称",
+        "dst": "Paki-enter ang pangalan ng supplier"
+    },
+    "模型添加成功": {
+        "src": "模型添加成功",
+        "dst": "Ang modelo ay nagdagdag matagumpay"
+    },
+    "是否确定删除当前模型？该操作不可逆": {
+        "src": "是否确定删除当前模型？该操作不可逆",
+        "dst": "Sigurado ka bang i-delete ang kasalukuyang modelo? Ang operasyon na ito ay hindi maibabalik"
+    },
+    "请填写完整配置信息": {
+        "src": "请填写完整配置信息",
+        "dst": "Mangyaring punan ang kumpletong impormasyon sa configuration"
+    },
+    "配置保存成功": {
+        "src": "配置保存成功",
+        "dst": "Ang configuration ay nagtagumpay"
+    },
+    "缺少API密钥": {
+        "src": "缺少API密钥",
+        "dst": "Walang API key"
+    },
+    "模型启用成功": {
+        "src": "模型启用成功",
+        "dst": "Ang modelo ay nagtagumpay"
+    },
+    "模型禁用成功": {
+        "src": "模型禁用成功",
+        "dst": "Ang modelo ay matagumpay na inaalis"
+    },
+    "已启用全部模型": {
+        "src": "已启用全部模型",
+        "dst": "Lahat ng mga modelo ay naka-enabled"
+    },
+    "已禁用全部模型": {
+        "src": "已禁用全部模型",
+        "dst": "Lahat ng mga modelo ay disabled"
+    },
+    "添加成功": {
+        "src": "添加成功",
+        "dst": "Magdagdag matagumpay"
+    },
+    "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！": {
+        "src": "是否删除当前服务商? 该操作会同时删除下属所有模型，请谨慎操作！",
+        "dst": "Gusto mo bang i-delete ang kasalukuyang provider ng serbisyo? Ang operasyon na ito ay magpapaalis ng lahat ng mga subordinate na modelo, mangyaring magpatuloy ng maingat!"
+    },
+    "删除成功": {
+        "src": "删除成功",
+        "dst": "Mag-alis na matagumpay"
+    },
+    "一键把AI模型部署在你的电脑": {
+        "src": "一键把AI模型部署在你的电脑",
+        "dst": "Gamitin ang mga AI modelo sa inyong kompyuter gamit ang isang click lamang"
+    },
+    "免费开源无限制": {
+        "src": "免费开源无限制",
+        "dst": "Libreng bukas na source na walang paghihigpit"
+    },
+    "可在线分享他人使用": {
+        "src": "可在线分享他人使用",
+        "dst": "Maaaring ibinahagi sa internet para sa iba gamitin"
+    },
+    "支持联网大幅度提升答案质量": {
+        "src": "支持联网大幅度提升答案质量",
+        "dst": "Suportahan ang networking upang mabuti ang kalidad ng sagot"
+    },
+    "使用第三方模型": {
+        "src": "使用第三方模型",
+        "dst": "Gamit ang mga modelo ng third party"
+    },
+    "使用本地模型": {
+        "src": "使用本地模型",
+        "dst": "Gamitin ang lokal na modelo"
+    },
+    "缺少API地址": {
+        "src": "缺少API地址",
+        "dst": "Walang API address"
+    },
+    "简单好用的AI助手": {
+        "src": "简单好用的AI助手",
+        "dst": "Isang simpleng at madaling gamitin na katulong sa AI"
+    },
+    "支持联网搜索和知识库": {
+        "src": "支持联网搜索和知识库",
+        "dst": "Suportahan ang online na paghahanap at kaalaman base"
+    },
+    "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型": {
+        "src": "提示：如果分享列表为空，分享连接服务将自动停止，此时外网无法通过AingDesk访问到任何模型",
+        "dst": "Tip: Kung walang laman ang listahan ng pagbabahagi, ang serbisyo ng pagbabahagi ng koneksyon ay awtomatiko na itigil, at ang eksternal na network ay hindi maaaring makapag-access sa anumang modelo sa pamamagitan ng AingDesk sa oras na ito"
+    },
+    "上传附件": {
+        "src": "上传附件",
+        "dst": "I-upload ang mga attachments"
+    },
+    "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Ang [{0}] modelo na ginagamit mo ay naka-disable o naka-delete. Paki-enable o palitan muli ang mga modelo"
+    },
+    "请安装或接入嵌入模型": {
+        "src": "请安装或接入嵌入模型",
+        "dst": "Pakiusap i-install o i-connect ang embedded model"
+    },
+    "使用本地模型嵌入（推荐）": {
+        "src": "使用本地模型嵌入（推荐）",
+        "dst": "Gamitin ang local model embedding (ipinapahirapang)"
+    },
+    "请选择从Ollama安装-Embedding-安装bge-m3:latest": {
+        "src": "请选择从Ollama安装-Embedding-安装bge-m3:latest",
+        "dst": "Mangyaring pumili upang i-install mula sa Ollama - Embedding - I-install ng bge-m3: latest"
+    },
+    "使用第三方API提供模型嵌入": {
+        "src": "使用第三方API提供模型嵌入",
+        "dst": "Gamitin ang third party APIs upang magbigay ng model embedding"
+    },
+    "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动": {
+        "src": "请选择接入第三方模型,接入支持Embedding三方API,如硅基流动",
+        "dst": "Mangyaring pumili ng koneksyon sa mga modelong third party na suportahan ang Embedding third party APIs, tulad ng silicon-based mobility"
+    },
+    "从Ollama安装": {
+        "src": "从Ollama安装",
+        "dst": "I-install mula sa Ollama"
+    },
+    "接入第三方模型": {
+        "src": "接入第三方模型",
+        "dst": "Mag-integrate ang mga modelong third-party"
+    },
+    "已启用模型该服务商": {
+        "src": "已启用模型该服务商",
+        "dst": "Ang modelo ay naka-enabled para sa provider ng serbisyo na ito"
+    },
+    "已禁用模型该服务商": {
+        "src": "已禁用模型该服务商",
+        "dst": "Ang modelo ay disabled para sa provider ng serbisyo na ito"
+    },
+    "无记忆": {
+        "src": "无记忆",
+        "dst": "Walang Memory"
+    },
+    " 能提升单次回复质量，但大模型将没有上下文记忆": {
+        "src": " 能提升单次回复质量，但大模型将没有上下文记忆",
+        "dst": "Maaaring mabuti ang kalidad ng isang tugon, ngunit ang malaking modelo ay hindi magkakaroon ng kontekstual memory"
+    },
+    "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式": {
+        "src": "支持上传文件、图片(最大不超过20MB), 支持PDF、DOC、TXT等格式",
+        "dst": "Suportahan ang pag-upload ng mga file at mga larawan (hanggang 20MB), at suportahan ang mga formatong tulad ng PDF, DOC, TXT, atbp."
+    },
+    "附件总大小不能超过20MB": {
+        "src": "附件总大小不能超过20MB",
+        "dst": "Ang kabuuang sukat ng mga attachments ay hindi maaaring lampas sa 20MB"
+    },
+    "请选择知识库": {
+        "src": "请选择知识库",
+        "dst": "Mangyaring piliin ang isang pangunahing kaalaman"
+    },
+    "文档教程": {
+        "src": "文档教程",
+        "dst": "Tutorial ng Dokumento"
+    },
+    "查看知识库教程": {
+        "src": "查看知识库教程",
+        "dst": "Tingnan ang Knowledge Base Tutorial"
     }
 }

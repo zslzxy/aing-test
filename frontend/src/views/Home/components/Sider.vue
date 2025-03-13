@@ -75,7 +75,8 @@
                             <li :class="[{ active: item.ragName == activeKnowledge }]" @click="openKnowledgeStore(item)"
                                 v-for="item in knowledgeList">
                                 <div class="flex items-center" style="height: 100%;">
-                                    <i class="i-tdesign:folder w-16 h-16 mr-10 ml-8"></i>
+                                    <i
+                                        class="i-tdesign:folder w-16 h-16 mr-10 ml-8 text-[var(--bt-tit-color-secondary)]"></i>
                                     <div class="comu-title">{{ item.ragName }}</div>
                                 </div>
 
@@ -93,7 +94,7 @@
                             <li @click.stop="createNewKnowledgeStore" :class="{ 'add-knowledge': addingKnowledge }">
                                 <div class="flex items-center" style="height: 100%;">
                                     <i
-                                        class="i-proicons:add-circle w-16 h-16 mr-10 ml-8 text-[var(--bt-tit-color-secondary)]"></i>
+                                        class="i-tdesign:folder-add w-16 h-16 mr-10 ml-8 text-[var(--bt-tit-color-secondary)]"></i>
                                     <div class="comu-title">{{ $t("新建知识库") }}</div>
                                 </div>
                                 <!-- 
@@ -128,19 +129,26 @@
                 <i class="i-ant-design:robot-outlined w-16 h-16"></i>
                 <span>{{ $t("第三方模型API") }}</span>
             </div> -->
+                <li @click="openThirdPartyModel">
+                    <div class="flex items-center justify-start">
+                        <i class="i-hugeicons:api w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                        <span>{{ $t("第三方模型API") }}</span>
+                    </div>
+                </li>
                 <li @click="openModelManage">
                     <div class="flex items-center justify-start">
-                        <i class="i-common:model-manage w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
-                        <span>{{ $t("模型管理") }}</span>
+                        <i class="i-tdesign:desktop-1 w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                        <span>{{ $t("本地模型") }}</span>
                     </div>
                 </li>
                 <li @click="openSoftSettings">
                     <div class="flex items-center justify-start">
                         <i
-                            class="i-ant-design:setting-outlined w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                            class="i-tdesign:setting-1 w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
                         <span>{{ $t("设置") }}</span>
                     </div>
                 </li>
+
             </ul>
         </div>
     </div>
@@ -193,7 +201,9 @@ import {
     removeRagConfirm,
     modifyRag,
     createNewComu,
-    singleActive
+    singleActive,
+    openModelManage,
+    getSupplierList
 } from "../controller";
 import useIndexStore, { type ChatItemInfo, type KnowledgeDocumentInfo } from "../store";
 import { storeToRefs } from "pinia";
@@ -227,7 +237,11 @@ const {
     currentChatKnowledge,
     currentChatSearch,
     activeKnowledgeForChat,
-    netActive
+    netActive,
+    thirdPartyApiShow,
+    currentSupplierName,
+    currentModelDto,
+    
 } = storeToRefs(useIndexStore())
 
 /* const chartPopSelectOptions = ref<{ label: string, value: string }[]>([
@@ -257,7 +271,6 @@ get_chat_list()
  * @description 选择已有对话
  */
 async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
-
     if ((e.target! as HTMLElement).classList.contains("i-common:more-operation")) {
         return
     } else {
@@ -265,7 +278,17 @@ async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
         await get_chat_list()
         currentContextId.value = chat.context_id
         currentChatTitle.value = chat.title
-        currentModel.value = `${chat.model}:${chat.parameters}`
+        if(chat.supplierName == 'ollama'){
+            currentModel.value = `${chat.model}:${chat.parameters}`
+        }else{
+            currentModel.value = `${chat.model}`
+        }
+        currentSupplierName.value = chat.supplierName!
+        currentModelDto.value = {
+            model: chat.model,
+            parameters: chat.parameters,
+            supplierName: chat.supplierName!
+        }
         getChatInfo(currentContextId.value)
         singleActive("chat", chat.context_id)
     }
@@ -306,27 +329,31 @@ function doChatDel(contextId: string) {
     chatRemoveConfirm.value = true
 }
 
-/**
- * @description 模型管理
- */
-function openModelManage() {
-    settingsShow.value = true
-    if (!isInstalledManager.value) {
-        managerInstallConfirm.value = true
-    }
-}
+
 
 
 /***
  * @description 知识库操作
  */
-function dealPopOperation(val: string, knowledge: KnowledgeDocumentInfo) {
+function dealPopOperation(val: string, knowledge: any) {
+    console.log(knowledge)
     if (val == "delChat") {
         removeRagConfirm(knowledge.ragName)
     } else {
-        createKnowledgeFormData.value = knowledge
+        createKnowledgeFormData.value.enbeddingModel = knowledge.embeddingModel
+        createKnowledgeFormData.value.ragName = knowledge.ragName
+        createKnowledgeFormData.value.ragDesc = knowledge.ragDesc
+        createKnowledgeFormData.value.supplierName = knowledge.supplierName
         modifyRag()
     }
+}
+
+/**
+ * @description 打开第三方模型弹窗
+ */
+function openThirdPartyModel(){
+    thirdPartyApiShow.value = true
+    getSupplierList()
 }
 
 
@@ -431,13 +458,6 @@ function dealPopOperation(val: string, knowledge: KnowledgeDocumentInfo) {
                 font-weight: bold;
             }
         }
-
-        //TODO: 用例代码，后续删除
-        // font-size: 18px;
-        // height: 50px;
-        // padding: var(--bt-pd-small);
-        // box-sizing: border-box;
-        // font-weight: bold;
     }
 
     .sider-wrapper {
