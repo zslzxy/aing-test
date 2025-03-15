@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Bilim Temel Öğretmeni Göster"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Akıllı ajan"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Akıllı bir ajan oluştur"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Akıllı ajanım."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Ön ayarlama şablonu"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Düzenle"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Lütfen zeki ajanın adını girin"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "karakter tasarımı"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Siz Çin yasal veritabanında eğitimli bir profesyonel yasal AI'siniz, sivil kodu, suç yasası ve ticari yasası gibi büyük yasal sistemlerle tanıdık. Anlaşma resmini, yasal kuralların yorumlanmasını, yargılama strateji tavsiyesini destekliyorsunuz ve yasal danışmalar ve avukat hizmetleri arasındaki sınırı kesinlikle ayrılıyorsunuz."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Başlık"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Lütfen Seçin"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Kaydet"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Lütfen akıllı vücudunuz için bir sözcük ayarlayın"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Lütfen içerikli modeli seçin"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Üçüncü taraf API yapılandırması"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Akıllı ajan başarıyla yarattı."
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Akıllı ajan başarıyla değiştirildi."
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Akıllı maddenin [{0}] silinmesinden emin misiniz? Silmeden sonra geri yüklenemez"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Akıllı ajan başarıyla sildi"
     }
 }

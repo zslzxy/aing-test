@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Visualizza tutorial della Knowledge Base"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Agente intelligente"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Creare un corpo intelligente"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Il mio agente intelligente"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Modello predefinito"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "modifica"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Inserisci il nome dell'agente intelligente"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Impostazioni personaggi"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Sei un'IA legale professionale formata nel database legale cinese, familiare con i principali sistemi giuridici come il codice civile, il diritto penale e il diritto commerciale. Supporta la revisione dei contratti, l'interpretazione delle disposizioni legali, la consulenza sulla strategia di contenzioso e distingui rigorosamente il confine tra consulenza legale e servizi legali."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "immagine del profilo"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Selezionare"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "salva"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Imposta parole rapide per il tuo agente"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Seleziona il modello incorporato"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Configurazione API di terze parti"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Agente intelligente creato con successo"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Modifica del corpo intelligente con successo"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Desideri confermare la rimozione dello smartphone[{0}]? Impossibile ripristinare dopo la cancellazione"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Agente intelligente eliminato correttamente"
     }
 }

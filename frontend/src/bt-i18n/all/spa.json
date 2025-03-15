@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Ver el tutorial de la base de conocimientos"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Agentes"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Crear agentes"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Mi agente"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Plantilla predeterminada"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Edición"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Introduzca el nombre del agente"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Configuración de los personajes"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Usted es una Ia jurídica profesional capacitada en la base de datos jurídicos de china, familiarizada con los principales sistemas jurídicos, como el Código civil, el derecho penal y el derecho comercial, apoya la revisión de contratos, la interpretación de las disposiciones legales, las recomendaciones de estrategia procesal y distingue estrictamente entre los límites del asesoramiento jurídico y los servicios de abogados."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Avatar"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Por favor, elija"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Guardar"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Por favor, establezca consejos para su agente"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Por favor, elija el modelo de incrustación"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Configuración API de terceros"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "El agente fue creado con éxito"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Modificación exitosa del agente"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "¿¿ se confirma la eliminación del agente (...)? No se puede restaurar después de eliminar"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "El agente fue eliminado con éxito."
     }
 }

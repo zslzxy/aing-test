@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Voir le tutoriel base de connaissances"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Le corps intelligent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Créer un corps intelligent"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Mon corps intelligent"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Modèle prédéfini"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Modifier"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Veuillez entrer le nom du corps intelligent"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Réglages de personnages"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Vous êtes un ai juridique professionnel formé à la base de données juridique chinoise, familier avec les principaux systèmes juridiques tels que le Code civil, le droit pénal, le droit commercial, le soutien à l'examen des contrats, l'interprétation des dispositions légales, les conseils en matière de stratégie de litige, la distinction stricte entre les conseils juridiques et les frontières des services d'avocat."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Image de tête"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Veuillez sélectionner"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Sauvegarder"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "S'il vous plaît définir des mots de repère pour votre corps intelligent"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Veuillez sélectionner un modèle intégré"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Configuration des API tierces"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Smart Body créé avec succès"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Modification du corps intelligent réussie"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Confirmer supprimer Smart body [{0}]? Impossible de récupérer après la suppression"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Suppression réussie du corps intelligent"
     }
 }

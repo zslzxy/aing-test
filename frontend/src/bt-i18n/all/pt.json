@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Ver o Tutorial da Base de Conhecimento"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Agente inteligente"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Criar um agente inteligente"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "O meu corpo inteligente."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Modelo predefinido"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "editar"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Introduza por favor o nome do agente inteligente"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "desenho de caracteres"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Você é uma IA jurídica profissional treinada na base de dados jurídica chinesa, familiarizada com os principais sistemas jurídicos, como o Código Civil, Direito Penal e Direito Comercial."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "imagem de perfil"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Por favor selecione"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Salvar"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Por favor, defina palavras rápidas para o seu agente"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Seleccione por favor o modelo incorporado"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Configuração da API de terceiros"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Agente inteligente criado com sucesso"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Agente inteligente modificado com sucesso"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Tem a certeza de apagar o agente [{0}]? Não pode ser restaurado após a eliminação"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Agente inteligente eliminado com sucesso"
     }
 }

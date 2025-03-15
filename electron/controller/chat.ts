@@ -7,6 +7,7 @@ import { getPromptForWeb } from '../search_engines/search';
 import { Rag } from '../rag/rag';
 import { ModelService, GetSupplierModels, getModelContextLength } from '../service/model';
 import path from 'path';
+import { agentService } from '../service/agent';
 
 // 模型列表获取重试次数
 let MODEL_LIST_RETRY = 0;
@@ -65,10 +66,11 @@ class ChatController {
      * @param {string} args.supplierName - 供应商名称
      * @returns {Promise<any>} - 包含新对话信息的成功响应
      */
-    async create_chat(args: { model: string; parameters: string; title: string, supplierName?: string }): Promise<any> {
-        const { model, parameters, title, supplierName } = args;
+    async create_chat(args: { model: string; parameters: string; title: string, supplierName?: string ,agent_name?:string}): Promise<any> {
+        let { model, parameters, title, supplierName,agent_name } = args;
+        if(!agent_name) agent_name = ''; 
         // 创建新对话并获取相关数据
-        const data = new ChatService().create_chat(model, parameters, title, supplierName as string);
+        const data = new ChatService().create_chat(model, parameters, title, supplierName as string,agent_name as string);
         // 返回成功响应
         return pub.return_success(pub.lang("对话创建成功"), data);
     }
@@ -244,7 +246,7 @@ class ChatController {
      * @param {any} event - 事件对象，用于处理HTTP响应
      * @returns {Promise<any>} - 可读流，用于流式响应对话结果
      */
-    async chat(args: { context_id: string; supplierName?: string; model: string; parameters?: string; user_content: string, search?: string, rag_list?: string, regenerate_id?: string, images?: string, doc_files?: string, temp_chat?: string }, event: any): Promise<any> {
+    async chat(args: { context_id: string; supplierName?: string; model: string; parameters?: string; user_content: string, search?: string, rag_list?: string, regenerate_id?: string, images?: string, doc_files?: string, temp_chat?: string}, event: any): Promise<any> {
         let { context_id: uuid, model: modelName, parameters, user_content, search, regenerate_id, supplierName, images, doc_files, temp_chat } = args;
         if (!supplierName) {
             supplierName = 'ollama'
@@ -271,7 +273,11 @@ class ChatController {
             doc_files_list = doc_files.split(',');
         }
 
+        
+
         const chatService = new ChatService();
+        let contextInfo = await chatService.read_chat(uuid);
+
         // 构建用户的聊天上下文
         const chatContext: ChatContext = {
             role: 'user',
@@ -372,7 +378,7 @@ class ChatController {
             chatService.update_chat_config(uuid, "rag_list", ragList);
 
             if (ragList.length > 0) {
-                let { userPrompt, systemPrompt, searchResultList, query } = await new Rag().searchAndSuggest(ragList, modelStr, user_content, history[history.length - 1].doc_files);
+                let { userPrompt, systemPrompt, searchResultList, query } = await new Rag().searchAndSuggest(ragList, modelStr, user_content, history[history.length - 1].doc_files,contextInfo.agent_name);
                 chatHistoryRes.search_query = query;
                 chatHistoryRes.search_type = "[RAG]:" + ragList.join(",");
                 chatHistoryRes.search_result = searchResultList;
@@ -408,7 +414,7 @@ class ChatController {
                 lastHistory += pub.lang("回答: ") + history[history.length - 2].content + "\n";
             }
 
-            let { userPrompt, systemPrompt, searchResultList, query } = await getPromptForWeb(user_content, modelStr, lastHistory, search, history[history.length - 1].doc_files);
+            let { userPrompt, systemPrompt, searchResultList, query } = await getPromptForWeb(user_content, modelStr, lastHistory, search, history[history.length - 1].doc_files,contextInfo.agent_name);
             chatHistoryRes.search_query = query;
             chatHistoryRes.search_type = search;
             chatHistoryRes.search_result = searchResultList;
@@ -431,15 +437,17 @@ class ChatController {
         let letHistory = history[history.length - 1];
 
         // 嵌入system提示
-        //         if(!isSystemPrompt && letHistory.content === user_content) {
-        //             let systemPrompt = `# 以下是日期和地区信息，你可以根据需要选择其中的内容。
-        // ## ${pub.lang('当前日期和时间为')}: ${pub.getCurrentDateTime()}
-        // ## ${pub.lang('用户所在地区为')}: ${pub.getUserLocation()}`
-        //             history.unshift({
-        //                 role: 'system',
-        //                 content: systemPrompt
-        //             });
-        //         }
+        if(!isSystemPrompt && letHistory.content === user_content) {
+            if(contextInfo.agent_name){
+                let agentConfig = agentService.get_agent_config(contextInfo.agent_name);
+                if(agentConfig && agentConfig.prompt){
+                    history.unshift({
+                        role: 'system',
+                        content: agentConfig.prompt
+                    });
+                }
+            }
+        }
 
         // console.log("letHistory:",letHistory);
 
@@ -486,6 +494,7 @@ ${pub.lang('用户文档')} ${idx + 1} end
         // 非视觉模型，将图片OCR内容合并到用户输入
         if(!isVision && letHistory.images.length > 0) {
             let ocrContent = letHistory.images.map((image, idx) => {
+                if (!image) return '';
                 return `${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} begin
 ${image}
 ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
@@ -525,10 +534,20 @@ ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
             if (letHistory.images && letHistory.images.length > 0) {
                 let images: string[] = [];
                 for (let image of letHistory.images) {
-                    images.push(image.split(',')[1])
+                    let imgArr = image.split(',');
+                    if (imgArr.length > 1) {
+                        images.push(imgArr[1])
+                    }
+                    
                 }
                 letHistory.images = images;
             }
+        }
+        
+
+
+        if(letHistory.images && letHistory.images.length == 0) {
+            delete letHistory.images;
         }
 
 
@@ -538,6 +557,8 @@ ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
             messages: history,
             stream: true,
         }
+
+
 
         if (isOllama) {
             // 计算上下文长度

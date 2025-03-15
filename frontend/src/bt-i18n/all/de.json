@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Wissensdatenbank-Tutorial anzeigen"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligenter Agent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Erstellen Sie einen intelligenten Agenten"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Mein intelligenter Körper."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Voreingestellte Vorlage"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "bearbeiten"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Bitte geben Sie den Namen des intelligenten Agenten ein"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Schriftgestaltung"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Sie sind eine professionelle juristische KI, die durch die chinesische Rechtsdatenbank ausgebildet ist, mit den wichtigsten Rechtssystemen wie dem Zivilgesetzbuch, dem Strafrecht und dem Handelsrecht vertraut ist, die Vertragsprüfung, die Interpretation von gesetzlichen Bestimmungen, die Beratung von Prozessstrategien unterstützt und die Grenzen zwischen Rechtsberatung und Anwaltsdienstleistungen streng unterscheidet."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Vorbild"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Bitte wählen"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Speichern"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Bitte setzen Sie Prompt-Wörter für Ihren Agenten"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Bitte wählen Sie das eingebettete Modell"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "API-Konfiguration von Drittanbietern"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Intelligenter Agent erfolgreich erstellt"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Intelligenter Agent erfolgreich modifiziert"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Sind Sie sicher, Agent [{0}]] zu löschen? Kann nach dem Löschen nicht wiederhergestellt werden"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Intelligenter Agent erfolgreich gelöscht"
     }
 }

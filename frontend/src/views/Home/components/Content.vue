@@ -6,9 +6,10 @@
                 <!-- 新对话默认展示内容 -->
                 <!--  条件展示：v-if="chatHistory.size == 0" -->
                 <div class="answer" style="margin-bottom: 20px;">
-                    <NImage :src="AingDesk" width="30" height="30" preview-disabled />
+                    <div v-if="currentChatAgent" class="w-30 h-30 text-26px">{{ currentChatAgent.icon?currentChatAgent.icon:"😀" }}</div>
+                    <NImage :src="AingDesk" width="30" height="30" preview-disabled v-else/>
                     <div class="answer-token">
-                        <p>{{ $t("让我们开启一段新的对话吧") }}</p>
+                        <p>{{ currentChatAgent ? currentChatAgent.prompt : $t("让我们开启一段新的对话吧") }}</p>
                     </div>
                 </div>
 
@@ -226,7 +227,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NUpload, NPopover, NBadge } from 'naive-ui';
 import { message } from "@/utils/naive-tools"
 // 聊天头像
@@ -322,8 +323,10 @@ const {
     docContent,
     cuttentChatFileList,
     chatMask,
-    temp_chat
+    temp_chat,
+    currentChatAgent
 } = storeToRefs(indexStore)
+
 
 /********** question-token和question-edit切换 **********/
 const questionEditContent = ref("")

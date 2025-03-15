@@ -2,48 +2,54 @@ import { parseDocument } from './doc_engins/doc';
 import { LanceDBManager } from './vector_database/vector_lancedb';
 import * as path from 'path';
 import { pub } from '../class/public';
+import { agentService } from '../service/agent';
+
 
 // 获取模板常量
-const getTemplate = ():{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:string, OTHER_PROMPT_TPL:string, OTHER_SYSTEM_PROMPT_TPL:string, QUERY_PROMPT_TPL:string } => {
+const getTemplate = (agent_name?:string):{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:string, OTHER_PROMPT_TPL:string, OTHER_SYSTEM_PROMPT_TPL:string, QUERY_PROMPT_TPL:string } => {
+    agent_name = agent_name || '';
+    let agentInfo = agentService.get_agent_config(agent_name);
+    
+    
     // 提取模板常量
-    const TEMPLATES_LANG = [
-        pub.lang('以下内容是基于用户发送的消息的知识库检索结果'),
+    let TEMPLATES_LANG = [
+        agentInfo?agentInfo.prompt:pub.lang('以下内容是基于用户发送的消息的知识库检索结果'),
         pub.lang('在我给你的检索结果中，每个结果都是[检索结果 X begin]...[检索结果 X end]格式的，X代表每段知识内容的的数字索引。另外检索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。'),
         pub.lang('在回答时，请注意以下几点'),
         pub.lang('今天是'),
         pub.lang('用户所在地点是'),
         pub.lang('不要在回答内容中提及检索结果的具体来源，也不要提及检索结果的具体排名。'),
         pub.lang('并非检索结果的所有内容都与用户的问题密切相关，你需要结合问题，对检索结果进行甄别、筛选。'),
-        pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看检索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户检索结果未提供的内容。'),
-        pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用检索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
-        pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
-        pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
+        agentInfo?'':pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看检索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户检索结果未提供的内容。'),
+        agentInfo?'':pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用检索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
+        agentInfo?'':pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
+        agentInfo?'':pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
         pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
         pub.lang('你的回答应该综合多个相关知识片段来回答，不能重复引用一个知识片段。'),
         pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
         pub.lang('用户消息为'),
     ]
 
-    const OTHER_SYSTEM_PROMPT_TPL_LANG = [
-        pub.lang('你是一个擅长根据知识库检索结果回答用户查询的人工智能模型。'),
+    let OTHER_SYSTEM_PROMPT_TPL_LANG = [
+        agentInfo?agentInfo.prompt:pub.lang('你是一个擅长根据知识库检索结果回答用户查询的人工智能模型。'),
         pub.lang('在回答时，请注意以下几点'),
         pub.lang('根据提供的检索结果生成信息丰富且与用户查询相关的回答，如果知识库检索结果中有图片引用信息，可根据需要引用这些图片来强化内容结构。'),
         pub.lang('当前日期和时间为'),
         pub.lang('用户所在地区为'),
         pub.lang('不要提及检索结果的具体排名。'),
         pub.lang('并非检索结果的所有内容都与用户的问题密切相关，你需要结合用户的意图，对检索结果进行甄别、筛选。'),
-        pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看检索来源、获得完整信息。优先提供信息完整、最相关的列举项'),
-        pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用检索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
-        pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答。'),
-        pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
-        pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
+        agentInfo?'':pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看检索来源、获得完整信息。优先提供信息完整、最相关的列举项'),
+        agentInfo?'':pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用检索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
+        agentInfo?'':pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答。'),
+        agentInfo?'':pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
+        agentInfo?'':pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
         pub.lang('你的回答应该综合多个相关知识片段来回答，不能重复引用一个知识片段。'),
         pub.lang(''),
         pub.lang('以下内容是基于用户发送的消息的检索结果'),
     ]
 
 
-    const QUERY_PROMPT_TPL_LANG = [
+    let QUERY_PROMPT_TPL_LANG = [
         pub.lang('根据用户的问题，和上一个对话的内容，理解用户意图，生成一个用于检索引擎检索的问题，这个问题的检索结果将会用于帮助智能模型回答用户问题，回答内容中只有一个问题，且只包含问题内容，不包含其它信息。'),
         pub.lang('今天的时间是'),
         pub.lang('用户所在地点是'),
@@ -52,9 +58,7 @@ const getTemplate = ():{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:
         pub.lang('用于检索的问题'),
     ]
 
-
-
-    const DEEPSEEK_PROMPT_TPL = `# ${TEMPLATES_LANG[0]}:
+    let DEEPSEEK_PROMPT_TPL = `# ${TEMPLATES_LANG[0]}:
 {search_results}
 ${TEMPLATES_LANG[1]}
 ${TEMPLATES_LANG[2]}:
@@ -75,10 +79,10 @@ ${TEMPLATES_LANG[2]}:
 # ${TEMPLATES_LANG[14]}:
 {question}`
 
-    const DEEPSEEK_SYSTEM_PROMPT_TPL = ""
-    const OTHER_PROMPT_TPL = "{question}"
+    let DEEPSEEK_SYSTEM_PROMPT_TPL = ""
+    let OTHER_PROMPT_TPL = "{question}"
 
-    const OTHER_SYSTEM_PROMPT_TPL = `# ${OTHER_SYSTEM_PROMPT_TPL_LANG[0]}:
+    let OTHER_SYSTEM_PROMPT_TPL = `# ${OTHER_SYSTEM_PROMPT_TPL_LANG[0]}:
 ## ${OTHER_SYSTEM_PROMPT_TPL_LANG[1]}:
 - ${OTHER_SYSTEM_PROMPT_TPL_LANG[2]}
 - ${OTHER_SYSTEM_PROMPT_TPL_LANG[3]} {current_date_time}
@@ -99,7 +103,7 @@ ${TEMPLATES_LANG[2]}:
 </search-results>
 {doc_files}`
 
-    const  QUERY_PROMPT_TPL = `# ${QUERY_PROMPT_TPL_LANG[0]}
+    let  QUERY_PROMPT_TPL = `# ${QUERY_PROMPT_TPL_LANG[0]}
 ## ${QUERY_PROMPT_TPL_LANG[1]}: {current_date_time}
 ## ${QUERY_PROMPT_TPL_LANG[2]}: {user_location}
 ## ${QUERY_PROMPT_TPL_LANG[3]}:
@@ -152,7 +156,7 @@ const getUserLocation = () => {
 
 
 // 生成 DeepSeek 类型的提示信息
-const generateDeepSeekPrompt = (searchResultList: any[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateDeepSeekPrompt = (searchResultList: any[], query: string,doc_files:string[],agent_name:string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -175,7 +179,7 @@ ${pub.lang('内容')}: ${doc_file}
 
     doc_files_str = `${pub.lang('以下是用户上传的文档内容，每个文档内容都是[用户文档 X begin]...[用户文档 X end]格式的，你可以根据需要选择其中的内容。')}
 ${doc_files_str}`
-    const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate();
+    const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate(agent_name);
     const userPrompt = DEEPSEEK_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
@@ -189,7 +193,7 @@ ${doc_files_str}`
 };
 
 // 生成其他类型的提示信息
-const generateOtherPrompt = (searchResultList: any[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateOtherPrompt = (searchResultList: any[], query: string,doc_files:string[],agent_name:string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -207,7 +211,7 @@ const generateOtherPrompt = (searchResultList: any[], query: string,doc_files:st
 <doc_files>
 ${doc_files_str}
 </doc_files>`;
-    const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
+    const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate(agent_name);
     const systemPrompt = OTHER_SYSTEM_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
@@ -453,9 +457,10 @@ export class Rag {
      * @param model:string 模型名称
      * @param queryText:string 查询文本
      * @param doc_files:string[] 文档内容列表
+     * @param agent_name <string> 智能体名称
      * @returns Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }>
      */
-    public async searchAndSuggest(ragList: string[], model: string, queryText: string,doc_files:string[]): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> {
+    public async searchAndSuggest(ragList: string[], model: string, queryText: string,doc_files:string[],agent_name:string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> {
         try{
             let docContentList = await this.searchDocument(ragList, queryText)
 
@@ -473,9 +478,9 @@ export class Rag {
             }
 
             if (model.indexOf("deepseek") !== -1) {
-                return generateDeepSeekPrompt(searchResultList, queryText,doc_files);
+                return generateDeepSeekPrompt(searchResultList, queryText,doc_files,agent_name);
             } else {
-                return generateOtherPrompt(searchResultList, queryText,doc_files);
+                return generateOtherPrompt(searchResultList, queryText,doc_files,agent_name);
             }
         }catch(e:any){
             return {

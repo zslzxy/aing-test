@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Tingnan ang Knowledge Base Tutorial"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligent agent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Gumawa ng matalinong agent"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Ang aking intelihente agent"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Stock label"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "edit"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Pakiusap ipasok ang pangalan ng intelihente na agent"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "disenyo ng karakter"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Ikaw ay isang propesyonal na legal na AI na nagsasanay sa legal database ng Tsina, pamilyar sa mga malalaking sistema ng batas tulad ng Civil Code, Criminal Law, at Commercial Law."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Litrato ng profile"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Mangyaring piliin"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "save"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Paki-set ang prompt na salita para sa iyong agent"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Mangyaring piliin ang embedded model"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Ang configuration ng API ng third party"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Ang maliwanag na agent ay naglikha ng matagumpay"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Ang intelihente agent ay nagbago matagumpay"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Sigurado ka bang i-delete ang agent [{0}]? Hindi makapagbalik pagkatapos ng pagpadala"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Ang inteligente agent ay matagumpay na nabalis"
     }
 }

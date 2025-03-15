@@ -6,6 +6,7 @@ import storage from "@/utils/storage";
 
 
 export type ChatItemInfo = {
+    agent_info?: AgentItemDto,
     contextPath: string
     context_id: string
     model: string
@@ -113,6 +114,18 @@ export type CurrentModelDto = {
     supplierName?: string,
 }
 
+// 智能体对象实体
+export type AgentItemDto = {
+    agent_name: string,
+    agent_title: string,
+    prompt: string,
+    msg: string,
+    agent_type: string,
+    icon: string,
+    create_time: number,
+    is_system: boolean,
+}
+
 // 供应商图片
 const supplierLogs = new Map([
     ["DeepSeek", ""],
@@ -151,6 +164,8 @@ const useIndexStore = defineStore("indexStore", () => {
     const currentContextId = ref("")
     // 当前对话标题
     const currentChatTitle = ref("")
+    // 当前对话的类型
+    const currentChatAgent = ref<AgentItemDto | null>()
     // 开启单次临时对话
     const temp_chat = ref(false)
     // 当前对话的知识库
@@ -293,10 +308,10 @@ const useIndexStore = defineStore("indexStore", () => {
     // 当前正在新增知识库（input出现）
     const addingKnowledge = ref(false)
     // 新建知识库的数据体
-    const createKnowledgeFormData = ref({
+    const createKnowledgeFormData = ref<any>({
         ragName: "",
         ragDesc: "",
-        enbeddingModel: [],
+        enbeddingModel: "",
         supplierName: ""
     })
     // 新建知识库的弹窗ref
@@ -363,6 +378,26 @@ const useIndexStore = defineStore("indexStore", () => {
     const currentModelNameForEdiit = ref("")
     // 当前使用的服务商
     const currentSupplierName = ref("")
+    // 智能体弹窗显示隐藏
+    const agentShow = ref(false)
+    // 智能体列表
+    const agentList = ref<AgentItemDto[]>([])
+    // 创建智能体弹窗显示
+    const createAgentShow = ref(false)
+    // 创建智能体表单数据
+    const createAgentFormData = ref({
+        agent_type: "",
+        agent_name: "",
+        agent_title: "",
+        prompt: "",
+        icon: "😀"
+    })
+    // 是否为编辑智能体
+    const isEditAgent = ref(false)
+    // 对话时，是否为智能体
+    const chatForAgent = ref(false)
+    // 当前智能体
+    const currentAgent = ref<AgentItemDto | null>()
     return {
         answerCodeContent,
         modelList,
@@ -455,7 +490,15 @@ const useIndexStore = defineStore("indexStore", () => {
         cuttentChatFileList,
         chatMask,
         temp_chat,
-        version
+        version,
+        agentShow,
+        createAgentShow,
+        createAgentFormData,
+        agentList,
+        isEditAgent,
+        chatForAgent,
+        currentAgent,
+        currentChatAgent
     }
 })
 

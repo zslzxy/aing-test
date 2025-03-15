@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Žiūrėti žinių bazės pamokas"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Pažangas veiksnys"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Sukurti protingą kūną"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Mano protingas agentas"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Numatytas šablonas"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "redaguoti"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Įveskite protinio kūno pavadinimą"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Žmogaus nustatymai"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Jūs esate profesionalus teisinis AI, mokytas Kinijos teisinėje duomenų bazėje, susipažin ęs su pagrindinėmis teisinėmis sistemomis, kaip antai civilinis kodeksas, baudžiamoji teisė ir komercinė teisė."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Avataras"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Pasirinkite"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Išsaugoti"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Nurodykite greitus žodžius savo agentui"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Pasirinkite įterpimo modelį"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Trečiosios šalies API konfigūracija"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Pažangas agentas sukurtas sėkmingai"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Pažangasis veiksnys sėkmingai pakeistas"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Ar tikrai ištrinsite agent ą [{0}]? Negalima atkurti po ištrinimo"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Pažangasis agentas sėkmingai ištrintas"
     }
 }

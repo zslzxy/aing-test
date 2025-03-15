@@ -5,44 +5,47 @@ import { localSogouSearch } from "./sogou";
 import { local360Search } from "./so360";
 import { pub } from '../class/public'
 import ollama from "ollama";
+import { agentService } from '../service/agent';
 
 
 // 获取模板常量
-const getTemplate = ():{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:string, OTHER_PROMPT_TPL:string, OTHER_SYSTEM_PROMPT_TPL:string, QUERY_PROMPT_TPL:string } => {
+const getTemplate = (agent_name:string):{ DEEPSEEK_PROMPT_TPL:string, DEEPSEEK_SYSTEM_PROMPT_TPL:string, OTHER_PROMPT_TPL:string, OTHER_SYSTEM_PROMPT_TPL:string, QUERY_PROMPT_TPL:string } => {
+    agent_name = agent_name || '';
+    let agentInfo = agentService.get_agent_config(agent_name);
     // 提取模板常量
     const TEMPLATES_LANG = [
-        pub.lang('以下内容是基于用户发送的消息的搜索结果'),
+        agentInfo?agentInfo.prompt:pub.lang('以下内容是基于用户发送的消息的搜索结果'),
         pub.lang('在我给你的搜索结果中，每个结果都是[搜索结果 X begin]...[搜索结果 X end]格式的，X代表每篇文章的数字索引。另外搜索结果中可能包含一些不相关的信息，你可以根据需要选择其中的内容。'),
         pub.lang('在回答时，请注意以下几点'),
         pub.lang('今天是'),
         pub.lang('用户所在地点是'),
-        pub.lang('不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。'),
-        pub.lang('并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。'),
-        pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。'),
-        pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
-        pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
-        pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
-        pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
-        pub.lang('你的回答应该综合多个相关网页来回答，不能重复引用一个网页。'),
-        pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
+        agentInfo?'':pub.lang('不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。'),
+        agentInfo?'':pub.lang('并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。'),
+        agentInfo?'':pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。'),
+        agentInfo?'':pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
+        agentInfo?'':pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
+        agentInfo?'':pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
+        agentInfo?'':pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
+        agentInfo?'':pub.lang('你的回答应该综合多个相关网页来回答，不能重复引用一个网页。'),
+        agentInfo?'':pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
         pub.lang('用户消息为'),
     ]
 
     const OTHER_SYSTEM_PROMPT_TPL_LANG = [
-        pub.lang('你是一个擅长搜索网络和回答用户查询的人工智能模型。'),
+        agentInfo?agentInfo.prompt:pub.lang('你是一个擅长搜索网络和回答用户查询的人工智能模型。'),
         pub.lang('在回答时，请注意以下几点'),
         pub.lang('根据提供的搜索结果生成信息丰富且与用户查询相关的回答。'),
         pub.lang('当前日期和时间为'),
         pub.lang('用户所在地区为'),
-        pub.lang('不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。'),
-        pub.lang('并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。'),
-        pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。'),
-        pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
-        pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
-        pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
-        pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
-        pub.lang('你的回答应该综合多个相关网页来回答，不能重复引用一个网页。'),
-        pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
+        agentInfo?'':pub.lang('不要在回答内容中提及搜索结果的具体来源，也不要提及搜索结果的具体排名。'),
+        agentInfo?'':pub.lang('并非搜索结果的所有内容都与用户的问题密切相关，你需要结合问题，对搜索结果进行甄别、筛选。'),
+        agentInfo?'':pub.lang('对于列举类的问题（如列举所有航班信息），尽量将答案控制在10个要点以内，并告诉用户可以查看搜索来源、获得完整信息。优先提供信息完整、最相关的列举项；如非必要，不要主动告诉用户搜索结果未提供的内容。'),
+        agentInfo?'':pub.lang('对于创作类的问题（如写论文），你需要解读并概括用户的题目要求，选择合适的格式，充分利用搜索结果并抽取重要信息，生成符合用户要求、极具思想深度、富有创造力与专业性的答案。你的创作篇幅需要尽可能延长，对于每一个要点的论述要推测用户的意图，给出尽可能多角度的回答要点，且务必信息量大、论述详尽。'),
+        agentInfo?'':pub.lang('如果回答很长，请尽量结构化、分段落总结。如果需要分点作答，尽量控制在5个点以内，并合并相关的内容。'),
+        agentInfo?'':pub.lang('对于客观类的问答，如果问题的答案非常简短，可以适当补充一到两句相关信息，以丰富内容。'),
+        agentInfo?'':pub.lang('你需要根据用户要求和回答内容选择合适、美观的回答格式，确保可读性强。'),
+        agentInfo?'':pub.lang('你的回答应该综合多个相关网页来回答，不能重复引用一个网页。'),
+        agentInfo?'':pub.lang('除非用户要求，否则你回答的语言需要和用户提问的语言保持一致。'),
         pub.lang('以下内容是基于用户发送的消息的搜索结果'),
     ]
 
@@ -182,51 +185,51 @@ const getUserLocation = () => {
 
 // 获取用于搜索的问题
 export const getSearchQuery = async (query: string, model: string, chatHistory: string): Promise<string> => {
-    try {
+    // try {
         // 调整为直接响应
         return query;
 
 
-        if (chatHistory.length === 0) {
-            return query;
-        }
+    //     if (chatHistory.length === 0) {
+    //         return query;
+    //     }
 
-        // query最后一个字符是问号，直接返回
-        if (query[query.length - 1] === '？' || query[query.length - 1] === '?') {
-            return query;
-        }
+    //     // query最后一个字符是问号，直接返回
+    //     if (query[query.length - 1] === '？' || query[query.length - 1] === '?') {
+    //         return query;
+    //     }
 
-        const currentDateTime = getCurrentDateTime();
-        const userLocation = getUserLocation();
-        const { QUERY_PROMPT_TPL } = getTemplate();
-        const queryPrompt = QUERY_PROMPT_TPL
-           .replace("{question}", query)
-           .replace("{chat_history}", chatHistory)
-           .replace("{current_date_time}", currentDateTime)
-           .replace("{user_location}", userLocation);
+    //     const currentDateTime = getCurrentDateTime();
+    //     const userLocation = getUserLocation();
+    //     const { QUERY_PROMPT_TPL } = getTemplate();
+    //     const queryPrompt = QUERY_PROMPT_TPL
+    //        .replace("{question}", query)
+    //        .replace("{chat_history}", chatHistory)
+    //        .replace("{current_date_time}", currentDateTime)
+    //        .replace("{user_location}", userLocation);
 
-        const res = await ollama.generate({
-            prompt: queryPrompt,
-            model: model
-        });
+    //     const res = await ollama.generate({
+    //         prompt: queryPrompt,
+    //         model: model
+    //     });
 
-        let result = res.response;
-        if(!result) return query;
-        if (result.indexOf('</think>') !== -1) {
-            result = result.split('</think>')[1].trim();
-        }
+    //     let result = res.response;
+    //     if(!result) return query;
+    //     if (result.indexOf('</think>') !== -1) {
+    //         result = result.split('</think>')[1].trim();
+    //     }
 
-        let lines = result.trim().split('\n');
-        result = lines[lines.length - 1].trim();
-        return result;
-    } catch (error) {
-        console.error('Error getting search query:', error);
-        return query
-    }
+    //     let lines = result.trim().split('\n');
+    //     result = lines[lines.length - 1].trim();
+    //     return result;
+    // } catch (error) {
+    //     console.error('Error getting search query:', error);
+    //     return query
+    // }
 };
 
 // 生成 DeepSeek 类型的提示信息
-const generateDeepSeekPrompt = (searchResultList: SearchResult[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateDeepSeekPrompt = (searchResultList: SearchResult[], query: string,doc_files:string[],agent_name:string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -252,7 +255,7 @@ ${pub.lang('内容')}: ${doc_file}
 ${doc_files_str}`
 
 
-    const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate();
+    const { DEEPSEEK_PROMPT_TPL, DEEPSEEK_SYSTEM_PROMPT_TPL } = getTemplate(agent_name);
     const userPrompt = DEEPSEEK_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
@@ -266,7 +269,7 @@ ${doc_files_str}`
 };
 
 // 生成其他类型的提示信息
-const generateOtherPrompt = (searchResultList: SearchResult[], query: string,doc_files:string[]): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+const generateOtherPrompt = (searchResultList: SearchResult[], query: string,doc_files:string[],agent_name): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
 
@@ -285,7 +288,7 @@ const generateOtherPrompt = (searchResultList: SearchResult[], query: string,doc
 ${doc_files_str}
 </doc_files>`;
 
-    const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
+    const { OTHER_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate(agent_name);
     const systemPrompt = OTHER_SYSTEM_PROMPT_TPL
        .replace("{search_results}", search_results)
        .replace("{current_date_time}", currentDateTime)
@@ -293,19 +296,18 @@ ${doc_files_str}
          .replace("{doc_files}", doc_files_str)
 
     const userPrompt = OTHER_PROMPT_TPL.replace("{question}", query);
-
     return { userPrompt, systemPrompt ,searchResultList,query};
 };
 
 
 // 获取默认提示信息
-export const getDefaultPrompt = (query: string,model:string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
+export const getDefaultPrompt = (query: string,model:string,agent_name:string): { userPrompt: string; systemPrompt: string,searchResultList:any,query:string } => {
     let userPrompt = '';
     let systemPrompt = '';
     let searchResultList = [];
     const currentDateTime = getCurrentDateTime();
     const userLocation = getUserLocation();
-    const { DEEPSEEK_SYSTEM_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate();
+    const { DEEPSEEK_SYSTEM_PROMPT_TPL, OTHER_SYSTEM_PROMPT_TPL } = getTemplate(agent_name);
     if (model.indexOf("deepseek") !== -1) {
         userPrompt = DEEPSEEK_SYSTEM_PROMPT_TPL
         .replace("{current_date_time}", currentDateTime)
@@ -324,16 +326,24 @@ export const getDefaultPrompt = (query: string,model:string): { userPrompt: stri
 }
 
 // 获取网页搜索提示信息
-export const getPromptForWeb = async (query: string, model: string, chatHistory: string, searchProvider: string,doc_files:string[]): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> => {
+export const getPromptForWeb = async (query: string, model: string, chatHistory: string, searchProvider: string,doc_files:string[],agent_name:string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> => {
     try {
-        if(query.length < 4) return getDefaultPrompt(query,model);
+        if(query.length < 4) return getDefaultPrompt(query,model,agent_name);
         const searchQuery = await getSearchQuery(query, model, chatHistory);
-        const searchResultList = await searchWeb(searchProvider, searchQuery);
+        let searchResultList = await searchWeb(searchProvider, searchQuery);
+        if(agent_name){
+            // 如果是智能体，只保留1个搜索结果，且内容长度不超过4096个字符
+            searchResultList = searchResultList.slice(0,1);
+            searchResultList = searchResultList.map((result) => {
+                result.content = result.content.slice(0,4096);
+                return result;
+            })
+        }
 
         if (model.indexOf("deepseek") !== -1) {
-            return generateDeepSeekPrompt(searchResultList, searchQuery,doc_files);
+            return generateDeepSeekPrompt(searchResultList, searchQuery,doc_files,agent_name);
         } else {
-            return generateOtherPrompt(searchResultList, searchQuery,doc_files);
+            return generateOtherPrompt(searchResultList, searchQuery,doc_files,agent_name);
         }
     } catch (error) {
         console.error('Error getting prompt for web:', error);

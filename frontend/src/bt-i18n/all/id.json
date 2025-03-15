@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Tampilkan Tutorial Pangkalan Pengetahuan"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Tubuh cerdas"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Buat agen cerdas"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Agen cerdas saya"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Templat default"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "edit"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Silakan masukkan nama agen cerdas"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "desain karakter"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Anda adalah AI hukum profesional yang dilatih di pangkalan data hukum Cina, familiar dengan sistem hukum utama seperti Kode Sifil, Hukum Penjahat, dan Hukum Kummersi. Anda mendukung pemeriksaan kontrak, interpretasi persediaan hukum, nasihat strategi litigasi, dan sangat membedakan perbatasan antara konsultasi hukum dan layanan pengacara"
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Wajah"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Silahkan Pilih"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Simpan"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Silakan tetapkan kata-kata prompt untuk agen Anda"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Silakan pilih model tertanam"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Konfigurasi API pihak ketiga"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Agen cerdas berhasil dibuat"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Agen cerdas diubah dengan sukses"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Apakah Anda yakin untuk menghapus agen [{0}]? Tidak dapat dipulihkan setelah dihapus"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Agen cerdas berhasil dihapus"
     }
 }

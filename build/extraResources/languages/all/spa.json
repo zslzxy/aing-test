@@ -738,5 +738,21 @@
     "29edf39066579d275e67123d77b2a5fa": {
         "src": "OCR解析结果",
         "dst": "Resultados del análisis OCR"
+    },
+    "b0ebf0b5aa7c221c8721231efe12d7a0": {
+        "src": "读取智能体配置文件失败",
+        "dst": "Falló la lectura del archivo de configuración del agente"
+    },
+    "db0f5df7e68e83d493350e50f40ed997": {
+        "src": "智能体不存在",
+        "dst": "Los agentes no existen"
+    },
+    "d655e84287c988ade7cfe68d4dada2b6": {
+        "src": "系统智能体不可修改",
+        "dst": "El agente del sistema no se puede modificar"
+    },
+    "70c5195c90f0a603b9e9fed6a7663446": {
+        "src": "系统智能体不可删除",
+        "dst": "Los agentes del sistema no se pueden eliminar"
     }
 }

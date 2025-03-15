@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Pogledaj podučavanje baze znanja"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Inteligentni agent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Stvori inteligentni agent"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Moj inteligentni agent."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Preduzeti predložak"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "edit"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Molim vas, upisite ime inteligentnih agenta."
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Postavke ličnosti"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Vi ste profesionalni pravni AI obučeni u kineskoj pravnoj bazi podataka, poznati s velikim pravnim sustavima poput građanskog kodeksa, kriminalnog prava i trgovačkog prava. Podržavate pregled ugovora, interpretaciju pravnih odredbi, savjete o tužbi i strogo razlikujete granicu između pravnih savjetovanja i odvjetnih službi."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Slika profila"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Molim odaberite"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Sačuvaj"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Molim vas, postavite hitne riječi za vašeg agenta."
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Molim vas odaberite ugrađeni model"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Konfiguracija API treće strane"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Inteligentno stvorenje uspješno"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Inteligentni agent uspješno modifikovan"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Sigurno ćete izbrisati agent [{0}]? Ne mogu se vratiti nakon izbrisanja"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Inteligentni agent uspješno izbrisan"
     }
 }

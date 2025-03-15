@@ -2,7 +2,7 @@ import { logger } from 'ee-core/log';
 import { pub } from '../class/public';
 import * as path from 'path';
 import { parseDocument } from '../rag/doc_engins/doc';
-import { is } from 'cheerio/dist/commonjs/api/traversing';
+import { agentService } from './agent';
 
 /**
  * 定义聊天历史记录的类型
@@ -132,7 +132,7 @@ export class ChatService {
      * @param {string} supplierName - 供应商名称
      * @returns {object} - 包含对话配置信息的对象
      */
-    create_chat(model: string, parameters: string, title: string = "",supplierName:string): object {
+    create_chat(model: string, parameters: string, title: string = "",supplierName:string,agent_name:string): object {
         // 记录创建对话的日志信息
         logger.info('create_chat', `${model}:${parameters}`);
         // 生成对话的唯一标识符
@@ -149,6 +149,7 @@ export class ChatService {
             parameters,
             contextPath: this.getContextPath(uuid),
             context_id: uuid,
+            agent_name: agent_name,
             create_time: pub.time()
         };
         // 保存对话配置信息到文件
@@ -267,7 +268,11 @@ export class ChatService {
                 rag_list.push(ragName);
             }
             contextConfigObj.rag_list = rag_list;
-
+            contextConfigObj.agent_info = null;
+            if(contextConfigObj.agent_name) {
+                contextConfigObj.agent_info = agentService.get_agent_config(contextConfigObj.agent_name);
+            }
+            
             // 将配置信息添加到对话列表中
             contextList.push(contextConfigObj);
         }
@@ -302,7 +307,9 @@ export class ChatService {
                 images.push(base64);
             }else{
                 let imageOcr = await parseDocument(image,"temp",false);
-                images.push(imageOcr.content);
+                if(imageOcr.content){
+                    images.push(imageOcr.content);
+                }
             }
         }
         chatContext.images = images;

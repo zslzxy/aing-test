@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Lihat tutorial pangkalan pengetahuan"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Badan pintar"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Cipta ejen cerdas"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Badan pintar saya"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Templat Praset"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Edit"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Sila masukkan nama ejen cerdas"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "desain aksara"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Anda adalah AI undang-undang profesional yang dilatih oleh pangkalan data undang-undang China, akrab dengan sistem undang-undang utama seperti Kod Awam, Undang-undang Jenayah, Undang-undang Perdagangan dan lain-lain, menyokong kajian kontrak, tafsiran peruntukan undang-undang, cadangan strategi tindakan, membezakan secara ketat antara nasihat undang-undang dan sempadan perkhidmatan peguam"
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Gambar profil"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Sila pilih"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "simpan"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Sila tetapkan perkataan prompt untuk ejen anda"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Sila pilih model terbenam"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Konfigurasi API pihak ketiga"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Ejen cerdas dicipta dengan berjaya"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Ejen cerdas diubahsuai dengan berjaya"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Adakah anda mengesahkan untuk memadam badan pintar [{0}]? Tidak dapat dikembalikan selepas dipadamkan"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Ejen cerdas berjaya dipadam"
     }
 }

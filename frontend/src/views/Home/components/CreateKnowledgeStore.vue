@@ -9,7 +9,7 @@
             <NInput :placeholder="$t('请输入知识库描述')" v-model:value="createKnowledgeFormData.ragDesc" type="textarea"
                 :disabled="disabledKey == 'ragDesc'" />
         </NFormItem>
-        <NFormItem :label="$t('嵌入模型')">
+        <NFormItem :label="$t('嵌入模型')" path="enbeddingModel">
             <NSelect :placeholder="$t('选择模型')" v-model:value="createKnowledgeFormData.enbeddingModel"
                 :options="embeddingModelsList" label-field="title" value-field="model" @update:value="doSelectModel" />
         </NFormItem>
@@ -28,6 +28,7 @@ const { createKnowledgeFormData, createKnowledgeModelRef, embeddingModelsList } 
 const rules = ref({
     ragName: [{ required: true, message: $t('请输入知识库名称'), trigger: 'blur' }],
     ragDesc: [{ required: true, message: $t('请输入知识库描述'), trigger: 'blur' }],
+    enbeddingModel: [{ required: true, message: $t('请选择嵌入模型'), trigger: 'blur' }],
 })
 const placeKey = ref("")
 

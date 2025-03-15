@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Tudásbázis oktatóanyag megtekintése"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligens ügynök"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Intelligens testek létrehozása"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Az intelligens ügynököm."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Előre beállított sablon"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Szerkesztés"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Adja meg az intelligens ügynök nevét"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "karaktertervezés"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Ön egy professzionális jogi mesterséges intelligencia, aki a kínai jogi adatbázisban képzett, ismeri a főbb jogrendszereket, mint a Polgári Törvénykönyv, a Büntetőjog és a Kereskedelmi Jog. Támogatja a szerződések felülvizsgálatát, a jogi rendelkezések értelmezését, a peres stratégiai tanácsadást, és szigorúan megkülönbözteti a jogi tanácsadás és az ügyvédi szolgáltatások közötti határokat."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "profilkép"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Válassza ki"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "mentés"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Kérjük, állítsa be a jelzőt az intelligens testének"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Válassza ki a beágyazott modellt"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Harmadik fél API konfigurációja"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Sikeresen létrehozott intelligens ügynök"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Az intelligens módosítás sikeres"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Biztos, hogy törli az ügynököt [{0}]? A törlés után nem állítható vissza"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Intelligens törlés sikeres"
     }
 }

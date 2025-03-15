@@ -738,5 +738,21 @@
     "29edf39066579d275e67123d77b2a5fa": {
         "src": "OCR解析结果",
         "dst": "OCR-analysresultat"
+    },
+    "b0ebf0b5aa7c221c8721231efe12d7a0": {
+        "src": "读取智能体配置文件失败",
+        "dst": "Misslyckades läsa konfigurationsfilen för intelligent agent"
+    },
+    "db0f5df7e68e83d493350e50f40ed997": {
+        "src": "智能体不存在",
+        "dst": "Den intelligenta agenten finns inte"
+    },
+    "d655e84287c988ade7cfe68d4dada2b6": {
+        "src": "系统智能体不可修改",
+        "dst": "Systemets intelligenta agent kan inte ändras"
+    },
+    "70c5195c90f0a603b9e9fed6a7663446": {
+        "src": "系统智能体不可删除",
+        "dst": "Systemets intelligenta agent kan inte tas bort"
     }
 }

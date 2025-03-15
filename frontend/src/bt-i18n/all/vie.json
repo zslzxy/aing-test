@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Xem hướng dẫn cơ sở kiến thức"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Cơ thể thông minh"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Tạo Smart Body"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Cơ thể thông minh của tôi"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Đặt sẵn mẫu"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Chỉnh sửa"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Vui lòng nhập tên đối tượng thông minh"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Thiết lập nhân vật"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Bạn là một AI pháp lý chuyên nghiệp được đào tạo trong cơ sở dữ liệu pháp lý của Trung Quốc, quen thuộc với các hệ thống pháp lý chính như Bộ luật Dân sự, Luật Hình sự, Luật Thương mại, v.v., hỗ trợ xem xét hợp đồng, giải thích các điều khoản pháp lý, tư vấn chiến lược kiện tụng, phân biệt nghiêm ngặt ranh giới giữa tư vấn pháp lý và dịch vụ luật sư"
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Đầu"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Vui lòng chọn"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "Lưu"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Vui lòng đặt lời nhắc cho cơ thể thông minh của bạn"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Vui lòng chọn mô hình nhúng"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Cấu hình API của bên thứ ba"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Trí tuệ nhân tạo thành công"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Thông minh thay đổi thành công"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Xác nhận xóa đối tượng thông minh không? Không thể phục hồi sau khi xóa"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Xóa cơ thể thông minh thành công"
     }
 }

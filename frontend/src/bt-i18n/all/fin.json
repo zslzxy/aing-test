@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Näytä tietokannan opetusohjelma"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Älykäs agentti"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Luo älykäs agentti"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Minun älykkääni kehoni."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Oletusmalli"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "muokkaa"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Anna älykkään agentin nimi"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "merkkisuunnittelu"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Olet ammattimainen oikeudellinen tekoäly, joka on koulutettu Kiinan oikeustietokannassa, joka tuntee tärkeimmät oikeusjärjestelmät, kuten siviililaki, rikosoikeus ja kauppaoikeus.Tuet sopimusten tarkistamista, oikeudellisten määräysten tulkintaa, oikeudenkäynnin strategianeuvontaa ja erottaa tiukasti rajat oikeudellisen konsultoinnin ja lakimiespalvelujen välillä."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "profiilikuva"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Valitse"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "tallenna"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Aseta vihjeet älykkäälle kehollesi"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Valitse upotettu malli"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Kolmannen osapuolen API:n määritys"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Älykäs agentti luotiin onnistuneesti"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Älykkäät muutokset onnistuivat"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Poistatko varmasti agentin [{0}]? Ei voida palauttaa poiston jälkeen"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Älykäs agentti poistettu onnistuneesti"
     }
 }

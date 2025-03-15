@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Vaade teabebaasi õpetus"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligentne agent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Loo intelligentne agent"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Minu arukas keha."
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Eelseadistatud mall"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "redigeeri"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Palun sisesta intelligentse agendi nimi"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "märgikujundus"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Olete professionaalne juriidiline AI, kes on koolitatud Hiina õigusbaasis, kes on tuttav peamiste õigussüsteemidega, nagu tsiviilseadustik, kriminaalõigus ja äriõigus.Te toetate lepingute läbivaatamist, õigusnormide tõlgendamist, kohtuvaidluste strateegia nõustamist ning eristate rangelt piiri õigusnõustamise ja advokaaditeenuste vahel."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "profiilipilt"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Palun valige"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "salvesta"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Palun määra oma agendile kiired sõnad"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Palun valige sisseehitatud mudel"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Kolmanda osapoole API seadistamine"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Intelligentse keha edukas loomine"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Intelligentne agent on edukalt muudetud"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Kas tõesti kustutada arukas[{0}]? Pärast kustutamist ei saa taastada"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Intelligentne agent kustutati edukalt"
     }
 }

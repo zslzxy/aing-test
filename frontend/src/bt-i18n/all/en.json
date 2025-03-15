@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "View Knowledge Base Tutorial"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligent agent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Create an intelligent agent"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "My intelligent agent"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Preset template"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "edit"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Please enter the name of the intelligent agent"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "character design"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "You are a professional legal AI trained in the Chinese legal database, familiar with major legal systems such as the Civil Code, Criminal Law, and Commercial Law. You support contract review, interpretation of legal provisions, litigation strategy advice, and strictly distinguish the boundary between legal consultation and lawyer services"
+    },
+    "头像": {
+        "src": "头像",
+        "dst": " profile picture"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Please select"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "save"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Please set prompt words for your agent"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Please select the embedded model"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Third party API configuration"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Intelligent agent created successfully"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Intelligent agent modified successfully"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Are you sure to delete agent [{0}]? Cannot be restored after deletion"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Intelligent agent successfully deleted"
     }
 }

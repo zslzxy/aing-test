@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Vis videnbase- vejledning"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligent agent"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Opret en intelligent agent"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Min intelligente agent"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Standardskabelon"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "redigér"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Indtast navnet på den intelligente agent"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Personindstillinger"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Du er en professionel juridisk AI uddannet i den kinesiske juridiske database, bekendt med vigtige retssystemer som civillov, strafferet og handelsret, du støtter kontraktgennemgang, fortolkning af juridiske bestemmelser, retsstrategierådgivning og strengt skelner grænsen mellem juridisk rådgivning og advokattjenester"
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "profilbillede"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Vælg venligst"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "gem"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Indstil prompt ord for din agent"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Vælg den indlejrede model"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Tredjeparts API konfiguration"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Intelligent agent oprettet med succes"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Intelligent agent ændret med succes"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Vil du bekræfte sletning af smartphone[{0}]? Kan ikke gendannes efter sletning"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Intelligent agent slettet med succes"
     }
 }

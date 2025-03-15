@@ -39,10 +39,16 @@
                             <li :class="{ active: currentContextId == item.context_id }"
                                 @click.stop="handleChoose($event, item)" v-for="item in chatList"
                                 :key="item.context_id">
-                                <div class="flex items-center" style="height: 100%;">
+                                <div class="flex items-center" style="height: 100%;" v-if="!item.agent_info">
                                     <i
                                         class="i-tdesign:chat w-16 h-16 mr-10 ml-8 text-[var(--bt-tit-color-secondary)]"></i>
                                     <div class="comu-title">{{ item.title ? item.title : $t("对话内容") }}</div>
+                                </div>
+                                <div class="flex items-center" style="height: 100%;" v-else>
+                                    <span v-if="item.agent_info.icon" class="mr-10 ml-8">{{ item.agent_info.icon
+                                        }}</span>
+                                    <span v-else class="mr-10 ml-8">😀</span>
+                                    <div class="comu-title">{{ item.agent_info.agent_title }}</div>
                                 </div>
 
                                 <NPopselect trigger="click" :options='[
@@ -118,17 +124,12 @@
             <div class="sider-divider"></div>
 
             <ul class="recent-list">
-                <!-- <li>
-                    <div class="create-comunication" @click="createNewComu">
-                        <i class="i-tdesign:chat-add w-17 h-17 ml-8 mr-10"></i>
-                        <span>{{ $t("新对话") }}</span>
+                <li @click="openAgent">
+                    <div class="flex items-center justify-start">
+                        <i class="i-ph:star-four w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                        <span>{{ $t("智能体") }}</span>
                     </div>
-                </li> -->
-
-                <!-- <div class="create-comunication" @click="openThirdPartyModelApi">
-                <i class="i-ant-design:robot-outlined w-16 h-16"></i>
-                <span>{{ $t("第三方模型API") }}</span>
-            </div> -->
+                </li>
                 <li @click="openThirdPartyModel">
                     <div class="flex items-center justify-start">
                         <i class="i-hugeicons:api w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
@@ -143,8 +144,7 @@
                 </li>
                 <li @click="openSoftSettings">
                     <div class="flex items-center justify-start">
-                        <i
-                            class="i-tdesign:setting-1 w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
+                        <i class="i-tdesign:setting-1 w-16 h-16 ml-8 mr-10 text-[var(--bt-tit-color-secondary)]"></i>
                         <span>{{ $t("设置") }}</span>
                     </div>
                 </li>
@@ -183,11 +183,15 @@
             </div>
         </NCard>
     </NModal>
+
+    <!-- 智能体 -->
+    <Agent />
 </template>
 
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue"
 import { NModal, NButton, NImage, NCard, NPopselect, NInput, NSwitch, NScrollbar, NTooltip, NInputGroup } from 'naive-ui';
+import Agent from "./Agent.vue";
 import {
     get_chat_list,
     removeChat,
@@ -203,7 +207,8 @@ import {
     createNewComu,
     singleActive,
     openModelManage,
-    getSupplierList
+    getSupplierList,
+    openAgent
 } from "../controller";
 import useIndexStore, { type ChatItemInfo, type KnowledgeDocumentInfo } from "../store";
 import { storeToRefs } from "pinia";
@@ -241,7 +246,7 @@ const {
     thirdPartyApiShow,
     currentSupplierName,
     currentModelDto,
-    
+    currentChatAgent
 } = storeToRefs(useIndexStore())
 
 /* const chartPopSelectOptions = ref<{ label: string, value: string }[]>([
@@ -271,6 +276,9 @@ get_chat_list()
  * @description 选择已有对话
  */
 async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
+    if (chat.agent_info) {
+        currentChatAgent.value = chat.agent_info
+    }
     if ((e.target! as HTMLElement).classList.contains("i-common:more-operation")) {
         return
     } else {
@@ -278,9 +286,9 @@ async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
         await get_chat_list()
         currentContextId.value = chat.context_id
         currentChatTitle.value = chat.title
-        if(chat.supplierName == 'ollama'){
+        if (chat.supplierName == 'ollama') {
             currentModel.value = `${chat.model}:${chat.parameters}`
-        }else{
+        } else {
             currentModel.value = `${chat.model}`
         }
         currentSupplierName.value = chat.supplierName!
@@ -351,7 +359,7 @@ function dealPopOperation(val: string, knowledge: any) {
 /**
  * @description 打开第三方模型弹窗
  */
-function openThirdPartyModel(){
+function openThirdPartyModel() {
     thirdPartyApiShow.value = true
     getSupplierList()
 }

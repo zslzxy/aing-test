@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Visa kunskapsbashandledning"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Intelligent kropp"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Skapa en smart kropp"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Min intelligenta agent"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Förinställd mall"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "Redigera"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Ange namnet på den smarta kroppen"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "Teckendesign"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Du är en professionell juridisk AI utbildad i den kinesiska juridiska databasen, bekant med viktiga rättssystem som civillagen, straffrätt och handelsrätt. Du stöder kontraktsgranskning, tolkning av rättsliga bestämmelser, rättsstrategi rådgivning och strikt skilja gränsen mellan juridisk rådgivning och advokattjänster."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "profilbild"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Välj"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "spara"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Ange ett tips för din smarta kropp"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Välj inbäddad modell"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Tredjeparts API-konfiguration"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Framgångsrikt skapad intelligent kropp"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Intelligent agent ändrat framgångsrikt"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Är du säker på att ta bort agent [{0}]? Kan inte återställas efter borttagning"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Intelligent agent raderad"
     }
 }

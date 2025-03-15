@@ -1,7 +1,6 @@
 <template>
     <!-- 第三方api配置界面 -->
-    <NModal :show="thirdPartyApiShow" preset="dialog" style="width: 740px;" title="第三方API配置" :draggable="true"
-        :show-icon="false">
+    <NModal :show="thirdPartyApiShow" preset="dialog" style="width: 740px;" :title="$t('第三方API配置')"  :show-icon="false">
         <template #close>
             <i class="i-tdesign:close-circle w-20 h-20 cursor-pointer text-[#909399]"
                 @click="thirdPartyApiShow = false"></i>

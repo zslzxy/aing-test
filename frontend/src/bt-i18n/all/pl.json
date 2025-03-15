@@ -838,5 +838,77 @@
     "查看知识库教程": {
         "src": "查看知识库教程",
         "dst": "Zobacz samouczki bazy wiedzy"
+    },
+    "智能体": {
+        "src": "智能体",
+        "dst": "Inteligentne ciało"
+    },
+    "创建智能体": {
+        "src": "创建智能体",
+        "dst": "Stwórz inteligentnego agenta"
+    },
+    "我的智能体": {
+        "src": "我的智能体",
+        "dst": "Mój inteligentny agent"
+    },
+    "预设模板": {
+        "src": "预设模板",
+        "dst": "Domyślny szablon"
+    },
+    "编辑": {
+        "src": "编辑",
+        "dst": "edytuj"
+    },
+    "请输入智能体名称": {
+        "src": "请输入智能体名称",
+        "dst": "Proszę wprowadzić nazwę inteligentnego agenta"
+    },
+    "人物设定": {
+        "src": "人物设定",
+        "dst": "projektowanie znaków"
+    },
+    "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界": {
+        "src": "你是经过中国法律数据库训练的专业法律AI，熟悉民法典,刑法,商法等主要法律体系，支持合同审查,法律条文解读,诉讼策略建议，严格区分法律咨询与律师服务边界",
+        "dst": "Jesteś profesjonalną sztuczną inteligencją prawną wyszkoloną w chińskiej bazie danych prawnych, zaznajomioną z głównymi systemami prawnymi, takimi jak kodeks cywilny, prawo karne i prawo handlowe. Wspierasz przegląd umów, interpretację przepisów prawnych, doradztwo w zakresie strategii sporów sądowych oraz ściśle rozróżniasz granicę między konsultacją prawną a obsługą prawną."
+    },
+    "头像": {
+        "src": "头像",
+        "dst": "Obraz"
+    },
+    "请选择": {
+        "src": "请选择",
+        "dst": "Proszę wybrać"
+    },
+    "保存": {
+        "src": "保存",
+        "dst": "zapisać"
+    },
+    "请为您的智能体设定提示词": {
+        "src": "请为您的智能体设定提示词",
+        "dst": "Proszę ustawić szybkie słowa dla swojego agenta"
+    },
+    "请选择嵌入模型": {
+        "src": "请选择嵌入模型",
+        "dst": "Wybierz model wbudowany"
+    },
+    "第三方API配置": {
+        "src": "第三方API配置",
+        "dst": "Konfiguracja API innych firm"
+    },
+    "智能体创建成功": {
+        "src": "智能体创建成功",
+        "dst": "Inteligentny agent stworzony z powodzeniem"
+    },
+    "智能体修改成功": {
+        "src": "智能体修改成功",
+        "dst": "Modyfikacja inteligentnego ciała z powodzeniem"
+    },
+    "是否确认删除智能体[{0}]?删除后无法恢复": {
+        "src": "是否确认删除智能体[{0}]?删除后无法恢复",
+        "dst": "Czy na pewno usunąć agent [{0}]? Nie można przywrócić po usunięciu"
+    },
+    "智能体删除成功": {
+        "src": "智能体删除成功",
+        "dst": "Pomyślne usunięcie inteligentnego ciała"
     }
 }

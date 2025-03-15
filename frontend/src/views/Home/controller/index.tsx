@@ -1,6 +1,6 @@
 import { get, post } from "@/api";
 import { storeToRefs } from "pinia";
-import useIndexStore, { type ChatInfo, type ActiveKnowledgeDto, type ActiveKnowledgeDocDto, type KnowledgeDocumentInfo, type ThirdPartyApiServiceItem, type MultipeQuestionDto } from "../store";
+import useIndexStore, { type ChatInfo, type ActiveKnowledgeDto, type ActiveKnowledgeDocDto, type KnowledgeDocumentInfo, type ThirdPartyApiServiceItem, type MultipeQuestionDto, type AgentItemDto } from "../store";
 import { message, useDialog, modal } from "@/utils/naive-tools"
 import OtherModel from "../components/OtherModel.vue";
 import SoftSettings from "../components/SoftSettings.vue";
@@ -27,7 +27,7 @@ export async function getVersion() {
 /**
  * @description 获取store内容
  */
-function getIndexStore() {
+export function getIndexStore() {
     const indexStore = useIndexStore()
     return storeToRefs(indexStore)
 }
@@ -69,13 +69,31 @@ export function isInstalled(model: string) {
  * @description 获取对话列表
  */
 export async function get_chat_list() {
-    const { chatList, currentContextId, currentChatTitle, chatHistory, currentModel, currentSupplierName, contextIdForDel, netActive, activeKnowledgeForChat } = getIndexStore()
+    const { 
+        chatList, 
+        currentContextId, 
+        currentChatTitle, 
+        chatHistory, 
+        currentModel, 
+        currentSupplierName, 
+        contextIdForDel, 
+        netActive, 
+        activeKnowledgeForChat,
+        currentChatAgent
+     } = getIndexStore()
     const res = await post("/chat/get_chat_list")
     chatList.value = res.message
     if (chatList.value.length) {
         if (currentContextId.value == contextIdForDel.value) {
             currentContextId.value = chatList.value[0].context_id
-            currentChatTitle.value = chatList.value[0].title
+            // 智能体判断
+            if(chatList.value[0].agent_info){
+                currentChatTitle.value = chatList.value[0].agent_info.agent_title
+                currentChatAgent.value = chatList.value[0].agent_info
+            }else{
+                currentChatTitle.value = chatList.value[0].title
+            }
+            // 模型厂商判断（是否本地）
             if (chatList.value[0].supplierName == "ollama") {
                 currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
             } else {
@@ -93,15 +111,19 @@ export async function get_chat_list() {
  * @description 创建新对话：打开新对话窗口
  */
 export function createNewComu() {
-    const { currentContextId, currentChatTitle, chatHistory, activeKnowledgeForChat, netActive, activeKnowledge, activeKnowledgeDto } = getIndexStore()
-    // if (currentContextId.value == "") return
-    // chatList.value.push({
-    //     contextPath: "",
-    //     context_id: "",
-    //     model: "",
-    //     parameters: "",
-    //     title: "新对话"
-    // })
+    const {
+        currentContextId,
+        currentChatTitle,
+        chatHistory,
+        activeKnowledgeForChat,
+        netActive,
+        activeKnowledge,
+        activeKnowledgeDto,
+        chatForAgent,
+        currentAgent
+    } = getIndexStore()
+
+
     currentContextId.value = ""
     currentChatTitle.value = $t("新对话")
     chatHistory.value = new Map()
@@ -109,18 +131,25 @@ export function createNewComu() {
     netActive.value = false
     activeKnowledge.value = ""
     activeKnowledgeDto.value = null
+    // 判断是否当前为智能体对话
+    if (chatForAgent.value) {
+        currentChatTitle.value = currentAgent.value!.agent_name
+    }
     knowledgeIsClose()
 }
 
 /**
  * @description 创建新对话：发起请求
  */
-export async function create_chat(title: string) {
-    const { currentModel, currentContextId, questionContent } = getIndexStore()
+export async function create_chat() {
+    const { currentModel, currentContextId, questionContent, currentAgent,chatForAgent } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
-    const res = await post('/chat/create_chat', { model, parameters, title: questionContent.value })
+
+    const res = await post('/chat/create_chat', { model, parameters, title: questionContent.value, agent_name: currentAgent.value?.agent_name })
     currentContextId.value = res.message.context_id
-    get_chat_list()
+    await get_chat_list()
+    chatForAgent.value = false
+    currentAgent.value = null
 }
 
 
@@ -172,7 +201,7 @@ export async function sendChat(params: ChatParams) {
     const [model, parameters] = currentModel.value.split(":")
     // 如果当前对话不存在则创建对话
     if (!currentContextId.value) {
-        await create_chat(params.user_content)
+        await create_chat()
     }
     currentTalkingChatId.value = currentContextId.value
     // 找到当前对话的记录
@@ -794,9 +823,35 @@ export async function modifyRag() {
  * @description 获取嵌入模型列表
  */
 export async function getEmbeddingModels() {
-    const { embeddingModelsList } = getIndexStore()
+    const { embeddingModelsList, createKnowledgeFormData } = getIndexStore()
     const res = await post("/rag/get_embedding_models")
     embeddingModelsList.value = Object.values(res.message).flat()
+    console.log(embeddingModelsList.value)
+    if (embeddingModelsList.value.length) {
+        let findRes = embeddingModelsList.value.find((item: any) => {
+            if (item.model.includes("bge-m3") && item.title.includes("ollama")) {
+                return item
+            }
+            return undefined
+        })
+
+        if (findRes === undefined) {
+            findRes = embeddingModelsList.value.find((item: any) => {
+                if (item.model.includes("bge-m3")) {
+                    return item
+                }
+                return undefined
+            })
+        }
+
+        if (findRes) {
+            createKnowledgeFormData.value.enbeddingModel = findRes.model
+            createKnowledgeFormData.value.supplierName = findRes.supplierName
+        } else {
+            createKnowledgeFormData.value.enbeddingModel = embeddingModelsList.value[0].model
+            createKnowledgeFormData.value.supplierName = embeddingModelsList.value[0].supplierName
+        }
+    }
 }
 
 /**
@@ -1174,4 +1229,91 @@ export async function setModelTitle(newTit: string) {
     await getSupplierModelList(currentChooseApi.value?.supplierName!)
     await getEmbeddingModels()
     await get_model_list()
+}
+
+/**
+ * @description 打开智能体
+ */
+export function openAgent() {
+    const { agentShow } = getIndexStore()
+    agentShow.value = true
+}
+
+/***
+ * @description 获取智能体列表
+ */
+export async function getAgentList() {
+    const { agentList } = getIndexStore()
+    const res = await post("/agent/get_agent_list")
+    agentList.value = res.message
+}
+
+/**
+ * @description 创建智能体
+ */
+export async function createAgent() {
+    const { createAgentFormData, createAgentShow } = getIndexStore()
+    await post("/agent/create_agent", createAgentFormData.value)
+    createAgentShow.value = false
+    message.success($t("智能体创建成功"))
+    getAgentList()
+}
+
+/**
+ * @description 修改智能体
+ */
+export async function modifyAgent() {
+    const { createAgentFormData, createAgentShow } = getIndexStore()
+    await post("/agent/modify_agent", createAgentFormData.value)
+    message.success($t("智能体修改成功"))
+    createAgentShow.value = false
+    getAgentList()
+}
+
+/**
+ * @description 删除智能体
+ */
+export async function removeAgent(agent: AgentItemDto) {
+    const dialog = useDialog({
+        title: "提示",
+        content: () => <span class="flex justify-start items-center mt-20"><i class="i-jam:alert-f w-24 h-24 text-[#E6A23C]"></i> {$t("是否确认删除智能体[{0}]?删除后无法恢复", [agent.agent_name])}</span>,
+        onOk: async () => {
+            await doRemove()
+            dialog.destroy()
+        },
+        onCancel: () => {
+            dialog.destroy()
+        },
+        style: {
+            width: "480px"
+        }
+    })
+
+
+    async function doRemove() {
+        await post("/agent/remove_agent", { agent_name: agent.agent_name })
+        message.success($t("智能体删除成功"))
+        getAgentList()
+    }
+}
+
+/**
+ * @description 获取指定一条智能体的消息
+ */
+export async function getAgentInfo() {
+    await post("/agent/get_agent_info")
+}
+
+/***
+ * @description 选择智能体进行对话
+ */
+export function chooseAgentForChat(agent: AgentItemDto) {
+    const { currentAgent, chatForAgent,agentShow,currentChatAgent } = getIndexStore()
+    currentChatAgent.value = agent
+    currentAgent.value = agent
+    chatForAgent.value = true
+
+    // 打开对话
+    createNewComu()
+    agentShow.value = false
 }
