@@ -5,17 +5,25 @@
                 <i class="i-tdesign:close-circle w-24 h-24 cursor-pointer text-[#909399]"
                     @click="settingsShow = false"></i>
             </template>
-            <NAlert type="success">
+            <!-- <NAlert type="success">
                 <div class="mb-10">{{ $t("处理器:") }} {{ pcInfo.cpu_model }} {{ pcInfo.cpu_cores }} {{ pcInfo.cpu_clock }}
                 </div>
                 <div class="mb-10">{{ $t("内存:") }} {{ getByteUnit(pcInfo.memory_size, true, 2, "GB") }} /
                     {{ getByteUnit(pcInfo.free_memory_size, true, 2, "GB") }} {{ $t("可用") }}</div>
                 <div class="mb-10">{{ $t("显卡:") }} {{ pcInfo.gpu_model ? pcInfo.gpu_model : "--" }}</div>
                 <div>{{ $t("建议:") }} {{ pcInfo.recommend }}</div>
-            </NAlert>
+            </NAlert> -->
+            <div class="ollama-url">
+                <NInputGroup class="w-45%">
+                    <NButton>{{ $t("Ollama接口地址") }}</NButton>
+                    <NInput placeholder="请填写ollama接入地址" v-model:value="ollamaUrl" />
+                    <NButton type="primary" @click="setOllamaUrl">{{ $t("保存") }}</NButton>
+                </NInputGroup>
+                <div class="notice" v-if="!isInstalledManager">{{ $t("当前ollama地址不可用") }}</div>
+            </div>
             <div class="mt-20" v-if="modelList.length == 0">{{ $t("首次使用，请选择要安装的模型") }}</div>
 
-            <div class="mt-20">
+            <div class="mt-20" :class="{ mask: !ollamaUrl }">
                 <div class="flex justify-between items-center mb-10">
                     <NInputGroup>
                         <NInput v-model:value="search" @keydown.enter.native="handleSearch" :style="{ width: '220px' }"
@@ -68,7 +76,16 @@
             <div class="flex justify-start items-center">
                 <div class="mb-20">{{ $t("检测到您没有安装模型管理器，是否立即安装？") }}</div>
             </div>
-            <NSelect :options="managerList" v-model:value="managerForInstall" />
+            <NForm label-placement="left" label-width="100px">
+                <NFormItem :label="$t('模型管理器')" path="manager">
+                    <NSelect :options="managerList" v-model:value="managerForInstall" />
+                </NFormItem>
+                <NFormItem :label="$t('模型存储位置')" path="model_path">
+                    <NButton @click="chooseOllamaPath">{{ modelManagerInstallPath ? modelManagerInstallPath : $t("选择")
+                    }}
+                    </NButton>
+                </NFormItem>
+            </NForm>
             <div class="flex justify-end gap-5 mt-50">
                 <NButton type="default" @click="doNotInstallModelManagerNow">{{ $t("暂不安装") }}</NButton>
                 <NButton type="success" @click="installModelManager">{{ $t("立即安装") }}</NButton>
@@ -117,13 +134,43 @@
 
 <script lang="tsx" setup>
 import { nextTick, ref, watch } from "vue";
-import { NModal, NCard, NSpin, NAlert, NSelect, NButton, NDataTable, NInputGroup, NInput, NRadioGroup, NRadioButton, NTooltip, type DataTableColumns, NTag, NProgress } from "naive-ui"
+import {
+    NModal,
+    NCard,
+    NSpin,
+    NAlert,
+    NSelect,
+    NButton,
+    NDataTable,
+    NInputGroup,
+    NInput,
+    NRadioGroup,
+    NRadioButton,
+    NTooltip,
+    type DataTableColumns,
+    NTag,
+    NProgress,
+    NForm,
+    NFormItem
+} from "naive-ui"
 import useIndexStore from "../store";
 import { storeToRefs } from "pinia";
-import { getConfigurationInfo, getVisibleModelList, getDiskList, installModel, isInstalled, removeModel, installModelManager, reconnect_model_download } from "../controller/index.tsx"
+import {
+    getVisibleModelList,
+    getDiskList,
+    installModel,
+    isInstalled,
+    removeModel,
+    installModelManager,
+    reconnect_model_download,
+    chooseOllamaPath,
+    setOllamaUrl,
+
+} from "../controller/index.tsx"
 import { getByteUnit } from "@/utils/tools"
 import Install from "./Install.vue";
 import { useI18n } from "vue-i18n";
+import { eventBUS } from "../utils/tools.tsx";
 const { t: $t } = useI18n()
 const {
     settingsShow,
@@ -140,7 +187,10 @@ const {
     isResetModelList,
     currentLanguage,
     modelDelConfirm,
-    modelManagerInstallNotice
+    modelManagerInstallNotice,
+    modelManagerInstallPath,
+    isInstalledManager,
+    ollamaUrl
 } = storeToRefs(useIndexStore())
 
 const filterList = ref<any[]>([])
@@ -164,8 +214,10 @@ watch(currentLanguage, () => {
         { label: $t("已安装"), value: "installed" }
     ]
 })
+
 // 搜索
-const handleSearch = () => {
+const handleSearch = async () => {
+    await getVisibleModelList()
     filterList.value = visibleModelList.value.filter((item) => {
         //模型含有搜索内容，且功能类型为选中的功能类型
         return item.full_name.toLowerCase().includes(search.value.toLowerCase()) && (modeType.value == "all" ? true : modeType.value === 'installed' ? item.install : item.capability.includes(modeType.value))
@@ -179,6 +231,14 @@ const handleSearch = () => {
 const managerList = ref([
     { label: "ollama", value: "ollama" }
 ])
+
+/**
+ * @description 监听安装模型后的回调
+ */
+eventBUS.$on("modelInstalled", (type) => {
+    if (type) modeType.value = type
+    nextTick(handleSearch)
+})
 
 const modelColumns = ref<DataTableColumns>([
     {
@@ -250,15 +310,12 @@ const pagination = ref({
 /**
  * @description 获取所有可用模型列表
  */
-getVisibleModelList()
+// getVisibleModelList()
 
 watch(settingsShow, (val) => {
     if (val) {
         getVisibleModelList()
-        /**
-         * @description 获取硬件信息
-         */
-        getConfigurationInfo()
+
         /**
          * @description 获取本地盘符信息
          */
@@ -267,6 +324,7 @@ watch(settingsShow, (val) => {
         modeType.value = "all"
     }
 })
+
 
 /**
  * @description 安装模型
@@ -327,10 +385,12 @@ watch(() => settingsShow.value, (val) => {
     } else {
         filterList.value = visibleModelList.value
     }
-},{immediate:true})
+}, { immediate: true })
 </script>
 
 <style scoped lang="scss">
+@use "@/assets/base";
+
 @mixin tools {
     height: 40px;
     visibility: hidden;
@@ -349,6 +409,32 @@ watch(() => settingsShow.value, (val) => {
         &:hover {
             background: #f5f5f5;
         }
+    }
+}
+
+.mask {
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        z-index: 100;
+        pointer-events: auto;
+    }
+}
+
+.ollama-url {
+    @include base.row-flex-between;
+    justify-content: start;
+
+    .notice {
+        color: #ff4d4f
     }
 }
 </style>

@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Agente intelligente eliminato correttamente"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Il modello che stai utilizzando è stato disabilitato o eliminato. Riattivare o cambiare il modello"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Selezionare o installare il modello di accesso"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Il modello utilizzato nella conversazione corrente è stato disabilitato o eliminato. Riattivare o cambiare il modello"
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "Il modello {0} non esiste, si prega di aggiungere un modello locale o un modello API di terze parti"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Gestione modelli"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "Luogo di archiviazione modello"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "Scegli"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Seleziona il Model Manager"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Selezionare il percorso di installazione per il Model Manager"
     }
 }

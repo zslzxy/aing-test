@@ -1,11 +1,9 @@
-import ollama from 'ollama';
 import * as lancedb from '@lancedb/lancedb';
 import { pub } from '../../class/public';
 import * as fs from 'fs';
 import * as path from 'path';
 import { logger } from 'ee-core/log';
 import { ModelService } from '../../service/model';
-
 // 类型定义
 interface VectorRecord {
     id: string;
@@ -97,6 +95,7 @@ export class LanceDBManager {
             let res:any;
             if(supplierName == 'ollama'){
                 // 使用ollama服务
+                const ollama = pub.init_ollama();
                 res = await ollama.embeddings({
                     model: model,
                     prompt: text,
@@ -951,7 +950,7 @@ export class LanceDBManager {
                     continue;
                 }
 
-                if(!ivfPq && distance > 520) {
+                if(!ivfPq && distance > 600) {
                     continue;
                 }
                 
@@ -1004,7 +1003,6 @@ export class LanceDBManager {
                 
                 // 计算关键词匹配分数
                 const keywordScore = this.calculateKeywordScore(doc, processedKeywords, docCache);
-                
                 if (resultMap.has(id)) {
                     // 更新已存在的结果
                     const existing = resultMap.get(id)!;
@@ -1020,6 +1018,8 @@ export class LanceDBManager {
                         keywordScore,
                         score: keywordScore * keywordWeight
                     });
+
+
                 }
             }
         } finally {
@@ -1042,30 +1042,58 @@ export class LanceDBManager {
     
     /**
      * 计算关键词匹配分数
+     * 优先考虑匹配的关键词数量，其次考虑关键词出现的总次数
      */
     private static calculateKeywordScore(
         doc: string, 
         keywords: string[], 
         docCache: Map<string, string>
     ): number {
+        // 缓存文档的小写版本以避免重复转换
         if (!docCache.has(doc)) {
             docCache.set(doc, doc.toLowerCase());
         }
         const lowerDoc = docCache.get(doc)!;
         
-        let matchCount = 0;
+        // 匹配的唯一关键词数
+        const matchedKeywords = new Set<string>();
+        // 关键词的总匹配次数
+        let totalOccurrences = 0;
+        // 位置加权
         let positionBonus = 0;
         
         for (const keyword of keywords) {
-            const position = lowerDoc.indexOf(keyword);
-            if (position !== -1) {
-                matchCount++;
-                positionBonus += Math.max(0, 1 - (position / 100));
+            let position = lowerDoc.indexOf(keyword);
+            let keywordOccurrences = 0;
+            
+            // 计算该关键词的所有出现次数和最佳位置
+            while (position !== -1) {
+                keywordOccurrences++;
+                // 记录首次出现的位置加权
+                if (matchedKeywords.has(keyword) === false) {
+                    positionBonus += Math.max(0, 1 - (position / 100));
+                    matchedKeywords.add(keyword);
+                }
+                position = lowerDoc.indexOf(keyword, position + 1);
             }
+            
+            totalOccurrences += keywordOccurrences;
         }
         
-        const baseScore = keywords.length > 0 ? matchCount / keywords.length : 0;
-        return baseScore * 0.8 + (positionBonus / Math.max(1, keywords.length)) * 0.2;
+        if (keywords.length === 0) return 0;
+        
+        // 主要权重给匹配的唯一关键词比例(70%)
+        const uniqueMatchScore = matchedKeywords.size / keywords.length;
+        
+        // 次要权重给总出现次数相对于可能的最大出现次数(20%)
+        // 最大可能出现次数 = 关键词数量 * 一个经验常数(取5)表示每个关键词的平均预期出现次数
+        const occurrenceScore = Math.min(1, totalOccurrences / (keywords.length * 5));
+        
+        // 小部分权重给位置加权(10%)
+        const normalizedPositionBonus = positionBonus / Math.max(1, keywords.length);
+        
+        // 组合分数
+        return uniqueMatchScore * 0.7 + occurrenceScore * 0.2 + normalizedPositionBonus * 0.1;
     }
     
     /**

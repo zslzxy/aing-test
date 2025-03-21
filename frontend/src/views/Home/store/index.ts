@@ -52,7 +52,20 @@ export type ChatInfo = Map<MultipeQuestionDto, {
 // 知识库类型实体
 export type KnowledgeDocumentInfo = {
     ragDesc: string
-    ragName: string
+    ragName: string,
+    embeddingModel: string,
+    embeddingModelExist: boolean,
+    errorMsg: string,
+    keywordWeight: number,
+    maxRecall: number,
+    queryRewrite: number,
+    ragCreateTime: number,
+    recallAccuracy: number,
+    rerankModel: string,
+    resultReordering: number,
+    searchStrategy: number,
+    supplierName: string,
+    vectorWeight: number,
 }
 // 当前选中知识库类型实体
 export type ActiveKnowledgeDto = KnowledgeDocumentInfo
@@ -248,6 +261,8 @@ const useIndexStore = defineStore("indexStore", () => {
     })
     // 模型管理器安装提示
     const modelManagerInstallNotice = ref("")
+    // 模型管理器安装的位置
+    const modelManagerInstallPath = ref("")
     // 模型管理器安装进度弹窗
     const modelManagerInstallProgresShow = ref(false)
     // 模型管理器安装问询
@@ -398,6 +413,8 @@ const useIndexStore = defineStore("indexStore", () => {
     const chatForAgent = ref(false)
     // 当前智能体
     const currentAgent = ref<AgentItemDto | null>()
+    // ollama接入地址
+    const ollamaUrl = ref("")
     return {
         answerCodeContent,
         modelList,
@@ -498,7 +515,9 @@ const useIndexStore = defineStore("indexStore", () => {
         isEditAgent,
         chatForAgent,
         currentAgent,
-        currentChatAgent
+        currentChatAgent,
+        modelManagerInstallPath,
+        ollamaUrl
     }
 })
 

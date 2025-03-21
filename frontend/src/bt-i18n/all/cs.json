@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Inteligentní agent úspěšně smazán"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Model, který právě používáte, byl zakázán nebo odstraněn. Prosím, znovu povolte nebo přepněte model"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Vyberte nebo nainstalujte model přístupu"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Model použitý v aktuální konverzaci byl zakázán nebo odstraněn. Prosím, znovu povolte nebo přepněte model"
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "Model {0} neexistuje, přidejte prosím lokální model nebo model API třetí strany"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Správce modelů"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "Místo skladování modelu"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "Vyberte"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Vyberte správce modelů"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Vyberte prosím cestu instalace pro Správce modelů"
     }
 }

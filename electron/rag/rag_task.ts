@@ -3,6 +3,7 @@ import { pub } from '../class/public';
 import { Rag } from './rag';
 
 
+
 export class RagTask {
     private docTable = 'doc_table';
 
@@ -172,17 +173,6 @@ export class RagTask {
     }
 
 
-    /**
-     * 生成文档关键词
-     * @param doc:string 文档内容
-     * @param num:number 关键词数量，默认为10
-     * @returns Promise<string[]> 提取的关键词数组
-     */
-    public async generateKeywords(doc: string,num:number = 10): Promise<string[]> {
-        return [];
-    }
-
-
     // 后台解析任务
     public async parseTask(){
         const sleep = 5 * 1000
@@ -247,7 +237,7 @@ export class RagTask {
                     let chunkInfo = {
                         text: chunk,
                         docId: doc.doc_id,
-                        keywords: await this.generateKeywords(chunk)
+                        keywords: await ragObj.generateKeywords(chunk,5)
                     }
                     chunkList.push(chunkInfo)
                 }
@@ -255,7 +245,12 @@ export class RagTask {
                 let table = pub.md5(doc.doc_rag)
                 let ragInfo:any = await ragObj.getRagInfo(doc.doc_rag)
                 for (let checkInfo of chunkList){
-                    await LanceDBManager.addDocument(table,ragInfo.supplierName,ragInfo.embeddingModel,checkInfo.text,checkInfo.keywords,checkInfo.docId)
+                    try{
+                        await LanceDBManager.addDocument(table,ragInfo.supplierName,ragInfo.embeddingModel,checkInfo.text,checkInfo.keywords,checkInfo.docId)
+                    }catch(e){
+                        console.log(e)
+                        await LanceDBManager.updateRecord(this.docTable,{where: `doc_id='${doc.doc_id}'`,values: {is_parsed: -1}})
+                    }
                 }
 
                 // 更新文档状态

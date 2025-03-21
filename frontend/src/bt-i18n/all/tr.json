@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Akıllı ajan başarıyla sildi"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Şu anda kullandığınız model devre dışı bırakıldı veya silindi, lütfen yeniden etkinleştirin veya değiştirin"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Erişim modelini seçin veya yükleyin"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Mevcut konuşmada kullanılan model etkinleştirildi ya da silildi. Lütfen modeli yeniden etkinleştir ya da değiştir."
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "Model {0} yok, lütfen yerel model veya üçüncü parti modeli API ekleyin"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Model Yöneticisi"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "Model depolama yeri"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "seç"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Lütfen Model Yöneticisini seçin"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Lütfen Model Yöneticisi için kurulum yolunu seçin"
     }
 }

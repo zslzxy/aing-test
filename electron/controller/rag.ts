@@ -162,6 +162,29 @@ class RagController {
         return pub.return_success(pub.lang('知识库删除成功'));
     }
 
+    /**
+     * 获取嵌套模型MAP
+     * @returns {Promise<any>} - 嵌套
+     */
+    async get_embedding_map(){
+        let ollamaEmbeddingList = await ollamaService.get_embedding_model_list();
+        let supplierEmbeddingList = await GetSupplierEmbeddingModels()
+
+        let embeddingMap = new Map<string,Map<string,Boolean>>();
+        let ollamaEmbeddingMap = new Map<string,Boolean>();
+        for(let embed of ollamaEmbeddingList){
+            ollamaEmbeddingMap.set(embed.model,true);
+        }
+        embeddingMap.set('ollama',ollamaEmbeddingMap);
+        for(let supplierName in supplierEmbeddingList){
+            let supplierEmbeddingMap = new Map<string,Boolean>();
+            for(let embed of supplierEmbeddingList[supplierName]){
+                supplierEmbeddingMap.set(embed.model,true);
+            }
+            embeddingMap.set(supplierName,supplierEmbeddingMap);
+        }
+        return embeddingMap;
+    }
 
     /**
      * 获取知识库列表
@@ -172,6 +195,7 @@ class RagController {
 
         // 获取知识库列表
         const ragPathList = pub.readdir(RAG_PATH);
+        const embeddingMap = await this.get_embedding_map();
 
         const ragList: any[] = [];
         for (const ragPath of ragPathList) {
@@ -199,6 +223,14 @@ class RagController {
                 if(!ragDesc.supplierName){
                     ragDesc.supplierName = 'ollama';
                     pub.write_file(ragDescFile, JSON.stringify(ragDesc, null, 4));
+                }
+
+                ragDesc.embeddingModelExist = true;
+                ragDesc.errorMsg = '';
+                let supplierMap = embeddingMap.get(ragDesc.supplierName);
+                if (!supplierMap || !supplierMap.get(ragDesc.embeddingModel)) {
+                    ragDesc.embeddingModelExist = false;
+                    ragDesc.errorMsg = pub.lang('指定嵌入模型不存在: {}',ragDesc.embeddingModel);
                 }
 
                 ragList.push(ragDesc);
@@ -342,7 +374,7 @@ class RagController {
         let mdFile = pub.get_data_path() + "/rag/" + args.ragName + "/markdown/" + args.docName + ".md";
         if (pub.file_exists(mdFile)) {
             let content = pub.read_file(mdFile);
-            content = content.replace('{URL}','http://127.0.0.1:7071');
+            content = content.replace(/{URL}/g, 'http://127.0.0.1:7071');
             return pub.return_success(pub.lang('获取成功'), content);
         }
         return pub.return_error(pub.lang('文档不存在'));

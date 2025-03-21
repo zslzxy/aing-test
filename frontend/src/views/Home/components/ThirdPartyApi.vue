@@ -221,6 +221,7 @@ import {
     addModels,
     addSupplier,
     checkSupplierConfig,
+    get_model_list,
     getSupplierConfig,
     getSupplierList,
     getSupplierModelList,
@@ -457,6 +458,7 @@ async function modelStatusChange(modelName: string, val: boolean) {
         message.success($t("模型禁用成功"))
     }
     getSupplierModelList(currentChooseApi.value!.supplierName)
+    get_model_list()
 }
 
 /**

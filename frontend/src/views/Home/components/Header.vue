@@ -6,7 +6,7 @@
             </div>
             <!-- modelList -->
             <div class="flex justify-start items-center gap-2.5">
-                <span class="text-14px">{{ $t("模型") }}: </span>
+                <span class="text-14px">{{ $t("模型") }}:</span>
                 <NDropdown trigger="hover" :options="modelList" @select="changeCurrentModel" key-field="value"
                     label-field="label" class="model-list-drop" scrollable>
                     <NButton icon-placement="right">
@@ -16,8 +16,10 @@
                         </template>
                     </NButton>
                 </NDropdown>
-                <span v-if="!showModel" class="text-[var(--bt-notice-text-color)] text-14px">您当前使用的[{{ currentModel
-                    }}]模型已被禁用或删除，请重新启用或切换模型</span>
+                <div v-if="!showModel" class="text-[var(--bt-notice-text-color)] text-14px">
+                    <span v-if="modelList.length">{{ $t("您当前使用的模型已被禁用或删除，请重新启用或切换模型") }}</span>
+                    <span v-else>{{ $t("请选择或安装接入模型") }}</span>
+                </div>
             </div>
         </div>
         <div class="right-tools">
@@ -85,7 +87,7 @@ watch(showModel, (val) => {
     } else {
         chatMask.value = {
             status: true,
-            notice: $t("您当前使用的[{0}]模型已被禁用或删除，请重新启用或切换模型", [currentModel.value])
+            notice: $t("当前对话使用的模型已被禁用或删除，请重新启用或切换模型", [currentModel.value])
         }
     }
 }, { immediate: true })

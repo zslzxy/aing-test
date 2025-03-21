@@ -18,7 +18,11 @@
             </div> -->
         </div>
         <NDivider style="margin-top: 11px;margin-bottom: 10px;" />
-        <div class="knowledge-list">
+        <div class="error-notice flex justify-start items-center gap-1.25 text-gray-4"
+            v-if="!activeKnowledgeDto?.embeddingModelExist">
+            <span>{{ $t("模型{0}不存在，请添加本地模型或第三方模型api", [activeKnowledgeDto?.embeddingModel]) }}</span>
+        </div>
+        <div class="knowledge-list" v-else>
             <NButton @click="openDocUploadDialog" style="width:100%" class="mt-10 mb-10">
                 <template #icon>
                     <i class="i-tdesign:file-add w-16 h-16"></i>

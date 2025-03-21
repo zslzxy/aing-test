@@ -1,6 +1,5 @@
 import fs from 'fs';
 import tls from 'tls';
-import ollama from 'ollama';
 import { pub } from '../class/public';
 import path from 'path';
 import { logger } from 'ee-core/log';
@@ -10,7 +9,6 @@ import ChatController from '../controller/chat';
 import {getPromptForWeb} from '../search_engines/search'
 import { Rag } from '../rag/rag';
 import { ModelService,GetSupplierModels,getModelContextLength } from '../service/model';
-
 // 常量定义
 const CLOUD_SERVER_HOST = 'share.aingdesk.com';
 const CLOUD_SERVER_PORT = 9999;
@@ -209,7 +207,7 @@ class ShareService {
             shareChatService.update_chat_config(shareId,contextId, "rag_list", rag_list);
 
             if(rag_list.length > 0) {
-                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(rag_list,modelStr,content,history[history.length - 1].doc_files);
+                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(rag_list,modelStr,content,history[history.length - 1].doc_files,"");
                 chatHistoryRes.search_query = query;
                 chatHistoryRes.search_type = "[RAG]:" + rag_list.join(",");
                 chatHistoryRes.search_result = searchResultList;
@@ -243,7 +241,7 @@ class ShareService {
                 lastHistory += pub.lang("回答:") + history[history.length - 2].content + "\n";
             }
 
-            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search,doc_files);
+            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search,doc_files,"");
             chatHistoryRes.search_query = query;
             chatHistoryRes.search_type = search;
             chatHistoryRes.search_result = searchResultList;
@@ -364,6 +362,7 @@ ${pub.lang('内容')}: ${doc_file}
     
             let res:any;
             if(isOllama){
+                const ollama = pub.init_ollama();
                 res = await ollama.chat(requestOption);
             }else{
                 const modelService = new ModelService(supplierName);

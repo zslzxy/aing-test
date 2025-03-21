@@ -226,8 +226,8 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+<script setup lang="tsx">
+import { computed, defineComponent, h, nextTick, onMounted, ref, render, watch } from 'vue';
 import { NImage, NInput, NScrollbar, NTooltip, NButton, NSpin, NUpload, NPopover, NBadge } from 'naive-ui';
 import { message } from "@/utils/naive-tools"
 // 聊天头像
@@ -249,6 +249,8 @@ import AingDesk from "@/assets/images/logo.png"
 import pdf from "@/assets/images/PDF.png"
 
 import MarkdownRender from './MarkdownRender.vue';
+
+
 import KnowledgeChoosePanel from './KnowledgeChoosePanel.vue';
 import useIndexStore, { type MultipeQuestionDto } from '../store';
 import { storeToRefs } from 'pinia';
@@ -608,6 +610,9 @@ function openFile(filePath: string) {
 function useTempChat() {
     temp_chat.value = !temp_chat.value
 }
+
+
+
 </script>
 
 <style scoped lang="scss">

@@ -35,7 +35,8 @@ class ManagerController {
             manager_name: "ollama",
             version,
             models: await ollamaService.model_list(),
-            status: version.length > 0
+            status: version.length > 0,
+            ollama_host: pub.get_ollama_host()
         };
         // 返回成功响应
         return pub.return_success(pub.lang("模型管理器信息获取成功"), modelManager);
@@ -92,15 +93,29 @@ class ManagerController {
      * @param {string} args.manager_name - 模型管理器名称
      * @returns {Promise<any>} - 包含安装状态的响应
      */
-    async install_model_manager(args:any): Promise<any> {
-        const { manager_name } = args;
+    async install_model_manager(args:{manager_name:string,models_path?:string}): Promise<any> {
+        const { manager_name,models_path } = args;
         // 检查是否支持该模型管理器
         if (manager_name!== "ollama") {
             return pub.return_error(pub.lang("不支持的管理器"), "");
         }
         const ollamaService = new OllamaService();
+
+
+        if(models_path && models_path.length > 0){
+            if(!pub.file_exists(models_path)){
+                return pub.return_error(pub.lang("指定模型存储路径不存在"), "");
+            }
+            ollamaService.set_ollama_model_save_path(models_path);
+        }
+
+        
         // 调用 OllamaService 的 install_ollama 方法安装 Ollama
         const res = await ollamaService.install_ollama();
+
+
+
+
         return pub.return_success(pub.lang("正在安装,请稍后..."), res);
     }
 
@@ -285,6 +300,8 @@ class ManagerController {
                 logger.error(pub.lang('获取 GPU 信息时出错:'), error);
             }
 
+            configurationInfo.gpu_model += " - " +pub.bytesChange(configurationInfo.gpu_memory * 1024 * 1024);
+
             // 模型选择建议
             if (configurationInfo.cpu_cores >= 8
                  && configurationInfo.memory_size >= 16 * 1024 * 1024 * 1024 
@@ -430,6 +447,26 @@ class ManagerController {
         // 调用 OllamaService 的 reconnect_model_download 方法重连模型下载任务
         const res = ollamaService.reconnect_model_download();
         return pub.return_success(pub.lang("将为您重新下载，并断点续传。"), res);
+    }
+
+
+    /**
+     * 设置ollama连接地址
+     * @param {Object} args - 设置ollama连接地址所需的参数
+     * @param {string} args.ollama_host - ollama连接地址
+     * @returns {Promise<any>} - 包含修改结果的成功响应
+     */
+    async set_ollama_host(args: { ollama_host: string}): Promise<any> {
+        const { ollama_host } = args;
+        const ollamaService = new OllamaService();
+        // 调用 OllamaService 的 set_ollama_api 方法修改连接地址
+        const res = await ollamaService.set_ollama_host(ollama_host);
+        if(res){
+            return pub.return_success(pub.lang("设置成功"), res);
+        }else
+        {
+            return pub.return_error(pub.lang("指定接口地址连接失败"), "connect error:"+ollama_host);
+        }
     }
 }
 

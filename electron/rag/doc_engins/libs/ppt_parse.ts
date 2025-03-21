@@ -11,10 +11,6 @@ export class PptxParser {
       // 动态导入pptxjs库
       const { default: JSZip } = await import('jszip');
 
-      // 创建输出目录
-      const outputDir = './extracted_ppt_images';
-      await this.createDirectoryIfNotExists(outputDir);
-
       // 读取文件内容
       const fileData = await fs.readFile(filename);
       const zip = await JSZip.loadAsync(fileData);
@@ -42,14 +38,6 @@ export class PptxParser {
     }
   }
 
-  // 创建目录，如果目录不存在
-  private async createDirectoryIfNotExists(dir: string): Promise<void> {
-    try {
-      await fs.access(dir);
-    } catch {
-      await fs.mkdir(dir, { recursive: true });
-    }
-  }
 
   // 获取presentation.xml文件内容
   private async getPresentationXml(zip: any): Promise<string> {

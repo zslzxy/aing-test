@@ -3,6 +3,10 @@ import { LanceDBManager } from './vector_database/vector_lancedb';
 import * as path from 'path';
 import { pub } from '../class/public';
 import { agentService } from '../service/agent';
+import { Jieba,TfIdf } from '@node-rs/jieba';
+import { dict,idf } from '@node-rs/jieba/dict.js';
+const jieba = Jieba.withDict(dict);
+const tfidf = TfIdf.withDict(idf);
 
 
 // 获取模板常量
@@ -309,7 +313,9 @@ export class Rag {
      * @returns Promise<string[]> 提取的关键词数组
      */
     public async generateKeywords(doc: string,num:number = 5): Promise<string[]> {
-        return [];
+        let result = tfidf.extractKeywords(jieba,doc,num);
+        let keywords = result.map((item:any) => item.keyword);
+        return keywords;
     }
 
 
@@ -384,7 +390,7 @@ export class Rag {
                 md_file: doc.savedPath?.replace(dataDir, repDataDir),
                 doc_rag: ragName,
                 doc_abstract: await this.generateAbstract(doc.content),
-                doc_keywords: await this.generateKeywords(doc.content),
+                doc_keywords: await this.generateKeywords(doc.content,10),
                 is_parsed: 0,
                 update_time: pub.time(),
             }];
@@ -430,7 +436,7 @@ export class Rag {
     public async searchDocument(ragList: string[], queryText: string): Promise<any> {
 
         // 生成关键词
-        let keywords = []//await this.generateKeywords(queryText);
+        let keywords = await this.generateKeywords(queryText);
 
         // 并行执行所有知识库的检索请求
         const searchPromises = ragList.map(async (ragName) => {

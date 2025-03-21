@@ -13,7 +13,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     vueDevTools(),
-    UnoCss()
+    UnoCss(),
   ],
   resolve: {
     alias: {

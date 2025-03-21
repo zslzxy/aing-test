@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Xóa cơ thể thông minh thành công"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Mô hình bạn đang sử dụng đã bị vô hiệu hóa hoặc xóa, hãy bật lại hoặc chuyển đổi mô hình"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Vui lòng chọn hoặc cài đặt mô hình truy cập"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Mô hình được sử dụng trong cuộc hội thoại hiện tại đã bị vô hiệu hóa hoặc xóa, hãy bật lại hoặc chuyển đổi mô hình"
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "Mô hình {0} không tồn tại, vui lòng thêm mô hình cục bộ hoặc mô hình bên thứ ba api"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Quản lý mô hình"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "Vị trí lưu trữ mô hình"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "Chọn"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Chọn Model Manager"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Chọn đường dẫn cài đặt Model Manager"
     }
 }

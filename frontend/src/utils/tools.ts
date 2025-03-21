@@ -41,7 +41,7 @@ export const getByteUnit = (
 /**
  * @description 年月日时分秒转换方法
  */
-export function isoToLocalDateTime(isoStr: string|number) {
+export function isoToLocalDateTime(isoStr: string | number) {
   const date = new Date(isoStr);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -70,12 +70,12 @@ export function fixedStrNum(strNum: string | number) {
 /**
  * @description 生成随机英文字符
  */
-export function getRandomStringFromSet(length:number) {
+export function getRandomStringFromSet(length: number) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let result = '';
   for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      result += characters.charAt(randomIndex);
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
   }
   return result;
 }
@@ -95,7 +95,7 @@ export async function testRequest() {
 /**
  * @description 获取文件路径中的文件名+后缀
  */
-export function getFileNameFromPath(filePath:string) {
+export function getFileNameFromPath(filePath: string) {
   // 先将可能存在的反斜杠替换为正斜杠，统一处理
   const normalizedPath = filePath.replace(/\\/g, '/');
   // 按正斜杠分割路径字符串
@@ -103,3 +103,5 @@ export function getFileNameFromPath(filePath:string) {
   // 获取最后一个部分，即文件名（包含后缀）
   return parts[parts.length - 1];
 }
+
+

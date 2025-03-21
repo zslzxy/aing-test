@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="tsx">
-import { computed, nextTick, onMounted, onUpdated, ref, watch, } from 'vue';
+import { computed, nextTick, onMounted, onUpdated, ref, watch, h, render, onBeforeUnmount, defineComponent } from 'vue';
 import markdownit from 'markdown-it'
 import hljs from 'highlight.js';
 import { NCollapseItem, NCollapse, NList, NListItem, NDivider, NButton, NTag, NTooltip } from "naive-ui"
@@ -35,6 +35,7 @@ import { storeToRefs } from 'pinia';
 import { useClipboard } from '@vueuse/core'
 import { message } from '@/utils/naive-tools.tsx';
 import ThinkWrapper from './ThinkWrapper.vue';
+import MermaidRender from './MermaidRender.vue';
 import { eventBUS } from '../utils/tools.tsx';
 import { useI18n } from 'vue-i18n';
 import mk from "@vscode/markdown-it-katex"
@@ -59,29 +60,36 @@ const md = markdownit({
         return str;
     }
 })
-md.use(mk,{
+md.use(mk, {
     throwOnError: false,
 })
+
 
 md.renderer.rules.fence = function (tokens, idx, options, env, self) {
     const token = tokens[idx];
     const lang = token.info || '';
     const code = token.content;
     const highlightedCode = options.highlight!(code, lang, "");
-    // console.log(self.rules.math_block(token,code))
     const toolbarPlaceholder = `<div class="tool-header" data-lang="${lang}"><div class="tool-header-tit">${lang}</div><div class="tool-placeholder"><div class="tool-wrapper"><span class="tool-copy" data-code="${encodeURIComponent(code)}">${$t("复制")}</span><span class="tool-reference" data-code="${encodeURIComponent(code)}">${$t("引用")}</span></div></div></div>`;
-    return `<pre class="hljs"><div class="hljs-wrapper">${toolbarPlaceholder}<code${lang ? ` class="${lang} code-block"` : ''}>${highlightedCode}</code></div></pre>`
+    if (lang == "mermaid") {
+        return `<div class="mermaid-wrapper" data-code="${code}">${highlightedCode}</div>`
+    } else {
+        return `<pre class="hljs"><div class="hljs-wrapper">${toolbarPlaceholder}<code${lang ? ` class="${lang} code-block"` : ''}>${highlightedCode}</code></div></pre>`
+    }
 };
 
+
+
+// <pre class="hljs"><div class="hljs-wrapper">${toolbarPlaceholder}<code${lang ? ` class="${lang} code-block"` : ''}>${highlightedCode}</code></div></pre>
 // TODO:目前不确定AI返回的latex公式是否正确，参考Latex和Katex的规范，先全面使用$$...$$代替
-function replaceLatexMathDelimiters(text:string) {
+function replaceLatexMathDelimiters(text: string) {
     // 替换块级公式：\[...\] → $$...$$
     text = text.replace(/\\\[/g, '$$').replace(/\\\]/g, '$$');
     // 替换行内公式：\(...\) → $$...$$
     text = text.replace(/\\\(/g, '$$').replace(/\\\)/g, '$$');
     // 替换公式环境：\begin{xxx}...\end{xxx} → $$...$$
     text = text.replace(/\\begin\{(\w+)\}/g, '$$').replace(/\\end\{(\w+)\}/g, '$$');
-    
+
     return text;
 }
 
@@ -176,10 +184,31 @@ watch(currentLanguage, val => {
  * @description 跳转到对应目标页
  */
 function jumpThroughLink(link: string) {
-    // window.location.href = link
     window.open(link)
 }
+
+
+/**
+ * @description 加载完成后/回答完成后渲染mermaid
+ */
+function doMermaidRender(){
+    const mermaidDivWrappers = document.querySelectorAll(".mermaid-wrapper")
+        for(let i=0;i<mermaidDivWrappers.length;i++){
+                const RenDerCmpt = defineComponent({
+                setup() {
+                    const id = (new Date()).getTime().toString()
+                    return () => <MermaidRender maidContent={(mermaidDivWrappers[i] as HTMLDivElement).dataset.code!} id={`mermaid-svg-${i}`}/>
+                }
+            })
+            mermaidDivWrappers[i].innerHTML = ""
+            render(h(RenDerCmpt), mermaidDivWrappers[i])
+        }
+}
+// 监听回答完成后的mermaid渲染
+eventBUS.$on("answerRendered",doMermaidRender)
+ onMounted(doMermaidRender)
 </script>
+
 
 <style lang="scss">
 @import 'katex/dist/katex.min.css';

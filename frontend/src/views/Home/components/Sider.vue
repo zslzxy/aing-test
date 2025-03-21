@@ -11,7 +11,7 @@
         </div>
 
         <div class="flex justify-center items-center">
-            <NButton type="default" style="width:100%" @click="createNewComu">
+            <NButton type="default" style="width:100%" @click="makeNewChat">
                 <template #icon>
                     <i class="i-tdesign:chat-add w-16 h-16"></i>
                 </template>
@@ -271,6 +271,13 @@ const logo = computed(() => {
  */
 get_chat_list()
 
+/**
+ * @description 新建对话
+ */
+function makeNewChat() {
+    currentChatAgent.value = null
+    createNewComu()
+}
 
 /**
  * @description 选择已有对话
@@ -278,6 +285,8 @@ get_chat_list()
 async function handleChoose(e: MouseEvent, chat: ChatItemInfo) {
     if (chat.agent_info) {
         currentChatAgent.value = chat.agent_info
+    }else{
+        currentChatAgent.value = null
     }
     if ((e.target! as HTMLElement).classList.contains("i-common:more-operation")) {
         return

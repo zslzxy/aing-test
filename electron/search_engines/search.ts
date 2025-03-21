@@ -4,7 +4,6 @@ import { localDuckDuckGoSearch } from "./duckduckgo";
 import { localSogouSearch } from "./sogou";
 import { local360Search } from "./so360";
 import { pub } from '../class/public'
-import ollama from "ollama";
 import { agentService } from '../service/agent';
 
 

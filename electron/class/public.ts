@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as Ps from 'ee-core/ps';
 import {exec, execSync } from 'child_process';
 import axios from 'axios'
+import {Ollama} from 'ollama';
 
 export type ReturnMsg = {
     status:number, // 状态 0成功 -1失败
@@ -14,7 +15,6 @@ export type ReturnMsg = {
     error_msg:string, // 错误消息
     message:any // 响应数据
 }
-
 
 // 创建缓存
 const Cache = new NodeCache({ stdTTL: 360, checkperiod: 7200 });
@@ -941,6 +941,38 @@ class Public {
             result += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         return result;
+    }
+
+    
+    /**
+     * 获取ollama地址和密钥
+     * @returns {Promise<{apiUrl:string,apiKey:string}>} 返回ollama地址和密钥
+     */
+    get_ollama_host(): string {
+        let ollamaHost = this.C('ollama_host');
+        if (!ollamaHost) {
+            ollamaHost = "http://127.0.0.1:11434";
+        }
+        return ollamaHost;
+    }
+
+    /**
+     * 初始化ollama
+     * @param {boolean} force 是否强制重新初始化
+     * @returns Ollama
+     */
+    init_ollama(): Ollama {
+        let ollama:Ollama;
+        const ollamaHost = this.get_ollama_host();
+        if (!ollamaHost) {
+            ollama = new Ollama();
+        }else{
+            let config = {
+                host: ollamaHost
+            }
+            ollama = new Ollama(config);
+        }
+        return ollama;
     }
 
 }

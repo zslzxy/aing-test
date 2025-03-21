@@ -1,6 +1,6 @@
 {
   "name": "aingdesk",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "Simple and easy-to-use AI big model deployment and usage software",
   "productName": "AingDesk",
   "main": "./public/electron/main.js",
@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@lancedb/lancedb": "^0.17.0",
+    "@node-rs/jieba": "^2.0.1",
     "@vueuse/core": "^12.5.0",
     "apache-arrow": "^18.1.0",
     "axios": "^1.7.9",
@@ -71,6 +72,7 @@
     "electron-notarize": "^1.2.2",
     "electron-updater": "^6.3.8",
     "iconv-lite": "^0.6.3",
+    "jszip": "^3.10.1",
     "node-cache": "^5.1.2",
     "ollama": "^0.5.12",
     "openai": "^4.86.2",

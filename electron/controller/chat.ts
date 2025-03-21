@@ -1,4 +1,3 @@
-import ollama from 'ollama';
 import Stream from 'stream';
 import { ChatService, ChatContext, ChatHistory } from '../service/chat';
 import { pub } from '../class/public';
@@ -8,6 +7,7 @@ import { Rag } from '../rag/rag';
 import { ModelService, GetSupplierModels, getModelContextLength } from '../service/model';
 import path from 'path';
 import { agentService } from '../service/agent';
+
 
 // 模型列表获取重试次数
 let MODEL_LIST_RETRY = 0;
@@ -85,6 +85,7 @@ class ChatController {
         try {
             // 获取所有模型信息
             MODEL_LIST_RETRY++;
+            const ollama = pub.init_ollama();
             const res = await ollama.list();
             // 遍历模型信息，将其添加到 ModelListInfo 中
             res.models.forEach((modelInfo) => {
@@ -588,14 +589,21 @@ ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
 
         let res: any;
         if (isOllama) {
-            res = await ollama.chat(requestOption);
+            try{
+                const ollama = pub.init_ollama();
+                res = await ollama.chat(requestOption);
+            }catch(error:any){
+                return pub.lang('调用模型接口时出错了: {}', error.message);
+            }
         } else {
             const modelService = new ModelService(supplierName);
             try {
                 res = await modelService.chat(requestOption);
-            } catch (error) {
-                logger.error(pub.lang('调用模型接口时出错:'), error);
-                return pub.return_error(pub.lang('调用模型接口时出错'), error);
+            } catch (error:any) {
+                if(error.error && error.error.message){
+                    return pub.lang('调用模型接口时出错了: {}', error.error.message);
+                }
+                return error;
             }
         }
 

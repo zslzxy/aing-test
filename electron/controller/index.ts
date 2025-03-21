@@ -1,6 +1,7 @@
 import { pub } from '../class/public';
 import * as path from 'path';
 import { logger } from 'ee-core/log';
+const { dialog } = require('electron');
 
 /**
  * index controller 类，用于处理主进程的语言相关逻辑
@@ -145,6 +146,32 @@ class IndexController {
         const languagePack = JSON.parse(fileContent);
         // 返回成功响应
         return pub.return_success(languagePack, null);
+    }
+
+
+    /**
+     * 选择目录
+     * @param args - 参数
+     * @param event - 事件
+     */
+    async select_folder(args: {}, event): Promise<any> {
+        // 通过electron选择目录
+        let result = await dialog.showOpenDialog({
+            properties: ['openDirectory'],
+            title: pub.lang('选择目录'),
+            message: pub.lang('请选择一个目录')
+        })
+        
+        // 如果有选择目录
+        if (!result.canceled) {
+            // 返回成功响应
+            return pub.return_success(pub.lang('选择成功'), {
+                folder: result.filePaths[0]
+            });
+        }
+
+        return pub.return_error(pub.lang('未选择目录'));
+
     }
 
 

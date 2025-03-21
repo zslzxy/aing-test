@@ -5,7 +5,7 @@
         </div>
 
         <NList hoverable clickable>
-            <NListItem v-for="item in knowledgeList" @click="chooseCurrent(item)">
+            <NListItem v-for="item in knowledgeList" @click="chooseCurrent(item)" :class="{ disabled: !item.embeddingModelExist }">
                 <div class="list-item">
                     <i class="i-mynaui:check-circle-solid w-16 h-16 text-[#35ab69]" v-if="activeKnowledgeForChat?.includes(item.ragName)"></i>
                     <i class="i-mynaui:circle w-16 h-16" v-else></i>
@@ -28,6 +28,9 @@ const { knowledgeList, activeKnowledgeForChat } = storeToRefs(useIndexStore());
  * @description 选择当前知识库
  */
 function chooseCurrent(item: any) {
+    if(!item.embeddingModelExist) {
+        return
+    }
     if (activeKnowledgeForChat.value?.includes(item.ragName)) {
         activeKnowledgeForChat.value = activeKnowledgeForChat.value.filter((i: string) => i !== item.ragName)
     } else {
@@ -58,5 +61,10 @@ function chooseCurrent(item: any) {
 .list-item {
     @include base.row-flex-between;
     justify-content: flex-start;
+}
+
+:deep(.disabled) {
+    cursor: not-allowed !important;
+    color: base.$gray-4;
 }
 </style>

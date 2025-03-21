@@ -78,14 +78,15 @@ export class DocxParser {
 
       // 创建唯一图片名
       const uniqueImageName = `${pub.md5(`${this.baseDocName}_${this.ragName}_${this.imageIndex++}`)}${ext}`;
-      const imagePath = path.join(outputDir, this.ragName, 'images', uniqueImageName);
+      const imagePath = path.join(outputDir, this.ragName, 'images');
+      const imageFile = path.resolve(imagePath, uniqueImageName);
       if(!pub.file_exists(imagePath)) pub.mkdir(imagePath);
       const imageUrl = `${IMAGE_URL_LAST}/images?r=${this.ragName}&n=${uniqueImageName}`;
 
       // 保存图片
-      fs.writeFileSync(imagePath, Buffer.from(imageData));
+      fs.writeFileSync(imageFile, Buffer.from(imageData));
 
-      return { path: imagePath, url: imageUrl };
+      return { path: imageFile, url: imageUrl };
     } catch (error) {
       console.error('保存图片失败:', error);
       return { path: '', url: '' };
@@ -100,8 +101,9 @@ export class DocxParser {
   private parseImageRelationships(relationshipsXml: string): ImageRelationship {
     const imageRelationships: ImageRelationship = {};
 
-    const relMatches = relationshipsXml.match(/<Relationship[^>]*>/g) || [];
+    const relMatches:RegExpMatchArray = relationshipsXml.match(/<Relationship[^>]*>/g)
 
+    if(!relMatches) return imageRelationships;
     relMatches.forEach(rel => {
       const idMatch = rel.match(/Id="([^"]+)"/);
       const targetMatch = rel.match(/Target="([^"]+)"/);

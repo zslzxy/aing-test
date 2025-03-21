@@ -69,28 +69,28 @@ export function isInstalled(model: string) {
  * @description 获取对话列表
  */
 export async function get_chat_list() {
-    const { 
-        chatList, 
-        currentContextId, 
-        currentChatTitle, 
-        chatHistory, 
-        currentModel, 
-        currentSupplierName, 
-        contextIdForDel, 
-        netActive, 
+    const {
+        chatList,
+        currentContextId,
+        currentChatTitle,
+        chatHistory,
+        currentModel,
+        currentSupplierName,
+        contextIdForDel,
+        netActive,
         activeKnowledgeForChat,
         currentChatAgent
-     } = getIndexStore()
+    } = getIndexStore()
     const res = await post("/chat/get_chat_list")
     chatList.value = res.message
     if (chatList.value.length) {
         if (currentContextId.value == contextIdForDel.value) {
             currentContextId.value = chatList.value[0].context_id
             // 智能体判断
-            if(chatList.value[0].agent_info){
+            if (chatList.value[0].agent_info) {
                 currentChatTitle.value = chatList.value[0].agent_info.agent_title
                 currentChatAgent.value = chatList.value[0].agent_info
-            }else{
+            } else {
                 currentChatTitle.value = chatList.value[0].title
             }
             // 模型厂商判断（是否本地）
@@ -142,7 +142,7 @@ export function createNewComu() {
  * @description 创建新对话：发起请求
  */
 export async function create_chat() {
-    const { currentModel, currentContextId, questionContent, currentAgent,chatForAgent } = getIndexStore()
+    const { currentModel, currentContextId, questionContent, currentAgent, chatForAgent } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
 
     const res = await post('/chat/create_chat', { model, parameters, title: questionContent.value, agent_name: currentAgent.value?.agent_name })
@@ -231,14 +231,17 @@ export async function sendChat(params: ChatParams) {
         }
     })
 
-    // 请求结束行为可以在此执行
+    /***** 请求结束行为可以在此执行 *****/
     const lastChhat = await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
+    // 获取最后提条对话信息并拼接到对话历史中
     if (chatHistory.value.get(currentChat!)) {
         // chatHistory.value.get(params.user_content)!.stat = lastChhat.message.eval_count
         Object.assign(chatHistory.value.get(currentChat!)!.stat as Object, lastChhat.message.stat)
         chatHistory.value.get(currentChat!)!.search_result = lastChhat.message.search_result as Array<any>
         chatHistory.value.get(currentChat!)!.id = lastChhat.message.id
     }
+    // 渲染mermaid
+    eventBUS.$emit("answerRendered")
     isInChat.value = false
 }
 
@@ -291,12 +294,10 @@ export async function modifyChatTitle(params: { context_id: string, title: strin
 /**
  * @description 打开模型管理
  */
-export function openModelManage() {
-    const { settingsShow, isInstalledManager, managerInstallConfirm } = getIndexStore()
+export async function openModelManage() {
+    const { settingsShow } = getIndexStore()
+    await getVisibleModelList()
     settingsShow.value = true
-    if (!isInstalledManager.value) {
-        managerInstallConfirm.value = true
-    }
 }
 
 /**
@@ -312,14 +313,17 @@ export async function getConfigurationInfo() {
  * @description 获取可安装模型列表
  */
 export async function getVisibleModelList() {
-    const { visibleModelList, settingsShow, managerInstallConfirm, isInstalledManager, isResetModelList } = getIndexStore();
+    const { visibleModelList, settingsShow, managerInstallConfirm, isInstalledManager, isResetModelList, ollamaUrl } = getIndexStore();
     const res = await post("/manager/get_model_manager")
     if (res.code == 200) {
         isInstalledManager.value = res.message.status
+        ollamaUrl.value = res.message.ollama_host
         // 如果status为false说明本地没有模型管理器，要求对方安装
         if (res.message.status == false) {
             settingsShow.value = true
             managerInstallConfirm.value = true
+        } else {
+            managerInstallConfirm.value = false
         }
         // isInstalledManager.value = true
         visibleModelList.value = res.message.models
@@ -366,8 +370,8 @@ export async function getModelInstallProgress(callback?: () => void) {
             message.success($t("安装成功"))
             installShow.value = false
             downloadText.value = $t("正在连接，请稍候...")
-            settingsShow.value = false
             clearInterval(timer)
+            eventBUS.$emit("modelInstalled","installed")
             get_model_list()
             getVisibleModelList()
             callback && callback()
@@ -406,8 +410,10 @@ export async function removeModel() {
     const [model, parameters] = modelForDel.value.split(":")
     const res = await post("/manager/remove_model", { model, parameters })
     if (res.code == 200) {
+        await getVisibleModelList()
+        await get_model_list()
+        eventBUS.$emit("modelInstalled")
         message.success($t("模型删除成功"))
-        get_model_list()
     } else {
         message.error($t("模型删除失败:{0}", [res.error_msg]))
     }
@@ -421,12 +427,42 @@ export async function removeModel() {
  * @description 安装模型管理器
  */
 export async function installModelManager() {
-    const { managerForInstall, modelManagerInstallProgresShow, managerInstallConfirm, modelManagerInstallNotice } = getIndexStore()
-    modelManagerInstallProgresShow.value = true
-    managerInstallConfirm.value = false
-    post("/manager/install_model_manager", { manager_name: managerForInstall.value })
-    modelManagerInstallNotice.value = $t("正在下载")
-    getModelManagerInstallProgress()
+    const {
+        managerForInstall,
+        modelManagerInstallProgresShow,
+        managerInstallConfirm,
+        modelManagerInstallNotice,
+        modelManagerInstallPath
+    } = getIndexStore()
+
+    if (!managerForInstall.value) {
+        message.warning($t("请选择模型管理器"))
+        return
+    }
+    if (!modelManagerInstallPath.value) {
+        message.warning($t("请选择模型管理器安装路径"))
+        return
+    }
+    if (managerForInstall.value && modelManagerInstallPath.value) {
+        modelManagerInstallProgresShow.value = true
+        managerInstallConfirm.value = false
+        post("/manager/install_model_manager", { manager_name: managerForInstall.value, models_path: modelManagerInstallPath.value })
+        modelManagerInstallNotice.value = $t("正在下载")
+        getModelManagerInstallProgress()
+    }
+}
+
+/**
+ * @description 选择模型管理器安装地址
+ */
+export async function chooseOllamaPath() {
+    const { modelManagerInstallPath } = getIndexStore()
+    const res = await post("/index/select_folder")
+    if (res.code == 200) {
+        modelManagerInstallPath.value = res.message.folder
+    } else {
+        console.log("cencel")
+    }
 }
 
 /**
@@ -451,7 +487,9 @@ export async function getModelManagerInstallProgress() {
 
         if (res.message.status == -1) {
             message.error($t("模型管理器安装失败"))
+            modelManagerInstallProgresShow.value = false
             clearInterval(timer)
+            getVisibleModelList()
         }
 
         modelManagerInstallProgress.value = res.message
@@ -682,16 +720,14 @@ export async function createRag() {
  * @description 获取知识库列表
  */
 const initTime = ref(0)
-export async function getRagList() {
+export async function getRagList(init: boolean = false) {
     const { knowledgeList, activeKnowledge, activeKnowledgeDto } = getIndexStore()
     try {
         const res = await post("/rag/get_rag_list");
         knowledgeList.value = res.message
-        if (knowledgeList.value.length && activeKnowledge.value == null && initTime.value != 0) {
+        if (init) {
             activeKnowledge.value = knowledgeList.value[0].ragName
             activeKnowledgeDto.value = knowledgeList.value[0]
-        } else {
-            initTime.value++
         }
     } catch (error) {
         message.error($t("获取知识库列表失败，请重试"))
@@ -750,6 +786,7 @@ function ragDocLoop() {
  * @description 删除知识库询问
  */
 export function removeRagConfirm(ragName: string) {
+    const { knowledgeList, knowledgeSiderWidth } = getIndexStore()
     const dialog = useDialog({
         title: "提示",
         content: () => {
@@ -765,6 +802,9 @@ export function removeRagConfirm(ragName: string) {
         onOk: async () => {
             await removeRag(ragName);
             dialog.destroy()
+            if (knowledgeList.value.length == 0) {
+                knowledgeSiderWidth.value = 0
+            }
         },
         onCancel: () => {
             dialog.destroy()
@@ -826,7 +866,6 @@ export async function getEmbeddingModels() {
     const { embeddingModelsList, createKnowledgeFormData } = getIndexStore()
     const res = await post("/rag/get_embedding_models")
     embeddingModelsList.value = Object.values(res.message).flat()
-    console.log(embeddingModelsList.value)
     if (embeddingModelsList.value.length) {
         let findRes = embeddingModelsList.value.find((item: any) => {
             if (item.model.includes("bge-m3") && item.title.includes("ollama")) {
@@ -858,7 +897,15 @@ export async function getEmbeddingModels() {
  * @description 新建知识库：点击按钮后续交互逻辑
  */
 export async function createNewKnowledgeStore() {
-    const { createKnowledgeModelRef, createKnowledgeFormData, createKnowledgeDialogIns, activeKnowledge, isInstalledBge } = getIndexStore()
+    const {
+        createKnowledgeModelRef,
+        createKnowledgeFormData,
+        createKnowledgeDialogIns,
+        activeKnowledge,
+        isInstalledBge,
+        activeKnowledgeDto,
+        knowledgeList
+    } = getIndexStore()
     await ragStatus()
     await getEmbeddingModels()
     if (!isInstalledBge.value) {
@@ -887,9 +934,11 @@ export async function createNewKnowledgeStore() {
             // 创建知识库
             try {
                 await createRag()
+                activeKnowledge.value = createKnowledgeFormData.value.ragName
                 resetForm()
                 knowledgeIsOpen()
                 await getRagList()
+                activeKnowledgeDto.value = knowledgeList.value.find(item => item.ragName == activeKnowledge.value) as ActiveKnowledgeDto
                 await getRagDocList(activeKnowledge.value as string)
             } catch (error) {
                 console.warn(error)
@@ -1308,7 +1357,7 @@ export async function getAgentInfo() {
  * @description 选择智能体进行对话
  */
 export function chooseAgentForChat(agent: AgentItemDto) {
-    const { currentAgent, chatForAgent,agentShow,currentChatAgent } = getIndexStore()
+    const { currentAgent, chatForAgent, agentShow, currentChatAgent } = getIndexStore()
     currentChatAgent.value = agent
     currentAgent.value = agent
     chatForAgent.value = true
@@ -1316,4 +1365,24 @@ export function chooseAgentForChat(agent: AgentItemDto) {
     // 打开对话
     createNewComu()
     agentShow.value = false
+}
+
+/**
+ * @description 设置ollama接入地址
+ */
+export async function setOllamaUrl() {
+    const { ollamaUrl } = getIndexStore()
+    try {
+        const res = await post("/manager/set_ollama_host", {
+            ollama_host: ollamaUrl.value
+        })
+        if (res.code != 200) {
+            message.error(res.msg!)
+        } else {
+            message.success($t("设置成功"))
+            getVisibleModelList()
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }

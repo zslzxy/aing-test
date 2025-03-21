@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Älykäs agentti poistettu onnistuneesti"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Käyttämäsi malli on poistettu käytöstä tai poistettu, käytä malli uudelleen tai vaihda malli"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Valitse tai asenna käyttömalli"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Käynnissä keskustelussa käytetty malli on poistettu käytöstä tai poistettu. Ota malli käyttöön tai vaihda sitä uudelleen"
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "Mallia {0} ei ole olemassa, lisää paikallinen malli tai kolmannen osapuolen malli API"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Mallinhallinta"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "Mallin tallennuspaikka"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "Valitse"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Valitse mallienhallinta"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Valitse Mallinhallinnan asennuspolku"
     }
 }

@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Intelligens törlés sikeres"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Az Ön által használt modell le lett tiltva vagy törölve. Kérjük, engedélyezze vagy váltsa újra a modellt"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Válassza ki vagy telepítse a hozzáférési modellt"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Az aktuális beszélgetésben használt modell letiltott vagy törölt, kérjük, engedélyezze újra vagy váltsa a modellt"
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "A {0} modell nem létezik, kérjük adjon hozzá helyi modellt vagy harmadik féltől származó modell API-t"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Modellkezelő"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "A modell tárolási helyszíne"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "kiválasztás"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Válassza ki a modellkezelőt"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Válassza ki a modellkezelő telepítési útját"
     }
 }

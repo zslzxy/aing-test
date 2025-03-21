@@ -910,5 +910,41 @@
     "智能体删除成功": {
         "src": "智能体删除成功",
         "dst": "Agent inteligent șters cu succes"
+    },
+    "您当前使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "您当前使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Modelul pe care îl utilizați în prezent a fost dezactivat sau șters. Vă rugăm să reactivați sau să comutați modelul"
+    },
+    "请选择或安装接入模型": {
+        "src": "请选择或安装接入模型",
+        "dst": "Vă rugăm să selectați sau instalați modelul de acces"
+    },
+    "当前对话使用的模型已被禁用或删除，请重新启用或切换模型": {
+        "src": "当前对话使用的模型已被禁用或删除，请重新启用或切换模型",
+        "dst": "Modelul utilizat în conversația curentă a fost dezactivat sau șters. Vă rugăm să reactivați sau să comutați modelul"
+    },
+    "模型{0}不存在，请添加本地模型或第三方模型api": {
+        "src": "模型{0}不存在，请添加本地模型或第三方模型api",
+        "dst": "Modelul {0} nu există, vă rugăm să adăugați un model local sau un model API terț"
+    },
+    "模型管理器": {
+        "src": "模型管理器",
+        "dst": "Manager de modele"
+    },
+    "模型存储位置": {
+        "src": "模型存储位置",
+        "dst": "Locația de stocare a modelului"
+    },
+    "选择": {
+        "src": "选择",
+        "dst": "selectează"
+    },
+    "请选择模型管理器": {
+        "src": "请选择模型管理器",
+        "dst": "Alegeți un manager de modele"
+    },
+    "请选择模型管理器安装路径": {
+        "src": "请选择模型管理器安装路径",
+        "dst": "Selectați calea de instalare a managerului de modele"
     }
 }

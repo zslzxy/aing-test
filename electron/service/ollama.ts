@@ -1,12 +1,12 @@
-import ollama from 'ollama';
+
 import { pub } from '../class/public';
 import * as path from 'path';
 import axios from 'axios';
 import * as fs from 'fs';
 import { logger } from 'ee-core/log';
 import { selectFastestNode } from '../class/test_node';
-const { exec, execSync } = require('child_process');
-
+// const { exec, execSync } = require('child_process');
+import { exec, execSync } from 'child_process';
 
 // 存储每个模型的下载速度和进度信息，键为模型全名，值为包含下载信息的对象
 let ModelDownloadSpeed = new Map<string, Object>();
@@ -26,6 +26,7 @@ let OllamaDownloadSpeed = {
     progress: 0,
     status: 0
 };
+
 
 /**
  * OllamaService 类，提供与 Ollama 相关的操作，如获取版本、管理模型、安装 Ollama 等
@@ -74,7 +75,7 @@ class OllamaService {
         try {
             try{
                 // 尝试从11434端口获取版本信息
-                let url = 'http://127.0.0.1:11434/api/version';
+                let url = `${pub.get_ollama_host()}/api/version`;
                 let res = await pub.httpRequest(url,{
                     timeout: 1000,
                     method: 'GET',
@@ -115,6 +116,7 @@ class OllamaService {
      */
     async is_running(): Promise<boolean> {
         try{
+            const ollama = pub.init_ollama();
             await ollama.ps();
             logger.info('Ollama is running');
             return true;
@@ -193,6 +195,7 @@ class OllamaService {
                 modelListSrc = JSON.parse(modelListData);
             }
             // 获取 Ollama 服务中的模型列表
+            const ollama = pub.init_ollama();
             const { models } = await ollama.list();
 
             let isCn = pub.get_language() == 'zh';
@@ -396,6 +399,7 @@ class OllamaService {
         ReconnectModelDownload = false;
         try {
             // 发起模型拉取请求，并开启流式响应
+            const ollama = pub.init_ollama();
             let stream = await ollama.pull({ model: fullModel, stream: true });
             let lastTime = pub.time();
             let lastCompleted = 0;
@@ -521,6 +525,7 @@ class OllamaService {
     async remove_model(model: string, parameters: string): Promise<any> {
         const fullModel = `${model}:${parameters}`;
         try {
+            const ollama = pub.init_ollama();
             return await ollama.delete({ model: fullModel });
         } catch (error) {
             logger.error(pub.lang('删除模型时出错:'), error);
@@ -692,6 +697,7 @@ class OllamaService {
             if (pub.is_windows()) {
                 // 修改 Windows 环境变量
                 execSync(`setx OLLAMA_MODELS "${save_path}"`, { shell: 'cmd.exe' });
+                process.env.OLLAMA_MODELS = save_path;
                 logger.info(pub.lang('Windows 环境变量设置成功。'));
                 // 结束 Ollama 进程
                 this.killOllamaProcess('cmd.exe');
@@ -703,6 +709,7 @@ class OllamaService {
                 const shellConfigFile = `${process.env.HOME}/.bashrc`;
                 const configContent = `export OLLAMA_MODELS="${save_path}"`;
                 execSync(`echo "${configContent}" >> ${shellConfigFile}`);
+                process.env.OLLAMA_MODELS = save_path;
                 logger.info(pub.lang('Linux 环境变量设置成功。'));
                 // 结束 Ollama 进程
                 this.killOllamaProcess('/bin/bash');
@@ -714,6 +721,7 @@ class OllamaService {
                 const shellConfigFile = `${process.env.HOME}/.zshrc`;
                 const configContent = `export OLLAMA_MODELS="${save_path}"`;
                 execSync(`echo "${configContent}" >> ${shellConfigFile}`);
+                process.env.OLLAMA_MODELS = save_path;
                 logger.info(pub.lang('macOS 环境变量设置成功。'));
                 // 结束 Ollama 进程
                 this.killOllamaProcess('/bin/zsh');
@@ -873,6 +881,39 @@ WantedBy=default.target
         } catch (killError: any) {
             logger.warn(pub.lang('结束 Ollama 进程时可能未找到进程:'), killError.message);
         }
+    }
+
+
+    private async test_ollama_host(ollamaHost: string): Promise<boolean> {
+        try{
+            // 尝试从11434端口获取版本信息
+            let url = `${ollamaHost}/api/version`;
+            let res = await pub.httpRequest(url,{
+                timeout: 1000,
+                method: 'GET',
+                json: true
+            });
+            
+            return res.statusCode === 200
+
+        }catch(e){
+            logger.error('Get ollama version error:',e);
+            return false
+        }
+    }
+
+
+    /**
+     * 设置ollama地址和密钥
+     * @param {string} ollamaHost - ollama地址
+     * @returns {Promise<boolean>} 设置成功返回 true，否则返回 false
+     */
+    async set_ollama_host(ollamaHost: string): Promise<boolean> {
+        if(await this.test_ollama_host(ollamaHost)){
+            pub.C('ollama_host', ollamaHost);
+            return true;
+        }
+        return false;
     }
 }
 
