@@ -1,33 +1,29 @@
-**🚀一句话简介**
+# AingDesk
 
-一键把DeepSeek或其他AI模型部署在你电脑
+[English](README.md)
 
-**✅核心功能**
+AingDesk是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，它还在飞快成长中。
 
-- 一键部署DeepSeek或其他AI模型
-  ![image](.github/assets/img/1_zh.png)
+## 🚀一句话简介
 
-- 多数据源知识库支持
-  ![alt text](.github/assets/img/2_zh.png)
+简单好用的AI助手软件，支持本地AI模型及API+知识库搭建。
 
+## ✅核心功能
 
-- 操作简单
-- 内置聊天界面
-- 可在线分享给朋友使用
-- 支持网络搜索和动态数据获取
+- 一键部署本地AI模型及主流模型API
+- 本地知识库
+- 智能体创建
+- 可在线分享给他人使用
+- 支持联网搜索
+- 支持服务器端部署（即将上线）
+- 单次多模型同时对话（即将上线） 
 
-**✨技术亮点**
+## ✨产品亮点
 
-- 可视化一键部署
+- 简单好用，对AI新手友好
 
-🎯 **开发计划**  
+## 📥快速安装
 
-- 智能体
-- 单次多模型同时对话
-- 支持Docker部署
-
-**📥快速安装**
-
-- [官网下载](https://www.aingdesk.com/zh/download.html)   
+- [官网下载](https://www.aingdesk.com/)   
 - [从 CNB 下载](https://cnb.cool/aingdesk/AingDesk/-/releases/) 
 - [从 Github 下载](https://github.com/aingdesk/AingDesk/releases)  
