@@ -63,3 +63,7 @@ docker compose up -d
 # or
 docker-compose up -d
 ``` 
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=aingdesk/aingdesk&type=Date)](https://www.star-history.com/#aingdesk/aingdesk&Date)
