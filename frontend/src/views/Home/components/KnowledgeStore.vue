@@ -42,8 +42,8 @@
 
                 </span>
             </div>
-
-            <div style="overflow: hidden;">
+            <!-- 文档列表 -->
+            <div style="overflow: hidden;">                
                 <NScrollbar style="height: 100%;">
                     <div class="flex justify-start items-center gap-1.25" v-if="docParseStatus">
                         <i class="i-svg-spinners:180-ring-with-bg w-20 h-20 text-[var(--bt-theme-warning)] ml-8"></i>{{ $t("文档嵌入中，请稍后") }}...
@@ -53,9 +53,12 @@
                             <NPopover trigger="hover" placement="right">
                                 <template #trigger>
                                     <div class="list-item">
-                                        <i class="i-tdesign:file w-19 h-19 text-[#73767a] ml-8 mr-10"></i><span
-                                            class="title">{{
-                                                item.doc_name }}</span>
+                                        <i class="i-tdesign:file w-19 h-19 text-[#73767a] ml-8 mr-10" v-if="item.is_parsed == 1 || item.is_parsed == 3"></i>
+                                        <i class="i-tdesign:file w-19 h-19 text-[var(--bt-theme-warning)] ml-8 mr-10" v-else-if="item.is_parsed == 0"></i>
+                                        <i class="i-tdesign:file w-19 h-19 text-[var(--bt-theme-info)] ml-8 mr-10" v-else-if="item.is_parsed == 2"></i>
+                                        <i class="i-tdesign:file w-19 h-19 text-[var(--bt-theme-danger)] ml-8 mr-10" v-else-if="item.is_parsed == -1"></i>
+
+                                        <span class="title">{{item.doc_name }}</span>
                                     </div>
                                 </template>
                                 <div class="item-content">
@@ -65,8 +68,17 @@
                                     <div class="desc">
                                         {{ $t("AI摘要") }}: {{ item.doc_abstract }}
                                     </div>
-                                    <div class="text-[var(--bt-theme-color)]" v-if="item.is_parsed == 1">{{ $t("已嵌入完成, 可正常调用") }}</div>
-                                    <div class="text-[var(--bt-theme-warning)]" v-else>{{ $t("正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟") }}</div>
+                                    <!-- 
+                                        -1:解析失败
+                                        0:待解析
+                                        1：嵌入成功
+                                        2：已解析待嵌入
+                                        3：嵌入成功
+                                    -->
+                                    <div class="text-[var(--bt-theme-color)]" v-if="item.is_parsed == 1 || item.is_parsed == 3">{{ $t("已嵌入完成, 可正常调用") }}</div>
+                                    <div class="text-[var(--bt-theme-danger)]" v-else-if="item.is_parsed == -1">{{ $t("文档解析失败") }}</div>
+                                    <div class="text-[var(--bt-theme-info)]" v-else-if="item.is_parsed == 2">{{ $t("文档解析成功,等待嵌入") }}</div>
+                                    <div class="text-[var(--bt-theme-warning)]" v-else-if="item.is_parsed == 0">{{ $t("正在嵌入中, 等待时长视文件数量，这可能需要几分钟到十几分钟") }}</div>
                                 </div>
                             </NPopover>
                             <i class="i-ri:close-circle-line w-20 h-20 text-[#909399] del-icon"
@@ -77,21 +89,49 @@
             </div>
         </div>
     </div>
+
+    <!-- 文档选择中后弹窗设置分片规则 -->
+       <!-- 临时：新建知识库 -->
+  <NModal v-model:show="sliceRuleShow">
+    <NCard style="width:900px" :title="$t('文档分片设置')" segmented>
+      <KnowledgeDocGeneralConfig />
+      <template #footer>
+        <div class="modal-footer-btns">
+          <NButton type="primary" @click="sliceRuleShow = false">{{$t("确认")}}</NButton>
+        </div>
+      </template>
+    </NCard>
+  </NModal>
 </template>
 
 <script setup lang="ts">
-import { NDivider, NTooltip, NPopover, NButton, NUpload, type UploadFileInfo, NScrollbar } from 'naive-ui';
+import KnowledgeDocGeneralConfig from './KnowledgeDocGeneralConfig.vue';
+import { NDivider, NTooltip, NPopover, NButton, NUpload, type UploadFileInfo, NScrollbar,NCard,NModal } from 'naive-ui';
 import useIndexStore from '../store';
 import { storeToRefs } from 'pinia';
 import { isoToLocalDateTime } from '@/utils/tools';
-import { getRagList, openDocUploadDialog, delKnowledgeDoc, knowledgeIsClose,getDocContent } from '../controller';
+import {
+     getRagList, 
+     openDocUploadDialog,
+      delKnowledgeDoc, 
+      knowledgeIsClose,
+      getDocContent ,
+      
+    } from '../controller';
 import { useI18n } from 'vue-i18n';
 const { t: $t } = useI18n();
 // 获取知识库列表
 getRagList()
 
 
-const { activeKnowledge, activeKnowledgeDto, knowledgeList, activeKnowledgeDocList,docParseStatus } = storeToRefs(useIndexStore())
+const { 
+    activeKnowledge, 
+    activeKnowledgeDto,
+     knowledgeList, 
+     activeKnowledgeDocList,
+     docParseStatus ,
+     sliceRuleShow
+    } = storeToRefs(useIndexStore())
 const uploadUrl = import.meta.env.BASE_URL
 
 

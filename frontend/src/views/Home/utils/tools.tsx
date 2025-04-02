@@ -39,7 +39,8 @@ export function sendStreamedRequest(url: any, data: any, onProgress: any, onLoad
 type EventBUS = {
     events: Record<string, ((data?: any) => void)[]>,
     $on: (eventName: string, fn: (data?: any) => void) => void,
-    $emit: (eventName: string, data?: any) => void
+    $emit: (eventName: string, data?: any) => void,
+    $del: (eventName: string) => void
 }
 export const eventBUS: EventBUS = {
     events: {},
@@ -51,9 +52,16 @@ export const eventBUS: EventBUS = {
         }
     },
     $emit(eventName, data) {
-        this.events[eventName].forEach(fn => {
-            fn(data)
-        })
+        if (this.events[eventName]) {
+            this.events[eventName].forEach(fn => {
+                fn(data)
+            })
+        }
+    },
+    $del(eventName) {
+        if (this.events[eventName]) {
+            delete this.events[eventName]
+        }
     }
 }
 

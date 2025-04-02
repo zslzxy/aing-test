@@ -1,4 +1,4 @@
-import { IMAGE_SAVE_PATH, IMAGE_URL_LAST } from '../utils';
+import { get_image_save_path, IMAGE_URL_LAST } from '../utils';
 import { pub } from '../../../class/public';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -54,7 +54,7 @@ export class MdParser {
   private async saveImage(src: string): Promise<ImageItem | null> {
     try {
       // 创建图片保存目录
-      const outputDir = path.join(IMAGE_SAVE_PATH, 'md');
+      const outputDir = path.join(get_image_save_path(), 'md');
       if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
       }

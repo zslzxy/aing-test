@@ -9,6 +9,7 @@ import "@/assets/base.scss"
 import "@/assets/theme"
 import 'uno.css'
 import "highlight.js/styles/a11y-light.min.css"
+import { post } from './api'
 
 
 const app = createApp(App)
@@ -17,6 +18,10 @@ app.use(i18n);
 app.use(createPinia())
 app.use(router)
 
+
+app.config.errorHandler = function(err){
+    post("/index/write_logs",{logs:JSON.stringify(err)}).then(res=>console.log("发送成功"))
+}
 
 // src/utils/mathjax.js
 // @ts-ignore

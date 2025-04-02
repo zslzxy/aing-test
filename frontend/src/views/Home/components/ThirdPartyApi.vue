@@ -1,6 +1,6 @@
 <template>
     <!-- 第三方api配置界面 -->
-    <NModal :show="thirdPartyApiShow" preset="dialog" style="width: 740px;" :title="$t('第三方API配置')"  :show-icon="false">
+    <NModal :show="thirdPartyApiShow" preset="dialog" style="width: 740px;" :title="$t('第三方API配置')" :show-icon="false">
         <template #close>
             <i class="i-tdesign:close-circle w-20 h-20 cursor-pointer text-[#909399]"
                 @click="thirdPartyApiShow = false"></i>
@@ -192,14 +192,14 @@
                 <NFormItem :label="$t('供应商名称')" path="supplierTitle">
                     <NInput v-model:value="addSupplierFormData.supplierTitle" />
                 </NFormItem>
-                <NFormItem :label="$t('接口地址')" path="apiKey">
+                <NFormItem :label="$t('接口地址')" path="baseUrl">
                     <div class="w-100%">
-                        <NInput v-model:value="addSupplierFormData.apiKey" />
+                        <NInput v-model:value="addSupplierFormData.baseUrl" />
                         <span class="text-3 text-[#b1b3b8]  inline-block mt-3px">{{ $t('需要兼容openAI格式的接口') }}</span>
                     </div>
                 </NFormItem>
-                <NFormItem :label="$t('密钥')" path="baseUrl">
-                    <NInput v-model:value="addSupplierFormData.baseUrl" />
+                <NFormItem :label="$t('密钥')" path="apiKey">
+                    <NInput v-model:value="addSupplierFormData.apiKey" />
                 </NFormItem>
             </NForm>
             <template #footer>
@@ -404,7 +404,7 @@ async function delModel(modelName: string) {
                     message.success($t("模型删除成功"))
                     getSupplierModelList(currentChooseApi.value!.supplierName)
                     dialog.destroy()
-                }}>确认</NButton>
+                }}>{$t("确认")}</NButton>
             </div>
         )
     })
@@ -568,6 +568,8 @@ function changeCurrentSupplierStatus(supplierName: string, newStatus: boolean) {
 
 .api-config-wrapper {
     width: 680px;
+    height: 560px;
+    overflow: hidden;
 
     .api-config-content {
         height: 560px;

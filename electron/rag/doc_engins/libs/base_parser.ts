@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { IMAGE_SAVE_PATH, IMAGE_URL_LAST } from '../utils';
+import { get_image_save_path, IMAGE_URL_LAST } from '../utils';
 
 /**
  * 基础文档解析器接口
@@ -49,7 +49,7 @@ export abstract class BaseDocumentParser {
    * @returns 完整的输出目录路径
    */
   protected ensureImageDirectory(subDir: string): string {
-    const outputDir = path.join(IMAGE_SAVE_PATH, subDir);
+    const outputDir = path.join(get_image_save_path(), subDir);
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }

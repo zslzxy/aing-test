@@ -6,20 +6,20 @@
             </div>
             <!-- modelList -->
             <div class="flex justify-start items-center gap-2.5">
-                <span class="text-14px">{{ $t("模型") }}:</span>
+                <span class="text-14px min-w-40px inline-block">{{ $t("模型") }}:</span>
                 <NDropdown trigger="hover" :options="modelList" @select="changeCurrentModel" key-field="value"
                     label-field="label" class="model-list-drop" scrollable>
                     <NButton icon-placement="right">
-                        {{ showModel }}
+                        {{ showModel?showModel:$t("请选择或安装接入模型") }}
                         <template #icon>
-                            <i class="i-proicons:arrow-swap w-18 h-18 ml-5"></i>
+                            <i class="i-carbon:caret-down ml-5 "></i>
                         </template>
                     </NButton>
                 </NDropdown>
-                <div v-if="!showModel" class="text-[var(--bt-notice-text-color)] text-14px">
-                    <span v-if="modelList.length">{{ $t("您当前使用的模型已被禁用或删除，请重新启用或切换模型") }}</span>
-                    <span v-else>{{ $t("请选择或安装接入模型") }}</span>
-                </div>
+                <!-- <NSelect :options="modelList" class="min-w-300px" v-model:value="currentModel" :placeholder="$t('请选择或安装接入模型')" key-field="value" label-field="title"></NSelect> -->
+                <!-- <div v-if="!showModel" class="text-[var(--bt-notice-text-color)] text-14px">
+                    <span v-if="modelList.length == 0">{{ $t("请选择或安装接入模型") }}</span>
+                </div> -->
             </div>
         </div>
         <div class="right-tools">
@@ -56,6 +56,7 @@ const {
     knowledgeSiderWidth,
     chatMask
 } = storeToRefs(indexStore)
+
 
 
 /**

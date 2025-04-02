@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as cheerio from 'cheerio';
+import {pub} from '../../../class/public';
 
 /**
  * HTML解析器类
@@ -25,9 +26,24 @@ export class HtmlParser {
      * 初始化Cheerio对象
      * @returns 是否成功初始化
      */
-    private initCheerio(): boolean {
+    private async initCheerio(): Promise<boolean> {
         try {
-            const html = fs.readFileSync(this.filename, 'utf8');
+            // 判断是否为URL地址
+            let html = '';
+            if(this.filename.startsWith('http://') || this.filename.startsWith('https://')){
+                let httpRes = await pub.httpRequest(this.filename);
+                if(httpRes.statusCode != 200){
+                    return false;
+                }
+                html = httpRes.body;
+            }else{
+                html = fs.readFileSync(this.filename, 'utf8');
+            }
+
+            if(!html){
+                return false;
+            }
+            
             this.$ = cheerio.load(html);
             return true;
         } catch (error) {
@@ -159,7 +175,7 @@ export class HtmlParser {
      * @returns Markdown文本
      */
     public async parse(): Promise<string> {
-        if (!this.initCheerio()) {
+        if (!await this.initCheerio()) {
             return '';
         }
 

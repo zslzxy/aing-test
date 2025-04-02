@@ -1,7 +1,7 @@
 import { get, post } from "@/api";
 import { storeToRefs } from "pinia";
 import useIndexStore, { type ChatInfo, type ActiveKnowledgeDto, type ActiveKnowledgeDocDto, type KnowledgeDocumentInfo, type ThirdPartyApiServiceItem, type MultipeQuestionDto, type AgentItemDto } from "../store";
-import { message, useDialog, modal } from "@/utils/naive-tools"
+import { message, useDialog, modal, dialog } from "@/utils/naive-tools"
 import OtherModel from "../components/OtherModel.vue";
 import SoftSettings from "../components/SoftSettings.vue";
 import CreateKnowledgeStore from "../components/CreateKnowledgeStore.vue";
@@ -9,11 +9,19 @@ import UploadKnowledgeDoc from "../components/UploadKnowledgeDoc.vue";
 import axios from "axios";
 import { eventBUS } from "../utils/tools";
 import { nextTick, ref } from "vue";
-import { NButton, NSpin, NTooltip } from "naive-ui"
+import { NButton, NSpin, NTooltip, NProgress } from "naive-ui"
 import i18n from "@/lang";
 // 模拟请求
 import { getRandomStringFromSet, testRequest } from "@/utils/tools"
 const $t = i18n.global.t
+
+/**
+ * @description 日志上报
+ */
+async function sendLog(err: Error) {
+    console.log([err])
+    post("/index/write_logs", { logs: err.stack })
+}
 
 /**
  * @description 获取版本号
@@ -36,19 +44,24 @@ export function getIndexStore() {
  * @descript 获取已安装模型列表
  */
 export async function get_model_list() {
-    const { modelList, currentModel, currentSupplierName } = getIndexStore()
-    const res = await post("/chat/get_model_list")
-    modelList.value = Object.values(res.message).reduce((p: any, v: any) => {
-        return [...p, ...v.reduce((_p: any, _v: any) => {
-            return [..._p, {
-                label: _v.title,
-                value: _v.model,
-                ..._v,
-            }]
-        }, [])]
-    }, [])
-    if (modelList.value.length && currentSupplierName.value == "") {
-        currentSupplierName.value = modelList.value[0].supplierName
+    try {
+        const { modelList, currentModel, currentSupplierName } = getIndexStore()
+        const res = await post("/chat/get_model_list")
+        modelList.value = Object.values(res.message).reduce((p: any, v: any) => {
+            return [...p, ...v.reduce((_p: any, _v: any) => {
+                return [..._p, {
+                    label: _v.title,
+                    value: _v.model,
+                    ..._v,
+                }]
+            }, [])]
+        }, [])
+        if (modelList.value.length && currentSupplierName.value == "") {
+            currentSupplierName.value = modelList.value[0].supplierName
+        }
+    } catch (error) {
+        console.log(error)
+        sendLog(error as Error)
     }
 }
 
@@ -56,12 +69,16 @@ export async function get_model_list() {
  * @description 判断某个模型是否已安装
  */
 export function isInstalled(model: string) {
-    let flag = false
-    const { modelList } = getIndexStore()
-    modelList.value.forEach((item: any) => {
-        if (item.label == model) flag = true
-    })
-    return flag
+    try {
+        let flag = false
+        const { modelList } = getIndexStore()
+        modelList.value.forEach((item: any) => {
+            if (item.label == model) flag = true
+        })
+        return flag
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 
@@ -81,29 +98,33 @@ export async function get_chat_list() {
         activeKnowledgeForChat,
         currentChatAgent
     } = getIndexStore()
-    const res = await post("/chat/get_chat_list")
-    chatList.value = res.message
-    if (chatList.value.length) {
-        if (currentContextId.value == contextIdForDel.value) {
-            currentContextId.value = chatList.value[0].context_id
-            // 智能体判断
-            if (chatList.value[0].agent_info) {
-                currentChatTitle.value = chatList.value[0].agent_info.agent_title
-                currentChatAgent.value = chatList.value[0].agent_info
-            } else {
-                currentChatTitle.value = chatList.value[0].title
+    try {
+        const res = await post("/chat/get_chat_list")
+        chatList.value = res.message
+        if (chatList.value.length) {
+            if (currentContextId.value == contextIdForDel.value) {
+                currentContextId.value = chatList.value[0].context_id
+                // 智能体判断
+                if (chatList.value[0].agent_info) {
+                    currentChatTitle.value = chatList.value[0].agent_info.agent_title
+                    currentChatAgent.value = chatList.value[0].agent_info
+                } else {
+                    currentChatTitle.value = chatList.value[0].title
+                }
+                // 模型厂商判断（是否本地）
+                if (chatList.value[0].supplierName == "ollama") {
+                    currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
+                } else {
+                    currentModel.value = chatList.value[0].model
+                }
+                currentSupplierName.value = chatList.value[0].supplierName!
+                chatList.value[0].search_type ? netActive.value = true : netActive.value = false
+                activeKnowledgeForChat.value = chatList.value[0].rag_list ? chatList.value[0].rag_list : []
+                getChatInfo(currentContextId.value)
             }
-            // 模型厂商判断（是否本地）
-            if (chatList.value[0].supplierName == "ollama") {
-                currentModel.value = chatList.value[0].model + ":" + chatList.value[0].parameters
-            } else {
-                currentModel.value = chatList.value[0].model
-            }
-            currentSupplierName.value = chatList.value[0].supplierName!
-            chatList.value[0].search_type ? netActive.value = true : netActive.value = false
-            activeKnowledgeForChat.value = chatList.value[0].rag_list ? chatList.value[0].rag_list : []
-            getChatInfo(currentContextId.value)
         }
+    } catch (error) {
+        sendLog(error as Error)
     }
 }
 
@@ -124,18 +145,22 @@ export function createNewComu() {
     } = getIndexStore()
 
 
-    currentContextId.value = ""
-    currentChatTitle.value = $t("新对话")
-    chatHistory.value = new Map()
-    activeKnowledgeForChat.value = []
-    netActive.value = false
-    activeKnowledge.value = ""
-    activeKnowledgeDto.value = null
-    // 判断是否当前为智能体对话
-    if (chatForAgent.value) {
-        currentChatTitle.value = currentAgent.value!.agent_name
+    try {
+        currentContextId.value = ""
+        currentChatTitle.value = $t("新对话")
+        chatHistory.value = new Map()
+        activeKnowledgeForChat.value = []
+        netActive.value = false
+        activeKnowledge.value = ""
+        activeKnowledgeDto.value = null
+        // 判断是否当前为智能体对话
+        if (chatForAgent.value) {
+            currentChatTitle.value = currentAgent.value!.agent_name
+        }
+        knowledgeIsClose()
+    } catch (error) {
+        sendLog(error as Error)
     }
-    knowledgeIsClose()
 }
 
 /**
@@ -145,11 +170,15 @@ export async function create_chat() {
     const { currentModel, currentContextId, questionContent, currentAgent, chatForAgent } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
 
-    const res = await post('/chat/create_chat', { model, parameters, title: questionContent.value, agent_name: currentAgent.value?.agent_name })
-    currentContextId.value = res.message.context_id
-    await get_chat_list()
-    chatForAgent.value = false
-    currentAgent.value = null
+    try {
+        const res = await post('/chat/create_chat', { model, parameters, title: questionContent.value, agent_name: currentAgent.value?.agent_name })
+        currentContextId.value = res.message.context_id
+        await get_chat_list()
+        chatForAgent.value = false
+        currentAgent.value = null
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 
@@ -158,12 +187,16 @@ export async function create_chat() {
  */
 export async function getChatInfo(context_id: string) {
     const { chatHistory } = getIndexStore()
-    const res = await post("/chat/get_chat_info", { context_id })
-    if (res.code == 200) {
-        chatHistory.value = generateObject(res.message)
+    try {
+        const res = await post("/chat/get_chat_info", { context_id })
+        if (res.code == 200) {
+            chatHistory.value = generateObject(res.message)
+        }
+        // 渲染对话历史后立即滑动到底部
+        nextTick(() => eventBUS.$emit("doScroll"))
+    } catch (error) {
+        sendLog(error as Error)
     }
-    // 渲染对话历史后立即滑动到底部
-    nextTick(() => eventBUS.$emit("doScroll"))
 }
 
 // 拼接对话记录
@@ -200,49 +233,53 @@ export async function sendChat(params: ChatParams) {
     const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat, targetNet, activeKnowledgeForChat, netActive, currentSupplierName, temp_chat } = getIndexStore()
     const [model, parameters] = currentModel.value.split(":")
     // 如果当前对话不存在则创建对话
-    if (!currentContextId.value) {
-        await create_chat()
-    }
-    currentTalkingChatId.value = currentContextId.value
-    // 找到当前对话的记录
-    let currentChat: null | MultipeQuestionDto = null;
-    for (let [key] of chatHistory.value) {
-        if (key.content == params.user_content) {
-            currentChat = key
+    try {
+        if (!currentContextId.value) {
+            await create_chat()
         }
-    }
-
-    await axios.post("http://127.0.0.1:7071/chat/chat", {
-        model,
-        parameters,
-        context_id: currentContextId.value,
-        search: netActive.value ? targetNet.value : "",
-        rag_list: JSON.stringify(activeKnowledgeForChat.value),
-        supplierName: currentSupplierName.value,
-        temp_chat: String(temp_chat.value),
-        ...params
-    }, {
-        responseType: 'text',
-        onDownloadProgress: (progressEvent: any) => {
-            // 获取当前接收到的部分响应数据
-            const currentResponse = progressEvent.event.currentTarget.responseText;
-            // 防止切换带来的错误
-            if (currentTalkingChatId.value == currentContextId.value) chatHistory.value.set(currentChat!, { content: currentResponse, stat: { model: currentModel.value }, id: "" })
+        currentTalkingChatId.value = currentContextId.value
+        // 找到当前对话的记录
+        let currentChat: null | MultipeQuestionDto = null;
+        for (let [key] of chatHistory.value) {
+            if (key.content == params.user_content) {
+                currentChat = key
+            }
         }
-    })
 
-    /***** 请求结束行为可以在此执行 *****/
-    const lastChhat = await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
-    // 获取最后提条对话信息并拼接到对话历史中
-    if (chatHistory.value.get(currentChat!)) {
-        // chatHistory.value.get(params.user_content)!.stat = lastChhat.message.eval_count
-        Object.assign(chatHistory.value.get(currentChat!)!.stat as Object, lastChhat.message.stat)
-        chatHistory.value.get(currentChat!)!.search_result = lastChhat.message.search_result as Array<any>
-        chatHistory.value.get(currentChat!)!.id = lastChhat.message.id
+        await axios.post("http://127.0.0.1:7071/chat/chat", {
+            model,
+            parameters,
+            context_id: currentContextId.value,
+            search: netActive.value ? targetNet.value : "",
+            rag_list: JSON.stringify(activeKnowledgeForChat.value),
+            supplierName: currentSupplierName.value,
+            temp_chat: String(temp_chat.value),
+            ...params
+        }, {
+            responseType: 'text',
+            onDownloadProgress: (progressEvent: any) => {
+                // 获取当前接收到的部分响应数据
+                const currentResponse = progressEvent.event.currentTarget.responseText;
+                // 防止切换带来的错误
+                if (currentTalkingChatId.value == currentContextId.value) chatHistory.value.set(currentChat!, { content: currentResponse, stat: { model: currentModel.value }, id: "" })
+            }
+        })
+
+        /***** 请求结束行为可以在此执行 *****/
+        const lastChhat = await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
+        // 获取最后提条对话信息并拼接到对话历史中
+        if (chatHistory.value.get(currentChat!)) {
+            // chatHistory.value.get(params.user_content)!.stat = lastChhat.message.eval_count
+            Object.assign(chatHistory.value.get(currentChat!)!.stat as Object, lastChhat.message.stat)
+            chatHistory.value.get(currentChat!)!.search_result = lastChhat.message.search_result as Array<any>
+            chatHistory.value.get(currentChat!)!.id = lastChhat.message.id
+        }
+        // 渲染mermaid
+        eventBUS.$emit("answerRendered")
+        isInChat.value = false
+    } catch (error) {
+        sendLog(error as Error)
     }
-    // 渲染mermaid
-    eventBUS.$emit("answerRendered")
-    isInChat.value = false
 }
 
 /**
@@ -250,13 +287,17 @@ export async function sendChat(params: ChatParams) {
  */
 export async function stopGenerate() {
     const { currentContextId, isInChat } = getIndexStore()
-    const res = await post("/chat/stop_generate", { context_id: currentContextId.value })
-    if (res.code == 200) {
-        message.success($t("对话已停止"))
+    try {
+        const res = await post("/chat/stop_generate", { context_id: currentContextId.value })
+        if (res.code == 200) {
+            message.success($t("对话已停止"))
+        }
+        isInChat.value = false
+        await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
+        await getChatInfo(currentContextId.value)
+    } catch (error) {
+        sendLog(error as Error)
     }
-    isInChat.value = false
-    await post("/chat/get_last_chat_history", { context_id: currentContextId.value })
-    await getChatInfo(currentContextId.value)
 }
 
 
@@ -265,13 +306,17 @@ export async function stopGenerate() {
  */
 export async function removeChat(context_id: string) {
     const { chatRemoveConfirm } = getIndexStore()
-    const res = await post("/chat/remove_chat", { context_id })
-    if (res.code == 200) {
-        message.success($t("对话删除成功"))
-        get_chat_list()
-        chatRemoveConfirm.value = false
-    } else {
-        message.error(`${$t("对话删除失败：")}${res.error_msg}`)
+    try {
+        const res = await post("/chat/remove_chat", { context_id })
+        if (res.code == 200) {
+            message.success($t("对话删除成功"))
+            get_chat_list()
+            chatRemoveConfirm.value = false
+        } else {
+            message.error(`${$t("对话删除失败：")}${res.error_msg}`)
+        }
+    } catch (error) {
+        sendLog(error as Error)
     }
 
 }
@@ -281,13 +326,17 @@ export async function removeChat(context_id: string) {
  */
 export async function modifyChatTitle(params: { context_id: string, title: string }) {
     const { chatModifyConfirm } = getIndexStore()
-    const res = await post("/chat/modify_chat_title", params)
-    if (res.code == 200) {
-        message.success($t("对话标题修改成功"))
-        get_chat_list()
-        chatModifyConfirm.value = false
-    } else {
-        message.error(`${$t("对话标题修改失败:")}${res.error_msg}`)
+    try {
+        const res = await post("/chat/modify_chat_title", params)
+        if (res.code == 200) {
+            message.success($t("对话标题修改成功"))
+            get_chat_list()
+            chatModifyConfirm.value = false
+        } else {
+            message.error(`${$t("对话标题修改失败:")}${res.error_msg}`)
+        }
+    } catch (error) {
+        sendLog(error as Error)
     }
 }
 
@@ -296,8 +345,12 @@ export async function modifyChatTitle(params: { context_id: string, title: strin
  */
 export async function openModelManage() {
     const { settingsShow } = getIndexStore()
-    await getVisibleModelList()
-    settingsShow.value = true
+    try {
+        await getVisibleModelList()
+        settingsShow.value = true
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -305,8 +358,12 @@ export async function openModelManage() {
  */
 export async function getConfigurationInfo() {
     const { pcInfo } = getIndexStore()
-    const res = await post("/manager/get_configuration_info")
-    pcInfo.value = res.message
+    try {
+        const res = await post("/manager/get_configuration_info")
+        pcInfo.value = res.message
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -314,22 +371,26 @@ export async function getConfigurationInfo() {
  */
 export async function getVisibleModelList() {
     const { visibleModelList, settingsShow, managerInstallConfirm, isInstalledManager, isResetModelList, ollamaUrl } = getIndexStore();
-    const res = await post("/manager/get_model_manager")
-    if (res.code == 200) {
-        isInstalledManager.value = res.message.status
-        ollamaUrl.value = res.message.ollama_host
-        // 如果status为false说明本地没有模型管理器，要求对方安装
-        if (res.message.status == false) {
-            settingsShow.value = true
-            managerInstallConfirm.value = true
-        } else {
-            managerInstallConfirm.value = false
+    try {
+        const res = await post("/manager/get_model_manager")
+        if (res.code == 200) {
+            isInstalledManager.value = res.message.status
+            ollamaUrl.value = res.message.ollama_host
+            // 如果status为false说明本地没有模型管理器，要求对方安装
+            if (res.message.status == false) {
+                settingsShow.value = true
+                managerInstallConfirm.value = true
+            } else {
+                managerInstallConfirm.value = false
+            }
+            // isInstalledManager.value = true
+            visibleModelList.value = res.message.models
+            if (isResetModelList.value.type == 1) {
+                isResetModelList.value.status = true
+            }
         }
-        // isInstalledManager.value = true
-        visibleModelList.value = res.message.models
-        if (isResetModelList.value.type == 1) {
-            isResetModelList.value.status = true
-        }
+    } catch (error) {
+        sendLog(error as Error)
     }
 }
 
@@ -371,7 +432,7 @@ export async function getModelInstallProgress(callback?: () => void) {
             installShow.value = false
             downloadText.value = $t("正在连接，请稍候...")
             clearInterval(timer)
-            eventBUS.$emit("modelInstalled","installed")
+            eventBUS.$emit("modelInstalled", "installed")
             get_model_list()
             getVisibleModelList()
             callback && callback()
@@ -478,6 +539,8 @@ export async function getModelManagerInstallProgress() {
         if (res.message.status == 3) {
             modelManagerInstallNotice.value = $t("安装成功")
             message.success($t("模型管理器安装成功"))
+            eventBUS.$emit("ollamaInstallBge")
+            eventBUS.$del("ollamaInstallBge")
             modelManagerInstallProgresShow.value = false
             isInstalledManager.value = true
             clearInterval(timer)
@@ -538,21 +601,25 @@ export async function createShare(title: string, modelDto: any, ragList: string[
     let parameters = "otherApi"
     let model = ""
     // 判断当前为ollama还是三方模型，从而改变参数
-    if (modelDto.supplierName == "ollama") {
-        parameters = modelDto.model.split(":")[1]
-        model = modelDto.model.split(":")[0]
-    } else {
-        model = modelDto.model
+    try {
+        if (modelDto.supplierName == "ollama") {
+            parameters = modelDto.model.split(":")[1]
+            model = modelDto.model.split(":")[0]
+        } else {
+            model = modelDto.model
+        }
+        await post("/share/create_share", {
+            model,
+            parameters,
+            title,
+            supplierName: modelDto.supplierName,
+            rag_list: JSON.stringify(ragList)
+        })
+        getShareList()
+        message.success($t("创建分享成功"))
+    } catch (error) {
+        sendLog(error as Error)
     }
-    await post("/share/create_share", {
-        model,
-        parameters,
-        title,
-        supplierName: modelDto.supplierName,
-        rag_list: JSON.stringify(ragList)
-    })
-    getShareList()
-    message.success($t("创建分享成功"))
 }
 
 
@@ -565,23 +632,27 @@ export async function modifyShare(share_id: string, modelDto: any, title: string
     let parameters = "otherApi"
     let model = ""
     // 判断当前为ollama还是三方模型，从而改变参数
-    if (modelDto.supplierName == "ollama") {
-        parameters = modelDto.model.split(":")[1]
-        model = modelDto.model.split(":")[0]
-    } else {
-        model = modelDto.model
+    try {
+        if (modelDto.supplierName == "ollama") {
+            parameters = modelDto.model.split(":")[1]
+            model = modelDto.model.split(":")[0]
+        } else {
+            model = modelDto.model
+        }
+        await post("/share/modify_share", {
+            share_id,
+            model,
+            parameters,
+            supplierName: modelDto.supplierName,
+            rag_list: JSON.stringify(ragList),
+            title
+        })
+        await getShareList()
+        message.success($t("修改成功"))
+        modifyShareShow.value = false
+    } catch (error) {
+        sendLog(error as Error)
     }
-    await post("/share/modify_share", {
-        share_id,
-        model,
-        parameters,
-        supplierName: modelDto.supplierName,
-        rag_list: JSON.stringify(ragList),
-        title
-    })
-    await getShareList()
-    message.success($t("修改成功"))
-    modifyShareShow.value = false
 }
 
 /**
@@ -589,10 +660,14 @@ export async function modifyShare(share_id: string, modelDto: any, title: string
  */
 export async function delShare(share_id: string) {
     const { delShareConfirmShow } = getIndexStore()
-    await post("/share/remove_share", { share_id })
-    await getShareList()
-    message.success("删除分享成功")
-    delShareConfirmShow.value = false
+    try {
+        await post("/share/remove_share", { share_id })
+        await getShareList()
+        message.success("删除分享成功")
+        delShareConfirmShow.value = false
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 // 知识库展开状态
@@ -612,15 +687,19 @@ export function knowledgeIsClose() {
  */
 export async function openKnowledgeStore(ragDto: ActiveKnowledgeDto) {
     const { knowledgeSiderWidth, activeKnowledge, activeKnowledgeDto, activeKnowledgeForChat } = getIndexStore()
-    handleSwitchKnowledge(ragDto)
-    activeKnowledgeDto.value = ragDto
-    activeKnowledge.value = ragDto.ragName
-    activeKnowledgeForChat.value = [ragDto.ragName]
-    await getRagDocList(activeKnowledge.value as string)
-    if (knowledgeSiderWidth.value == 0) {
-        knowledgeIsOpen()
+    try {
+        handleSwitchKnowledge(ragDto)
+        activeKnowledgeDto.value = ragDto
+        activeKnowledge.value = ragDto.ragName
+        activeKnowledgeForChat.value = [ragDto.ragName]
+        await getRagDocList(activeKnowledge.value as string)
+        if (knowledgeSiderWidth.value == 0) {
+            knowledgeIsOpen()
+        }
+        singleActive("knowledge", ragDto.ragName)
+    } catch (error) {
+        sendLog(error as Error)
     }
-    singleActive("knowledge", ragDto.ragName)
 }
 
 /**
@@ -628,11 +707,15 @@ export async function openKnowledgeStore(ragDto: ActiveKnowledgeDto) {
  */
 export async function ragStatus() {
     const { isInstalledBge } = getIndexStore()
-    const { code } = await post("/rag/rag_status")
-    if (code !== 200) {
-        isInstalledBge.value = false
-    } else {
-        isInstalledBge.value = true
+    try {
+        const { code } = await post("/rag/rag_status")
+        if (code !== 200) {
+            isInstalledBge.value = false
+        } else {
+            isInstalledBge.value = true
+        }
+    } catch (error) {
+        sendLog(error as Error)
     }
 }
 
@@ -667,11 +750,21 @@ export function installBge() {
      * @description 立即安装本地知识库嵌套模型
      */
     async function installBgeNow() {
-        dialog.destroy()
-        await installModel("bge-m3:latest", () => {
-            isInstalledBge.value = true
-            createNewKnowledgeStore()
-        })
+        const { managerInstallConfirm } = getIndexStore()
+        const res = await post("/manager/get_model_manager")
+        if (res.message.status == false) {
+            // 如果没有安装ollama就立即安装，并且注册bge安装的回调
+            managerInstallConfirm.value = true
+            eventBUS.$on("ollamaInstallBge", async () => {
+                dialog.destroy()
+                await installModel("bge-m3:latest", () => {
+                    isInstalledBge.value = true
+                    createNewKnowledgeStore()
+                })
+            })
+        }
+        return
+
 
     }
     const dialog = useDialog({
@@ -707,12 +800,16 @@ export function installBge() {
  */
 export async function createRag() {
     const { createKnowledgeFormData, activeKnowledge } = getIndexStore()
-    const res = await post("/rag/create_rag", createKnowledgeFormData.value)
-    if (res.code == 200) {
-        activeKnowledge.value = createKnowledgeFormData.value.ragName;
-        message.success($t("知识库创建成功"))
-    } else {
-        message.error($t("知识库创建失败"))
+    try {
+        const res = await post("/rag/create_rag", createKnowledgeFormData.value)
+        if (res.code == 200) {
+            activeKnowledge.value = createKnowledgeFormData.value.ragName;
+            message.success($t("知识库创建成功"))
+        } else {
+            message.error($t("知识库创建失败"))
+        }
+    } catch (error) {
+        sendLog(error as Error)
     }
 }
 
@@ -730,6 +827,7 @@ export async function getRagList(init: boolean = false) {
             activeKnowledgeDto.value = knowledgeList.value[0]
         }
     } catch (error) {
+        sendLog(error as Error)
         message.error($t("获取知识库列表失败，请重试"))
     }
 }
@@ -750,8 +848,12 @@ export function handleSwitchKnowledge(rag: KnowledgeDocumentInfo) {
  */
 export async function getRagDocList(ragName: string) {
     const { activeKnowledgeDocList } = getIndexStore()
-    const res = await post("/rag/get_rag_doc_list", { ragName })
-    activeKnowledgeDocList.value = res.message
+    try {
+        const res = await post("/rag/get_rag_doc_list", { ragName })
+        activeKnowledgeDocList.value = res.message
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -759,8 +861,12 @@ export async function getRagDocList(ragName: string) {
  */
 export async function getDocContent(doc: ActiveKnowledgeDocDto) {
     const { docContent } = getIndexStore()
-    const res = await get("/rag/get_doc_content", { ragName: doc.doc_rag, docName: doc.doc_name })
-    docContent.value = res.message
+    try {
+        const res = await get("/rag/get_doc_content", { ragName: doc.doc_rag, docName: doc.doc_name })
+        docContent.value = res.message
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -772,8 +878,8 @@ function ragDocLoop() {
     docParseStatus.value = true
     timer = setInterval(async () => {
         await getRagDocList(activeKnowledge.value as string)
-        const parsedStstus = activeKnowledgeDocList.value.every(item => {
-            return item.is_parsed == 1
+        const parsedStstus = activeKnowledgeDocList.value.every((item: any) => {
+            return item.is_parsed == 1 || item.is_parsed == 3
         })
         if (parsedStstus) {
             clearInterval(timer)
@@ -827,6 +933,7 @@ export async function removeRag(ragName: string) {
         }
         message.success($t("删除知识库成功"))
     } catch (error) {
+        sendLog(error as Error)
         message.error($t("删除知识库失败，请重试"))
     }
 }
@@ -835,7 +942,7 @@ export async function removeRag(ragName: string) {
  * @description 修改知识库
  */
 export async function modifyRag() {
-    const { createKnowledgeFormData } = getIndexStore()
+    const { createKnowledgeFormData, isEditKnowledge } = getIndexStore()
     await getEmbeddingModels()
     const dialog = useDialog({
         title: "修改知识库",
@@ -849,12 +956,27 @@ export async function modifyRag() {
                 await getRagList()
                 message.success($t("修改知识库成功"))
                 dialog.destroy()
+                isEditKnowledge.value = false
+                createKnowledgeFormData.value = {
+                    ragName: "",
+                    ragDesc: "",
+                    enbeddingModel: "",
+                    supplierName: ""
+                }
             } catch (error) {
+                sendLog(error as Error)
                 message.error($t("修改知识库失败，请重试"))
             }
         },
         onCancel: () => {
             dialog.destroy()
+            isEditKnowledge.value = false
+            createKnowledgeFormData.value = {
+                ragName: "",
+                ragDesc: "",
+                enbeddingModel: "",
+                supplierName: ""
+            }
         }
     })
 }
@@ -864,32 +986,36 @@ export async function modifyRag() {
  */
 export async function getEmbeddingModels() {
     const { embeddingModelsList, createKnowledgeFormData } = getIndexStore()
-    const res = await post("/rag/get_embedding_models")
-    embeddingModelsList.value = Object.values(res.message).flat()
-    if (embeddingModelsList.value.length) {
-        let findRes = embeddingModelsList.value.find((item: any) => {
-            if (item.model.includes("bge-m3") && item.title.includes("ollama")) {
-                return item
-            }
-            return undefined
-        })
-
-        if (findRes === undefined) {
-            findRes = embeddingModelsList.value.find((item: any) => {
-                if (item.model.includes("bge-m3")) {
+    try {
+        const res = await post("/rag/get_embedding_models")
+        embeddingModelsList.value = Object.values(res.message).flat()
+        if (embeddingModelsList.value.length) {
+            let findRes = embeddingModelsList.value.find((item: any) => {
+                if (item.model.includes("bge-m3") && item.title.includes("ollama")) {
                     return item
                 }
                 return undefined
             })
-        }
 
-        if (findRes) {
-            createKnowledgeFormData.value.enbeddingModel = findRes.model
-            createKnowledgeFormData.value.supplierName = findRes.supplierName
-        } else {
-            createKnowledgeFormData.value.enbeddingModel = embeddingModelsList.value[0].model
-            createKnowledgeFormData.value.supplierName = embeddingModelsList.value[0].supplierName
+            if (findRes === undefined) {
+                findRes = embeddingModelsList.value.find((item: any) => {
+                    if (item.model.includes("bge-m3")) {
+                        return item
+                    }
+                    return undefined
+                })
+            }
+
+            if (findRes) {
+                createKnowledgeFormData.value.enbeddingModel = findRes.model
+                createKnowledgeFormData.value.supplierName = findRes.supplierName
+            } else {
+                createKnowledgeFormData.value.enbeddingModel = embeddingModelsList.value[0].model
+                createKnowledgeFormData.value.supplierName = embeddingModelsList.value[0].supplierName
+            }
         }
+    } catch (error) {
+        sendLog(error as Error)
     }
 }
 
@@ -918,9 +1044,18 @@ export async function createNewKnowledgeStore() {
         createKnowledgeFormData.value = { ragName: "", ragDesc: "", enbeddingModel: [], supplierName: "" }
         createKnowledgeDialogIns.value!.destroy()
     }
+    // 跳转知识库使用文档
+    function jumpToHelp() {
+        window.open("https://docs.aingdesk.com/zh-Hans/Practical-tutorials/knowledgebase")
+    }
     createKnowledgeDialogIns.value = useDialog({
         title: "新建知识库",
-        content: () => <CreateKnowledgeStore />,
+        content: () => <div>
+            <CreateKnowledgeStore />
+            <div class="flex justify-start items-center">
+                <NButton text type="info" onClick={jumpToHelp} style="font-size:12px">{$t("如何更好的使用知识库?")}</NButton>
+            </div>
+        </div>,
         style: {
             width: "480px"
         },
@@ -938,9 +1073,10 @@ export async function createNewKnowledgeStore() {
                 resetForm()
                 knowledgeIsOpen()
                 await getRagList()
-                activeKnowledgeDto.value = knowledgeList.value.find(item => item.ragName == activeKnowledge.value) as ActiveKnowledgeDto
+                activeKnowledgeDto.value = knowledgeList.value.find((item: any) => item.ragName == activeKnowledge.value) as ActiveKnowledgeDto
                 await getRagDocList(activeKnowledge.value as string)
             } catch (error) {
+                sendLog(error as Error)
                 console.warn(error)
             }
 
@@ -995,7 +1131,7 @@ export async function openDocUploadDialog() {
             dialog.destroy()
             ragDocLoop()
         } catch (error) {
-            console.warn(error)
+            sendLog(error as Error)
             isUploadingDoc.value = false
         }
     }
@@ -1004,6 +1140,9 @@ export async function openDocUploadDialog() {
         chooseList.value = []
         isUploadingDoc.value = false
         dialog.destroy()
+    }
+    async function uploadAhead() {
+        eventBUS.$emit("chooseFile")
     }
     const dialog = useDialog({
         title: "上传知识库文档",
@@ -1019,6 +1158,7 @@ export async function openDocUploadDialog() {
         action: () => {
             return <div class="flex justify-end items-center gap-5">
                 <NButton onClick={doCancel} disabled={isUploadingDoc.value ? true : false}>{$t("取消")}</NButton>
+                {fileOrDirList.value.length ? <NButton onClick={uploadAhead} disabled={isUploadingDoc.value ? true : false}>{$t("继续添加文件")}</NButton> : null}
                 <NButton type="primary" onClick={doOk} disabled={isUploadingDoc.value || fileOrDirList.value.length == 0 ? true : false}>{$t("确认")}</NButton>
             </div>
         },
@@ -1030,10 +1170,13 @@ export async function openDocUploadDialog() {
  * @description 上传知识库文档：手动上传
  */
 export async function uploadRagDocForManual() {
-    const { fileOrDirList, activeKnowledge } = getIndexStore()
+    const { fileOrDirList, activeKnowledge, sliceChunkFormData } = getIndexStore()
     const { code, msg } = await post("/rag/upload_doc", {
         ragName: activeKnowledge.value,
-        filePath: JSON.stringify(fileOrDirList.value)
+        filePath: JSON.stringify(fileOrDirList.value),
+        separators: sliceChunkFormData.value.separators,
+        chunkSize: sliceChunkFormData.value.chunkSize,
+        overlapSize: sliceChunkFormData.value.overlapSize
     })
     if (code == 200) {
         message.success(msg as string)
@@ -1054,7 +1197,7 @@ export async function uploadRagDocForManual() {
 export function delKnowledgeDoc(doc: any) {
     const { activeKnowledge } = getIndexStore()
     const dialog = useDialog({
-        title: "提示",
+        title: $t("提示"),
         content: () => {
             return <div class="flex items-center justify-center">
                 <div class="box-border p-5 flex justify-center items-center gap-1.25 mt-20">
@@ -1067,10 +1210,14 @@ export function delKnowledgeDoc(doc: any) {
         },
 
         onOk: async () => {
-            await removeDoc(doc)
-            message.success($t("文档删除成功"))
-            await getRagDocList(activeKnowledge.value as string)
-            dialog.destroy()
+            try {
+                await removeDoc(doc)
+                message.success($t("文档删除成功"))
+                await getRagDocList(activeKnowledge.value as string)
+                dialog.destroy()
+            } catch (error) {
+                message.success($t("文档删除失败"))
+            }
         },
         onCancel() {
             dialog.destroy()
@@ -1083,7 +1230,11 @@ export function delKnowledgeDoc(doc: any) {
  */
 export async function removeDoc(doc: any) {
     const { activeKnowledge } = getIndexStore()
-    await get("/rag/remove_doc", { ragName: activeKnowledge.value, docIdList: JSON.stringify([doc.doc_id]) })
+    try {
+        await get("/rag/remove_doc", { ragName: activeKnowledge.value, docIdList: JSON.stringify([doc.doc_id]) })
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 
@@ -1141,10 +1292,14 @@ export function singleActive(type: "chat" | "knowledge", sign: any) {
  */
 export async function getSupplierList() {
     const { thirdPartyApiServiceList, currentChooseApi, applierServiceConfig } = getIndexStore()
-    const res = await post("/model/get_supplier_list")
-    thirdPartyApiServiceList.value = res.message
-    currentChooseApi.value = res.message[0]
-    getSupplierConfig(res.message[0])
+    try {
+        const res = await post("/model/get_supplier_list")
+        thirdPartyApiServiceList.value = res.message
+        currentChooseApi.value = res.message[0]
+        getSupplierConfig(res.message[0])
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1152,9 +1307,13 @@ export async function getSupplierList() {
  */
 export async function getSupplierModelList(supplierName: string) {
     const { supplierModelList, isAllModelEnable } = getIndexStore()
-    const res = await post("/model/get_models_list", { supplierName })
-    supplierModelList.value = res.message.filter((item: any) => item.title !== "")
-    isAllModelEnable.value = supplierModelList.value.every(item => item.status == true)
+    try {
+        const res = await post("/model/get_models_list", { supplierName })
+        supplierModelList.value = res.message.filter((item: any) => item.title !== "")
+        isAllModelEnable.value = supplierModelList.value.every((item: any) => item.status == true)
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1162,13 +1321,17 @@ export async function getSupplierModelList(supplierName: string) {
  */
 export async function addModels() {
     const { addModelFormData, currentChooseApi } = getIndexStore()
-    const res = await post("/model/add_models", {
-        supplierName: currentChooseApi.value?.supplierName,
-        ...addModelFormData.value,
-        capability: JSON.stringify(addModelFormData.value.capability)
-    })
-    await getEmbeddingModels()
-    await get_model_list()
+    try {
+        const res = await post("/model/add_models", {
+            supplierName: currentChooseApi.value?.supplierName,
+            ...addModelFormData.value,
+            capability: JSON.stringify(addModelFormData.value.capability)
+        })
+        await getEmbeddingModels()
+        await get_model_list()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 
 }
 
@@ -1177,10 +1340,14 @@ export async function addModels() {
  */
 export async function removeSupplierModel(modelName: string) {
     const { currentChooseApi, } = getIndexStore()
-    await post("/model/remove_models", {
-        supplierName: currentChooseApi.value?.supplierName,
-        modelName
-    })
+    try {
+        await post("/model/remove_models", {
+            supplierName: currentChooseApi.value?.supplierName,
+            modelName
+        })
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1188,8 +1355,12 @@ export async function removeSupplierModel(modelName: string) {
  */
 export async function setSupplierConfig() {
     const { applierServiceConfig, currentChooseApi } = getIndexStore()
-    await post("/model/set_supplier_config", { ...applierServiceConfig.value, supplierName: currentChooseApi.value?.supplierName })
-    await get_model_list()
+    try {
+        await post("/model/set_supplier_config", { ...applierServiceConfig.value, supplierName: currentChooseApi.value?.supplierName })
+        await get_model_list()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1206,16 +1377,20 @@ export async function checkSupplierConfig() {
  */
 export async function getSupplierConfig(config: ThirdPartyApiServiceItem) {
     const { currentChooseApi, applierServiceConfig } = getIndexStore()
-    const res = await post("/model/get_supplier_config", {
-        supplierName: currentChooseApi.value?.supplierName
-    })
-    applierServiceConfig.value.apiKey = res.message.apiKey
-    if (config.baseUrl) {
-        applierServiceConfig.value.baseUrl = config.baseUrl
-    } else {
-        applierServiceConfig.value.baseUrl = res.message.baseUrlExample
+    try {
+        const res = await post("/model/get_supplier_config", {
+            supplierName: currentChooseApi.value?.supplierName
+        })
+        applierServiceConfig.value.apiKey = res.message.apiKey
+        if (config.baseUrl) {
+            applierServiceConfig.value.baseUrl = config.baseUrl
+        } else {
+            applierServiceConfig.value.baseUrl = res.message.baseUrlExample
+        }
+        getSupplierModelList(currentChooseApi.value?.supplierName!)
+    } catch (error) {
+        sendLog(error as Error)
     }
-    getSupplierModelList(currentChooseApi.value?.supplierName!)
 }
 
 /**
@@ -1223,13 +1398,17 @@ export async function getSupplierConfig(config: ThirdPartyApiServiceItem) {
  */
 export async function setModelStatus(modelName: string, status: string) {
     const { currentChooseApi } = getIndexStore()
-    await post("/model/set_model_status", {
-        supplierName: currentChooseApi.value?.supplierName,
-        modelName,
-        status
-    })
-    await getEmbeddingModels()
-    await get_model_list()
+    try {
+        await post("/model/set_model_status", {
+            supplierName: currentChooseApi.value?.supplierName,
+            modelName,
+            status
+        })
+        await getEmbeddingModels()
+        await get_model_list()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1245,24 +1424,32 @@ export async function addSupplier() {
  * @description 删除模型供应商
  */
 export async function removeSupplier(supplierName: string) {
-    await post("/model/remove_supplier", { supplierName })
-    await getSupplierList()
-    await getEmbeddingModels()
-    await get_model_list()
+    try {
+        await post("/model/remove_supplier", { supplierName })
+        await getSupplierList()
+        await getEmbeddingModels()
+        await get_model_list()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
  * @description 设置供应商状态
  */
 export async function setSupplierStatus(supplierName: string, status: boolean) {
-    await post("/model/set_supplier_status", { supplierName, status: String(status) })
-    if (status) {
-        message.success($t("已启用模型该服务商"))
-    } else {
-        message.success($t("已禁用模型该服务商"))
+    try {
+        await post("/model/set_supplier_status", { supplierName, status: String(status) })
+        if (status) {
+            message.success($t("已启用模型该服务商"))
+        } else {
+            message.success($t("已禁用模型该服务商"))
+        }
+        await getEmbeddingModels()
+        await get_model_list()
+    } catch (error) {
+        sendLog(error as Error)
     }
-    await getEmbeddingModels()
-    await get_model_list()
 }
 
 /**
@@ -1270,14 +1457,18 @@ export async function setSupplierStatus(supplierName: string, status: boolean) {
  */
 export async function setModelTitle(newTit: string) {
     const { currentChooseApi, currentModelNameForEdiit } = getIndexStore()
-    await post("/model/set_model_title", {
-        supplierName: currentChooseApi.value?.supplierName,
-        title: newTit,
-        modelName: currentModelNameForEdiit.value
-    })
-    await getSupplierModelList(currentChooseApi.value?.supplierName!)
-    await getEmbeddingModels()
-    await get_model_list()
+    try {
+        await post("/model/set_model_title", {
+            supplierName: currentChooseApi.value?.supplierName,
+            title: newTit,
+            modelName: currentModelNameForEdiit.value
+        })
+        await getSupplierModelList(currentChooseApi.value?.supplierName!)
+        await getEmbeddingModels()
+        await get_model_list()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1293,8 +1484,12 @@ export function openAgent() {
  */
 export async function getAgentList() {
     const { agentList } = getIndexStore()
-    const res = await post("/agent/get_agent_list")
-    agentList.value = res.message
+    try {
+        const res = await post("/agent/get_agent_list")
+        agentList.value = res.message
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1302,10 +1497,14 @@ export async function getAgentList() {
  */
 export async function createAgent() {
     const { createAgentFormData, createAgentShow } = getIndexStore()
-    await post("/agent/create_agent", createAgentFormData.value)
-    createAgentShow.value = false
-    message.success($t("智能体创建成功"))
-    getAgentList()
+    try {
+        await post("/agent/create_agent", createAgentFormData.value)
+        createAgentShow.value = false
+        message.success($t("智能体创建成功"))
+        getAgentList()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1313,10 +1512,14 @@ export async function createAgent() {
  */
 export async function modifyAgent() {
     const { createAgentFormData, createAgentShow } = getIndexStore()
-    await post("/agent/modify_agent", createAgentFormData.value)
-    message.success($t("智能体修改成功"))
-    createAgentShow.value = false
-    getAgentList()
+    try {
+        await post("/agent/modify_agent", createAgentFormData.value)
+        message.success($t("智能体修改成功"))
+        createAgentShow.value = false
+        getAgentList()
+    } catch (error) {
+        sendLog(error as Error)
+    }
 }
 
 /**
@@ -1340,9 +1543,13 @@ export async function removeAgent(agent: AgentItemDto) {
 
 
     async function doRemove() {
-        await post("/agent/remove_agent", { agent_name: agent.agent_name })
-        message.success($t("智能体删除成功"))
-        getAgentList()
+        try {
+            await post("/agent/remove_agent", { agent_name: agent.agent_name })
+            message.success($t("智能体删除成功"))
+            getAgentList()
+        } catch (error) {
+            sendLog(error as Error)
+        }
     }
 }
 
@@ -1380,9 +1587,125 @@ export async function setOllamaUrl() {
             message.error(res.msg!)
         } else {
             message.success($t("设置成功"))
-            getVisibleModelList()
+            eventBUS.$emit("modelInstalled", "all")
         }
     } catch (error) {
+        sendLog(error as Error)
         console.log(error)
     }
+}
+
+/**
+ * @description 调用搜索引擎
+ */
+export async function callSearchEngine() {
+    const { targetNet, questionContent } = getIndexStore()
+    try {
+        await post("/search/search", { query: questionContent.value, searchProvider: targetNet.value })
+    } catch (error) {
+        sendLog(error as Error)
+    }
+}
+
+/***
+ * @description 测试文档分片
+ */
+export async function testChunk() {
+    const { sliceChunkFormData } = getIndexStore()
+    try {
+        return await post("/rag/test_chunk", sliceChunkFormData.value)
+    } catch (error) {
+        sendLog(error as Error)
+    }
+}
+
+/**
+ * @description 文档分片预览
+ */
+export async function doPreview() {
+    const { sliceChunkFormData, sliceFormRef, slicePreviewList } = getIndexStore()
+    try {
+        await sliceFormRef.value?.validate();
+        if (!sliceChunkFormData.value.filename) {
+            return message.error($t("请选择文件"))
+        } else {
+            const res = await testChunk()
+            slicePreviewList.value = res?.message.chunkList
+        }
+    } catch (error) {
+        sendLog(error as Error)
+    }
+}
+
+/**
+ * @description 获取用户数据存储位置
+ */
+export async function getDataSavePath() {
+    const { userDataPath } = getIndexStore()
+    try {
+        const res = await post("/index/get_data_save_path")
+        userDataPath.value = res.message.currentPath;
+    } catch (error) {
+        sendLog(error as Error)
+        return false
+    }
+}
+
+
+/***
+ * @description 更改数据存储位置
+ */
+export async function changeDataSavePath() {
+    const { userDataPath } = getIndexStore()
+    dialog.warning({
+        title: $t('提示'),
+        content: $t('切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件'),
+        positiveText: $t('选择新位置'),
+        negativeText: $t('取消'),
+        draggable: true,
+        closable: false,
+        onPositiveClick: async () => {
+            try {
+                const res = await post("/index/select_folder")
+                if (res.code == 200) {
+                    userDataPath.value = res.message.folder
+                    const path_change_res = await post("/index/set_data_save_path", { newPath: userDataPath.value })
+                    if (path_change_res.code == 200) {
+                        changeProgressCheck()
+                    }else{
+                        message.error(path_change_res.msg!)
+                        getDataSavePath()
+                    }
+                }
+            } catch (error) {
+                sendLog(error as Error)
+            }
+        },
+    })
+}
+
+/**
+ * @description 数据存储位置进度查询
+ */
+export async function changeProgressCheck() {
+    const { dataPathChangeCheckShow, userDataPath, dataPathChangeStatusValues } = getIndexStore()
+    dataPathChangeCheckShow.value = true
+    let timer: any = null
+    timer = setInterval(async () => {
+        const res = await post("/index/get_data_save_path")
+        userDataPath.value = res.message.currentPath;
+        dataPathChangeStatusValues.value = res.message.copyStatus
+        if (dataPathChangeStatusValues.value.status == -1) {
+            message.error($t("数据迁移失败，请重试"))
+            clearInterval(timer)
+            dataPathChangeCheckShow.value = false
+        }
+
+        if (dataPathChangeStatusValues.value.status == 2) {
+            message.success($t("数据迁移成功"))
+            clearInterval(timer)
+            dataPathChangeCheckShow.value = false
+        }
+
+    }, 1000)
 }

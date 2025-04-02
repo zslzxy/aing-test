@@ -34,10 +34,11 @@ export const withTimeout = (promise: Promise<any>, timeout: number) => {
     });
 };
 
+
 // 定义一个辅助函数来提取 HTML 正文内容，排除 JavaScript 脚本
 const extractContentFromHtml = (html: string): string => {
     try{
-        const htmlObj = cheerio.load(html);
+        let htmlObj = cheerio.load(html);
         // 移除所有的 <script> 标签
         htmlObj('script').remove();
         // 移除所有的 <style> 标签，可选，若不需要样式相关内容
@@ -46,8 +47,30 @@ const extractContentFromHtml = (html: string): string => {
         // 清除导航栏、页脚、广告等无关内容
         htmlObj('nav,footer,aside,header,script').remove();
 
-        // 提取处理后的 body 文本内容
-        let text =  htmlObj('body').text().trim();
+        // 常见的干扰元素
+        const interferenceSelectors = [
+            'nav', 'footer', 'script', 'style', 'aside', 'header',
+            '.advertisement', '.sidebar', '.ads', '.banner', '.copyright', 'page-footer-content', 'xcp-list'
+        ];
+
+        interferenceSelectors.forEach(selector => {
+            htmlObj!(selector).remove();
+        });
+
+        // 清理 class 中包含Header、Footer、Sidebar、Ads、Banner、Advertisement、Copyright 的元素
+        htmlObj('[class*="Header"], [class*="Footer"], [class*="Sidebar"], [class*="Ads"], [class*="Banner"], [class*="Advertisement"], [class*="Copyright"], [class*="topToolsWrap"], [class*="w_tq_box"], [class*="footerseo"],[class*="recommend"], [class*="footer"],[class*="mod-statement"],[class*="floor"],[class*="knowledge"],[id*="footer"],[class*="nav"]')
+           .remove();
+
+        // 查找特定标签
+        const targetElements = htmlObj('article, [class="article"], [id="article"], [class="content_text"], [id="content_text"], [data-testid="article"],[class="detail-answer-item"]');
+        let text = '';
+        if (targetElements.length > 0) {
+            // 只处理目标元素的内容
+            htmlObj = cheerio.load(targetElements.html() || '');
+            text = htmlObj.text().trim();
+        }else{
+            text =  htmlObj('body').text().trim();
+        }
 
         // 过滤不相关的内容
         let result:string[] = [];

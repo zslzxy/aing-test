@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Please select the installation path for the Model Manager"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "graphic"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "source code"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "Mermaid parsing failed, please check the syntax"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Olama interface address"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "The current ollama address is not available"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Beginner's Guide"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Welcome to AingDesk, a simple and easy-to-use AI assistant that supports knowledge base, model API, sharing, online search, and intelligent agents. This software is open source and free, and we look forward to you sharing the software with others to support our development."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk is a new AI project that is still striving for rapid growth. If you encounter any problems during use or have any functional requirements for the software, you can join our WeChat group to give us feedback."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Finally, you can give us a star for our open source project. Your encouragement is extremely important for us to continue iterating open source projects. Thank you."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Go to GitHub and click on the stars"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "You can"
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Close the beginner's guide in the middle"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "Document deletion failed"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Setting successful"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Segment identifier"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Maximum segment length"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Segment overlap length"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Segment identifiers support regular expressions, such as"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Regular expressions do not require the addition of modifiers and will automatically add the 'g' modifier by default"
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "The recommended overlap length for segments is 10% to 20% of the maximum segment length"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Select document for preview"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Preview"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "The maximum length of the segment cannot be less than 20"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "The maximum length of a segment cannot exceed 1000"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Please fill in the maximum length of the segment"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "The overlapping length of segments cannot be less than 0"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "The overlapping length of segments cannot exceed the maximum length of segments"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Please fill in the overlapping length of the segments"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Please fill in the segment identifier"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Document Sharding Settings"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Continue adding files"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Please select a file"
     }
 }

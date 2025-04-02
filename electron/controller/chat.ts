@@ -66,11 +66,11 @@ class ChatController {
      * @param {string} args.supplierName - 供应商名称
      * @returns {Promise<any>} - 包含新对话信息的成功响应
      */
-    async create_chat(args: { model: string; parameters: string; title: string, supplierName?: string ,agent_name?:string}): Promise<any> {
-        let { model, parameters, title, supplierName,agent_name } = args;
-        if(!agent_name) agent_name = ''; 
+    async create_chat(args: { model: string; parameters: string; title: string, supplierName?: string, agent_name?: string }): Promise<any> {
+        let { model, parameters, title, supplierName, agent_name } = args;
+        if (!agent_name) agent_name = '';
         // 创建新对话并获取相关数据
-        const data = new ChatService().create_chat(model, parameters, title, supplierName as string,agent_name as string);
+        const data = new ChatService().create_chat(model, parameters, title, supplierName as string, agent_name as string);
         // 返回成功响应
         return pub.return_success(pub.lang("对话创建成功"), data);
     }
@@ -174,7 +174,7 @@ class ChatController {
      * @param {string} model - 模型名称
      * @returns {Promise<boolean>} - 是否为视觉模型
      */
-    async isVisionModel(supplierName:string, model: string): Promise<boolean> {
+    async isVisionModel(supplierName: string, model: string): Promise<boolean> {
         // 如果模型名称包含'vision'，直接返回true
         let modelLower = model.toLocaleLowerCase();
         if (modelLower.indexOf('vision') !== -1) {
@@ -182,9 +182,9 @@ class ChatController {
         }
 
         // 如果是线上模型，简单检查下常用非视觉模型
-        if(supplierName != 'ollama') {
-            if(modelLower.indexOf('-vl') !== -1) return true;
-            let notVlist = ['qwen','deepseek','qwq','code','phi','gemma',];
+        if (supplierName != 'ollama') {
+            if (modelLower.indexOf('-vl') !== -1) return true;
+            let notVlist = ['qwen', 'deepseek', 'qwq', 'code', 'phi', 'gemma',];
             for (let i = 0; i < notVlist.length; i++) {
                 if (modelLower.indexOf(notVlist[i]) !== -1) {
                     return false;
@@ -196,15 +196,15 @@ class ChatController {
         try {
             // 读取模型列表
             const modelListFile = path.resolve(pub.get_resource_path(), 'ollama_model.json');
-            
+
             // 检查文件是否存在
             if (!pub.file_exists(modelListFile)) {
                 logger.warn('模型列表文件不存在:', modelListFile);
                 return false;
             }
-            
+
             const modelList = pub.read_json(modelListFile);
-            
+
             // 检查模型列表是否为数组
             if (!Array.isArray(modelList)) {
                 logger.warn('模型列表格式不正确');
@@ -216,7 +216,7 @@ class ChatController {
                 // 检查模型名称匹配
                 if (modelInfo.name === model || modelInfo.full_name === model) {
                     // 检查模型是否有capability属性且包含vision
-                    if (modelInfo.capability && Array.isArray(modelInfo.capability) && 
+                    if (modelInfo.capability && Array.isArray(modelInfo.capability) &&
                         modelInfo.capability.includes('vision')) {
                         return true;
                     }
@@ -244,11 +244,30 @@ class ChatController {
      * @param {string} args.regenerate_id - 重新生成的ID
      * @param {string} args.images - 图片列表
      * @param {string} args.doc_files - 文件列表
+     * @param {string} args.temp_chat - 临时对话标志
+     * @param {any} args.rag_results - RAG结果列表
+     * @param {any} args.search_results - 搜索结果列表
+     * @param {string} args.compare_id - 对比ID
      * @param {any} event - 事件对象，用于处理HTTP响应
      * @returns {Promise<any>} - 可读流，用于流式响应对话结果
      */
-    async chat(args: { context_id: string; supplierName?: string; model: string; parameters?: string; user_content: string, search?: string, rag_list?: string, regenerate_id?: string, images?: string, doc_files?: string, temp_chat?: string}, event: any): Promise<any> {
-        let { context_id: uuid, model: modelName, parameters, user_content, search, regenerate_id, supplierName, images, doc_files, temp_chat } = args;
+    async chat(args: {
+        context_id: string;
+        supplierName?: string;
+        model: string;
+        parameters?: string;
+        user_content: string,
+        rag_results: any[],
+        search_results?: any[],
+        search?: string,
+        rag_list?: string,
+        regenerate_id?: string,
+        images?: string,
+        doc_files?: string,
+        temp_chat?: string,
+        compare_id?: string
+    }, event: any): Promise<any> {
+        let { context_id: uuid, model: modelName, parameters, user_content, search, regenerate_id, supplierName, images, doc_files, temp_chat, rag_results, search_results, compare_id } = args;
         if (!supplierName) {
             supplierName = 'ollama'
         }
@@ -274,7 +293,6 @@ class ChatController {
             doc_files_list = doc_files.split(',');
         }
 
-        
 
         const chatService = new ChatService();
         let contextInfo = await chatService.read_chat(uuid);
@@ -310,19 +328,19 @@ class ChatController {
             if (modelInfo.contextLength === 0) {
                 modelInfo.contextLength = getModelContextLength(modelName);
             }
-
         }
 
         // 保存新的模型信息
         chatService.update_chat_model(uuid, modelName, parameters as string, supplierName as string);
 
         // 获取对话历史
-        let isVision = await this.isVisionModel(supplierName,modelName);
-        let history = await chatService.build_chat_history(uuid, chatContext, modelInfo.contextLength, isTempChat,isVision);
+        let isVision = await this.isVisionModel(supplierName, modelName);
+        let history = await chatService.build_chat_history(uuid, chatContext, modelInfo.contextLength, isTempChat, isVision);
 
         // 保存用户的聊天记录
         const chatHistory: ChatHistory = {
             id: "",
+            compare_id: compare_id,
             role: "user",
             reasoning: "",
             stat: {},
@@ -343,6 +361,7 @@ class ChatController {
         let resUUID = pub.uuid();
         const chatHistoryRes: ChatHistory = {
             id: resUUID,
+            compare_id: compare_id,
             role: "assistant",
             reasoning: "",
             stat: {
@@ -379,7 +398,7 @@ class ChatController {
             chatService.update_chat_config(uuid, "rag_list", ragList);
 
             if (ragList.length > 0) {
-                let { userPrompt, systemPrompt, searchResultList, query } = await new Rag().searchAndSuggest(ragList, modelStr, user_content, history[history.length - 1].doc_files,contextInfo.agent_name);
+                let { userPrompt, systemPrompt, searchResultList, query } = await new Rag().searchAndSuggest(supplierName,modelStr, user_content, history[history.length - 1].doc_files, contextInfo.agent_name, rag_results, ragList);
                 chatHistoryRes.search_query = query;
                 chatHistoryRes.search_type = "[RAG]:" + ragList.join(",");
                 chatHistoryRes.search_result = searchResultList;
@@ -415,7 +434,7 @@ class ChatController {
                 lastHistory += pub.lang("回答: ") + history[history.length - 2].content + "\n";
             }
 
-            let { userPrompt, systemPrompt, searchResultList, query } = await getPromptForWeb(user_content, modelStr, lastHistory, search, history[history.length - 1].doc_files,contextInfo.agent_name);
+            let { userPrompt, systemPrompt, searchResultList, query } = await getPromptForWeb(user_content, modelStr, lastHistory, history[history.length - 1].doc_files, contextInfo.agent_name, search_results, search);
             chatHistoryRes.search_query = query;
             chatHistoryRes.search_type = search;
             chatHistoryRes.search_result = searchResultList;
@@ -438,10 +457,10 @@ class ChatController {
         let letHistory = history[history.length - 1];
 
         // 嵌入system提示
-        if(!isSystemPrompt && letHistory.content === user_content) {
-            if(contextInfo.agent_name){
+        if (!isSystemPrompt && letHistory.content === user_content) {
+            if (contextInfo.agent_name) {
                 let agentConfig = agentService.get_agent_config(contextInfo.agent_name);
-                if(agentConfig && agentConfig.prompt){
+                if (agentConfig && agentConfig.prompt) {
                     history.unshift({
                         role: 'system',
                         content: agentConfig.prompt
@@ -449,8 +468,6 @@ class ChatController {
                 }
             }
         }
-
-        // console.log("letHistory:",letHistory);
 
         // 嵌入文档
         if (letHistory.content === user_content && letHistory.doc_files.length > 0) {
@@ -493,7 +510,7 @@ ${pub.lang('用户文档')} ${idx + 1} end
         }
 
         // 非视觉模型，将图片OCR内容合并到用户输入
-        if(!isVision && letHistory.images.length > 0) {
+        if (!isVision && letHistory.images.length > 0) {
             let ocrContent = letHistory.images.map((image, idx) => {
                 if (!image) return '';
                 return `${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} begin
@@ -529,7 +546,7 @@ ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
 
             history[history.length - 1] = letHistory;
 
-            
+
         } else {
             // Ollama模型，删除data:image/jpeg;base64,
             if (letHistory.images && letHistory.images.length > 0) {
@@ -539,15 +556,15 @@ ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
                     if (imgArr.length > 1) {
                         images.push(imgArr[1])
                     }
-                    
+
                 }
                 letHistory.images = images;
             }
         }
-        
 
 
-        if(letHistory.images && letHistory.images.length == 0) {
+
+        if (letHistory.images && letHistory.images.length == 0) {
             delete letHistory.images;
         }
 
@@ -589,18 +606,18 @@ ${pub.lang('图片')} ${idx + 1} ${pub.lang('OCR解析结果')} end
 
         let res: any;
         if (isOllama) {
-            try{
+            try {
                 const ollama = pub.init_ollama();
                 res = await ollama.chat(requestOption);
-            }catch(error:any){
+            } catch (error: any) {
                 return pub.lang('调用模型接口时出错了: {}', error.message);
             }
         } else {
             const modelService = new ModelService(supplierName);
             try {
                 res = await modelService.chat(requestOption);
-            } catch (error:any) {
-                if(error.error && error.error.message){
+            } catch (error: any) {
+                if (error.error && error.error.message) {
                     return pub.lang('调用模型接口时出错了: {}', error.error.message);
                 }
                 return error;

@@ -1,12 +1,9 @@
 import { parseDocument } from './doc_engins/doc';
 import { LanceDBManager } from './vector_database/vector_lancedb';
 import * as path from 'path';
-import { pub } from '../class/public';
+import { pub,jieba,tfidf } from '../class/public';
 import { agentService } from '../service/agent';
-import { Jieba,TfIdf } from '@node-rs/jieba';
-import { dict,idf } from '@node-rs/jieba/dict.js';
-const jieba = Jieba.withDict(dict);
-const tfidf = TfIdf.withDict(idf);
+
 
 
 // 获取模板常量
@@ -262,8 +259,8 @@ export class Rag {
      * @param ragName:string rag名称
      * @returns Promise<any>
      */
-    public async parseDocument(filename: string,ragName:string): Promise<any> {
-        return await parseDocument(filename,ragName);
+    public async parseDocument(filename: string,ragName:string,saveToFile?:boolean): Promise<any> {
+        return await parseDocument(filename,ragName,saveToFile);
     }
 
 
@@ -276,6 +273,69 @@ export class Rag {
         return pub.file_exists(tablePath);
     }
 
+
+    public async checkDocTableSchema(tableName:string){
+        let db = await LanceDBManager.connect();
+        let tableObj = await db.openTable(tableName);
+        let schema = await tableObj.schema();
+        let fields = schema.fields;
+        let newFields = {'doc_id':"0",'doc_name':"",'doc_file':"",'md_file':"",'doc_rag':"",'doc_abstract':"",'doc_keywords':['key1','key2'],'is_parsed':-1,'update_time':0,'separators':['\n\n','。'],'chunk_size':500,'overlap_size':50};
+        let newFieldsKeys = Object.keys(newFields);
+        let isSame = true;
+        let oldFieldsKeys:string[]  = []
+        for(let field of fields){
+            oldFieldsKeys.push(field.name);
+        }
+
+        // 检查字段是否一致
+        for(let field of newFieldsKeys){
+            if(oldFieldsKeys.indexOf(field) == -1){
+                console.log(`字段 ${field} 不一致`);
+                isSame = false;
+                break;
+            }
+        }
+        
+
+        if(isSame){
+            tableObj.close();
+            db.close();
+            return true;
+        }
+
+        // 导出旧表数据
+        let oldDocList = await tableObj.query().limit(100000).toArray()
+        // 删除旧表
+        await LanceDBManager.dropTable(tableName);
+
+        // 为旧表添加新字段和默认值
+        
+        let newDocList:any[] = [];
+        for(let item of oldDocList){
+            let newItem = {};
+            for(let field of newFieldsKeys){
+                newItem[field] = item[field] || newFields[field];
+            }
+            newItem['doc_keywords'] = await this.generateKeywords(item['doc_abstract']);
+            newDocList.push(newItem);
+        }
+
+
+        // 创建新表并插入数据
+        await LanceDBManager.createTableAt(tableName,newDocList,[
+            {key:'doc_id',type:'btree'},
+            {key:'doc_rag',type:'btree'},
+            {key:'is_parsed',type:'btree'},
+            {key:'doc_keywords',type:'labelList'},
+        ]);
+
+        tableObj.close();
+        db.close();
+        return true;
+    }
+
+
+
     /**
      * 创建文档表
      * @returns Promise<any>
@@ -284,6 +344,7 @@ export class Rag {
         if (await this.checkDocTable(tableName)) {
             return true
         }
+
         let ok = await LanceDBManager.createTableAt(tableName,[{
             doc_id: '0',
             doc_name: '',
@@ -294,6 +355,9 @@ export class Rag {
             doc_keywords: ['key1', 'key2'],
             is_parsed: -1,
             update_time: 0,
+            separators: ['\n\n','。'],
+            chunk_size: 500,
+            overlap_size: 50,
         }],[
             {key:'doc_id',type:'btree'},
             {key:'doc_rag',type:'btree'},
@@ -329,7 +393,7 @@ export class Rag {
     public async generateAbstract(doc: string): Promise<string> {
         // 从文档中提取前100个字符作为摘要
         if (doc && doc.trim() !== '') {
-            return doc.substr(0, 100) + '...';
+            return doc.substring(0, 100) + '...';
         }
         return '';
     }
@@ -374,30 +438,28 @@ export class Rag {
      * @param ragName:string rag名称
      * @returns Promise<any>
      */
-    public async addDocumentToDB(filename: string,ragName:string): Promise<any> {
+    public async addDocumentToDB(filename: string,ragName:string,separators:string[],chunkSize:number,overlapSize:number): Promise<any> {
         filename = path.resolve(filename);
         await this.createDocTable(this.docTable)
+        await this.checkDocTableSchema(this.docTable);
 
         let dataDir = pub.get_data_path();
         let repDataDir = '{DATA_DIR}';
-
-        let doc = await parseDocument(filename,ragName,true);
-        if(doc){
-            let pdata:any = [{
-                doc_id: pub.uuid(),
-                doc_name: path.basename(filename),
-                doc_file: filename.replace(dataDir, repDataDir),
-                md_file: doc.savedPath?.replace(dataDir, repDataDir),
-                doc_rag: ragName,
-                doc_abstract: await this.generateAbstract(doc.content),
-                doc_keywords: await this.generateKeywords(doc.content,10),
-                is_parsed: 0,
-                update_time: pub.time(),
-            }];
-
-            return await LanceDBManager.addRecord(this.docTable,pdata);
-        }
-        return false;
+        let pdata:any = [{
+            doc_id: pub.uuid(),
+            doc_name: path.basename(filename),
+            doc_file: filename.replace(dataDir, repDataDir),
+            md_file: '',
+            doc_rag: ragName,
+            doc_abstract: '',
+            doc_keywords: [],
+            is_parsed: 0,
+            update_time: pub.time(),
+            separators: separators,
+            chunk_size: chunkSize,
+            overlap_size: overlapSize,
+        }];
+        return await LanceDBManager.addRecord(this.docTable,pdata);
     }
 
 
@@ -436,7 +498,7 @@ export class Rag {
     public async searchDocument(ragList: string[], queryText: string): Promise<any> {
 
         // 生成关键词
-        let keywords = await this.generateKeywords(queryText);
+        let keywords = pub.cutForSearch(queryText);
 
         // 并行执行所有知识库的检索请求
         const searchPromises = ragList.map(async (ragName) => {
@@ -444,7 +506,7 @@ export class Rag {
             if(!ragInfo){
                 return [];
             }
-            return LanceDBManager.hybridSearch(pub.md5(ragName), ragInfo, queryText,keywords)
+            return LanceDBManager.hybridSearchByNew(pub.md5(ragName), ragInfo, queryText,keywords)
         });
         
         // 等待所有检索完成并合并结果
@@ -453,7 +515,34 @@ export class Rag {
         return results.flat();
     }
 
+    private cutRagResult(searchResultList:any[],supplierName:string,docLength):any[]{
+        // 计算内容长度，超过限制则截断，ollama最大限制4K，其它最大限制32K
+        let maxLength = 4096 * 1.5;
+        if (supplierName !== 'ollama') {
+            maxLength = 32768 * 1.5;
+        }
 
+        if(docLength > maxLength) {
+            let currentLength = 0;
+
+            for(let i=0;i<searchResultList.length;i++){
+                let docLength = searchResultList[i].content.length;
+                // 截断超过最大长度的内容
+                if(currentLength + docLength > maxLength){
+                    if(currentLength == maxLength){
+                        searchResultList[i].content = ""
+                    }else{
+                        searchResultList[i].content = searchResultList[i].content.substring(0, maxLength - currentLength);
+                        currentLength = maxLength;
+                    }
+                }
+            }
+        }
+
+        // 删除空内容
+        searchResultList = searchResultList.filter((item:any) => item.content.trim() !== '');
+        return searchResultList;
+    }
     
 
 
@@ -466,22 +555,32 @@ export class Rag {
      * @param agent_name <string> 智能体名称
      * @returns Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }>
      */
-    public async searchAndSuggest(ragList: string[], model: string, queryText: string,doc_files:string[],agent_name:string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> {
+    public async searchAndSuggest(supplierName:string,model: string, queryText: string,doc_files:string[],agent_name:string,rag_results?:any[],ragList?: string[]): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> {
         try{
-            let docContentList = await this.searchDocument(ragList, queryText)
-
+            if(!rag_results || !rag_results.length){
+                if(ragList.length > 0){
+                    rag_results = await this.searchDocument(ragList, queryText)
+                }
+            }
             // 兼容搜索引擎的格式，link => doc_file,title=>doc_name,content=>doc
             let searchResultList:any[] = [];
-            for(let docContent of docContentList){
+            let docLength = 0
+            for(let docContent of rag_results){
                 if(!docContent.docFile || !docContent.docName){
                     continue;
                 }
+                docLength += docContent.doc.length;
                 searchResultList.push({
                     link: docContent.docFile,
                     title: docContent.docName,
                     content: docContent.doc
                 });
             }
+
+
+            // 截断多余内容
+            searchResultList = this.cutRagResult(searchResultList,supplierName,docLength)
+            
 
             if (model.indexOf("deepseek") !== -1) {
                 return generateDeepSeekPrompt(searchResultList, queryText,doc_files,agent_name);

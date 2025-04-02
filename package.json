@@ -1,9 +1,10 @@
 {
   "name": "aingdesk",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Simple and easy-to-use AI big model deployment and usage software",
   "productName": "AingDesk",
   "main": "./public/electron/main.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "ee-bin dev",
     "build": "npm run build-frontend && npm run build-electron && ee-bin encrypt",
@@ -47,7 +48,6 @@
   "devDependencies": {
     "@electron/rebuild": "^3.7.1",
     "@types/node": "^20.17.19",
-    "@types/pdfjs-dist": "^2.10.378",
     "cross-env": "^7.0.3",
     "debug": "^4.4.0",
     "ee-bin": "^4.1.1",
@@ -76,10 +76,11 @@
     "node-cache": "^5.1.2",
     "ollama": "^0.5.12",
     "openai": "^4.86.2",
-    "pdfjs-dist": "^2.2.228",
+    "pdfjs-dist": "^5.0.375",
     "pizzip": "^3.1.8",
     "tesseract.js": "^6.0.0",
     "uuid": "^11.0.5",
+    "word-extractor": "^1.0.4",
     "xlsx": "^0.18.5"
   }
 }

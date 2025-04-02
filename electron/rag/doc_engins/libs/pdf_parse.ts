@@ -1,6 +1,6 @@
-import * as pdfjsLib from 'pdfjs-dist';
-import * as path from 'path';
-import * as fs from 'fs';
+import  fs from 'fs';
+// import * as pdfjsLib from 'pdfjs-dist';
+
 
 // 封装错误处理和日志记录
 const logError = (message: string, error: any) => {
@@ -13,9 +13,7 @@ const logError = (message: string, error: any) => {
  */
 export class PdfParser {
   private filename: string;
-  private ragName: string;
-  private baseDocName: string;
-  private pdfDocument: pdfjsLib.PDFDocumentProxy | null = null;
+  private pdfDocument: any;
 
   /**
    * 构造函数
@@ -23,8 +21,6 @@ export class PdfParser {
    */
   constructor(filename: string, ragName: string) {
     this.filename = filename;
-    this.ragName = ragName;
-    this.baseDocName = path.basename(filename, path.extname(filename));
   }
 
   /**
@@ -37,7 +33,7 @@ export class PdfParser {
         logError(`文件不存在`, this.filename);
         return false;
       }
-
+      const pdfjsLib = await import('pdfjs-dist');
       const data = new Uint8Array(fs.readFileSync(this.filename));
       const loadingTask = pdfjsLib.getDocument({ data });
       this.pdfDocument = await loadingTask.promise;
@@ -51,39 +47,6 @@ export class PdfParser {
 
 
   /**
-   * 提取一个页面的文本内容
-   * @param page PDF页面
-   * @returns 页面文本内容
-   */
-  private async extractPageText(page: pdfjsLib.PDFPageProxy): Promise<string> {
-    const textContent = await page.getTextContent();
-    let lastY;
-    let textChunks: string[] = [];
-    let currentChunk = '';
-
-    const sanitizeText = (text: string) => {
-      return text.replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g, '');
-    };
-
-    for (const item of textContent.items) {
-      if (lastY !== undefined && Math.abs(lastY - item.transform[5]) > 3) {
-        if (currentChunk) {
-          textChunks.push(sanitizeText(currentChunk));
-          currentChunk = '';
-        }
-      }
-      currentChunk += item.str;
-      lastY = item.transform[5];
-    }
-
-    if (currentChunk) {
-      textChunks.push(sanitizeText(currentChunk));
-    }
-    const pageText = textChunks.join('\n');
-    return pageText;
-  }
-
-  /**
    * 解析PDF文件
    * @returns Markdown格式的内容
    */
@@ -91,35 +54,49 @@ export class PdfParser {
     if (!(await this.initPdfDocument()) || !this.pdfDocument) {
       return '';
     }
+    let text = "";
 
-    let markdownContent: string[] = [];
-    markdownContent.push(`# ${this.baseDocName}\n`);
+    for(let i = 1; i <= this.pdfDocument.numPages; i++){
+        const page = await this.pdfDocument.getPage(i);
+        const textContent = await page.getTextContent({includeMarkedContent:true});
+        let items:any = textContent.items;
+        let isEndMarkedContent = false;
+        let endMarkedContent = 0;
+        let isStart = true;
+        for(let item of items){
+            // 标记内容结束
+            if(item.type == 'endMarkedContent'){
+                endMarkedContent++;
+            }
 
-    const numPages = this.pdfDocument.numPages;
+            // 拼接文本
+            if(item.fontName){
+                text += item.str;
+                endMarkedContent = 0;
+            }
+            
+            // 根据标记增加换行符，并重置标记
+            if(endMarkedContent == 2){
+                text += "\n";
+                endMarkedContent = 0;
+                isEndMarkedContent = true;
+            }
 
-    const pagePromises = Array.from({ length: numPages }, async (_, pageIndex) => {
-      const pageNum = pageIndex + 1;
-      try {
-        const page = await this.pdfDocument!.getPage(pageNum);
-
-        const pageText = await this.extractPageText(page);
-        if (pageText) {
-          markdownContent.push(pageText);
-          markdownContent.push('\n');
+            // 开始和EOL标记视结束标记情况增加换行符
+            if((item.hasEOL && isStart) || (!isEndMarkedContent && item.hasEOL)){
+                text += "\n";
+                isStart = false;
+            }
         }
 
-      } catch (pageError) {
-        logError(`处理页面 ${pageNum} 失败`, pageError);
-        markdownContent.push(`无法处理此页面内容，发生错误。\n`);
-      }
-      markdownContent.push('\n');
-    });
+        // 每页结束增加换行符
+        text += "\n";
 
-    await Promise.all(pagePromises);
-
-    this.dispose();
-
-    return markdownContent.join('\n');
+    }
+    // 去掉不可见字符
+    text = text.replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g,"");
+    text = text.replace(/[]/g,"");
+    return text.trim();
   }
 
   /**

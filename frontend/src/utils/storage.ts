@@ -23,5 +23,27 @@ export default {
 
     set welcomeEnd(end: string) {
         localStorage.setItem("welcomeEnd", end as string)
+    },
+
+    // 新手指引
+    get welcomeGuide(): boolean {
+        if (localStorage.getItem("welcomeGuide") == null) {
+            return true
+        } else {
+            return localStorage.getItem("welcomeGuide") == "true" ? true : false
+        }
+    },
+
+    set welcomeGuide(guide: string) {
+        localStorage.setItem("welcomeGuide", guide as string)
+    },
+
+    // 搜索引擎
+    get searchEngine() {
+        return localStorage.getItem("searchEngine") as string
+    },
+
+    set searchEngine(engine: string) {
+        localStorage.setItem("searchEngine", engine)
     }
 }

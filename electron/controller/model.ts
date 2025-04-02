@@ -300,7 +300,7 @@ class ModelController {
             
             // 是否为嵌入模型
             let modelsFile = this.getModelsFilePath(args.supplierName);
-            if(model.capability.find((c:any) => c.name === 'embedding')){
+            if(model.capability.find((c:any) => c === 'embedding')){
                 modelsFile = path.resolve(this.getSupplierPath(args.supplierName), "embedding.json");
             }
            

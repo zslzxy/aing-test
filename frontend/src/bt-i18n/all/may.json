@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Pilih laluan pemasangan pengurus model"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "grafik"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "kod sumber"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "Penghuraian gadis duyung gagal, sila semak sintaks"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Alamat antaramuka Olama"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "Alamat ollama semasa tidak tersedia"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Panduan Pemula"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Selamat datang ke AingDesk, pembantu AI mudah-mudahan dan mudah-digunakan yang menyokong pangkalan pengetahuan, model API, berkongsi, carian online, dan ejen cerdas. Perisian ini adalah sumber terbuka dan percuma, dan kami mengharapkan and a berkongsi perisian dengan orang lain untuk menyokong pembangunan kami."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk adalah projek AI baru yang masih berusaha untuk pertumbuhan cepat. Jika anda menghadapi sebarang masalah semasa penggunaan atau mempunyai sebarang keperluan berfungsi untuk perisian, anda boleh sertai kumpulan WeChat kami untuk memberikan maklumat balas."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Akhirnya, anda boleh memberikan kami bintang untuk projek sumber terbuka kami. penghormatan anda sangat penting bagi kami untuk terus mengulang projek sumber terbuka. Terima kasih."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Pergi ke GitHub dan klik pada bintang"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Anda boleh"
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Tutup panduan pemula di tengah"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "Padam dokumen gagal"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Menetapkan berjaya"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Pengenalpasti Segmen"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Panjang segment maksimum"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Panjang meliputi segmen"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Pengenalpasti segmen menyokong ungkapan biasa, seperti"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Ungkapan biasa tidak memerlukan tambahan pengubahsuai dan akan secara automatik tambah pengubahsuai 'g' secara lalai"
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "Panjang meliputi direkomendasikan bagi segmen adalah 10% hingga 20% panjang segmen maksimum"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Pilih dokumen untuk pratonton"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Pratonton"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "Panjang maksimum segmen tidak boleh kurang dari 20"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "Panjang maksimum segmen tidak boleh melebihi 1000"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Sila isi panjang maksimum segmen"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "Panjang segmen yang meliputi tidak boleh kurang dari 0"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "Panjang segmen yang meliputi tidak dapat melebihi panjang maksimum segmen"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Sila isi panjang saling bertutup bagi segmen"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Sila isi pengenalpasti segmen"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Tetapan Perkongsian Dokumen"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Teruskan menambah fail"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Sila pilih fail"
     }
 }

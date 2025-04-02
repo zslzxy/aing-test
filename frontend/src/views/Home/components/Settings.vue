@@ -190,12 +190,13 @@ const {
     modelManagerInstallNotice,
     modelManagerInstallPath,
     isInstalledManager,
-    ollamaUrl
+    ollamaUrl,
+    modeType
 } = storeToRefs(useIndexStore())
 
 const filterList = ref<any[]>([])
 const search = ref("")
-const modeType = ref("all")
+
 const toolsList = ref([
     { label: $t("所有"), value: "all" },
     { label: "LLM", value: "llm" },

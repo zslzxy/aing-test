@@ -8,6 +8,11 @@ import {exec, execSync } from 'child_process';
 import axios from 'axios'
 import {Ollama} from 'ollama';
 
+import { Jieba,TfIdf } from '@node-rs/jieba';
+import { dict,idf } from '@node-rs/jieba/dict.js';
+export const jieba = Jieba.withDict(dict);
+export const tfidf = TfIdf.withDict(idf);
+
 export type ReturnMsg = {
     status:number, // 状态 0成功 -1失败
     code:number, // 状态码
@@ -273,6 +278,17 @@ class Public {
      * @returns {string} 数据目录
      */
     get_data_path():string{
+
+        // 尝试获取用户设置的目录
+        let savePathConfigFile = path.resolve(this.get_resource_path(),'save_path.json')
+        if(fs.existsSync(savePathConfigFile)){
+            let savePathConfig = this.read_json(savePathConfigFile)
+            let currentPath = savePathConfig.currentPath
+            if(currentPath){
+                return currentPath;
+            }
+        }
+
         // 获取用户数据目录
         let data_path = path.resolve(this.get_root_path(),'data');
 
@@ -287,7 +303,11 @@ class Public {
      * 获取资源目录
      */
     get_resource_path():string{
-        return Ps.getExtraResourcesDir();
+        try{
+            return Ps.getExtraResourcesDir();
+        }catch(e){
+            return path.resolve(this.get_root_path(),'build','extraResources');
+        }
     }
 
 
@@ -897,6 +917,18 @@ class Public {
         return `${year}-${month}-${day} ${hour}:${minute}:${second} -- ${ampm}  ${weekDay}`;
     }
 
+
+    // 获取当前日期
+    getCurrentDate = () => {
+        // 获取当前日期
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+
+        return `${year}-${month}-${day}`;
+    }
+
     // 获取用户所在地区
     getUserLocation = () => {
         if(pub.get_language() == 'zh'){
@@ -973,6 +1005,43 @@ class Public {
             ollama = new Ollama(config);
         }
         return ollama;
+    }
+
+    /**
+     * @name 分词（搜索）
+     * @param doc 文档内容
+     * @returns string[] 分词结果
+     */
+    cutForSearch(doc:string):string[]{
+        return jieba.cutForSearch(doc,true)
+    }
+
+
+    /**
+     * 计算目录下的所有文件的大小
+     * @param dirPath - 目录路径
+     * @returns number
+     */
+    getDirSize(dirPath: string): number {
+        let totalSize = 0;
+        const files = pub.readdir(dirPath);
+        for (const file of files) {
+            const stats = pub.stat(file);
+            if (stats.isDirectory()) {
+                totalSize += this.getDirSize(file); // 递归计算子目录大小
+            } else {
+                totalSize += stats.size; // 累加文件大小
+            }
+        }
+        return totalSize;
+    }
+
+    /**
+     * @name 获取向量数据库路径
+     * @returns {string} 向量数据库路径
+     */
+    get_db_path():string{
+        return path.join(pub.get_data_path(), 'rag', 'vector_db');
     }
 
 }

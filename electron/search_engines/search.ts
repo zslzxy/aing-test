@@ -325,11 +325,17 @@ export const getDefaultPrompt = (query: string,model:string,agent_name:string): 
 }
 
 // 获取网页搜索提示信息
-export const getPromptForWeb = async (query: string, model: string, chatHistory: string, searchProvider: string,doc_files:string[],agent_name:string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> => {
+export const getPromptForWeb = async (query: string, model: string, chatHistory: string,doc_files:string[],agent_name:string,searchResultList?:any[],searchProvider?: string): Promise<{ userPrompt: string; systemPrompt: string;searchResultList:any,query:string }> => {
     try {
+
         if(query.length < 4) return getDefaultPrompt(query,model,agent_name);
         const searchQuery = await getSearchQuery(query, model, chatHistory);
-        let searchResultList = await searchWeb(searchProvider, searchQuery);
+        if(!searchResultList || !searchResultList.length){
+            if(searchProvider){
+                searchResultList = await searchWeb(searchProvider, searchQuery);
+            }
+        }
+
         if(agent_name){
             // 如果是智能体，只保留1个搜索结果，且内容长度不超过4096个字符
             searchResultList = searchResultList.slice(0,1);
@@ -349,3 +355,20 @@ export const getPromptForWeb = async (query: string, model: string, chatHistory:
         throw new Error('Failed to get prompt for web');
     }
 };
+
+
+// 搜索函数
+// 直接搜索网页，返回搜索结果列表
+export const search = async (query:string,searchProvider:string):Promise<SearchResult[]> => {
+    try {
+        let searchResultList = await searchWeb(searchProvider, query);
+        // 去除空标题
+        searchResultList = searchResultList.filter((result) => {
+            return result.title && result.title.length > 0;
+        });
+        return searchResultList;
+    } catch (error) {
+        console.error('Error searching:', error);
+    }
+    return [];
+}

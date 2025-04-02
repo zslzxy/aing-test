@@ -5,17 +5,22 @@
   <!-- <div class="drag-upload" v-show="knowledgeDragable">
     <DragUpload />
   </div> -->
+
+
 </template>
 
 <script setup lang="ts">
+
 import useIndexStore from './views/Home/store';
 import { storeToRefs } from 'pinia';
 import { NConfigProvider, darkTheme, lightTheme } from 'naive-ui';
 import DragUpload from './views/Home/components/DragUpload.vue';
-import { ragStatus,getVersion } from './views/Home/controller';
+import { ragStatus, getVersion } from './views/Home/controller';
 import storage from './utils/storage';
 import { onMounted } from 'vue';
-const { themeMode, knowledgeDragable,welcomeShow } = storeToRefs(useIndexStore())
+
+
+const { themeMode, knowledgeDragable, welcomeShow, guideActive, targetNet } = storeToRefs(useIndexStore())
 
 // 检测知识库状态
 ragStatus()
@@ -31,10 +36,13 @@ const themeOverrides = {
 }
 
 // 判断是否出现欢迎界面
-onMounted(()=>{
-  if(storage.welcomeEnd == null){
+onMounted(() => {
+  if (storage.welcomeEnd == null) {
     welcomeShow.value = true;
   }
+
+  guideActive.value = storage.welcomeGuide
+  targetNet.value = storage.searchEngine ? storage.searchEngine : ""
 })
 
 /********** 拖拽上传 **********/

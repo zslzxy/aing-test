@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Válassza ki a modellkezelő telepítési útját"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "grafika"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "forráskód"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "A hableány elemzése nem sikerült, kérjük ellenőrizze a szintaxist"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Olama interfész címe"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "Az aktuális ollama cím nem érhető el"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Kezdői útmutató"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Üdvözöljük az AingDesk egy egyszerű és könnyen használható AI asszisztens, amely támogatja a tudásbázist, a modell API-t, a megosztást, az online keresést és az intelligens ügynököket."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "Az AingDesk egy új mesterséges intelligencia projekt, amely még mindig a gyors növekedésre törekszik. Ha bármilyen probléma merül fel a használat során, vagy bármilyen funkcionális követelmény van a szoftverrel kapcsolatban, csatlakozhat WeChat csoportunkhoz, hogy visszajelzést adjon nekünk."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Végül adhat nekünk egy sztárt nyílt forráskódú projektünkhöz. Az Ön bátorítása rendkívül fontos számunkra, hogy folytassuk a nyílt forráskódú projekteket. Köszönjük."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Menj a GitHub oldalra és kattints a csillagokra"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Megteheted."
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Zárd be a kezdő útmutatót középen"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "A dokumentum törlése nem sikerült"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Sikeres beállítás"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Szegmens azonosító"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Maximális szegmenshossz"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Szegmens átfedési hossza"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "A szegmens azonosítói támogatják a reguláris kifejezéseket, például"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "A reguláris kifejezések nem igényelnek módosítókat, és alapértelmezés szerint automatikusan hozzáadják a \"g\" módosítót"
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "A szegmensek ajánlott átfedési hossza a maximális szegmenshossz 10–20%-a"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Az előnézeti dokumentum kiválasztása"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Előnézet"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "A szegmens maximális hossza nem lehet kevesebb, mint 20"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "Egy szegmens maximális hossza nem haladhatja meg az 1000-et"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Kérjük, töltse ki a szegmens maximális hosszát"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "A szegmensek átfedő hossza nem lehet kisebb, mint 0"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "A szegmensek átfedő hossza nem haladhatja meg a szegmensek maximális hosszát"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Kérjük, töltse ki a szegmensek átfedő hosszát"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Kérjük, töltse ki a szegmens azonosítóját"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Dokumentummegosztás beállításai"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Fájlok hozzáadása folytatása"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Válasszon ki egy fájlt"
     }
 }

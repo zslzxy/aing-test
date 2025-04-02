@@ -5,7 +5,9 @@
                 content-style="overflow: hidden;" :on-scroll="scrollCallback" id="scroll-bar">
                 <!-- 新对话默认展示内容 -->
                 <!--  条件展示：v-if="chatHistory.size == 0" -->
-                <div class="answer" style="margin-bottom: 20px;">
+                <WelcomeContent v-if="chatHistory.size == 0 && guideActive"/>
+
+                <div class="answer" style="margin-bottom: 20px;" v-else-if="chatHistory.size == 0 && !guideActive">
                     <div v-if="currentChatAgent" class="w-30 h-30 text-26px">{{ currentChatAgent.icon?currentChatAgent.icon:"😀" }}</div>
                     <NImage :src="AingDesk" width="30" height="30" preview-disabled v-else/>
                     <div class="answer-token">
@@ -250,7 +252,7 @@ import pdf from "@/assets/images/PDF.png"
 
 import MarkdownRender from './MarkdownRender.vue';
 
-
+import WelcomeContent from './WelcomeContent.vue';
 import KnowledgeChoosePanel from './KnowledgeChoosePanel.vue';
 import useIndexStore, { type MultipeQuestionDto } from '../store';
 import { storeToRefs } from 'pinia';
@@ -326,7 +328,12 @@ const {
     cuttentChatFileList,
     chatMask,
     temp_chat,
-    currentChatAgent
+    currentChatAgent,
+    guideActive,
+    questionFileList,
+    questionImageList,
+    questionFilesCache,
+    questionFilesRef,
 } = storeToRefs(indexStore)
 
 
@@ -531,16 +538,13 @@ const acceptFileType = [...fileLimit, ...imageLimit].reduce((p, v) => {
     return p + `.${v},`
 }, "")
 // 提问框展示的文件列表
-const questionFileList = ref<any>([])
-const questionImageList = ref<any>([])
+
 // 文件域
-const questionFilesRef = ref()
 // 选择文件
 function chooseQuestionFiles() {
     questionFilesRef.value.click()
 }
 // 文件缓存
-const questionFilesCache = ref<File[]>([])
 // 清除缓存中的指定文件
 function removeFileFromeCache(fileName: string) {
     questionFilesCache.value = questionFilesCache.value.filter(item => item.name !== fileName)

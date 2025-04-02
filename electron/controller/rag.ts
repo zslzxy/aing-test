@@ -5,6 +5,7 @@ import { Rag } from '../rag/rag';
 import { LanceDBManager } from '../rag/vector_database/vector_lancedb';
 import { GetSupplierEmbeddingModels } from '../service/model';
 import { ollamaService } from '../service/ollama';
+import { RagTask } from '../rag/rag_task';
 
 // 知识库保存路径
 const RAG_PATH = pub.get_data_path() + "/rag";
@@ -24,12 +25,12 @@ class RagController {
         try {
             // 检查是否有嵌套模型
             let result = await GetSupplierEmbeddingModels();
-            if(Object.keys(result).length > 0){
+            if (Object.keys(result).length > 0) {
                 return pub.return_success(pub.lang('知识库组件正常'));
             }
 
             let ollamaResult = await ollamaService.get_embedding_model_list();
-            if(ollamaResult.length > 0){
+            if (ollamaResult.length > 0) {
                 return pub.return_success(pub.lang('知识库组件正常'));
             }
             return pub.return_error(pub.lang('请选安装或接入嵌入模型'));
@@ -52,35 +53,60 @@ class RagController {
     }
 
 
-    
+
     /**
      * 创建知识库
      * @param {string} ragName - 知识库名称
      * @param {string} ragDesc - 知识库描述
      * @returns {Promise<any>} - 创建结果
      */
-    async create_rag(args: { ragName: string, ragDesc: string,enbeddingModel?:string,supplierName?:string }): Promise<any> {
-        // logger.info("create rag");
+    async create_rag(args: {
+        ragName: string,
+        ragDesc: string,
+        enbeddingModel?: string,
+        supplierName?: string,
+        searchStrategy: number,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
+        maxRecall: number,       // 最大召回数
+        recallAccuracy: number,  // 召回精度
+        resultReordering: number,  // 结果重排序 1=开启 0=关闭  PS: 目前仅语义重排
+        rerankModel: string, // 重排序模型 PS: 未实现
+        queryRewrite: number,  // 查询重写 1=开启 0=关闭   PS: 未实现
+        vectorWeight: number,  // 向量权重
+        keywordWeight: number,  // 关键词权重
+        savePath?: string, // 保存路径
+
+    }): Promise<any> {
+
+        let { ragName, ragDesc, enbeddingModel, supplierName, searchStrategy, maxRecall, recallAccuracy, resultReordering, rerankModel, queryRewrite, vectorWeight, keywordWeight } = args;
+
+        if (!searchStrategy) searchStrategy = 2;
+        if (!maxRecall) maxRecall = 5;
+        if (!recallAccuracy) recallAccuracy = 0.1;
+        if (!resultReordering) resultReordering = 1;
+        if (!rerankModel) rerankModel = '';
+        if (!queryRewrite) queryRewrite = 0;
+        if (!vectorWeight) vectorWeight = 0.7;
+        if (!keywordWeight) keywordWeight = 0.3;
 
         // 检查参数
-        if (!args.ragName) {
+        if (!ragName) {
             return pub.return_error(pub.lang('知识库名称不能为空'));
         }
 
-        if (args.ragName == 'vector_db') {
+        if (ragName == 'vector_db') {
             return pub.return_error(pub.lang('知识库名称不能为vector_db'));
         }
 
-        if(!args.enbeddingModel){
-            args.enbeddingModel = 'bge-m3:latest';
+        if (!enbeddingModel) {
+            enbeddingModel = 'bge-m3:latest';
         }
 
-        if(!args.supplierName){
-            args.supplierName = 'ollama';
+        if (!supplierName) {
+            supplierName = 'ollama';
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = RAG_PATH + "/" + ragName;
 
         // 检查知识库是否存在
         if (pub.file_exists(ragPath)) {
@@ -93,19 +119,19 @@ class RagController {
         // 创建知识库描述文件
         const ragDescFile = ragPath + "/config.json";
         let pdata = {
-            ragName: args.ragName, // 知识库名称
-            ragDesc: args.ragDesc,  // 知识库描述
+            ragName: ragName, // 知识库名称
+            ragDesc: ragDesc,  // 知识库描述
             ragCreateTime: pub.time(), // 创建时间
-            supplierName: args.supplierName, // 嵌套模型供应商名称
-            embeddingModel: args.enbeddingModel, // 嵌套模型
-            searchStrategy: 1,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
-            maxRecall: 10,  // 最大召回数
-            recallAccuracy: 0.1,  // 召回精度
-            resultReordering: 1,  // 结果重排序 1=开启 0=关闭  PS: 目前仅语义重排
-            rerankModel: '', // 重排序模型 PS: 未实现
-            queryRewrite: 0,  // 查询重写 1=开启 0=关闭   PS: 未实现
-            vectorWeight: 0.7,  // 向量权重
-            keywordWeight: 0.3,  // 关键词权重
+            supplierName: supplierName, // 嵌套模型供应商名称
+            embeddingModel: enbeddingModel, // 嵌套模型
+            searchStrategy: searchStrategy,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
+            maxRecall: maxRecall,  // 最大召回数
+            recallAccuracy: recallAccuracy,  // 召回精度
+            resultReordering: resultReordering,  // 结果重排序 1=开启 0=关闭  PS: 目前仅语义重排
+            rerankModel: rerankModel, // 重排序模型 PS: 未实现
+            queryRewrite: queryRewrite,  // 查询重写 1=开启 0=关闭   PS: 未实现
+            vectorWeight: vectorWeight,  // 向量权重
+            keywordWeight: keywordWeight,  // 关键词权重
         }
         pub.write_file(ragDescFile, JSON.stringify(pdata, null, 4));
 
@@ -166,22 +192,22 @@ class RagController {
      * 获取嵌套模型MAP
      * @returns {Promise<any>} - 嵌套
      */
-    async get_embedding_map(){
+    async get_embedding_map() {
         let ollamaEmbeddingList = await ollamaService.get_embedding_model_list();
         let supplierEmbeddingList = await GetSupplierEmbeddingModels()
 
-        let embeddingMap = new Map<string,Map<string,Boolean>>();
-        let ollamaEmbeddingMap = new Map<string,Boolean>();
-        for(let embed of ollamaEmbeddingList){
-            ollamaEmbeddingMap.set(embed.model,true);
+        let embeddingMap = new Map<string, Map<string, Boolean>>();
+        let ollamaEmbeddingMap = new Map<string, Boolean>();
+        for (let embed of ollamaEmbeddingList) {
+            ollamaEmbeddingMap.set(embed.model, true);
         }
-        embeddingMap.set('ollama',ollamaEmbeddingMap);
-        for(let supplierName in supplierEmbeddingList){
-            let supplierEmbeddingMap = new Map<string,Boolean>();
-            for(let embed of supplierEmbeddingList[supplierName]){
-                supplierEmbeddingMap.set(embed.model,true);
+        embeddingMap.set('ollama', ollamaEmbeddingMap);
+        for (let supplierName in supplierEmbeddingList) {
+            let supplierEmbeddingMap = new Map<string, Boolean>();
+            for (let embed of supplierEmbeddingList[supplierName]) {
+                supplierEmbeddingMap.set(embed.model, true);
             }
-            embeddingMap.set(supplierName,supplierEmbeddingMap);
+            embeddingMap.set(supplierName, supplierEmbeddingMap);
         }
         return embeddingMap;
     }
@@ -204,7 +230,7 @@ class RagController {
                 const ragDesc = JSON.parse(pub.read_file(ragDescFile));
 
                 // 补全缺失字段
-                if (!ragDesc.vectorWeight){
+                if (!ragDesc.vectorWeight) {
                     ragDesc.ragCreateTime = pub.time() // 创建时间
                     ragDesc.embeddingModel = 'bge-m3:latest' // 嵌套模型
                     ragDesc.searchStrategy = 1 // 检索策略 1=混合检索 2=向量检索 3=全文检索
@@ -220,7 +246,7 @@ class RagController {
                     pub.write_file(ragDescFile, JSON.stringify(ragDesc, null, 4));
                 }
 
-                if(!ragDesc.supplierName){
+                if (!ragDesc.supplierName) {
                     ragDesc.supplierName = 'ollama';
                     pub.write_file(ragDescFile, JSON.stringify(ragDesc, null, 4));
                 }
@@ -230,7 +256,7 @@ class RagController {
                 let supplierMap = embeddingMap.get(ragDesc.supplierName);
                 if (!supplierMap || !supplierMap.get(ragDesc.embeddingModel)) {
                     ragDesc.embeddingModelExist = false;
-                    ragDesc.errorMsg = pub.lang('指定嵌入模型不存在: {}',ragDesc.embeddingModel);
+                    ragDesc.errorMsg = pub.lang('指定嵌入模型不存在: {}', ragDesc.embeddingModel);
                 }
 
                 ragList.push(ragDesc);
@@ -243,32 +269,55 @@ class RagController {
 
     /**
      * 修改知识库信息
-     * @param {string} ragName - 知识库名称
-     * @param {string} ragDesc - 知识库描述
+     * @param {string} args.ragName - 知识库名称
+     * @param {string} args.ragDesc - 知识库描述
+     * @param {object} args.options - 其他选项
      * @returns {Promise<any>} - 修改结果
      */
-    async modify_rag(args: { ragName: string, ragDesc: string }): Promise<any> {
-        // logger.info("modify rag");
+    async modify_rag(args: {
+        ragName: string, ragDesc: string,
+        searchStrategy?: number,      // 检索策略 1=混合检索 2=向量检索 3=全文检索 
+        maxRecall?: number,           // 最大召回数
+        recallAccuracy?: number,    // 召回精度
+        resultReordering?: number,    // 结果重排序 1=开启 0=关闭  PS: 目前仅语义重排
+        rerankModel?: string,        // 重排序模型 PS: 未实现
+        queryRewrite?: number,        // 查询重写 1=开启 0=关闭   PS: 未实现
+        vectorWeight?: number,      // 向量权重
+        keywordWeight?: number,     // 关键词权重
+    }): Promise<any> {
+
+        let { ragName, ragDesc, searchStrategy, maxRecall, recallAccuracy, resultReordering, rerankModel, queryRewrite, vectorWeight, keywordWeight } = args;
 
         // 检查参数
-        if (!args.ragName) {
+        if (!ragName) {
             return pub.return_error(pub.lang('知识库名称不能为空'));
         }
-        if (args.ragName == 'vector_db') {
+        if (ragName == 'vector_db') {
             return pub.return_error(pub.lang('知识库名称不能为vector_db'));
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = RAG_PATH + "/" + ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
             return pub.return_error(pub.lang('知识库不存在'));
         }
 
-        // 创建知识库描述文件
         const ragDescFile = ragPath + "/config.json";
-        pub.write_file(ragDescFile, JSON.stringify(args, null, 4));
+        let ragConfig = pub.read_json(ragDescFile);
+
+        ragConfig.ragDesc = ragDesc;
+        ragConfig.searchStrategy = searchStrategy == undefined ? ragConfig.searchStrategy : searchStrategy;
+        ragConfig.maxRecall = maxRecall == undefined ? ragConfig.maxRecall : maxRecall;
+        ragConfig.recallAccuracy = recallAccuracy == undefined ? ragConfig.recallAccuracy : recallAccuracy;
+        ragConfig.resultReordering = resultReordering == undefined ? ragConfig.resultReordering : resultReordering;
+        ragConfig.rerankModel = rerankModel == undefined ? ragConfig.rerankModel : rerankModel;
+        ragConfig.queryRewrite = queryRewrite == undefined ? ragConfig.queryRewrite : queryRewrite;
+        ragConfig.vectorWeight = vectorWeight == undefined ? ragConfig.vectorWeight : vectorWeight;
+        ragConfig.keywordWeight = keywordWeight == undefined ? ragConfig.keywordWeight : keywordWeight;
+
+        pub.write_file(ragDescFile, JSON.stringify(ragConfig, null, 4));
 
         return pub.return_success(pub.lang('知识库修改成功'));
     }
@@ -279,34 +328,66 @@ class RagController {
      * @param {string} filePath - 文件路径 JSON列表
      * @returns {Promise<any>} - 上传结果
      */
-    async upload_doc(args: { ragName: string, filePath: string }): Promise<any> {
-        // logger.info("upload rag file");
+    async upload_doc(args: { ragName: string, filePath: string, separators?: string[], chunkSize?: number, overlapSize?: number }): Promise<any> {
+        let { ragName, filePath, separators, chunkSize, overlapSize } = args;
 
         // 检查参数
-        if (!args.ragName) {
+        if (!ragName) {
             return pub.return_error(pub.lang('知识库名称不能为空'));
         }
 
-        if (args.ragName == 'vector_db') {
+        if (ragName == 'vector_db') {
             return pub.return_error(pub.lang('知识库名称不能为vector_db'));
         }
 
-        if (!args.filePath) {
+        if (!filePath) {
             return pub.return_error(pub.lang('文件路径不能为空'));
         }
-        let filePathList: string[] = JSON.parse(args.filePath);
+        let filePathList: string[] = []
+        if(filePath.startsWith('[') && filePath.endsWith(']')){
+            filePathList = JSON.parse(filePath);
+        }else{
+            filePathList = filePath.split(',');
+        }
         if (filePathList.length == 0) {
             return pub.return_error(pub.lang('文件路径列表不能为空'));
         }
 
+        if (!separators) {
+            separators = ["\n\n", "。"];
+        }
+        if (!chunkSize) {
+            chunkSize = 500;
+        }
+        if (!overlapSize) {
+            overlapSize = 50;
+        }
+
+        if(typeof separators == 'string'){
+            separators = [separators]
+        }
+
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = RAG_PATH + "/" + ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
             return pub.return_error(pub.lang('知识库不存在'));
         }
+
+
+        // 将separators、chunkSize、overlapSize写入知识库配置文件
+        const ragDescFile = ragPath + "/config.json";
+        if (!pub.file_exists(ragDescFile)) {
+            return pub.return_error(pub.lang('知识库配置文件不存在'));
+        }
+        let ragConfig = pub.read_json(ragDescFile);
+        ragConfig.separators = separators;
+        ragConfig.chunkSize = chunkSize;
+        ragConfig.overlapSize = overlapSize;
+        pub.write_json(ragDescFile, ragConfig);
+
 
         let ragObj = new Rag();
         // 遍历文件列表
@@ -330,7 +411,7 @@ class RagController {
             // 复制文件到知识库目录，不复制文件属性
             fs.writeFileSync(dstFile, fs.readFileSync(srcFile));
 
-            await ragObj.addDocumentToDB(dstFile, args.ragName);
+            await ragObj.addDocumentToDB(dstFile, ragName, separators, chunkSize, overlapSize);
         }
 
         return pub.return_success(pub.lang('文件上传成功'));
@@ -613,6 +694,29 @@ class RagController {
         const stream = fs.createReadStream(imgFile);
         return stream
 
+    }
+
+    /**
+     * 测试分块
+     * @param args 
+     * @param args.filename <string> 文件名
+     * @param args.chunkSize <number> 块大小
+     * @param args.overlapSize <number> 重叠大小
+     * @param args.separators <string[]> 分隔符
+     * @returns 
+     */
+    async test_chunk(args: { filename: string, chunkSize: number, overlapSize: number, separators: string[] }): Promise<any> {
+        let { filename, chunkSize, overlapSize, separators } = args;
+        let ragObj = new Rag();
+        let result = await ragObj.parseDocument(filename, '')
+        let ragTask = new RagTask();
+        if (typeof separators == 'string') {
+            separators = [separators]
+        }
+        let chunkList = ragTask.splitText(result.content, separators, chunkSize, overlapSize);
+        result.chunkList = chunkList;
+
+        return pub.return_success(pub.lang('操作成功'), result);
     }
 }
 

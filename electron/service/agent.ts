@@ -6,12 +6,12 @@ import {logger} from 'ee-core/log';
  * 智能体服务类，提供与智能体相关的各种操作
  */
 export class AgentService {
-    private agentPath = path.resolve(pub.get_data_path(), 'agent');
-    private systemAgentPath = path.resolve(pub.get_resource_path(), 'agent');
 
     // 读取智能体配置
     get_agent_config(agent_name:string) {
-        let agentConfigFile = path.resolve(this.agentPath, agent_name+'.json');
+        let agentPath = path.resolve(pub.get_data_path(), 'agent');
+        let systemAgentPath = path.resolve(pub.get_resource_path(), 'agent');
+        let agentConfigFile = path.resolve(agentPath, agent_name+'.json');
         if(pub.file_exists(agentConfigFile)) {
             try{
                 let agentConfig = pub.read_json(agentConfigFile);
@@ -22,7 +22,7 @@ export class AgentService {
             }
         }
 
-        let systemAgentConfigFile = path.resolve(this.systemAgentPath, agent_name+'.json');
+        let systemAgentConfigFile = path.resolve(systemAgentPath, agent_name+'.json');
         if(pub.file_exists(systemAgentConfigFile)) {
             try{
                 let agentConfig = pub.read_json(systemAgentConfigFile);

@@ -222,15 +222,11 @@ const {
     currentContextId,
     siderWidth,
     isFold,
-    settingsShow,
     chatRemoveConfirm,
     contextIdForDel,
-    isInstalledManager,
-    managerInstallConfirm,
     contextIdForModify,
     chatModifyConfirm,
     newChatTitle,
-    chatHistory,
     currentChatTitle,
     currentModel,
     userScrollSelf,
@@ -239,14 +235,13 @@ const {
     addingKnowledge,
     activeKnowledge,
     createKnowledgeFormData,
-    currentChatKnowledge,
-    currentChatSearch,
     activeKnowledgeForChat,
     netActive,
     thirdPartyApiShow,
     currentSupplierName,
     currentModelDto,
-    currentChatAgent
+    currentChatAgent,
+    isEditKnowledge
 } = storeToRefs(useIndexStore())
 
 /* const chartPopSelectOptions = ref<{ label: string, value: string }[]>([
@@ -353,10 +348,10 @@ function doChatDel(contextId: string) {
  * @description 知识库操作
  */
 function dealPopOperation(val: string, knowledge: any) {
-    console.log(knowledge)
     if (val == "delChat") {
         removeRagConfirm(knowledge.ragName)
     } else {
+        isEditKnowledge.value = true
         createKnowledgeFormData.value.enbeddingModel = knowledge.embeddingModel
         createKnowledgeFormData.value.ragName = knowledge.ragName
         createKnowledgeFormData.value.ragDesc = knowledge.ragDesc

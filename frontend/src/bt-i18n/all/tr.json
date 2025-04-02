@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Lütfen Model Yöneticisi için kurulum yolunu seçin"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "grafik"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "kaynak kodu"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "Mermaid ayırıştırma başarısız oldu. Lütfen syntaksi kontrol edin"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Olama arayüz adresi"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "Ağımdaki ollama adresi mevcut değil"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Başlangıç Kılavuzu"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "AingDesk'e hoş geldiniz. Bilim tabanı, model API'yi destekleyen basit ve kolay kullanılan AI asistanı. Bu yazılım a çık kaynağı ve özgür, ve geliştirmemizi desteklemek için başkalarınla yazılım paylaşmanızı bekliyoruz."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk hızlı büyüme için hızlı çalışan yeni bir AI projesidir. Eğer kullanım sırasında sorunlara rastlanırsanız ya da yazılım için bir fonksiyonel ihtiyaçlarınız varsa, bize feedback vermek için WeChat grupumuza katılabilirsiniz."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Sonunda a çık kaynaklı projemiz için bir yıldız verebilirsiniz. Teşvikiniz açık kaynaklı projelerini tekrar denemeye devam etmemiz için çok önemlidir. Teşekkürler."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "GitHub'a git ve yıldızlara tıklayın"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Yapabilirsin."
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Başlangıcının rehberini ortaya kapat."
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "Belge silmesi başarısız oldu"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Başarılı ayarlama"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Bölüm kimliği"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Azamik bölüm uzunluğu"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Bölüm boyunca"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Bölüm kimlikçileri düzenli ifadeleri destekliyor, gibi"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Düzenli ifadeler değiştiricileri eklemek istemiyor ve öntanımlı olarak 'g' değiştiricisini otomatik olarak ekleyecek"
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "Bölümler için teklif edilen küçük uzunluğu maksimum bölüm uzunluğunun %10'a %20'dir."
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Önizleme için belge seçin"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Önizleme"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "Bölümün maksimum uzunluğu 20'den az olamaz."
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "Bölümün maksimum uzunluğu 1000'den fazla kalamaz"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Lütfen bölümün en büyük uzunluğunu doldurun"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "Bölümlerin üzerindeki uzunluğu 0'dan az olamaz."
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "Bölümlerin karıştırılması uzunluğu bölümlerin en büyük uzunluğundan fazla geçemez"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Lütfen bölümlerin aşağılık uzunluğunu doldurun"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Lütfen bölüm kimliğini doldurun"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Belge Paylaştırma Ayarları"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Dosyaları eklemeye devam et"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Lütfen bir dosya seçin"
     }
 }

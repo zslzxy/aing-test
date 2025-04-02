@@ -42,18 +42,62 @@ interface PerformanceMetrics {
  * LanceDB向量数据库管理类
  */
 export class LanceDBManager {
-    private static readonly DB_PATH = path.join(pub.get_data_path(), 'rag', 'vector_db');
     // 向量维度
     private static readonly DIMENSION = 1024;
     // 是否启用性能监控
     private static readonly ENABLE_METRICS = false;
 
+
+    public static async connect(dbPath?:string): Promise<lancedb.Connection>{
+        if(!dbPath){
+            dbPath = pub.get_db_path()
+        }
+        const db = await lancedb.connect(dbPath);
+        return db;
+    }
+
+
+    // 优化所有表
+    public static async optimizeAllTable(){
+        try{
+            global.isOptimizeAllTable = true;
+            let tipPath = path.join(pub.get_data_path(), 'rag', 'index_tips');
+            let tipFile = path.join(tipPath,`optimize-${pub.getCurrentDate()}.pl`);
+            if(fs.existsSync(tipFile)){
+                global.isOptimizeAllTable = false;
+                return;
+            }
+            const db = await lancedb.connect(pub.get_db_path());
+            const tables = await db.tableNames();
+            let optimizedTables = [];
+            let startTime = pub.time();
+            for (let table of tables) {
+                const tableObj = await db.openTable(table);
+                await tableObj.optimize({deleteUnverified:true,cleanupOlderThan:new Date()});
+                tableObj.close();
+                optimizedTables.push(table);
+            }
+            let endTime = pub.time();
+            db.close();
+            if(!fs.existsSync(tipPath)){
+                fs.mkdirSync(tipPath, { recursive: true });
+            }
+            pub.write_file(tipFile,`optimizedTables: ${optimizedTables.join(',')}\ntime: ${endTime - startTime}s`);
+        }catch(e){
+            logger.error('优化表失败',e)
+        }finally{
+            global.isOptimizeAllTable = false;
+        }
+    }
+
+
     /**
      * 确保数据库目录存在
      */
     private static ensureDatabaseDirectory(): void {
-        if (!fs.existsSync(this.DB_PATH)) {
-            fs.mkdirSync(this.DB_PATH, { recursive: true });
+        let dbPath = pub.get_db_path();
+        if (!fs.existsSync(dbPath)) {
+            fs.mkdirSync(dbPath, { recursive: true });
         }
     }
 
@@ -80,6 +124,79 @@ export class LanceDBManager {
         console.log(`[性能] ${metrics.operation}: ${metrics.duration.toFixed(2)}ms`);
     }
 
+    private static getEmbeddingCachePath(){
+        return path.join(pub.get_data_path(), 'embedding_cache');
+    }
+
+
+    /**
+     * 清理过期的向量缓存
+     */
+    public static async clearExpiredCache(){
+        if(global.isClearExpiredCache){
+            return;
+        }
+        let cache_path = this.getEmbeddingCachePath();
+        let files = pub.readdir(cache_path);
+        // 清理一周前的缓存
+        let now = new Date();
+        let nowTime = now.getTime();
+        let week = 1000 * 60 * 60 * 24 * 7;
+        for(let i=0;i<files.length;i++){
+            let file = files[i];
+            let stat = fs.statSync(file);
+            let atime = stat.atime.getTime();
+            if(nowTime - atime > week){
+                fs.unlinkSync(file);
+            }
+        }
+        global.isClearExpiredCache = true;
+    }
+
+    /**
+     * 获取向量缓存
+     * @param key 缓存键
+     * @returns number[] 
+     */
+    private static async getEmbeddingCache(key:string):Promise<number[]>{
+        let cache_path = this.getEmbeddingCachePath();
+        if(!fs.existsSync(cache_path)){
+            fs.mkdirSync(cache_path, { recursive: true });
+        }
+
+        let cache_file = path.join(cache_path, `${key}.json`);
+        if(fs.existsSync(cache_file)){
+            let cache = pub.read_json(cache_file);
+
+            // 修改文件访问时间
+            let now = new Date();
+            fs.utimesSync(cache_file, now, now);
+
+            return cache
+        }
+
+        // 如果缓存不存在，返回空数组
+        return [];
+    }
+
+    /**
+     * 设置向量缓存
+     * @param key <string> 缓存键
+     * @param embedding <number[]> 向量嵌入
+     * @returns void
+     */
+    private static async setEmbeddingCache(key:string,embedding:number[]){
+        let cache_path = this.getEmbeddingCachePath();
+        if(!fs.existsSync(cache_path)){
+            fs.mkdirSync(cache_path, { recursive: true });
+        }
+
+        let cache_file = path.join(cache_path, `${key}.json`);
+        pub.write_file(cache_file, JSON.stringify(embedding));
+        this.clearExpiredCache();
+    }
+
+
     /**
      * 获取文本的向量嵌入
      * @param supplierName 供应商名称
@@ -90,6 +207,14 @@ export class LanceDBManager {
      */
     private static async getEmbedding(supplierName:string,model: string, text: string): Promise<number[]> {
         const metrics = this.startMetrics(`生成嵌入 (${text.substring(0, 30)}...)`);
+
+        let key = pub.md5(`${supplierName}-${model}-${text}`);
+        // 检查缓存
+        let embedding = await this.getEmbeddingCache(key);
+        if(embedding.length > 0){
+            return embedding;
+        }
+
 
         try {
             let res:any;
@@ -111,8 +236,19 @@ export class LanceDBManager {
             }
 
             if (!res.embedding || res.embedding.length !== this.DIMENSION) {
-                throw new Error(`嵌入维度错误: 期望 ${this.DIMENSION}, 实际 ${res.embedding ? res.embedding.length : 0}`);
+                if(!res.embedding){
+                    throw new Error(`嵌入维度错误: 期望 ${this.DIMENSION}, 实际 ${res.embedding ? res.embedding.length : 0}`);
+                }
+                // 不足的维度以0填充
+                if (res.embedding && res.embedding.length < this.DIMENSION) {
+                    const padding = new Array(this.DIMENSION - res.embedding.length).fill(0);
+                    res.embedding = res.embedding.concat(padding);
+                }
+                
             }
+
+            // 设置缓存
+            await this.setEmbeddingCache(key,res.embedding);
 
             return res.embedding;
         } catch (error: any) {
@@ -148,7 +284,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`创建表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否已存在
@@ -165,6 +301,7 @@ export class LanceDBManager {
                 doc: initialText,
                 vector: embedding,
                 docId: '0',
+                tokens: initialText,
                 keywords: ["keyword1", "keyword2"]
             }] as VectorRecord[]);
 
@@ -190,9 +327,9 @@ export class LanceDBManager {
                 console.log('创建docId索引失败',e)
             }
 
-            // doc索引
+            // tokens索引
             try{
-                await tableObj.createIndex("doc", {
+                await tableObj.createIndex("tokens", {
                     config: lancedb.Index.fts() // 全文搜索
                 });
             }catch(e){
@@ -230,7 +367,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`创建表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否已存在
@@ -290,6 +427,64 @@ export class LanceDBManager {
         }
     }
 
+    /**
+     * 创建FTS索引
+     * @param tableName 表名
+     * @returns boolean
+     */
+    public static async createDocFtsIndex(tableName:string){
+        try{
+            const db = await lancedb.connect(pub.get_db_path());
+            const tableObj = await db.openTable(tableName);
+            
+            let indexName = 'doc_idx'
+            let indexStats = await tableObj.indexStats(indexName)
+            if(indexStats){
+                // 删除旧的FTS索引
+                await tableObj.dropIndex(indexName)
+            }
+
+            let shcema = await tableObj.schema()
+            // 检查是否存在tokens列
+            let tokensColumn = shcema.fields.find((col) => col.name === 'tokens');
+            if (!tokensColumn) {
+                // 如果不存在，添加tokens列
+                await tableObj.addColumns([{
+                    name:"tokens",
+                    valueSql:"cast(doc as string)",
+                }])
+        
+                // 调整tokens列
+                let data = await tableObj.query().select(['id','doc']).limit(1000000).toArray()
+                for(let i=0;i<data.length;i++){
+                    let doc = data[i].doc
+                    let id = data[i].id
+                    let result = pub.cutForSearch(doc)
+                    let tokens = result.join(' ')
+                    await tableObj.update({where:`id='${id}'`,values:{tokens}})
+                }
+        
+                await tableObj.optimize()
+            }
+
+            // 创建新的FTS索引
+            indexName = 'tokens_idx'
+            indexStats = await tableObj.indexStats(indexName)
+            if(!indexStats){
+                // 创建FTS索引
+                await tableObj.createIndex("tokens",{
+                    config: lancedb.Index.fts(),
+                })
+            }
+
+
+            tableObj.close();
+            db.close();
+        }catch(e){
+            console.log('创建FTS索引失败',e)
+        }
+    }
+
 
     /**
      * 添加索引
@@ -301,7 +496,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`添加索引到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try{
             // 检查表是否存在
@@ -312,14 +507,15 @@ export class LanceDBManager {
             // 打开表
             const tableObj = await db.openTable(tableName);
 
-            // 获取索引列表
-            const indexList = await tableObj.listIndices();
+
 
             // 添加索引
             for (const indexKey of indexKeys) {
                 // 检查索引是否已存在
-                if (indexList.includes(indexKey.key)) {
-                    console.log(`索引 "${indexKey.key}" 已存在`);
+                let indexName = indexKey.key + "_idx";
+                const indexStats = await tableObj.indexStats(indexName);
+                if (indexStats) {
+                    console.log(`索引 "${indexName}" 已存在，跳过创建`);
                     continue;
                 }
 
@@ -382,7 +578,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`删除索引到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try{
             // 检查表是否存在
@@ -419,14 +615,14 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`添加文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        let db = await lancedb.connect(this.DB_PATH);
+        let db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
             if (!(await this.tableExists(db, tableName))) {
                 await this.createTable(tableName, supplierName,model, text);
                 await db.close();
-                db = await lancedb.connect(this.DB_PATH);
+                db = await lancedb.connect(pub.get_db_path());
             }
 
             const tableObj = await db.openTable(tableName);
@@ -446,6 +642,7 @@ export class LanceDBManager {
                 vector: embedding
             }] as VectorRecord[]);
 
+            await tableObj.optimize();
             // console.log(`成功添加文档到表 ${tableName}, ID: ${id}`);
             return id;
         } catch (error: any) {
@@ -454,6 +651,43 @@ export class LanceDBManager {
             await db.close();
             this.endMetrics(metrics);
         }
+    }
+
+
+    public static async checkColumn(tableObj:lancedb.Table,recordInfo:any): Promise<boolean> {
+        let schema =  await tableObj.schema()
+        // 检查字段是否存在
+        let newFields:any = []
+        for (let key of Object.keys(recordInfo)) {
+            if (schema.fields.find((item:any) => item.name == key)) {
+                continue
+            }
+
+            // 如果字段不存在，添加字段
+            const fieldType = typeof recordInfo[key];
+
+            let newField = {
+                name: key,
+                valueSql:'',
+            }
+            if (fieldType == 'string') {
+                newField.valueSql = "cast( NULL as Utf8)"
+            } else if (fieldType == 'number') {
+                newField.valueSql = 'cast(NULL as Float)'
+            } else if (fieldType == 'object') {
+                if(Array.isArray(recordInfo[key])) {
+                    newField.valueSql = 'cast(["\n\n","。"] as List)'
+                }
+            }
+            newFields.push(newField)
+
+        }
+
+        // 添加字段
+        console.log('添加字段',newFields)
+        await tableObj.addColumns(newFields);
+
+        return true;
     }
 
 
@@ -467,7 +701,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`添加文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -477,9 +711,11 @@ export class LanceDBManager {
 
             const tableObj = await db.openTable(tableName);
 
+
+
             // 添加记录
             await tableObj.add(record);
-
+            await tableObj.optimize();
             // console.log(`成功添加文档到表 ${tableName}`);
             return true;
         } catch (error: any) {
@@ -488,6 +724,13 @@ export class LanceDBManager {
             await db.close();
             this.endMetrics(metrics);
         }
+
+    }
+
+    // 打开表
+    public static async openTable(tableName:string){
+        const db = await lancedb.connect(pub.get_db_path());
+        return await db.openTable(tableName);
 
     }
 
@@ -503,7 +746,7 @@ export class LanceDBManager {
     public static async updateRecord(tableName: string, record: any): Promise<boolean> {
         const metrics = this.startMetrics(`更新文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
 
@@ -516,11 +759,11 @@ export class LanceDBManager {
 
             // 更新记录
             await tableObj.update(record);
-
+            await tableObj.optimize();
             console.log(`成功更新文档到表 ${tableName}`);
             return true;
         } catch (error: any) {
-            logger.error(`更新文档失败: ${error.message}`);
+            logger.error(`更新文档失败: ${error.message}`,tableName,record);
             return false;
         } finally {
             await db.close();
@@ -538,7 +781,7 @@ export class LanceDBManager {
     public static async deleteRecord(tableName: string, where: string): Promise<boolean> {
         const metrics = this.startMetrics(`删除文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -550,7 +793,7 @@ export class LanceDBManager {
 
             // 删除记录
             await tableObj.delete(where);
-
+            await tableObj.optimize();
             // console.log(`成功删除文档到表 ${tableName}`);
             return true;
         } catch (error: any) {
@@ -572,7 +815,7 @@ export class LanceDBManager {
     public static async queryRecord(tableName: string, where: string): Promise<any[]> {
         const metrics = this.startMetrics(`查询文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -605,7 +848,7 @@ export class LanceDBManager {
     public static async tableCount(tableName: string): Promise<number> {
         const metrics = this.startMetrics(`查询文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -643,7 +886,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`批量添加 ${texts.length} 条文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -668,6 +911,7 @@ export class LanceDBManager {
 
             // 批量添加记录
             await tableObj.add(records);
+            await tableObj.optimize();
 
             // console.log(`成功批量添加 ${records.length} 条文档到表 ${tableName}`);
             return records.length;
@@ -697,7 +941,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`在表 ${tableName} 中搜索`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -731,6 +975,52 @@ export class LanceDBManager {
             this.endMetrics(metrics);
         }
     }
+
+
+    public static async hybridSearchByNew(tableName:string,
+        ragInfo: {
+        ragName: string, // 知识库名称
+        ragDesc: string,  // 知识库描述
+        ragCreateTime: number // 创建时间
+        supplierName: string, // 供应商名称
+        embeddingModel: string, // 嵌套模型
+        searchStrategy: number,  // 检索策略 1=混合检索 2=向量检索 3=全文检索 
+        maxRecall: number,  // 最大召回数
+        recallAccuracy: number,  // 召回精度
+        resultReordering: number,  // 结果重排序 1=开启 0=关闭  PS: 目前仅语义重排
+        rerankModel: string, // 重排序模型 PS: 未实现
+        queryRewrite: number,  // 查询重写 1=开启 0=关闭   PS: 未实现
+        vectorWeight: number,  // 向量权重
+        keywordWeight: number,  // 关键词权重
+    },
+    queryText: string,
+    keywords: string[] = [],): Promise<QueryResult[]> {
+        const metrics = this.startMetrics(`在表 ${tableName} 中执行混合搜索`);
+        this.ensureDatabaseDirectory();
+
+        const db = await lancedb.connect(pub.get_db_path());
+        const tableObj = await db.openTable(tableName);
+
+        const embedding = await this.getEmbedding(ragInfo.supplierName,ragInfo.embeddingModel, queryText);
+
+        let isTokensIdx = await tableObj.indexStats('tokens_idx')
+        if(!isTokensIdx){
+            // 创建FTS索引
+            await this.createDocFtsIndex(tableName);
+        }
+        let sortedResults = await tableObj.query().fullTextSearch(keywords.join(' ')).nearestTo(embedding).rerank(await lancedb.rerankers.RRFReranker.create()).select(['id', 'doc', 'docId']).limit(ragInfo.maxRecall).toArray()
+
+        // 获取文档信息并处理结果
+        const docIdList = sortedResults.map(item => item.docId);
+        const docNameMap = await this.getDocName(docIdList);
+        const optimizedResults = await this.optimizeDocumentContent(sortedResults, docNameMap);
+        
+
+        // 返回标准格式的结果
+        const userUrl = `http://127.0.0.1:7071`;
+        return this.formatResults(optimizedResults, docNameMap, "{URL}", userUrl);
+    }
+
 
     /**
      * 执行混合搜索（向量相似度 + 关键词匹配）
@@ -782,7 +1072,7 @@ export class LanceDBManager {
             return [];
         }
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -885,6 +1175,8 @@ export class LanceDBManager {
         if (pub.file_exists(indexTipFile)) {
             return
         }
+
+        
 
         if(await LanceDBManager.tableCount(tableName) > 256) {
             pub.write_file(indexTipFile,"1")
@@ -1148,21 +1440,21 @@ export class LanceDBManager {
             });
         }
 
+        return results;
+        // // 合并同一文档的多个切片
+        // const resultsMap = new Map<string, any>();
+        // results.forEach(result => {
+        //     const docId = result.docId;
+        //     if (!resultsMap.has(docId)) {
+        //         resultsMap.set(docId, result);
+        //     } else {
+        //         const existing = resultsMap.get(docId);
+        //         existing.doc += "\n" + result.doc;
+        //         existing.score = Math.max(existing.score, result.score);
+        //     }
+        // });
 
-        // 合并同一文档的多个切片
-        const resultsMap = new Map<string, any>();
-        results.forEach(result => {
-            const docId = result.docId;
-            if (!resultsMap.has(docId)) {
-                resultsMap.set(docId, result);
-            } else {
-                const existing = resultsMap.get(docId);
-                existing.doc += result.doc;
-                existing.score = Math.max(existing.score, result.score);
-            }
-        });
-
-        return Array.from(resultsMap.values());
+        // return Array.from(resultsMap.values());
     }
     
     /**
@@ -1184,9 +1476,9 @@ export class LanceDBManager {
                 docId: item.docId,
                 docName: docNameMap.get(item.docId)?.doc_name,
                 docFile: docNameMap.get(item.docId)?.doc_file,
-                score: item.score,
-                vectorScore: item.vectorScore,
-                keywordScore: item.keywordScore
+                score: item.score !== undefined? item._score: item._score + item._relevance_score,
+                vectorScore: item.vectorScore !== undefined?item.vectorScore: item._relevance_score,
+                keywordScore: item.keywordScore  !== undefined?item.keywordScore: item._score
             };
         });
     }
@@ -1208,7 +1500,7 @@ export class LanceDBManager {
         const repDataDir = '{DATA_DIR}';
         try {
             this.ensureDatabaseDirectory();
-            const db = await lancedb.connect(this.DB_PATH);
+            const db = await lancedb.connect(pub.get_db_path());
 
             try {
                 // 检查表是否存在
@@ -1265,7 +1557,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`获取表 ${tableName} 的所有文档`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -1301,7 +1593,7 @@ export class LanceDBManager {
     public static async getDocumentCount(tableName: string): Promise<number> {
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -1327,7 +1619,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`删除表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -1341,7 +1633,7 @@ export class LanceDBManager {
         } catch (error: any) {
             if (error.message.includes('LanceError(IO)')) {
                 // 通过删除表文件来解决IO错误
-                const tablePath = path.join(this.DB_PATH, `${tableName}.lance`);
+                const tablePath = path.join(pub.get_db_path(), `${tableName}.lance`);
                 if (fs.existsSync(tablePath)) {
                     fs.rmdirSync(tablePath, { recursive: true });
                     return true;
@@ -1361,7 +1653,7 @@ export class LanceDBManager {
     public static async listTables(): Promise<string[]> {
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             return await db.tableNames();
@@ -1382,7 +1674,7 @@ export class LanceDBManager {
         const metrics = this.startMetrics(`从表 ${tableName} 中删除文档 ID: ${docId}`);
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在
@@ -1393,9 +1685,10 @@ export class LanceDBManager {
             const tableObj = await db.openTable(tableName);
 
             // 确认记录存在
+            const where = "`docId` = '" + docId + "'";
             const exists = (await tableObj
                 .query()
-                .where(`"docId" = '${docId}'`)
+                .where(where)
                 .select(['docId'])
                 .limit(1)
                 .toArray()).length > 0;
@@ -1405,7 +1698,7 @@ export class LanceDBManager {
             }
 
             // 删除记录
-            await tableObj.delete(`"docId" = '${docId}'`);
+            await tableObj.delete(where);
             // console.log(`从表 ${tableName} 中删除ID为 ${docId} 的文档`);
             return 1;
         } catch (error: any) {
@@ -1428,7 +1721,7 @@ export class LanceDBManager {
     }> {
         this.ensureDatabaseDirectory();
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             const tableNames = await db.tableNames();
@@ -1444,7 +1737,7 @@ export class LanceDBManager {
             }
 
             return {
-                dbPath: this.DB_PATH,
+                dbPath: pub.get_db_path(),
                 tables: tableNames.length,
                 totalDocuments,
                 tableDetails
@@ -1490,7 +1783,7 @@ export class LanceDBManager {
             return [];
         }
 
-        const db = await lancedb.connect(this.DB_PATH);
+        const db = await lancedb.connect(pub.get_db_path());
 
         try {
             // 检查表是否存在

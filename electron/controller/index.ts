@@ -175,6 +175,127 @@ class IndexController {
     }
 
 
+    /**
+     * 接收前端错误日志，并写入到日志文件
+     * @param args 
+     * @returns 
+     */
+    async write_logs(args: { logs: string}): Promise<any> {
+        const { logs } = args;
+        // 记录日志
+        logger.error(logs);
+        return pub.return_success(pub.lang('写入成功'));
+    }
+
+
+
+    /**
+     * 获取数据保存路径
+     * @returns {Promise<any>} 返回成功响应，包含数据保存路径
+     */
+    async get_data_save_path(): Promise<any> {
+        let savePathConfigFile = path.resolve(pub.get_resource_path(),'save_path.json')
+        if(!pub.file_exists(savePathConfigFile)){
+            let currentPath = pub.get_data_path()
+            let config = {
+                oldPath: '',
+                currentPath: currentPath,
+                isMove: false,   // 是否要移动数据到新路径
+                isMoveSuccess: false, // 是否移动成功
+                isClearOldPath: false,  // 是否已清除旧数据
+                dataSize: 0, // 数据大小
+                copyStatus: {
+                    status:0,   // 0:未开始,1:正在复制,2:复制完成,-1:复制失败
+                    speed:0,    // 复制速度
+                    total:0,    // 总大小
+                    current:0,  // 已复制大小
+                    percent:0,  // 复制进度
+                    startTime:0, // 复制开始时间
+                    endTime:0,  // 复制结束时间
+                    fileTotal:0, // 复制文件总数
+                    fileCurrent:0, // 复制文件当前数量
+                    message:'', // 复制信息
+                    error:'',   // 复制错误信息
+                }
+            }
+            pub.write_json(savePathConfigFile,config)
+        }
+
+        let savePathConfig = pub.read_json(savePathConfigFile)
+
+        // 返回成功响应
+        return pub.return_success(pub.lang('获取成功'), savePathConfig);
+    }
+
+
+
+
+
+
+    /**
+     * 设置数据保存路径
+     * @param args - 参数对象
+     * @returns {Promise<any>} 返回成功响应，包含设置结果
+     */
+    async set_data_save_path(args: { newPath: string}): Promise<any> {
+        if(global.isOptimizeAllTable){
+            return pub.return_error(pub.lang('当前正在执行向量数据优化操作，请等待几分钟后再试'));
+        }
+        if(global.isCopyDataPath){
+            return pub.return_error(pub.lang('正在复制数据，请稍后再试'));
+        }
+        let { newPath } = args
+        if(!newPath){
+            return pub.return_error(pub.lang('请选择目录'));
+        }
+
+        if(!pub.file_exists(newPath)){
+            return pub.return_error(pub.lang('指定的目录不存在'));
+        }
+
+        // 检查指定目录是否为空目录
+        let files = pub.readdir(newPath)
+        if(files.length > 0){
+            return pub.return_error(pub.lang('指定的目录不是空目录'));
+        }
+
+
+        let savePathConfigFile = path.resolve(pub.get_resource_path(),'save_path.json')
+        if(!pub.file_exists(savePathConfigFile)){
+            return pub.return_error(pub.lang('配置文件不存在，请先调用获取数据保存路径接口'));
+        }
+        let savePathConfig = pub.read_json(savePathConfigFile)
+        
+        // 设置新的数据保存路径
+        savePathConfig.oldPath = savePathConfig.currentPath
+        savePathConfig.currentPath = newPath
+        savePathConfig.isMove = true
+        savePathConfig.isMoveSuccess = false
+        
+        
+        savePathConfig.copyStatus.status = 0
+        savePathConfig.copyStatus.speed = 0
+        savePathConfig.copyStatus.total = 0
+        savePathConfig.copyStatus.current = 0
+        savePathConfig.copyStatus.percent = 0
+        savePathConfig.copyStatus.startTime = 0
+        savePathConfig.copyStatus.endTime = 0
+        savePathConfig.copyStatus.fileTotal = 0
+        savePathConfig.copyStatus.fileCurrent = 0
+        savePathConfig.copyStatus.message = ''
+        savePathConfig.copyStatus.error = ''
+
+
+        pub.write_json(savePathConfigFile,savePathConfig)
+        global.changePath = true
+        // 返回成功响应
+        return pub.return_success(pub.lang('设置成功,正在复制数据，请稍后查看进度'));
+    }
+
+
+
+
+
 }
 
 /**

@@ -1,6 +1,7 @@
 import { LanceDBManager } from './vector_database/vector_lancedb';
 import { pub } from '../class/public';
 import { Rag } from './rag';
+import {indexService} from '../service/index'
 
 
 
@@ -17,99 +18,104 @@ export class RagTask {
         return result;
     }
 
-
-    /**
-     * 文档分割 - 将长文本分割成小块，尊重Markdown文档结构
-     * @param docBody 待分割的文档内容
-     * @returns 分割后的文本块数组
-     */
-    public async docChunk(docBody: string): Promise<string[]> {
-        // 每个块的最大字符数
-        const chunkSize = 500;
-        // 重叠区域的字符数，确保上下文连贯性
-        const overlapSize = 15;
-        // 最小块大小阈值，小于此值不设置重叠区域
-        const minSizeForOverlap = 60;
-        
-        // 处理空文档情况
-        if (!docBody || docBody.trim().length === 0) {
-            return [];
-        }
-        
-        const chunks: string[] = [];
-        
-        // 首先按照Markdown标题分割（# 开头的行）
-        const headingRegex = /^#{1,6}\s+.+$/gm;
-        const headingMatches = [...docBody.matchAll(headingRegex)];
-        
-        if (headingMatches.length > 1) {
-            // 有明确的Markdown标题结构，按标题分块
-            const sections: string[] = [];
-            
-            for (let i = 0; i < headingMatches.length; i++) {
-                const currentMatch = headingMatches[i];
-                const nextMatch = headingMatches[i + 1];
-                
-                const startIdx = currentMatch.index!;
-                const endIdx = nextMatch ? nextMatch.index! : docBody.length;
-                
-                sections.push(docBody.substring(startIdx, endIdx));
-            }
-            
-            // 对每个部分进一步处理
-            for (const section of sections) {
-                if (section.length <= chunkSize) {
-                    chunks.push(section.trim());
-                } else {
-                    // 如果部分太长，进一步分割
-                    const subChunks = this.splitTextBySize(section, chunkSize, overlapSize, minSizeForOverlap);
-                    chunks.push(...subChunks);
-                }
-            }
-        } else {
-            // 没有明确的标题结构，尝试按照Markdown列表、代码块等分割
-            const mdBlockRegex = /```[\s\S]*?```|^\s*[*+-]\s+.*$(?:\n^\s*[*+-]\s+.*$)*/gm;
-            const mdBlocks = [...docBody.matchAll(mdBlockRegex)];
-            
-            if (mdBlocks.length > 0) {
-                // 处理Markdown块和块之间的文本
-                let lastEnd = 0;
-                
-                for (const block of mdBlocks) {
-                    // 先处理块前的文本
-                    if (block.index! > lastEnd) {
-                        const textBefore = docBody.substring(lastEnd, block.index!);
-                        const textChunks = this.splitTextBySize(textBefore, chunkSize, overlapSize, minSizeForOverlap);
-                        chunks.push(...textChunks);
-                    }
-                    
-                    // 处理Markdown块本身
-                    const blockContent = block[0];
-                    if (blockContent.length <= chunkSize) {
-                        chunks.push(blockContent.trim());
-                    } else {
-                        const blockChunks = this.splitTextBySize(blockContent, chunkSize, overlapSize, minSizeForOverlap);
-                        chunks.push(...blockChunks);
-                    }
-                    
-                    lastEnd = block.index! + block[0].length;
-                }
-                
-                // 处理最后一个块后的文本
-                if (lastEnd < docBody.length) {
-                    const textAfter = docBody.substring(lastEnd);
-                    const textChunks = this.splitTextBySize(textAfter, chunkSize, overlapSize, minSizeForOverlap);
-                    chunks.push(...textChunks);
-                }
-            } else {
-                // 没有特定Markdown结构，按段落分割
-                const textChunks = this.splitTextBySize(docBody, chunkSize, overlapSize, minSizeForOverlap);
-                chunks.push(...textChunks);
-            }
-        }
-        
-        return chunks;
+    async getNotEmbeddingDocument(): Promise<any> {
+        let result = await LanceDBManager.queryRecord(this.docTable, "is_parsed=2");
+        return result;
     }
+
+
+    // /**
+    //  * 文档分割 - 将长文本分割成小块，尊重Markdown文档结构
+    //  * @param docBody 待分割的文档内容
+    //  * @returns 分割后的文本块数组
+    //  */
+    // public async docChunk(docBody: string): Promise<string[]> {
+    //     // 每个块的最大字符数
+    //     const chunkSize = 1000;
+    //     // 重叠区域的字符数，确保上下文连贯性
+    //     const overlapSize = 100;
+    //     // 最小块大小阈值，小于此值不设置重叠区域
+    //     const minSizeForOverlap = 900;
+        
+    //     // 处理空文档情况
+    //     if (!docBody || docBody.trim().length === 0) {
+    //         return [];
+    //     }
+        
+    //     const chunks: string[] = [];
+        
+    //     // 首先按照Markdown标题分割（# 开头的行）
+    //     const headingRegex = /^#{1,6}\s+.+$/gm;
+    //     const headingMatches = [...docBody.matchAll(headingRegex)];
+        
+    //     if (headingMatches.length > 1) {
+    //         // 有明确的Markdown标题结构，按标题分块
+    //         const sections: string[] = [];
+            
+    //         for (let i = 0; i < headingMatches.length; i++) {
+    //             const currentMatch = headingMatches[i];
+    //             const nextMatch = headingMatches[i + 1];
+                
+    //             const startIdx = currentMatch.index!;
+    //             const endIdx = nextMatch ? nextMatch.index! : docBody.length;
+                
+    //             sections.push(docBody.substring(startIdx, endIdx));
+    //         }
+            
+    //         // 对每个部分进一步处理
+    //         for (const section of sections) {
+    //             if (section.length <= chunkSize) {
+    //                 chunks.push(section.trim());
+    //             } else {
+    //                 // 如果部分太长，进一步分割
+    //                 const subChunks = this.splitTextBySize(section, chunkSize, overlapSize, minSizeForOverlap);
+    //                 chunks.push(...subChunks);
+    //             }
+    //         }
+    //     } else {
+    //         // 没有明确的标题结构，尝试按照Markdown列表、代码块等分割
+    //         const mdBlockRegex = /```[\s\S]*?```|^\s*[*+-]\s+.*$(?:\n^\s*[*+-]\s+.*$)*/gm;
+    //         const mdBlocks = [...docBody.matchAll(mdBlockRegex)];
+            
+    //         if (mdBlocks.length > 0) {
+    //             // 处理Markdown块和块之间的文本
+    //             let lastEnd = 0;
+                
+    //             for (const block of mdBlocks) {
+    //                 // 先处理块前的文本
+    //                 if (block.index! > lastEnd) {
+    //                     const textBefore = docBody.substring(lastEnd, block.index!);
+    //                     const textChunks = this.splitTextBySize(textBefore, chunkSize, overlapSize, minSizeForOverlap);
+    //                     chunks.push(...textChunks);
+    //                 }
+                    
+    //                 // 处理Markdown块本身
+    //                 const blockContent = block[0];
+    //                 if (blockContent.length <= chunkSize) {
+    //                     chunks.push(blockContent.trim());
+    //                 } else {
+    //                     const blockChunks = this.splitTextBySize(blockContent, chunkSize, overlapSize, minSizeForOverlap);
+    //                     chunks.push(...blockChunks);
+    //                 }
+                    
+    //                 lastEnd = block.index! + block[0].length;
+    //             }
+                
+    //             // 处理最后一个块后的文本
+    //             if (lastEnd < docBody.length) {
+    //                 const textAfter = docBody.substring(lastEnd);
+    //                 const textChunks = this.splitTextBySize(textAfter, chunkSize, overlapSize, minSizeForOverlap);
+    //                 chunks.push(...textChunks);
+    //             }
+    //         } else {
+    //             // 没有特定Markdown结构，按段落分割
+    //             const textChunks = this.splitTextBySize(docBody, chunkSize, overlapSize, minSizeForOverlap);
+    //             chunks.push(...textChunks);
+    //         }
+    //     }
+        
+    //     return chunks;
+    // }
     
     /**
      * 辅助方法：按大小分割文本
@@ -173,13 +179,121 @@ export class RagTask {
     }
 
 
+    // 递归分割
+    recursionSplit(chunkList:string[],separators:string[],chunkSize:number,currentSep:string,overlapSize:number):string[]{
+        let chunks:string[] = [];
+        let currentSepIsString = typeof currentSep == 'string';
+        for(let chunk of chunkList){
+            if(chunk.length == 0){
+                continue;
+            }
+            if(chunk.length <= chunkSize){
+                if(currentSepIsString){
+                    // 如果当前分隔符是字符串，则直接添加
+                    chunks.push(chunk.trim() + currentSep);
+                }else{
+                    chunks.push(chunk.trim());
+                }
+                continue;
+            }
+
+            if(separators.length > 0){
+
+                let sep = separators[0];
+                let chunkList2 = this.split(chunk,sep);
+                chunks.push(...this.recursionSplit(chunkList2,separators.slice(1),chunkSize,sep,overlapSize));
+            }else{
+                // 如果所有分隔符都尝试过了，还是没有找到合适的分隔符，就直接按长度分割
+
+                chunks.push(...this.splitTextBySize(chunk,chunkSize,overlapSize,chunkSize));
+            }
+        }
+        return chunks;
+    }
+
+    // 使用分隔符分割文本
+    // 这里的分隔符可以是字符串或正则表达式
+    split(text:string,sep:any){
+        let chunkList:string[] = [];
+        if(typeof sep == 'string'){
+            // 如果是字符串，直接使用字符串分割
+            chunkList = text.split(sep);
+        }else{
+            // 如果是正则表达式，使用正则表达式分割
+            let keys:any = text.match(sep); // 匹配分隔符
+            if(keys == null){
+                return [text];
+            }
+            for(let key of keys){
+                let splitArr:string[] = text.split(key);
+                if(splitArr.length > 1){
+                    text = key + splitArr[1]; // 保留分隔符
+                    chunkList.push(splitArr[0]);
+                }
+            }
+        }
+        return chunkList;
+    }
+
+    // 格式化分割符
+    formatSep(sep:string[]):any[]{
+        let sepList:any[] = []
+        for(let s of sep){
+            // 判断是否为正则表达式
+            if (s.length > 3 && s.startsWith('/') && (s.endsWith('/') || s.endsWith('/g'))) {
+                // 去掉开头和结尾的斜杠
+                if(s.endsWith('/g')){
+                    s = s.slice(1,-2);
+                }else{
+                    s = s.slice(1,-1);
+                }
+
+                // 如果没有括号，添加括号
+                // 这里的正则表达式是为了匹配括号内的内容
+                // 例如：/(\d+)/g => (\d+)
+                if(!s.startsWith("(") || !s.endsWith(")")){
+                    s = "(" + s + ")";
+                }
+
+                sepList.push(new RegExp(s, 'g'));
+            }else{
+                sepList.push(s);
+            }
+        }
+        return sepList;
+    }
+
+    /**
+     * 
+     * @param text <string> 文本内容
+     * @param separators <string[]> 分隔符列表
+     * @param chunkSize <number> 每个块的大小
+     * @returns 
+     */
+    splitText(text: string, separators: string[],chunkSize:number,overlapSize?:number): string[] {
+        let chunks:string[] = [];
+        let i = 0;
+        let sepList:any[] = this.formatSep(separators)
+        let sep = sepList[i];
+        let chunkList:string[] = this.split(text,sep);
+        chunks = this.recursionSplit(chunkList,separators.slice(1),chunkSize,sep,overlapSize);
+        return chunks;
+    }
+
+
     // 后台解析任务
     public async parseTask(){
         const sleep = 5 * 1000
         let self = this;
 
         setTimeout(async ()=>{
-            await self.start()
+            if(global.changePath){
+                global.changePath = false
+                indexService.copyDataPath()
+            }
+            await LanceDBManager.optimizeAllTable()
+            await self.parse()
+            await self.embed()
             self.parseTask()
         },sleep)
     }
@@ -200,6 +314,9 @@ export class RagTask {
                 continue
             }
 
+            // 创建全文索引
+            await LanceDBManager.createDocFtsIndex(tableName)
+
             let indexTipFile = indexTipsPath + "/" + tableName + ".pl"
             if (pub.file_exists(indexTipFile)) {
                 continue
@@ -212,31 +329,68 @@ export class RagTask {
         }
     }
 
+    /**
+     * 解析文档
+     * @returns Promise<void>
+     */
+    public async parse(){
+        let notParseDocument = await this.getNotParseDocument()
+        let dataDir = pub.get_data_path()
+        let repDataDir = '{DATA_DIR}'
+
+        let ragObj = new Rag()
+        for(let doc of notParseDocument){
+            try{
+                let filename = doc.doc_file.replace(repDataDir, dataDir)
+                let parseDoc = await ragObj.parseDocument(filename,doc.doc_rag,true)
+                if(!parseDoc.content){
+                    // 标记为解析失败
+                    await LanceDBManager.updateRecord(this.docTable,{where: `doc_id='${doc.doc_id}'`,values: {is_parsed: -1}})
+                    continue
+                }
+                let pdata = {
+                    md_file: parseDoc.savedPath?.replace(dataDir, repDataDir),
+                    doc_abstract: await ragObj.generateAbstract(parseDoc.content),
+                    doc_keywords: await ragObj.generateKeywords(parseDoc.content,5),
+                    is_parsed: 2,
+                    update_time: pub.time(),
+                }
+                // 更新文档状态
+                await LanceDBManager.updateRecord(this.docTable,{where: `doc_id='${doc.doc_id}'`,values: pdata})
+            }catch(e){
+                console.log(e)
+                console.log({where: `doc_id='${doc.doc_id}'`,values: {is_parsed: -1}})
+                await LanceDBManager.updateRecord(this.docTable,{where: `doc_id='${doc.doc_id}'`,values: {is_parsed: -1}})
+            }
+        }
+    }
+
 
 
     /**
-     * 开始对文档进行处理
+     * 开始嵌入文档
      * @returns Promise<string>
      */
-    public async start(){
+    public async embed(){
         try{
-            let notParseDocument = await this.getNotParseDocument()
+            let notEmbeddingDocument = await this.getNotEmbeddingDocument()
             let dataDir = pub.get_data_path()
             let repDataDir = '{DATA_DIR}'
             let ragObj = new Rag()
-            for(let doc of notParseDocument){
+            let ragNameList:string[] = []
+            for(let doc of notEmbeddingDocument){
                 let md_file =  doc.md_file.replace(repDataDir, dataDir)
                 if(!pub.file_exists(md_file)){
                     continue
                 }
                 let md_body = pub.read_file(md_file)
-                let chunks =  await this.docChunk(md_body)
-
+                let chunks =  this.splitText(md_body,doc.separators,doc.chunk_size,doc.overlap_size)
                 let chunkList:any[] = []
                 for(let chunk of chunks){
                     let chunkInfo = {
                         text: chunk,
                         docId: doc.doc_id,
+                        tokens: pub.cutForSearch(chunk).join(' '),
                         keywords: await ragObj.generateKeywords(chunk,5)
                     }
                     chunkList.push(chunkInfo)
@@ -254,9 +408,20 @@ export class RagTask {
                 }
 
                 // 更新文档状态
-                await LanceDBManager.updateRecord(this.docTable,{where: `doc_id='${doc.doc_id}'`,values: {is_parsed: 1}})
+                await LanceDBManager.updateRecord(this.docTable,{where: `doc_id='${doc.doc_id}'`,values: {is_parsed: 3}})
+
+                // 添加知识库名称到列表
+                if(!ragNameList.includes(doc.doc_rag)){
+                    ragNameList.push(doc.doc_rag)
+                }
             }
-            return notParseDocument;
+            
+            // 更新知识库FIT索引
+            for(let ragName of ragNameList){
+                await LanceDBManager.createDocFtsIndex(pub.md5(ragName))
+            }
+            
+
         }catch(e){
             console.log(e)
             return e

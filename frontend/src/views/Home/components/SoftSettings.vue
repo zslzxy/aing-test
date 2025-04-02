@@ -4,6 +4,15 @@
             <NListItem>
                 <div class="theme-setting w-100%">
                     <div class="flex-between">
+                        <span>{{ $t("新手指引") }} </span>
+                        <NSwitch size="small" active-color="#000" v-model:value="guideActive"
+                            @update:value="guideChange"></NSwitch>
+                    </div>
+                </div>
+            </NListItem>
+            <NListItem>
+                <div class="theme-setting w-100%">
+                    <div class="flex-between">
                         <span>{{ themeMode == 'light' ? $t("浅色模式") : $t("深色模式") }} </span>
                         <NSwitch size="small" active-color="#000" checked-value="dark" unchecked-value="light"
                             v-model:value="themeMode" :on-update:value="changeThemeMode"></NSwitch>
@@ -11,13 +20,19 @@
                 </div>
             </NListItem>
             <NListItem>
-                <!-- <div class="language-setting w-100% flex-between">
-                    <span>{{ currentLnaguageLabel }} </span>
-                    <NPopselect :options="languageOptions" scrollable v-model:value="currentLanguage"
-                        :on-update:value="changeLanguage">
-                        <i class="i-common:language w-20 h-20 cursor-pointer"></i>
-                    </NPopselect>
-                </div> -->
+                <div class="theme-setting w-100%">
+                    <div class="flex-between">
+                        <span>{{ $t("数据存储位置") }} </span>
+                        <div>
+                            <NInputGroup>
+                                <NInput :value="userDataPath"></NInput>
+                                <NButton @click="changeDataSavePath">{{ $t("更改") }}</NButton>
+                            </NInputGroup>
+                        </div>
+                    </div>
+                </div>
+            </NListItem>
+            <NListItem>
                 <div class="language-setting w-100% flex-between">
                     <span>{{ $t("语言选择") }} </span>
                     <NSelect :options="languageOptions" v-model:value="currentLanguage"
@@ -34,7 +49,7 @@
                         { label: $t("百度"), value: "baidu" },
                         { label: $t("搜狗"), value: "sogou" },
                         { label: $t("360搜索"), value: "360" },
-                    ]' style="width:120px" v-model:value="targetNet" />
+                    ]' style="width:120px" v-model:value="targetNet" @update:value="setSearch" />
                 </div>
             </NListItem>
             <NListItem>
@@ -71,15 +86,20 @@
             </NListItem>
         </NList>
     </div>
+    
 </template>
 
 <script setup lang="ts">
-import { NSwitch, NPopselect, NList, NListItem, NSelect, NImage, NAlert, NButton, NButtonGroup } from "naive-ui"
+import { NSwitch,  NList, NListItem, NSelect, NImage, NInput, NInputGroup, NButton, NButtonGroup, } from "naive-ui"
 import Storage from "@/utils/storage"
 import useIndexStore, { type ChatItemInfo } from "../store";
 import { storeToRefs } from "pinia";
 import { setLang } from "@/lang"
-import { setServiceLanguage, } from "../controller";
+import {
+    setServiceLanguage,
+    getDataSavePath,
+    changeDataSavePath
+} from "../controller";
 import { computed, ref } from "vue";
 import { eventBUS } from "../utils/tools";
 import i18n from "@/lang";
@@ -90,7 +110,10 @@ const {
     languageOptions,
     currentLanguage,
     targetNet,
-    version
+    version,
+    guideActive,
+    userDataPath,
+    dataPathChangeCheckShow
 } = storeToRefs(useIndexStore())
 // 搜索引擎列表
 const labels = ref({
@@ -98,6 +121,13 @@ const labels = ref({
     "360": $t("360搜索"),
     sogou: $t("搜狗"),
 })
+
+/**
+ * @description 设置搜索引擎并缓存
+ */
+function setSearch(val: string) {
+    Storage.searchEngine = val
+}
 
 /**
  * @description 切换主题
@@ -146,9 +176,18 @@ function toIssue() {
 /**
  * @description 跳转教程
  */
-function jumpToTutorial(){
+function jumpToTutorial() {
     window.open("https://docs.aingdesk.com/zh-Hans/")
 }
+
+// 新手指引切换
+function guideChange(val: boolean) {
+    Storage.welcomeGuide = String(val)
+}
+
+// 获取用户数据存储路径
+getDataSavePath()
+
 </script>
 
 <style scoped lang="scss">

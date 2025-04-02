@@ -19,15 +19,16 @@ import { agentService } from './agent';
  */
 export type ChatHistory = {
     id: string;
-    reasoning: string;
+    compare_id: string,
+    reasoning: any;
     role: string;
-    content: string;
+    content: any;
     images: string[];
     doc_files: string[];
     tool_calls: string;
     created_at: string;
     create_time: number;
-    stat: object;
+    stat: any;
     tokens: number;
     search_result: any[];
     search_type: string | undefined | null;
@@ -132,7 +133,7 @@ export class ChatService {
      * @param {string} supplierName - 供应商名称
      * @returns {object} - 包含对话配置信息的对象
      */
-    create_chat(model: string, parameters: string, title: string = "",supplierName:string,agent_name:string): object {
+    create_chat(model: string, parameters: string, title: string = "", supplierName: string, agent_name: string): object {
         // 记录创建对话的日志信息
         logger.info('create_chat', `${model}:${parameters}`);
         // 生成对话的唯一标识符
@@ -165,7 +166,7 @@ export class ChatService {
      * @param {string} supplierName - 供应商名称
      * @returns {boolean} - 如果更新成功返回 true，否则返回 false
      */
-    update_chat_model(uuid: string, model: string, parameters: string,supplierName:string): boolean {
+    update_chat_model(uuid: string, model: string, parameters: string, supplierName: string): boolean {
         // 读取对话配置信息
         const contextConfigObj = this.readJsonFile(this.getConfigFilePath(uuid));
         // 检查配置信息是否为空
@@ -199,13 +200,120 @@ export class ChatService {
         this.saveJsonFile(this.getConfigFilePath(uuid), chatConfig);
     }
 
+
+    /**
+     * 合并聊天历史记录
+     * @param {ChatHistory[]} chatHistory - 聊天历史记录数组
+     * @returns {ChatHistory[]} - 合并后的聊天历史记录数组
+     */
+    mergeHistory(chatHistory: ChatHistory[]): ChatHistory[] {
+        // 合并同一个compare_id的历史记录，注意：不合并compare_id==undefined的记录，只合并role=="assistant"的记录
+        let mergedHistory: ChatHistory[] = [];
+        for (let history of chatHistory) {
+            if (history.compare_id == undefined) {
+                mergedHistory.push(history);
+                continue;
+            }
+
+            // 相同compare_id只保留一条user记录
+            let index = mergedHistory.findIndex((item) => item.compare_id == history.compare_id && item.role == "user");
+            if (index > -1 && history.role == "user") {
+                mergedHistory[index].content = history.content;
+                mergedHistory[index].stat = history.stat;
+                mergedHistory[index].reasoning = history.reasoning;
+                mergedHistory[index].tool_calls = history.tool_calls;
+                mergedHistory[index].images = history.images;
+                mergedHistory[index].doc_files = history.doc_files;
+                mergedHistory[index].created_at = history.created_at;
+                mergedHistory[index].create_time = history.create_time;
+                mergedHistory[index].tokens = history.tokens;
+                mergedHistory[index].search_result = history.search_result;
+                mergedHistory[index].search_type = history.search_type;
+                mergedHistory[index].search_query = history.search_query;
+                continue;
+            }
+
+            // 合并assistant
+            index = mergedHistory.findIndex((item) => item.compare_id == history.compare_id && item.role == "assistant");
+            if (index > -1 && history.role == "assistant") {
+                // 是否为数组
+                if (Array.isArray(mergedHistory[index].content)) {
+                    mergedHistory[index].content.push(history.content);
+                    mergedHistory[index].stat.push(history.stat);
+                    mergedHistory[index].reasoning.push(history.reasoning);
+                } else {
+                    mergedHistory[index].content = [mergedHistory[index].content, history.content];
+                    mergedHistory[index].stat = [mergedHistory[index].stat, history.stat];
+                    mergedHistory[index].reasoning = [mergedHistory[index].reasoning, history.reasoning];
+
+                }
+
+            } else {
+                mergedHistory.push(history);
+            }
+        }
+        return mergedHistory;
+    }
+
+    /**
+     * 检查聊天历史记录，确保顺序正确
+     * @param {ChatHistory[]} chatHistory - 聊天历史记录数组
+     * @returns {ChatHistory[]} - 检查后的聊天历史记录数组
+     */
+    checkHistory(chatHistory: ChatHistory[]): ChatHistory[] {
+
+            // 确保历史记录的顺序是user在前，assistant在后，不能同时出现两个user或assistant
+            let newChatHistory: ChatHistory[] = [];
+            let userNumber = 0;
+            let assistantNumber = 0;
+            for (let history of chatHistory) {
+                if (history.role == "user") {
+                    if (userNumber == 0) {
+                        newChatHistory.push(history);
+                        userNumber++
+                        assistantNumber = 0; // 重置assistantNumber
+                    } else {
+                        // 如果已经有一个user了，就不再添加了
+                        continue;
+                    }
+                }
+
+                if (history.role == "assistant") {
+                    if (assistantNumber == 0) {
+                        newChatHistory.push(history);
+                        assistantNumber++
+                        userNumber = 0; // 重置userNumber
+                    } else {
+                        // 如果已经有一个assistant了，就不再添加了
+                        continue;
+                    }
+                }
+            }
+            return newChatHistory;
+    }
+
+
+
+    /**
+     * 格式化聊天历史记录，将同一对话的历史记录合并
+     * @param {ChatHistory[]} chatHistory - 聊天历史记录数组
+     * @returns {any} - 格式化后的聊天历史记录数组
+     */
+    formatHistory(chatHistory: ChatHistory[]): any {
+        let mergedHistory = this.mergeHistory(chatHistory);
+        let newChatHistory = this.checkHistory(mergedHistory);
+        return newChatHistory
+    }
+
+
     /**
      * 读取指定对话的历史记录
      * @param {string} uuid - 对话的唯一标识符
      * @returns {any[]} - 对话的历史记录数组，如果不存在则返回空数组
      */
     read_history(uuid: string): any[] {
-        return this.readJsonFile(this.getHistoryFilePath(uuid));
+        let chatHistory = this.readJsonFile(this.getHistoryFilePath(uuid));
+        return chatHistory;
     }
 
     /**
@@ -249,7 +357,7 @@ export class ChatService {
                 }
             }
 
-            if(contextConfigObj.supplierName == undefined){
+            if (contextConfigObj.supplierName == undefined) {
                 contextConfigObj.supplierName = "ollama";
             }
 
@@ -258,8 +366,8 @@ export class ChatService {
             }
 
             // 遍历知识库，移除不存在的知识库配置
-            let rag_list:string[] = [];
-            for(let ragName of contextConfigObj.rag_list) {
+            let rag_list: string[] = [];
+            for (let ragName of contextConfigObj.rag_list) {
                 const ragDir = ragPath + "/" + ragName;
                 const ragConfigFilePath = path.resolve(ragDir, 'config.json');
                 if (!pub.file_exists(ragConfigFilePath)) {
@@ -269,10 +377,10 @@ export class ChatService {
             }
             contextConfigObj.rag_list = rag_list;
             contextConfigObj.agent_info = null;
-            if(contextConfigObj.agent_name) {
+            if (contextConfigObj.agent_name) {
                 contextConfigObj.agent_info = agentService.get_agent_config(contextConfigObj.agent_name);
             }
-            
+
             // 将配置信息添加到对话列表中
             contextList.push(contextConfigObj);
         }
@@ -287,7 +395,7 @@ export class ChatService {
      * @returns {object[]} - 对话的历史记录数组
      */
     get_chat_history(uuid: string): object[] {
-        return this.read_history(uuid);
+        return this.formatHistory(this.read_history(uuid));
     }
 
 
@@ -297,17 +405,17 @@ export class ChatService {
      * @param isVision <boolean> 是否是视觉模型
      * @param uuid <string> 对话的唯一标识符
      */
-    async handle_files(chatContext: ChatContext,isVision:boolean): Promise<ChatContext> {
-        
+    async handle_files(chatContext: ChatContext, isVision: boolean): Promise<ChatContext> {
+
         // 将图片转换为base64格式
-        let images:string[] = []
-        for(let image of chatContext.images){
-            if(isVision){
+        let images: string[] = []
+        for (let image of chatContext.images) {
+            if (isVision) {
                 let base64 = pub.imageToBase64(image);
                 images.push(base64);
-            }else{
-                let imageOcr = await parseDocument(image,"temp",false);
-                if(imageOcr.content){
+            } else {
+                let imageOcr = await parseDocument(image, "temp", false);
+                if (imageOcr.content) {
                     images.push(imageOcr.content);
                 }
             }
@@ -315,9 +423,9 @@ export class ChatService {
         chatContext.images = images;
 
         // 处理文档文件
-        let doc_files:string[] = []
-        for(let doc_file of chatContext.doc_files){
-            let parseDocBody = await parseDocument(doc_file,"temp",false);
+        let doc_files: string[] = []
+        for (let doc_file of chatContext.doc_files) {
+            let parseDocBody = await parseDocument(doc_file, "temp", false);
             doc_files.push(parseDocBody.content);
         }
 
@@ -336,9 +444,9 @@ export class ChatService {
      * @param {boolean} isVision - 是否是视觉模型
      * @returns {object[]} - 构造后的历史对话记录数组
      */
-    async build_chat_history(uuid: string, chatContext: ChatContext, contextLength: number,isTempChat:boolean,isVision:boolean): Promise<any[]> {
+    async build_chat_history(uuid: string, chatContext: ChatContext, contextLength: number, isTempChat: boolean, isVision: boolean): Promise<any[]> {
         // 读取对话的历史记录
-        let contextList = this.read_history(uuid);
+        let contextList = this.checkHistory(this.read_history(uuid));
         // 计算当前聊天上下文和历史记录的总 tokens 数量
         let totalTokens = chatContext.content.length;
         for (const item of contextList) {
@@ -356,11 +464,11 @@ export class ChatService {
         // 提取历史记录中的角色和内容信息
         let historyList = contextList.map(item => ({ role: item.role, content: item.content }));
 
-        chatContext = await this.handle_files(chatContext,isVision);
-        
+        chatContext = await this.handle_files(chatContext, isVision);
+
         // 添加当前聊天上下文到历史记录中
         // 如果有images或doc_files的情况下，不引用上下文
-        if(chatContext.images.length > 0 || chatContext.doc_files.length > 0 || isTempChat){
+        if (chatContext.images.length > 0 || chatContext.doc_files.length > 0 || isTempChat) {
             historyList = [];
         }
         historyList.push(chatContext);
@@ -373,13 +481,13 @@ export class ChatService {
      * @param {ChatHistory} history - 要保存的聊天历史记录
      * @param {number} contextLength - 上下文的最大长度
      */
-    save_chat_history(uuid: string, history: ChatHistory, historyRes:ChatHistory, contextLength: number,regenerate_id:string|undefined): void {
+    save_chat_history(uuid: string, history: ChatHistory, historyRes: ChatHistory, contextLength: number, regenerate_id: string | undefined): void {
         // 为历史记录生成唯一标识符
         history.id = pub.uuid();
         // 计算历史记录的 tokens 数量
         history.tokens = history.content ? history.content.length : 0;
         // 读取对话的历史记录
-        let historyList = this.read_history(uuid);
+        let historyList = this.checkHistory(this.read_history(uuid));
         // 计算总 tokens 数量
         let totalTokens = history.tokens;
         // 计算历史记录的最大上下文长度
@@ -387,13 +495,13 @@ export class ChatService {
 
         historyRes.content = pub.lang("意外中断");
 
-        if(regenerate_id){
+        if (regenerate_id) {
             let index = historyList.findIndex((item) => item.id == regenerate_id);
-            if(index > -1){
+            if (index > -1) {
                 // 移除指定ID之后的所有历史记录
-                historyList = historyList.slice(0,index);
+                historyList = historyList.slice(0, index);
             }
-        }else{
+        } else {
             // 添加新的提问记录到列表中
             historyList.push(history);
         }
@@ -416,8 +524,8 @@ export class ChatService {
      * @param id <string> 要修正的历史记录的唯一标识符
      * @param history <ChatHistory> 修正后的聊天历史记录
      */
-    set_chat_history(uuid: string,id:string, history: ChatHistory): void {
-        let historyList = this.read_history(uuid);
+    set_chat_history(uuid: string, id: string, history: ChatHistory): void {
+        let historyList = this.checkHistory(this.read_history(uuid));
         let index = historyList.findIndex((item) => item.id == id);
         historyList[index] = history;
         this.save_history(uuid, historyList);
@@ -506,7 +614,7 @@ export class ChatService {
      */
     get_last_chat_history(uuid: string): object {
         // 读取对话的历史记录
-        const historyList = this.read_history(uuid);
+        const historyList = this.formatHistory(this.read_history(uuid));
         return historyList[historyList.length - 1] || {};
     }
 }

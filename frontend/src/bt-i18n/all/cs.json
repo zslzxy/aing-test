@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Vyberte prosím cestu instalace pro Správce modelů"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "grafika"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "zdrojový kód"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "Parsování mořské panny selhalo, prosím zkontrolujte syntaxi"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Adresa rozhraní Olama"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "Aktuální adresa ollama není k dispozici"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Průvodce pro začátečníky"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Vítejte na AingDesk, jednoduchý a snadno použitelný asistent AI, který podporuje znalostní bázi, model API, sdílení, online vyhledávání a inteligentní agenty. Tento software je open source a zdarma. Těšíme se, že budete sdílet software s ostatními, abyste podpořili náš vývoj."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk je nový projekt AI, který stále usiluje o rychlý růst. Pokud narazíte na nějaké problémy během používání nebo máte nějaké funkční požadavky na software, můžete se připojit k naší skupině WeChat a poskytnout nám zpětnou vazbu."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "A konečně nám můžete dát hvězdu za náš open source projekt. Vaše podpora je pro nás nesmírně důležitá, abychom pokračovali v iteraci open source projektů. Děkujeme."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Přejděte na GitHub a klikněte na hvězdy"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Můžeš"
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Zavřete průvodce pro začátečníky uprostřed"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "Smazání dokumentu selhalo"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Nastavení úspěšné"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Identifikátor segmentu"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Maximální délka segmentu"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Délka překrytí segmentu"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Identifikátory segmentů podporují regulární výrazy, například"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Regulární výrazy nevyžadují přidávání modifikátorů a ve výchozím nastavení automaticky přidávají modifikátor \"g\""
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "Doporučená délka překrytí segmentů je 10% až 20% maximální délky segmentu"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Vybrat dokument pro náhled"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Náhled"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "Maximální délka segmentu nesmí být menší než 20"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "Maximální délka segmentu nesmí překročit 1000."
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Vyplňte prosím maximální délku segmentu"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "Překrývající se délka segmentů nesmí být menší než 0"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "Překrývající se délka segmentů nesmí překrývat maximální délku segmentů"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Vyplňte prosím překrývající se délku segmentů"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Vyplňte prosím identifikátor segmentu"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Nastavení sdílení dokumentů"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Pokračovat v přidávání souborů"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Vyberte prosím soubor"
     }
 }

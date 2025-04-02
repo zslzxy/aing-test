@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Bitte wählen Sie den Installationspfad für den Model Manager"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "Grafik"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "Quellcode"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "Mermaid Parsing fehlgeschlagen, bitte überprüfen Sie die Syntax"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Olama-Schnittstellenadresse"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "Die aktuelle Ollama-Adresse ist nicht verfügbar"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Leitfaden für Anfänger"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Willkommen bei AingDesk, einem einfachen und benutzerfreundlichen KI-Assistenten, der Wissensdatenbank, Modell-API, Teilen, Online-Suche und intelligente Agenten unterstützt. Diese Software ist Open Source und kostenlos. Wir freuen uns darauf, dass Sie die Software mit anderen teilen, um unsere Entwicklung zu unterstützen."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk ist ein neues KI-Projekt, das nach wie vor schnelles Wachstum anstrebt. Sollten Sie Probleme bei der Nutzung haben oder funktionale Anforderungen an die Software haben, können Sie sich unserer WeChat-Gruppe anschließen und uns Feedback geben."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Schließlich können Sie uns einen Stern für unser Open Source Projekt geben. Ihre Ermutigung ist extrem wichtig für uns, weiterhin Open Source Projekte zu iterieren. Vielen Dank."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Gehe zu GitHub und klicke auf die Sterne"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Sie können"
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Schließen Sie den Anfängerführer in der Mitte"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "Löschen des Dokuments fehlgeschlagen"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Einstellung erfolgreich"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Segmentkennung"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Maximale Segmentlänge"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Länge der Segmentüberlappung"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Segmentkennungen unterstützen reguläre Ausdrücke, wie"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Reguläre Ausdrücke benötigen keine Modifikatoren und fügen standardmäßig automatisch den Modifikator \"g\" hinzu."
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "Die empfohlene Überlappungslänge für Segmente beträgt 10% bis 20% der maximalen Segmentlänge"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Dokument zur Vorschau auswählen"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Vorschau"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "Die maximale Länge des Segments darf nicht kleiner als 20 sein"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "Die maximale Länge eines Segments darf 1000 nicht überschreiten"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Bitte geben Sie die maximale Länge des Segments ein"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "Die überlappende Länge der Segmente darf nicht kleiner als 0 sein"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "Die überlappende Länge von Segmenten darf die maximale Länge von Segmenten nicht überschreiten"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Bitte geben Sie die überlappende Länge der Segmente an"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Bitte füllen Sie die Segmentkennung aus"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Einstellungen für die Dokumententeilung"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Dateien hinzufügen"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Bitte wählen Sie eine Datei"
     }
 }

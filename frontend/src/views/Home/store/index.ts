@@ -139,6 +139,30 @@ export type AgentItemDto = {
     is_system: boolean,
 }
 
+//  创建知识库表单实体
+export type CreateKnowledgeFormData = {
+    ragName: string,
+    ragDesc: string,
+    supplierName?: string,
+    enbeddingModel: string | string[],
+    searchStrategy?: number,
+    maxRecall?: number,
+    recallAccuracy?: number,
+    resultReordering?: number,
+    rerankModel?: string,
+    queryRewrite?: number,
+    vectorWeight?: number,
+    keywordWeight?: number,
+}
+
+// 测试文档分片参数实体
+export type TestDocChunkParams = {
+    filename: string,
+    chunkSize: number,
+    overlapSize: number,
+    separators: string[],
+}
+
 // 供应商图片
 const supplierLogs = new Map([
     ["DeepSeek", ""],
@@ -151,6 +175,7 @@ const supplierLogs = new Map([
     ["VolcEngine", ""],
 ])
 
+
 const useIndexStore = defineStore("indexStore", () => {
     // 版本号
     const version = ref("1.0.0")
@@ -160,6 +185,14 @@ const useIndexStore = defineStore("indexStore", () => {
     const isFold = ref(false)
     // 提问内容
     const questionContent = ref("")
+    // 提问上传文件列表
+    const questionFileList = ref<any>([])
+    // 提问上传的图片列表
+    const questionImageList = ref<any>([])
+    // 提问上传的文件缓存
+    const questionFilesCache = ref<File[]>([])
+    // 提问的文件域
+    const questionFilesRef = ref()
     // 提问携带的文件
     const questionFiles = ref<string[]>([])
     // 提问携带的图片
@@ -228,6 +261,8 @@ const useIndexStore = defineStore("indexStore", () => {
     const delShareConfirmShow = ref(false)
     // 可用模型列表
     const visibleModelList = ref<any[]>([])
+    // 模型筛选关键字
+    const modeType = ref("all")
     // 要安裝的模型名称
     const modelNameForInstall = ref<{ model: string; parameters: string }>({
         model: "",
@@ -327,8 +362,12 @@ const useIndexStore = defineStore("indexStore", () => {
         ragName: "",
         ragDesc: "",
         enbeddingModel: "",
-        supplierName: ""
+        supplierName: "",
+        maxRecall: 5,
+        recallAccuracy: 0.1
     })
+    // 是否正在编辑知识库
+    const isEditKnowledge = ref(false)
     // 新建知识库的弹窗ref
     const createKnowledgeModelRef = ref()
     // 新建知识库的弹窗实例
@@ -353,6 +392,19 @@ const useIndexStore = defineStore("indexStore", () => {
     const chooseList = ref<any>([])
     // 当前知识库文档列表
     const activeKnowledgeDocList = ref<ActiveKnowledgeDocDto[]>([])
+    // 文档选择结束后弹窗展示分片设置规则
+    const sliceRuleShow = ref(false)
+    // 文档分片表单数据
+    const sliceChunkFormData = ref<TestDocChunkParams>({
+        filename: "",
+        chunkSize: 500,
+        overlapSize: 50,
+        separators: ['\\n\\n', '。']
+    })
+    // 文档分片表单ref
+    const sliceFormRef = ref()
+    // 分片预览结果列表
+    const slicePreviewList = ref<string[]>([])
     // 文档解析状态
     const docParseStatus = ref(false)
     // 用于聊天的知识库
@@ -415,6 +467,26 @@ const useIndexStore = defineStore("indexStore", () => {
     const currentAgent = ref<AgentItemDto | null>()
     // ollama接入地址
     const ollamaUrl = ref("")
+    // 新手引导
+    const guideActive = ref(true)
+    // 获取用户数据存储位置
+    const userDataPath = ref("")
+    // 数据迁移检查
+    const dataPathChangeCheckShow = ref(false)
+    // 数据迁移状态指标值
+    const dataPathChangeStatusValues = ref({
+        status: 0,  // 0:未开始，1:正在复制,2:复制完成,-1:复制失败
+        speed: 0,
+        total: 0,
+        current: 0,
+        percent: 0,
+        startTime: 0,
+        endTime: 0,
+        fileTotal: 0,
+        fileCurrent: 0,
+        message: "",
+        error: ""
+    })
     return {
         answerCodeContent,
         modelList,
@@ -517,7 +589,21 @@ const useIndexStore = defineStore("indexStore", () => {
         currentAgent,
         currentChatAgent,
         modelManagerInstallPath,
-        ollamaUrl
+        ollamaUrl,
+        guideActive,
+        isEditKnowledge,
+        modeType,
+        questionFileList,
+        questionImageList,
+        questionFilesCache,
+        questionFilesRef,
+        sliceRuleShow,
+        sliceChunkFormData,
+        sliceFormRef,
+        slicePreviewList,
+        userDataPath,
+        dataPathChangeCheckShow,
+        dataPathChangeStatusValues
     }
 })
 

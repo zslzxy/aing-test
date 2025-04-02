@@ -11,20 +11,31 @@
         </NFormItem>
         <NFormItem :label="$t('嵌入模型')" path="enbeddingModel">
             <NSelect :placeholder="$t('选择模型')" v-model:value="createKnowledgeFormData.enbeddingModel"
-                :options="embeddingModelsList" label-field="title" value-field="model" @update:value="doSelectModel" />
+                :options="embeddingModelsList" label-field="title" value-field="model" @update:value="doSelectModel"  :disabled="isEditKnowledge"/>
+        </NFormItem>
+        <NFormItem :label="`${$t('最大召唤数量')}(topK)`">
+            <NSlider :min="1" :max="20" :step="1" v-model:value="createKnowledgeFormData.maxRecall"/>
+        </NFormItem>
+        <NFormItem :label="`${$t('召回精度')}`">
+            <NSlider :min="0.05" :max="0.3" :step="0.01" v-model:value="createKnowledgeFormData.recallAccuracy"/>
         </NFormItem>
     </NForm>
 </template>
 
 <script setup lang="ts">
-import { NForm, NFormItem, NInput, NSelect } from "naive-ui"
+import { NForm, NFormItem, NInput, NSelect,NSlider } from "naive-ui"
 import { storeToRefs } from "pinia";
 import useIndexStore from "../store";
 import { ref, watch } from "vue";
 import i18n from "@/lang";
 const $t = i18n.global.t
 defineProps<{ disabledKey?: string }>()
-const { createKnowledgeFormData, createKnowledgeModelRef, embeddingModelsList } = storeToRefs(useIndexStore())
+const {
+    createKnowledgeFormData,
+    createKnowledgeModelRef,
+    embeddingModelsList,
+    isEditKnowledge
+} = storeToRefs(useIndexStore())
 const rules = ref({
     ragName: [{ required: true, message: $t('请输入知识库名称'), trigger: 'blur' }],
     ragDesc: [{ required: true, message: $t('请输入知识库描述'), trigger: 'blur' }],

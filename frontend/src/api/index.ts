@@ -20,6 +20,7 @@ instance.interceptors.request.use(
     return config
   },
   (err) => {
+    // post("/index/write_logs",{logs:JSON.stringify(err)}).then(res=>console.log("发送成功"))
     return Promise.reject(err)
   }
 )
@@ -30,6 +31,7 @@ instance.interceptors.response.use(
     return res.data
   },
   (err) => {
+    // post("/index/write_logs",{logs:JSON.stringify(err)}).then(res=>console.log("发送成功"))
     return Promise.reject(err)
   }
 )

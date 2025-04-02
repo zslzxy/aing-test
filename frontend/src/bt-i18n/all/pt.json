@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Selecione o caminho da instalação do gerenciador de modelos"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "gráfico"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "código fonte"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "A análise da sereia falhou, verifique por favor a sintaxe"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Endereço da interface do Olama"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "O endereço atual do ollama não está disponível"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Guia para Iniciantes"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Bem-vindo ao AingDesk, um assistente de IA simples e fácil de usar que suporta base de conhecimento, API modelo, compartilhamento, pesquisa on-line e agentes inteligentes. Este software é de código aberto e gratuito, e estamos ansiosos para que você compartilhe o software com outras pessoas para apoiar nosso desenvolvimento."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk é um novo projeto de IA que ainda está se esforçando para o crescimento rápido. Se você encontrar algum problema durante o uso ou tiver quaisquer requisitos funcionais para o software, você pode se juntar ao nosso grupo WeChat para nos dar feedback."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Finalmente, você pode nos dar uma estrela para o nosso projeto open source. Seu incentivo é extremamente importante para que continuemos iterando projetos open source. Obrigado."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Vá para o GitHub e clique nas estrelas"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Você pode"
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Feche o guia para iniciantes no meio"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "A eliminação do documento foi mal- sucedida"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Configuração bem sucedida"
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Identificador do segmento"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Comprimento máximo do segmento"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Comprimento da sobreposição do segmento"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Identificadores de segmento suportam expressões regulares, como"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Expressões regulares não exigem a adição de modificadores e adicionarão automaticamente o modificador 'g' por padrão"
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "O comprimento de sobreposição recomendado para segmentos é de 10% a 20% do comprimento máximo do segmento"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Seleccionar o documento para antevisão"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Antevisão"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "O comprimento máximo do segmento não pode ser inferior a 20"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "O comprimento máximo de um segmento não pode exceder 1000"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Por favor, preencha o comprimento máximo do segmento"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "O comprimento sobreposto dos segmentos não pode ser inferior a 0"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "O comprimento sobreposto dos segmentos não pode exceder o comprimento máximo dos segmentos"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Preencha o comprimento sobreposto dos segmentos"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Preencha o identificador do segmento"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Configuração da Partilha de Documentos"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Continuar a adicionar ficheiros"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Seleccione por favor um ficheiro"
     }
 }

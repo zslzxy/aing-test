@@ -4,6 +4,8 @@
     // 主题色
     --bt-theme-color: rgb(29, 149, 52);
     --bt-theme-warning: #E6A23C;
+    --bt-theme-danger: #F56C6C;
+    --bt-theme-info: #2080f0;
     // 边距
     --bt-mg-normal: 20px;
     --bt-mg-small: 10px;
@@ -54,6 +56,11 @@ $gray-2: #f5f5f5;
 $gray-3: #f0f0f0;
 $gray-4: #d9d9d9;
 $gray-5: #bfbfbf;
+$gray-6: #8c8c8c;
+$gray-7: #595959;
+$gray-8: #434343;
+$gray-9: #262626;
+
 
 // 列表项悬浮色
 $list-item-hover: var(--bt-list-item-hover);
@@ -97,4 +104,10 @@ $list-item-hover: var(--bt-list-item-hover);
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+/********** 通用样式块 **********/
+.modal-footer-btns {
+    @include row-flex-between;
+    justify-content: flex-end;
 }

@@ -946,5 +946,133 @@
     "请选择模型管理器安装路径": {
         "src": "请选择模型管理器安装路径",
         "dst": "Molim vas odaberite put instalacije za upravljač modela"
+    },
+    "图形": {
+        "src": "图形",
+        "dst": "grafički"
+    },
+    "mermaid解析失败,请检查语法": {
+        "src": "mermaid解析失败,请检查语法",
+        "dst": "Analiza Mermaida nije uspjela, molim vas provjerite syntaksu"
+    },
+    "Ollama接口地址": {
+        "src": "Ollama接口地址",
+        "dst": "Adresa interfejsa Olama"
+    },
+    "新手指引": {
+        "src": "新手指引",
+        "dst": "Početnički vodič"
+    },
+    "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。": {
+        "src": "欢迎使用AingDesk，这是一款简单好用的AI助手，支持知识库、模型API、分享、联网搜索、智能体，此软件开源免费，也期待您分享软件给别人来支持我们的发展。",
+        "dst": "Dobrodošli u AingDesk, jednostavan i lako korišteni AI pomoćnik koji podržava bazu znanja, model API, dijeljenje, online pretraživanja i inteligentnih agenata. Ovaj softver je otvoren izvor i slobodan, i očekujemo se da dijelite softver s drugima kako biste podržali naš razvoj."
+    },
+    "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。": {
+        "src": "AingDesk是一个新的AI项目，它还在努力快速成长中，如果您在使用过程中遇到什么问题，或者您对软件有什么功能需求，可以加入我们微信群给我们进行反馈。",
+        "dst": "AingDesk je novi AI projekt koji se još uvijek trudi za brz rast. Ako se suočavate s bilo kakvim problemima tijekom uporabe ili imate funkcionalne zahtjeve za softver, možete se pridružiti našoj grupi WeChat kako bi nam dali odgovor."
+    },
+    "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。": {
+        "src": "最后您可以给我们开源项目点星星，您的这点鼓励对我们继续迭代开源项目极其重要，感谢。",
+        "dst": "Na kraju, možete nam dati zvijezdu za naš projekt otvorenog izvora. Vaše ohrabrenje je izuzetno važno za nas da nastavimo iteratiratirati projekte otvorenog izvora. Hvala vam."
+    },
+    "去github点星星": {
+        "src": "去github点星星",
+        "dst": "Idi na GitHub i klikni na zvijezde"
+    },
+    "中关闭新手指引": {
+        "src": "中关闭新手指引",
+        "dst": "Zatvori početnikov vodič u sredini"
+    },
+    "文档删除失败": {
+        "src": "文档删除失败",
+        "dst": "Izbrisanje dokumenta nije uspjelo"
+    },
+    "设置成功": {
+        "src": "设置成功",
+        "dst": "Uspješno postavljanje"
+    },
+    "源码": {
+        "src": "源码",
+        "dst": "izvorni kod"
+    },
+    "当前ollama地址不可用": {
+        "src": "当前ollama地址不可用",
+        "dst": "Trenutna adresa ollama nije dostupna"
+    },
+    "您可以在": {
+        "src": "您可以在",
+        "dst": "Možeš."
+    },
+    "分段标识符": {
+        "src": "分段标识符",
+        "dst": "Identifikator segmenta"
+    },
+    "分段最大长度": {
+        "src": "分段最大长度",
+        "dst": "Maksimalna dužina segmenta"
+    },
+    "分段重叠长度": {
+        "src": "分段重叠长度",
+        "dst": "Dužina preklapanja segmenta"
+    },
+    "分段标识符支持函正则表达式，如": {
+        "src": "分段标识符支持函正则表达式，如",
+        "dst": "Identifikatori segmenta podržavaju redovne izraze, poput"
+    },
+    "正则表达式无需添加修饰符，默认会自动添加g修饰符": {
+        "src": "正则表达式无需添加修饰符，默认会自动添加g修饰符",
+        "dst": "Regularne izraze ne zahtijevaju dodavanje modifikatora i automatski će dodati modifikator g po podrazumijevanju"
+    },
+    "分段重叠长度建议为分段最大长度的10%到20%": {
+        "src": "分段重叠长度建议为分段最大长度的10%到20%",
+        "dst": "Preporučena dužina preklapanja segmenta je 10% do 20% maksimalne dužine segmenta"
+    },
+    "选择文档进行预览": {
+        "src": "选择文档进行预览",
+        "dst": "Izaberite dokument za pregled"
+    },
+    "预览": {
+        "src": "预览",
+        "dst": "Pregled"
+    },
+    "分段最大长度不能小于20": {
+        "src": "分段最大长度不能小于20",
+        "dst": "Maksimalna dužina segmenta ne može biti manje od 20"
+    },
+    "分段最大长度不能大于1000": {
+        "src": "分段最大长度不能大于1000",
+        "dst": "Maksimalna dužina segment a ne može preći 1000"
+    },
+    "请填写分段最大长度": {
+        "src": "请填写分段最大长度",
+        "dst": "Molim vas napunite maksimalnu dužinu segmenta"
+    },
+    "分段重叠长度不能小于0": {
+        "src": "分段重叠长度不能小于0",
+        "dst": "Dužina preklapanja segmenta ne može biti manja od 0"
+    },
+    "分段重叠长度不能大于分段最大长度": {
+        "src": "分段重叠长度不能大于分段最大长度",
+        "dst": "Dužina preklapanja segmenta ne može preći maksimalnu dužinu segmenta"
+    },
+    "请填写分段重叠长度": {
+        "src": "请填写分段重叠长度",
+        "dst": "Molim vas napunite dužinu preklapanja segmenta"
+    },
+    "请填写分段标识符": {
+        "src": "请填写分段标识符",
+        "dst": "Molim vas napunite identifikator segmenta"
+    },
+    "文档分片设置": {
+        "src": "文档分片设置",
+        "dst": "Postavke za dijeljenje dokumenta"
+    },
+    "继续添加文件": {
+        "src": "继续添加文件",
+        "dst": "Nastavi dodati datoteke"
+    },
+    "请选择文件": {
+        "src": "请选择文件",
+        "dst": "Molim vas odaberite datoteku"
     }
 }

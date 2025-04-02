@@ -13,13 +13,16 @@
                 <i class="i-tdesign:folder-add w-40 h-40"></i>
                 <NButton type="primary">{{ $t("点击上传") }}</NButton>
                 <div class="text-[#909399] flex justify-center flex-col px-5">
-                    {{ $t("文件支持类型") }}: 
+                    {{ $t("文件支持类型") }}:
                     <div class="flex flex-wrap">
-                        <span v-for="item in fileType" :key="item" type="default" style="margin:0 5px">.{{ item }}</span>
+                        <span v-for="item in fileType" :key="item" type="default" style="margin:0 5px">.{{ item
+                            }}</span>
                     </div>
                 </div>
             </div>
+
             <NScrollbar style="min-height: 200px; max-height: 600px;" v-else>
+                <NButton @click="sliceSettings" type="info" size="small">{{ $t("文档分片设置") }}</NButton>
                 <NList hoverable>
                     <NListItem v-for="item in chooseList" :key="item">
                         <div class="file-list-item">
@@ -36,12 +39,21 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import useIndexStore from '../store';
-import { NRadio, NRadioGroup, NList, NListItem, NScrollbar, NButton,NTag } from 'naive-ui';
+import { NRadio, NRadioGroup, NList, NListItem, NScrollbar, NButton, NTag } from 'naive-ui';
 import { ref, onMounted } from 'vue';
 import { message } from '@/utils/naive-tools';
+import { eventBUS } from '../utils/tools';
 const fileUpload = ref<HTMLInputElement>()
-const { uploadMode, fileOrDirList, chooseList } = storeToRefs(useIndexStore());
+const {
+    uploadMode,
+    fileOrDirList,
+    chooseList,
+    sliceRuleShow,
+    slicePreviewList,
+    sliceChunkFormData
+} = storeToRefs(useIndexStore());
 import i18n from '@/lang';
+import { testChunk } from '../controller';
 const $t = i18n.global.t;
 /**
  * @description 判断文件类型
@@ -89,17 +101,13 @@ function fileTypeCheck(file: File) {
 function handleFileChange() {
     for (let file of fileUpload.value!.files!) {
         if (!fileTypeCheck(file)) {
-            // message.error(`${$t("{0}的文件类型不支持", [file.name])}`)
-            // return
             continue;
         }
         chooseList.value.push(file)
     }
-    // chooseList.value = Array.from(fileUpload.value!.files!)
     for (let file of chooseList.value) {
         // @ts-ignore
         fileOrDirList.value.push(file.path)
-
     }
 }
 
@@ -120,6 +128,15 @@ function removeFile(item: any) {
     fileOrDirList.value = fileOrDirList.value.filter((i: any) => i != item.path)
 }
 
+/**
+ * @description 文档分片设置
+ */
+async function sliceSettings() {
+    sliceRuleShow.value = true
+    sliceChunkFormData.value.filename = chooseList.value[0].path;
+    const res = await testChunk()
+    slicePreviewList.value = res?.message.chunkList
+}
 
 
 /********** 拖拽上传业务逻辑——预测试 **********/
@@ -202,7 +219,7 @@ function dragUploadInit() {
 }
 
 onMounted(() => {
-    // dragUploadInit()
+    eventBUS.$on("chooseFile", chooseFiles)
 })
 </script>
 
