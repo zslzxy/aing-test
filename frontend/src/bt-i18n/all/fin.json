@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Valitse tiedosto"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Kutsun enimmäismäärä"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Peruutustarkkuus"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Asiakirjan jäsentäminen epäonnistui"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Asiakirjan jäsentäminen onnistui, odottaa upotusta"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Tietojen tallennuspaikka"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "muutos"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Miten tietopohjaa voitaisiin hyödyntää paremmin?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Kansioiden vaihtaminen siirtää tiedot vanhasta hakemistosta uuteen hakemistoon, mikä voi kestää 5-10 minuuttia datan koosta riippuen. Älä sulje ohjelmistoa siirtoprosessin aikana."
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Valitse uusi sijainti"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Tietojen siirto epäonnistui, yritä uudelleen"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Tietojen siirto onnistui"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Älä sulje ohjelmistoa, muuten se voi aiheuttaa ohjelmiston poikkeavuuksia"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Odotetaan replikaatiota"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "kokonaiskoko"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "nopeus"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Tietojen siirtämiseen valmistautuminen"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Siirtyvät tiedot"
     }
 }

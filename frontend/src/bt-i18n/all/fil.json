@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Mangyaring pumili ng file"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Ang pinakamalaking dami ng pagtatanong"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Tanggapan ang tumutukoy"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Nabigo ang pagparse ng dokumento"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Ang pag-parse ng dokumento ay matagumpay, naghihintay sa pag-embed"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Lokasyon ng Data Storage"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "baguhin"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Paano upang mas mahusay na gamitin ang base ng kaalaman?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Ang pagpapalit ng mga direktoryo ay magtatagal ng mga datos mula sa lumang direktoryo patungo sa bagong direktoryo, na maaaring magtatagal ng 5-10 minuto ayon sa sukat ng mga datos. Mangyaring huwag isara ang software sa panahon ng proseso ng paglipat"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Piliin ang bagong lokasyon"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Nabigo ang paglipat ng datos, mangyaring subukan muli"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Ang paglipat ng mga datos ay matagumpay"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Huwag isara ang software, kung hindi ito ay maaaring sanhi ng mga abnormalities sa software"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Hinihintay ang replikasyon"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "kabuuang sukat"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "bilis"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Naghahanda sa pagmigra ng datos"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Sa paglipat ng datos"
     }
 }

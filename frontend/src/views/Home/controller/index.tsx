@@ -231,7 +231,13 @@ type ChatParams = {
 }
 export async function sendChat(params: ChatParams) {
     const { currentModel, currentContextId, chatHistory, currentTalkingChatId, isInChat, targetNet, activeKnowledgeForChat, netActive, currentSupplierName, temp_chat } = getIndexStore()
-    const [model, parameters] = currentModel.value.split(":")
+    let model, parameters;
+    if(currentSupplierName.value == "ollama"){
+        [model, parameters] = currentModel.value.split(":")
+    }else{
+        model = currentModel.value
+        parameters = ""
+    }
     // 如果当前对话不存在则创建对话
     try {
         if (!currentContextId.value) {

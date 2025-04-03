@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Palun vali fail"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Summeerimise maksimumkogus"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Tagasivõtmise täpsus"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Dokumentide parsimine nurjus"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Dokumentide parsimine edukas, manustamist ootab"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Andmete salvestamise asukoht"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "muutus"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Kuidas teadmistebaasi paremini ära kasutada?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Kataloogide vahetamine migreerib andmed vanast kataloogist uude kataloogi, mis võib võtta 5- 10 minutit sõltuvalt andmete suurusest. Palun ära sulge tarkvara migreerimise ajal"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Vali uus asukoht"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Andmete migreerimine nurjus, palun proovi uuesti"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Andmete migratsioon edukas"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Ärge sulgege tarkvara, vastasel juhul võib see põhjustada tarkvara kõrvalekaldeid"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Paljundamise ootamine"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "kogusuurus"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "kiirus"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Ettevalmistus andmete migreerimiseks"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Andmete migreerimisel"
     }
 }

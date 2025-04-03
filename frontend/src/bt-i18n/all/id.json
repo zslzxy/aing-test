@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Silakan pilih berkas"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Kuantitas Panggilan Maksimum"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Kembali akurasi"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Penghuraian dokumen gagal"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Pemindahan dokumen berhasil, menunggu penerbangan"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Lokasi Penyimpanan Data"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "perubahan"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Bagaimana menggunakan dasar pengetahuan lebih baik?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Bertukar direktori akan memindahkan data dari direktori lama ke direktori baru, yang mungkin mengambil 5-10 menit tergantung pada ukuran data. Silakan jangan tutup perangkat lunak selama proses migrasi"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Pilih lokasi baru"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Migrasi data gagal, silakan coba lagi"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Migrasi data berhasil"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Jangan tutup perangkat lunak, jika tidak mungkin menyebabkan abnormalitas perangkat lunak"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Menunggu replikasi"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "ukuran total"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "kecepatan"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Bersiap untuk migrasi data"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Dalam data migrasi"
     }
 }

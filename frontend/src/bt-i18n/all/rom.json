@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Selectați un fișier"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Cantitatea maximă de convocare"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Precizia retragerii"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Analizarea documentelor a eșuat"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Analizarea documentelor a reușit, așteptând încorporarea"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Locația stocării datelor"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "schimbare"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Cum să utilizați mai bine baza de cunoștințe?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Comutarea directoarelor va migra datele din directorul vechi în directorul nou, ceea ce poate dura 5-10 minute în funcție de dimensiunea datelor. Vă rugăm să nu închideți software-ul în timpul procesului de migrare"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Alege o locație nouă"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Migrarea datelor a eșuat, vă rugăm să încercați din nou"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Migrarea datelor cu succes"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Nu închideţi software-ul, altfel poate cauza anomalii ale software-ului"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Așteaptă replicarea"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "dimensiunea totală"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "viteză"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Pregătirea migrării datelor"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "În migrarea datelor"
     }
 }

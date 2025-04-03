@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Välj en fil"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Maximal anropskvantitet"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Återkallandenoggrannhet"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Dokumenttolkning misslyckades"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Dokumenttolkning lyckad, väntar på inbäddning"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Plats för datalagring"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "förändring"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Hur kan man bättre utnyttja kunskapsbasen?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Byta katalog migrerar data från den gamla katalogen till den nya katalogen, vilket kan ta 5- 10 minuter beroende på datans storlek. Stäng inte programvaran under migreringsprocessen"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Välj en ny plats"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Datamigrering misslyckades, försök igen"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Datamigrering lyckad"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Stäng inte programvaran, annars kan det orsaka störningar i programvaran"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Väntar på replikering"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "total storlek"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "varvtal"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Förbereda migrering av data"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Vid migrering av data"
     }
 }

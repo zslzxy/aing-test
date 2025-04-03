@@ -34,7 +34,7 @@ class IndexService {
         }
         global.isCopyDataPath = true
         // 复制数据到新路径
-        let savePathConfigFile = path.resolve(pub.get_resource_path(),'save_path.json')
+        let savePathConfigFile = path.resolve(pub.get_system_data_path(),'save_path.json')
         let savePathConfig = pub.read_json(savePathConfigFile)
         try{
             let oldPath = savePathConfig.oldPath

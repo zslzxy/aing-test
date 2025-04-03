@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Veuillez sélectionner un fichier"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Nombre maximal d'invocations"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Précision du rappel"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "La résolution du document a échoué"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Document résolu avec succès, en attente d'intégration"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Emplacement de stockage des données"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "Changement"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Comment mieux utiliser la base de connaissances?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Changer de répertoire migre les données de l'ancien répertoire vers le nouveau, en fonction de la taille des données peut prendre 5 - 10 minutes, ne fermez pas le logiciel pendant la migration"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Choisir un nouvel emplacement"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "La migration des données a échoué, Veuillez réessayer"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Migration de données réussie"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Ne fermez pas le logiciel, sinon cela provoquera une anomalie du logiciel"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "En attente de copie"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "Taille totale"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "Vitesse"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Préparer la migration des données"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Dans les données de migration"
     }
 }

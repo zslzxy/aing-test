@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Vui lòng chọn tập tin"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Số cuộc gọi tối đa"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Thu hồi chính xác"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Lỗi phân giải tài liệu"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Giải quyết tài liệu thành công, chờ nhúng"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Địa điểm lưu trữ dữ liệu"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "Thay đổi"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Làm thế nào để sử dụng cơ sở kiến thức tốt hơn?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Chuyển đổi thư mục sẽ di chuyển dữ liệu thư mục cũ sang thư mục mới, tùy thuộc vào kích thước dữ liệu có thể mất 5-10 phút, không đóng phần mềm trong quá trình di chuyển"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Chọn vị trí mới"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Di chuyển dữ liệu không thành công, hãy thử lại"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Di chuyển dữ liệu thành công"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Không đóng phần mềm, nếu không nó sẽ gây ra bất thường phần mềm"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Chờ copy"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "Tổng kích thước"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "Tốc độ"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Chuẩn bị di chuyển dữ liệu"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Di chuyển dữ liệu"
     }
 }

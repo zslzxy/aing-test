@@ -194,7 +194,7 @@ class IndexController {
      * @returns {Promise<any>} 返回成功响应，包含数据保存路径
      */
     async get_data_save_path(): Promise<any> {
-        let savePathConfigFile = path.resolve(pub.get_resource_path(),'save_path.json')
+        let savePathConfigFile = path.resolve(pub.get_system_data_path(),'save_path.json')
         if(!pub.file_exists(savePathConfigFile)){
             let currentPath = pub.get_data_path()
             let config = {
@@ -260,7 +260,7 @@ class IndexController {
         }
 
 
-        let savePathConfigFile = path.resolve(pub.get_resource_path(),'save_path.json')
+        let savePathConfigFile = path.resolve(pub.get_system_data_path(),'save_path.json')
         if(!pub.file_exists(savePathConfigFile)){
             return pub.return_error(pub.lang('配置文件不存在，请先调用获取数据保存路径接口'));
         }

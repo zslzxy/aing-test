@@ -356,6 +356,7 @@ function dealPopOperation(val: string, knowledge: any) {
         createKnowledgeFormData.value.ragName = knowledge.ragName
         createKnowledgeFormData.value.ragDesc = knowledge.ragDesc
         createKnowledgeFormData.value.supplierName = knowledge.supplierName
+        createKnowledgeFormData.value.maxRecall = knowledge.maxRecall
         modifyRag()
     }
 }

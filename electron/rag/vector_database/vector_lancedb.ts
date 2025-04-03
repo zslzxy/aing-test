@@ -56,10 +56,26 @@ export class LanceDBManager {
         return db;
     }
 
+    // 优化指定表
+    public static async optimizeTable(tableName:string){
+        try{
+            const db = await lancedb.connect(pub.get_db_path());
+            const tableObj = await db.openTable(tableName);
+            await tableObj.optimize();
+            tableObj.close();
+            db.close();
+        }catch(e){
+            logger.error('优化表失败',e)
+        }
+    }
+
 
     // 优化所有表
     public static async optimizeAllTable(){
         try{
+            if(global.isOptimizeAllTable){
+                return;
+            }
             global.isOptimizeAllTable = true;
             let tipPath = path.join(pub.get_data_path(), 'rag', 'index_tips');
             let tipFile = path.join(tipPath,`optimize-${pub.getCurrentDate()}.pl`);
@@ -641,9 +657,6 @@ export class LanceDBManager {
                 keywords,
                 vector: embedding
             }] as VectorRecord[]);
-
-            await tableObj.optimize();
-            // console.log(`成功添加文档到表 ${tableName}, ID: ${id}`);
             return id;
         } catch (error: any) {
             throw new Error(`添加文档失败: ${error.message}`);
@@ -715,7 +728,7 @@ export class LanceDBManager {
 
             // 添加记录
             await tableObj.add(record);
-            await tableObj.optimize();
+            // await tableObj.optimize();
             // console.log(`成功添加文档到表 ${tableName}`);
             return true;
         } catch (error: any) {

@@ -306,7 +306,11 @@ class ModelController {
            
             // 检查模型是否已存在
             if (!pub.file_exists(modelsFile)) {
-                return this.handleResult(false, pub.lang('模型供应商不存在'));
+                let supplierPath = path.dirname(modelsFile);
+                if (!pub.file_exists(supplierPath)) {
+                    return this.handleResult(false, pub.lang('模型供应商不存在'));
+                }
+                pub.write_file(modelsFile, '[]');
             }
             const models = await this.readJsonFile(modelsFile);
             if (models.some((model: ModelInfo) => model.modelName === args.modelName)) {

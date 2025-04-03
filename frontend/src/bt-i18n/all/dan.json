@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Vælg venligst en fil"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Maksimal indkaldelsesmængde"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Tilbagekaldelsesnøjagtighed"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Dokumenttolkning mislykkedes"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Dokumenttolkning vellykket, venter på integrering"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Datalagringsplacering"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "ændring"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Hvordan kan man bedre udnytte vidensbasen?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Skift mapper vil overføre data fra den gamle mappe til den nye mappe, hvilket kan tage 5- 10 minutter afhængigt af datastørrelsen. Luk ikke softwaren under overførselsprocessen"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Vælg en ny placering"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Dataoverførsel mislykkedes, prøv igen"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Dataoverførsel vellykket"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Luk ikke softwaren, ellers kan det forårsage software abnormiteter"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Venter på replikering"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "samlet størrelse"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "hastighed"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Forberedelse af overførsel af data"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "I migrering af data"
     }
 }

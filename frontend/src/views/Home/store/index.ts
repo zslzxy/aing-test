@@ -364,7 +364,6 @@ const useIndexStore = defineStore("indexStore", () => {
         enbeddingModel: "",
         supplierName: "",
         maxRecall: 5,
-        recallAccuracy: 0.1
     })
     // 是否正在编辑知识库
     const isEditKnowledge = ref(false)

@@ -280,21 +280,28 @@ class Public {
     get_data_path():string{
 
         // 尝试获取用户设置的目录
-        let savePathConfigFile = path.resolve(this.get_resource_path(),'save_path.json')
+        let savePathConfigFile = path.resolve(this.get_system_data_path(),'save_path.json')
         if(fs.existsSync(savePathConfigFile)){
             let savePathConfig = this.read_json(savePathConfigFile)
             let currentPath = savePathConfig.currentPath
             if(currentPath){
-                return currentPath;
+                if(this.file_exists(currentPath)){
+                    return currentPath;
+                }else{
+                    this.delete_file(savePathConfigFile)
+                }
             }
         }
 
         // 获取用户数据目录
         let data_path = path.resolve(this.get_root_path(),'data');
-
+        
         // 如果不存在则创建
         if (!fs.existsSync(data_path)) {
-            fs.mkdirSync(data_path);
+            data_path = path.resolve(Ps.getAppUserDataDir(),'data');
+            if (!fs.existsSync(data_path)) {
+                fs.mkdirSync(data_path);
+            }
         }
         return data_path;
     }
@@ -308,6 +315,17 @@ class Public {
         }catch(e){
             return path.resolve(this.get_root_path(),'build','extraResources');
         }
+    }
+    /**
+     * 获取系统数据目录
+     * @returns 
+     */
+    get_system_data_path():string{
+        let sys_path = path.resolve(Ps.getAppUserDataDir(),"sys_data");
+        if(!fs.existsSync(sys_path)){
+            fs.mkdirSync(sys_path);
+        }
+        return sys_path;
     }
 
 
@@ -1042,6 +1060,15 @@ class Public {
      */
     get_db_path():string{
         return path.join(pub.get_data_path(), 'rag', 'vector_db');
+    }
+
+    /**
+     * @name 获取知识库路径
+     * @returns {string} 知识库路径
+     */
+    get_rag_path():string{
+        // 知识库保存路径
+        return this.get_data_path() + "/rag";
     }
 
 }

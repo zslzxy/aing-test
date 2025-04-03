@@ -366,6 +366,7 @@ async function confirmAddModel() {
     getSupplierModelList(currentChooseApi.value!.supplierName)
     addSupplierModel.value = false
     message.success($t("模型添加成功"))
+    cantChoose.value = false
     addModelFormData.value = {
         modelName: "",
         capability: [],

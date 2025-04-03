@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Proszę wybrać plik"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Maksymalna ilość przywoływania"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Dokładność odwołania"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Analizowanie dokumentów nie powiodło się"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Parsowanie dokumentów pomyślnie, czekanie na osadzenie"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Lokalizacja przechowywania danych"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "zmiana"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Jak lepiej wykorzystać bazę wiedzy?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Przełączanie katalogów spowoduje migrację danych ze starego katalogu do nowego katalogu, co może zająć 5-10 minut w zależności od wielkości danych. Proszę nie zamykać oprogramowania podczas procesu migracji"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Wybierz nową lokalizację"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Migracja danych nie powiodła się, spróbuj ponownie"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Migracja danych pomyślna"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Nie zamykaj oprogramowania, w przeciwnym razie może to spowodować nieprawidłowości oprogramowania"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Czekanie na replikację"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "całkowity rozmiar"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "prędkość"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Przygotowanie do migracji danych"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "W migracji danych"
     }
 }

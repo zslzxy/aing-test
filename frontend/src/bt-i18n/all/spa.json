@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Por favor, seleccione el archivo"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Número máximo de convocatorias"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Precisión de retiro"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Falló el análisis del documento"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "El análisis del documento fue exitoso, esperando la incrustación"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Ubicación de almacenamiento de datos"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "Cambios"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "¿¿ cómo utilizar mejor la base de conocimientos?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Cambiar el catálogo migrará los datos del catálogo antiguo al nuevo catálogo. dependiendo del tamaño de los datos, puede tomar 5 - 10 minutos. no cierre el software durante la Migración."
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Elegir una nueva ubicación"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "La migración de datos falló, por favor vuelva a intentarlo"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Migración de datos exitosa"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "No cierre el software, de lo contrario causará anomalías en el software"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Esperando la copia"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "Tamaño total"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "Velocidad"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Preparación para migrar datos"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "En los datos de migración"
     }
 }

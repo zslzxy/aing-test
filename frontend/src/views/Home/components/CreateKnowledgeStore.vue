@@ -11,19 +11,30 @@
         </NFormItem>
         <NFormItem :label="$t('嵌入模型')" path="enbeddingModel">
             <NSelect :placeholder="$t('选择模型')" v-model:value="createKnowledgeFormData.enbeddingModel"
-                :options="embeddingModelsList" label-field="title" value-field="model" @update:value="doSelectModel"  :disabled="isEditKnowledge"/>
+                :options="embeddingModelsList" label-field="title" value-field="model" @update:value="doSelectModel"
+                :disabled="isEditKnowledge" />
         </NFormItem>
-        <NFormItem :label="`${$t('最大召唤数量')}(topK)`">
-            <NSlider :min="1" :max="20" :step="1" v-model:value="createKnowledgeFormData.maxRecall"/>
-        </NFormItem>
-        <NFormItem :label="`${$t('召回精度')}`">
-            <NSlider :min="0.05" :max="0.3" :step="0.01" v-model:value="createKnowledgeFormData.recallAccuracy"/>
+        <NFormItem>
+            <template #label>
+                <div class="flex justify-start gap-1.25">
+                    <span class="w-180">{{ $t('最大召回数量') }}(topK)</span>
+                </div>
+            </template>
+            <template #default>
+                <div class="w-100% flex flex-col items-start">
+                    <NSlider :min="1" :max="20" :step="1" v-model:value="createKnowledgeFormData.maxRecall"
+                    :marks="{ 1: '1', 20: '20' }" />
+                <div>
+                    <span class="text-3 text-gray-4">{{ $t("检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条") }}</span>
+                </div>
+                </div>
+            </template>
         </NFormItem>
     </NForm>
 </template>
 
 <script setup lang="ts">
-import { NForm, NFormItem, NInput, NSelect,NSlider } from "naive-ui"
+import { NForm, NFormItem, NInput, NSelect, NSlider } from "naive-ui"
 import { storeToRefs } from "pinia";
 import useIndexStore from "../store";
 import { ref, watch } from "vue";

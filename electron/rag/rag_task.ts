@@ -291,7 +291,7 @@ export class RagTask {
                 global.changePath = false
                 indexService.copyDataPath()
             }
-            await LanceDBManager.optimizeAllTable()
+            // await LanceDBManager.optimizeAllTable()
             await self.parse()
             await self.embed()
             self.parseTask()
@@ -418,7 +418,9 @@ export class RagTask {
             
             // 更新知识库FIT索引
             for(let ragName of ragNameList){
-                await LanceDBManager.createDocFtsIndex(pub.md5(ragName))
+                let encryptTableName = pub.md5(ragName)
+                await LanceDBManager.createDocFtsIndex(encryptTableName)
+                await LanceDBManager.optimizeTable(encryptTableName)
             }
             
 

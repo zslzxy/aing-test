@@ -7,9 +7,6 @@ import { GetSupplierEmbeddingModels } from '../service/model';
 import { ollamaService } from '../service/ollama';
 import { RagTask } from '../rag/rag_task';
 
-// 知识库保存路径
-const RAG_PATH = pub.get_data_path() + "/rag";
-
 /**
  * rag controller 类，负责管理知识库的相关操作
  * @class
@@ -106,7 +103,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + ragName;
+        const ragPath = pub.get_rag_path() + "/" + ragName;
 
         // 检查知识库是否存在
         if (pub.file_exists(ragPath)) {
@@ -164,7 +161,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = pub.get_rag_path() + "/" + args.ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
@@ -220,7 +217,7 @@ class RagController {
         // logger.info("get rag list");
 
         // 获取知识库列表
-        const ragPathList = pub.readdir(RAG_PATH);
+        const ragPathList = pub.readdir(pub.get_rag_path());
         const embeddingMap = await this.get_embedding_map();
 
         const ragList: any[] = [];
@@ -297,7 +294,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + ragName;
+        const ragPath = pub.get_rag_path() + "/" + ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
@@ -369,7 +366,7 @@ class RagController {
 
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + ragName;
+        const ragPath = pub.get_rag_path() + "/" + ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
@@ -432,7 +429,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = pub.get_rag_path() + "/" + args.ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
@@ -478,7 +475,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = pub.get_rag_path() + "/" + args.ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
@@ -514,7 +511,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.ragName;
+        const ragPath = pub.get_rag_path() + "/" + args.ragName;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {
@@ -581,7 +578,7 @@ class RagController {
     //     }
 
     //     // 知识库保存路径
-    //     const ragPath = RAG_PATH + "/" + args.ragName;
+    //     const ragPath = pub.get_rag_path() + "/" + args.ragName;
 
     //     // 检查知识库是否存在
     //     if (!pub.file_exists(ragPath)) {
@@ -668,7 +665,7 @@ class RagController {
         }
 
         // 知识库保存路径
-        const ragPath = RAG_PATH + "/" + args.r;
+        const ragPath = pub.get_rag_path() + "/" + args.r;
 
         // 检查知识库是否存在
         if (!pub.file_exists(ragPath)) {

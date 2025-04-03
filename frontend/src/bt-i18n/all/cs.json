@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Vyberte prosím soubor"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Maximální množství vyvolávání"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Přesnost stahování"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Analýza dokumentu selhala"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Parsování dokumentů úspěšné, čekání na vložení"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Umístění úložiště dat"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "změna"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Jak lépe využít znalostní základnu?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Přepnutím adresářů budou data ze starého adresáře migrována do nového adresáře, což může trvat 5-10 minut v závislosti na velikosti dat."
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Vybrat nové umístění"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Migrace dat selhala, zkuste to znovu"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Migrace dat úspěšná"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Nezavírejte software, jinak by to mohlo způsobit abnormality softwaru"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Čekání na replikaci"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "celková velikost"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "rychlost"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Příprava na migraci dat"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Při migraci dat"
     }
 }

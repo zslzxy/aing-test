@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Lütfen bir dosya seçin"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Azamik Toplama Ölçüsü"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Tam olarak hatırla"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Belge ayırması başarısız oldu"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Belge analizi başarılı, içeri girmek bekliyor"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Veri depolaması"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "değiştirme"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Bilim üssünü nasıl kullanılacak?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Dizinleri değiştirmek eski dizinin verilerini yeni dizinlere gönderecek. Verilerin boyutuna bağlı 5-10 dakika sürebilir. Lütfen göç sürecinde yazılımı kapatmayın."
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Yeni bir yer seçin"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Veri götürmesi başarısız oldu, lütfen tekrar deneyin"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Veri göç başarılı"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Yazılımları kapatmayın, yoksa yazılım bozukluğuna sebep olabilir"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Tekrarlama bekliyor"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "toplam ölçü"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "hızla"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Verileri göndermek için hazırlanıyor"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Verileri götürmekte"
     }
 }

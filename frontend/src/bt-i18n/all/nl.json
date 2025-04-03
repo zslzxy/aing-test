@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Selecteer een bestand"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Maximale hoeveelheid oproepen"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Recall nauwkeurigheid"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Documentparsing mislukt"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Documentparsing succesvol, wachten op insluiten"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Locatie voor gegevensopslag"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "verandering"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Hoe kan de kennisbasis beter worden benut?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Door over te schakelen naar mappen worden gegevens van de oude map naar de nieuwe map verplaatst. Dit kan 5-10 minuten duren afhankelijk van de grootte van de gegevens. Sluit de software niet tijdens het migratieproces"
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Kies een nieuwe locatie"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Data migratie mislukt, probeer het opnieuw"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Data migratie succesvol"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Sluit de software niet, anders kan het software afwijkingen veroorzaken"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Wachten op replicatie"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "totale grootte"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "snelheid"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Voorbereiding om gegevens te migreren"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Bij het migreren van gegevens"
     }
 }

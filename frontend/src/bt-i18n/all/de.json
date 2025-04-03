@@ -1074,5 +1074,73 @@
     "请选择文件": {
         "src": "请选择文件",
         "dst": "Bitte wählen Sie eine Datei"
+    },
+    "最大召唤数量": {
+        "src": "最大召唤数量",
+        "dst": "Maximale Summenmenge"
+    },
+    "召回精度": {
+        "src": "召回精度",
+        "dst": "Wiederrufgenauigkeit"
+    },
+    "文档解析失败": {
+        "src": "文档解析失败",
+        "dst": "Dokumentenprozess fehlgeschlagen"
+    },
+    "文档解析成功,等待嵌入": {
+        "src": "文档解析成功,等待嵌入",
+        "dst": "Dokument Parsing erfolgreich, wartet auf Einbettung"
+    },
+    "数据存储位置": {
+        "src": "数据存储位置",
+        "dst": "Speicherort für Daten"
+    },
+    "更改": {
+        "src": "更改",
+        "dst": "ändern"
+    },
+    "如何更好的使用知识库?": {
+        "src": "如何更好的使用知识库?",
+        "dst": "Wie kann die Wissensbasis besser genutzt werden?"
+    },
+    "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件": {
+        "src": "切换目录会将旧目录数据迁移到新目录,视数据大小可能需要5-10分钟，迁移过程中请勿关闭软件",
+        "dst": "Durch das Umschalten von Verzeichnissen werden Daten aus dem alten Verzeichnis in das neue Verzeichnis migriert. Dies kann je nach Größe der Daten 5-10 Minuten dauern. Bitte schließen Sie die Software während der Migration nicht."
+    },
+    "选择新位置": {
+        "src": "选择新位置",
+        "dst": "Einen neuen Standort auswählen"
+    },
+    "数据迁移失败，请重试": {
+        "src": "数据迁移失败，请重试",
+        "dst": "Datenmigration fehlgeschlagen, bitte versuchen Sie es erneut"
+    },
+    "数据迁移成功": {
+        "src": "数据迁移成功",
+        "dst": "Datenmigration erfolgreich"
+    },
+    "请勿关闭软件,否则将导致软件异常": {
+        "src": "请勿关闭软件,否则将导致软件异常",
+        "dst": "Schließen Sie die Software nicht, sonst kann es zu Softwareabnormalitäten kommen"
+    },
+    "等待复制": {
+        "src": "等待复制",
+        "dst": "Warten auf Replikation"
+    },
+    "总大小": {
+        "src": "总大小",
+        "dst": "Gesamtgröße"
+    },
+    "速度": {
+        "src": "速度",
+        "dst": "Geschwindigkeit"
+    },
+    "准备迁移数据": {
+        "src": "准备迁移数据",
+        "dst": "Vorbereitung der Datenmigration"
+    },
+    "迁移数据中": {
+        "src": "迁移数据中",
+        "dst": "Bei der Datenmigration"
     }
 }
