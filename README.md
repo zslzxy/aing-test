@@ -1,10 +1,10 @@
 # AingDesk
 ![GitHub License](https://img.shields.io/github/license/aingdesk/aingdesk)
+![GitHub Release](https://img.shields.io/github/v/release/aingdesk/aingdesk)
 ![GitHub stars](https://img.shields.io/github/stars/aingdesk/aingdesk?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/aingdesk/aingdesk?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/aingdesk/aingdesk)
 ![GitHub last commit](https://img.shields.io/github/last-commit/aingdesk/aingdesk)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/aingdesk/aingdesk)
 ![GitHub all releases](https://img.shields.io/github/downloads/aingdesk/aingdesk/total)
 ![Docker Pulls](https://img.shields.io/docker/pulls/aingdesk/aingdesk)
 
