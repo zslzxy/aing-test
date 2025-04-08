@@ -1047,7 +1047,7 @@ export async function createNewKnowledgeStore() {
     // 重置表单
     function resetForm() {
         createKnowledgeModelRef.value.restoreValidation()
-        createKnowledgeFormData.value = { ragName: "", ragDesc: "", enbeddingModel: [], supplierName: "" }
+        createKnowledgeFormData.value = { ragName: "", ragDesc: "", enbeddingModel: [], supplierName: "",maxRecall: 5 }
         createKnowledgeDialogIns.value!.destroy()
     }
     // 跳转知识库使用文档
@@ -1617,7 +1617,10 @@ export async function callSearchEngine() {
  * @description 测试文档分片
  */
 export async function testChunk() {
-    const { sliceChunkFormData } = getIndexStore()
+    const { sliceChunkFormData,customSeparators } = getIndexStore()
+    if(!customSeparators.value){
+        sliceChunkFormData.value.separators = []
+    }
     try {
         return await post("/rag/test_chunk", sliceChunkFormData.value)
     } catch (error) {

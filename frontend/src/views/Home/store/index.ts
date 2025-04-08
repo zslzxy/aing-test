@@ -393,12 +393,14 @@ const useIndexStore = defineStore("indexStore", () => {
     const activeKnowledgeDocList = ref<ActiveKnowledgeDocDto[]>([])
     // 文档选择结束后弹窗展示分片设置规则
     const sliceRuleShow = ref(false)
+    // 是否自动设置分片标识符
+    const customSeparators = ref(false)
     // 文档分片表单数据
     const sliceChunkFormData = ref<TestDocChunkParams>({
         filename: "",
-        chunkSize: 500,
-        overlapSize: 50,
-        separators: ['\\n\\n', '。']
+        chunkSize: 1000,
+        overlapSize: 100,
+        separators: []
     })
     // 文档分片表单ref
     const sliceFormRef = ref()
@@ -598,6 +600,7 @@ const useIndexStore = defineStore("indexStore", () => {
         questionFilesRef,
         sliceRuleShow,
         sliceChunkFormData,
+        customSeparators,
         sliceFormRef,
         slicePreviewList,
         userDataPath,

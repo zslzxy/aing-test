@@ -272,6 +272,13 @@ class Public {
         if(!result) return path.resolve(__dirname,'../');
         return result;
     }
+
+
+    get_user_data_path():string{
+        let userApp = Ps.getAppUserDataDir()
+        if(!userApp) userApp = this.get_root_path()
+        return userApp;
+    }
         
     /**
      * @name 获取数据目录
@@ -298,7 +305,7 @@ class Public {
         
         // 如果不存在则创建
         if (!fs.existsSync(data_path)) {
-            data_path = path.resolve(Ps.getAppUserDataDir(),'data');
+            data_path = path.resolve(this.get_user_data_path(),'data');
             if (!fs.existsSync(data_path)) {
                 fs.mkdirSync(data_path);
             }
@@ -321,7 +328,7 @@ class Public {
      * @returns 
      */
     get_system_data_path():string{
-        let sys_path = path.resolve(Ps.getAppUserDataDir(),"sys_data");
+        let sys_path = path.resolve(this.get_user_data_path(),"sys_data");
         if(!fs.existsSync(sys_path)){
             fs.mkdirSync(sys_path);
         }

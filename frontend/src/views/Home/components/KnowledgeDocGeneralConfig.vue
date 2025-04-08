@@ -2,29 +2,27 @@
     <div class="advanced-settings">
         <div class="general">
             <NForm :model="sliceChunkFormData" :rules="rules" ref="sliceFormRef">
-                <NFormItem :label="$t('分段标识符')" path="separators">
-                    <!-- <NTooltip trigger="hover">
-                        <template #trigger> -->
-                            <NDynamicTags v-model:value="sliceChunkFormData.separators" />
-                        <!-- </template> -->
-                        <!-- {{ $t("支持函正则表达式，如") }}:/(words.{1,10}\s)/,{{ $t("正则表达式无需添加修饰符，默认会自动添加g修饰符") }} -->
-                    <!-- </NTooltip> -->
+                <NFormItem :label="$t('分段标识符')">
+                    <!-- <NDynamicTags v-model:value="sliceChunkFormData.separators" /> -->
+                    <div class="flex-col w-100% items-center">
+                        <NRadioGroup v-model:value="customSeparators">
+                            <NRadio :value="false">自动</NRadio>
+                            <NRadio :value="true">自定义</NRadio>
+                        </NRadioGroup>
+                        <NInput style="margin-top:10px" :placeholder="$t('请输入分隔符')"
+                            v-model:value="sliceChunkFormData.separators[0]" v-if="customSeparators" />
+                    </div>
                 </NFormItem>
                 <NFormItem :label="$t('分段最大长度')" path="chunkSize">
                     <NInputNumber v-model:value="sliceChunkFormData.chunkSize" />
                 </NFormItem>
                 <NFormItem :label="$t('分段重叠长度')" path="overlapSize">
-                    <!-- <NTooltip trigger="hover">
-                        <template #trigger> -->
-                            <NInputNumber v-model:value="sliceChunkFormData.overlapSize" />
-                        <!-- </template> -->
-                        <!-- {{ $t("建议为分段最大长度的10%到20%") }} -->
-                    <!-- </NTooltip> -->
+                    <NInputNumber v-model:value="sliceChunkFormData.overlapSize" />
                 </NFormItem>
             </NForm>
 
             <ul class="desc">
-                <li>{{$t("分段标识符支持函正则表达式，如")}}/(words.{1,10}\s)/,{{ $t("正则表达式无需添加修饰符，默认会自动添加g修饰符") }}</li>
+                <li>{{ $t("分段标识符支持函正则表达式，如") }}/(words.{1,10}\s)/,{{ $t("正则表达式无需添加修饰符，默认会自动添加g修饰符") }}</li>
                 <li>{{ $t("分段重叠长度建议为分段最大长度的10%到20%") }}</li>
             </ul>
         </div>
@@ -38,7 +36,9 @@
             </div>
             <div class="preview-list">
                 <NScrollbar style="height:100%">
-                    <NAlert type="info" :show-icon="false" v-for="(item, index) in slicePreviewList" class="mb-10px">{{ item }}</NAlert>
+                    <NAlert type="info" :show-icon="false" v-for="(item, index) in slicePreviewList" class="mb-10px">{{
+                        item }}
+                    </NAlert>
                 </NScrollbar>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import { NInput, NInputNumber, NDivider, NForm, NFormItem, NSelect, NInputGroup, NButton, NDynamicTags, NTooltip, NAlert, NScrollbar } from "naive-ui"
+import { NInput, NInputNumber, NDivider, NForm, NFormItem, NSelect, NInputGroup, NButton, NDynamicTags, NTooltip, NAlert, NScrollbar, NCheckbox, NRadioGroup, NRadio } from "naive-ui"
 import { useI18n } from "vue-i18n";
 import {
     getIndexStore,
@@ -58,7 +58,8 @@ const {
     chooseList,
     sliceChunkFormData,
     sliceFormRef,
-    slicePreviewList
+    slicePreviewList,
+    customSeparators
 } = getIndexStore()
 // 已选的文件下拉列表
 const testChunkFile = computed(() => {
@@ -69,6 +70,7 @@ const testChunkFile = computed(() => {
         }
     })
 })
+
 // 分片规则表单校验规则
 const rules = ref({
     chunkSize: [{
@@ -106,13 +108,17 @@ const rules = ref({
         }, trigger: "blur"
     }],
     separators: [{
-        validator(_: any, value: any) {
-            if (value.length) {
-                return true
-            } else {
-                return new Error($t("请填写分段标识符"))
-            }
-        }, trigger: "blur"
+        // validator(_: any, value: any) {
+        //     if (!customSeparators.value) {
+        //         return true
+        //     } else {
+        //         if (sliceChunkFormData.value.separators[0]) {
+        //             return true
+        //         } else {
+        //             return new Error($t("请填写分段标识符"))
+        //         }
+        //     }
+        // }, trigger: "blur"
     }],
 })
 
@@ -134,11 +140,12 @@ const rules = ref({
         padding-right: 20px;
 
         .desc {
-            color:base.$gray-6;
+            color: base.$gray-6;
             font-size: 12px;
+
             li {
                 margin-bottom: 10px;
-                list-style:disc !important;
+                list-style: disc !important;
             }
         }
 

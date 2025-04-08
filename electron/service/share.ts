@@ -154,6 +154,7 @@ class ShareService {
         // 保存用户的聊天记录
         const chatHistory: ChatHistory = {
             id: '',
+            compare_id: '',
             role: 'user',
             reasoning: '',
             stat: {},
@@ -173,6 +174,7 @@ class ShareService {
         const resUUID = pub.uuid();
         const chatHistoryRes: ChatHistory = {
             id: resUUID,
+            compare_id:'',
             role: 'assistant',
             reasoning: '',
             stat: {
@@ -207,7 +209,7 @@ class ShareService {
             shareChatService.update_chat_config(shareId,contextId, "rag_list", rag_list);
 
             if(rag_list.length > 0) {
-                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(rag_list,modelStr,content,history[history.length - 1].doc_files,"");
+                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(supplierName,modelStr, content, history[history.length - 1].doc_files, '', [], rag_list);
                 chatHistoryRes.search_query = query;
                 chatHistoryRes.search_type = "[RAG]:" + rag_list.join(",");
                 chatHistoryRes.search_result = searchResultList;
@@ -240,8 +242,8 @@ class ShareService {
                 lastHistory += pub.lang("问题: ") + history[history.length - 3].content + "\n";
                 lastHistory += pub.lang("回答:") + history[history.length - 2].content + "\n";
             }
-
-            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content,modelStr,lastHistory,search,doc_files,"");
+            
+            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content, modelStr, lastHistory, history[history.length - 1].doc_files, '', [], search);//getPromptForWeb(content,modelStr,lastHistory,search,doc_files,"");
             chatHistoryRes.search_query = query;
             chatHistoryRes.search_type = search;
             chatHistoryRes.search_result = searchResultList;

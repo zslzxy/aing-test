@@ -351,13 +351,13 @@ class RagController {
         }
 
         if (!separators) {
-            separators = ["\n\n", "。"];
+            separators = [];
         }
         if (!chunkSize) {
-            chunkSize = 500;
+            chunkSize = 1000;
         }
         if (!overlapSize) {
-            overlapSize = 50;
+            overlapSize = 100;
         }
 
         if(typeof separators == 'string'){
@@ -693,6 +693,10 @@ class RagController {
 
     }
 
+
+
+
+
     /**
      * 测试分块
      * @param args 
@@ -710,7 +714,8 @@ class RagController {
         if (typeof separators == 'string') {
             separators = [separators]
         }
-        let chunkList = ragTask.splitText(result.content, separators, chunkSize, overlapSize);
+
+        let chunkList = ragTask.splitText(filename,result.content, separators, chunkSize, overlapSize);
         result.chunkList = chunkList;
 
         return pub.return_success(pub.lang('操作成功'), result);

@@ -137,7 +137,7 @@ export class LanceDBManager {
 
         metrics.endTime = performance.now();
         metrics.duration = metrics.endTime - metrics.startTime;
-        console.log(`[性能] ${metrics.operation}: ${metrics.duration.toFixed(2)}ms`);
+        logger.info(`[性能] ${metrics.operation}: ${metrics.duration.toFixed(2)}ms`);
     }
 
     private static getEmbeddingCachePath(){
@@ -330,7 +330,7 @@ export class LanceDBManager {
             //     });
             // }
             // catch(e){
-            //     console.log('创建vector索引失败',e)
+            //     logger.info('创建vector索引失败',e)
             // }
 
             // docId索引
@@ -340,7 +340,7 @@ export class LanceDBManager {
                 });
             }
             catch(e){
-                console.log('创建docId索引失败',e)
+                logger.error('创建docId索引失败',e)
             }
 
             // tokens索引
@@ -349,7 +349,7 @@ export class LanceDBManager {
                     config: lancedb.Index.fts() // 全文搜索
                 });
             }catch(e){
-                console.log('创建doc索引失败',e)
+                logger.error('创建doc索引失败',e)
             }
 
             // keywords索引
@@ -358,11 +358,11 @@ export class LanceDBManager {
                     config: lancedb.Index.labelList() // 
                 })
             }catch(e){
-                console.log('创建keywords索引失败',e)
+                logger.error('创建keywords索引失败',e)
             }
 
             await tableObj.delete(`id='1'`);
-            // console.log(`成功创建表: ${tableName}`);
+            // logger.info(`成功创建表: ${tableName}`);
             return tableName;
         } catch (error: any) {
             throw new Error(`创建表失败: ${error.message}`);
@@ -433,7 +433,7 @@ export class LanceDBManager {
                 });
             }
 
-            // console.log(`成功创建表: ${tableName}`);
+            // logger.info(`成功创建表: ${tableName}`);
             return true;
         } catch (error: any) {
             throw new Error(`创建表失败: ${error.message}`);
@@ -497,7 +497,7 @@ export class LanceDBManager {
             tableObj.close();
             db.close();
         }catch(e){
-            console.log('创建FTS索引失败',e)
+            logger.error('创建FTS索引失败',e)
         }
     }
 
@@ -531,7 +531,7 @@ export class LanceDBManager {
                 let indexName = indexKey.key + "_idx";
                 const indexStats = await tableObj.indexStats(indexName);
                 if (indexStats) {
-                    console.log(`索引 "${indexName}" 已存在，跳过创建`);
+                    logger.error(`索引 "${indexName}" 已存在，跳过创建`);
                     continue;
                 }
 
@@ -572,7 +572,7 @@ export class LanceDBManager {
             }
             return true;
         }catch(e){
-            console.log('添加索引失败',e)
+            logger.error('添加索引失败',e)
             return false;
         }finally{
             await db.close();
@@ -610,7 +610,7 @@ export class LanceDBManager {
 
             return true;
         }catch(e){
-            console.log('删除索引失败',e)
+            logger.error('删除索引失败',e)
             return false;
         }finally{
             await db.close();
@@ -627,7 +627,7 @@ export class LanceDBManager {
      * @param text 要添加的文本
      * @returns 添加的记录ID
      */
-    public static async addDocument(tableName: string,supplierName:string, model: string, text: string,keywords:string[], docId: string): Promise<string> {
+    public static async addDocument(tableName: string,supplierName:string, model: string, text: string,keywords:string[], docId: string,tokens:string): Promise<string> {
         const metrics = this.startMetrics(`添加文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
 
@@ -655,6 +655,7 @@ export class LanceDBManager {
                 doc: text,
                 docId,
                 keywords,
+                tokens: tokens,
                 vector: embedding
             }] as VectorRecord[]);
             return id;
@@ -697,7 +698,7 @@ export class LanceDBManager {
         }
 
         // 添加字段
-        console.log('添加字段',newFields)
+        logger.info('添加字段',newFields)
         await tableObj.addColumns(newFields);
 
         return true;
@@ -729,7 +730,7 @@ export class LanceDBManager {
             // 添加记录
             await tableObj.add(record);
             // await tableObj.optimize();
-            // console.log(`成功添加文档到表 ${tableName}`);
+            // logger.info(`成功添加文档到表 ${tableName}`);
             return true;
         } catch (error: any) {
             throw new Error(`添加文档失败: ${error.message}`);
@@ -773,7 +774,7 @@ export class LanceDBManager {
             // 更新记录
             await tableObj.update(record);
             await tableObj.optimize();
-            console.log(`成功更新文档到表 ${tableName}`);
+            logger.info(`成功更新文档到表 ${tableName}`);
             return true;
         } catch (error: any) {
             logger.error(`更新文档失败: ${error.message}`,tableName,record);
@@ -807,7 +808,7 @@ export class LanceDBManager {
             // 删除记录
             await tableObj.delete(where);
             await tableObj.optimize();
-            // console.log(`成功删除文档到表 ${tableName}`);
+            // logger.info(`成功删除文档到表 ${tableName}`);
             return true;
         } catch (error: any) {
             logger.error(`删除文档失败: ${error.message}`);
@@ -841,7 +842,7 @@ export class LanceDBManager {
             // 查询记录
             const results = await tableObj.query().where(where).limit(10000).toArray();
 
-            // console.log(`成功查询文档到表 ${tableName}`);
+            // logger.info(`成功查询文档到表 ${tableName}`);
             return results;
         } catch (error: any) {
             logger.error(`查询文档失败: ${error.message}`);
@@ -926,7 +927,7 @@ export class LanceDBManager {
             await tableObj.add(records);
             await tableObj.optimize();
 
-            // console.log(`成功批量添加 ${records.length} 条文档到表 ${tableName}`);
+            // logger.info(`成功批量添加 ${records.length} 条文档到表 ${tableName}`);
             return records.length;
         } catch (error: any) {
             throw new Error(`批量添加文档失败: ${error.message}`);
@@ -1021,7 +1022,7 @@ export class LanceDBManager {
             // 创建FTS索引
             await this.createDocFtsIndex(tableName);
         }
-        let sortedResults = await tableObj.query().fullTextSearch(keywords.join(' ')).nearestTo(embedding).rerank(await lancedb.rerankers.RRFReranker.create()).select(['id', 'doc', 'docId']).limit(ragInfo.maxRecall).toArray()
+        let sortedResults = await tableObj.query().fullTextSearch(keywords.join(' ')).nearestTo(embedding).rerank(await lancedb.rerankers.RRFReranker.create()).select(['id', 'doc', 'docId','tokens']).limit(ragInfo.maxRecall).toArray()
 
         // 获取文档信息并处理结果
         const docIdList = sortedResults.map(item => item.docId);
@@ -1489,6 +1490,7 @@ export class LanceDBManager {
                 docId: item.docId,
                 docName: docNameMap.get(item.docId)?.doc_name,
                 docFile: docNameMap.get(item.docId)?.doc_file,
+                tokens: item.tokens,
                 score: item.score !== undefined? item._score: item._score + item._relevance_score,
                 vectorScore: item.vectorScore !== undefined?item.vectorScore: item._relevance_score,
                 keywordScore: item.keywordScore  !== undefined?item.keywordScore: item._score
@@ -1712,7 +1714,7 @@ export class LanceDBManager {
 
             // 删除记录
             await tableObj.delete(where);
-            // console.log(`从表 ${tableName} 中删除ID为 ${docId} 的文档`);
+            // logger.info(`从表 ${tableName} 中删除ID为 ${docId} 的文档`);
             return 1;
         } catch (error: any) {
             throw new Error(`删除文档失败: ${error.message}`);
@@ -1965,7 +1967,7 @@ export class LanceDBManager {
                 .sort((a, b) => b.score - a.score)
                 .slice(0, limit);
 
-            // console.log(`关键词搜索完成，找到 ${filteredResults.length} 条结果，匹配模式: ${matchMode}`);
+            // logger.info(`关键词搜索完成，找到 ${filteredResults.length} 条结果，匹配模式: ${matchMode}`);
 
             return filteredResults;
         } catch (error: any) {

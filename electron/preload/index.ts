@@ -6,6 +6,7 @@ import { logger } from 'ee-core/log';
 import { trayService } from '../service/os/tray';
 import { securityService } from '../service/os/security';
 import { autoUpdaterService } from '../service/os/auto_updater';
+// import { cross } from 'ee-core/cross';
 
 function preload(): void {
   // Example feature module, optional to use and modify
@@ -13,6 +14,7 @@ function preload(): void {
   trayService.create();
   securityService.create();
   autoUpdaterService.create();
+  // cross.run('python')
 }
 
 /**
