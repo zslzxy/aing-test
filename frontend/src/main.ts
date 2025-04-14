@@ -20,6 +20,7 @@ app.use(router)
 
 
 app.config.errorHandler = function(err){
+    console.log(err)
     post("/index/write_logs",{logs:JSON.stringify(err)}).then(res=>console.log("发送成功"))
 }
 

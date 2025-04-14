@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Sa paglipat ng datos"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Piliin ang mga kagamitan"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "tool"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "pagpili ng modelo"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Mga Modelo ng Paghahanap"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Mga karaniwang modelo"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Hindi ginagamit"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Bagong pagbabahagi"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Ang pinakamalaking dami ng pagbabalik"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Ang pinakamalaking bilang ng mga pagbabalik sa paghahanap ng knowledge base ay ipinapahirap na maging tatlo para sa mga lokal na modelo at lima para sa mga online na modelo."
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "awtomatiko"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "customize"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Pakipasok ang delimiter"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Ginagawa namin ang optimization ng knowledge base, na maaaring magtatagal ng ilang minuto hanggang sa isang dosenang minuto"
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "I-upload ang knowledge base document"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Mangyaring piliin ang path ng pag-install para sa Model Manager"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimize"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Enhance indexing and free up excess space occupation"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "feedback"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Hapusin ang MCP server"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Maaari ba ito"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Pakiusap ipasok ang pangalan ng MCP server"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Pakipasok ang nilalaman"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "type"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "server address"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Paki-enter ang URL ng server"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Mataguhin ng Application"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Ang kapaligiran ng Nodejs ay hindi kasalukuyang naka-install, i-click"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "command"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "query-sort"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "parameter"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "environment variable"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Pag-install ng kapaligiran, maaaring magtatagal ito ng ilang minuto"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Pakiusap ipasok ang command ng executable"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Edit Profile"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "I-edit ang JSON para sa configuration ng MCP server. Pakiusap siguraduhin na ang format ay tama bago i-save."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Idagdag ang server"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "bagong kaayusan"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Ang paglagay ng kapaligiran ay matagumpay"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Nabigo ang install ng environment"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Ang operasyon ay matagumpay"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Paki-install muna ang Node.js environment"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Gusto mo bang i-delete ang kasalukuyang MCP server?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Mga pangkalahatang setting"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP server"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Baguhin ang modelo"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Ang matagumpay na nai-save"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Resultado ng tawag:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Ang pag-parse ng dokumento ay matagumpay, naghihintay para sa pag-embed. Ang oras ng paghihintay ay depende sa bilang ng mga file, na maaaring magtatagal ng ilang minuto hanggang sampung minuto"
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Maghintay"
     }
 }

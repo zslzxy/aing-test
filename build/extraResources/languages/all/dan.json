@@ -846,5 +846,85 @@
     "6ae3994d1af89e22a5addf977b2240b1": {
         "src": "复制失败，已撤回操作: {}",
         "dst": "Kopiering mislykkedes, operation tilbagekaldt: {}"
+    },
+    "3229e49a006b9905ddceea86dc7dd100": {
+        "src": "未找到该服务器",
+        "dst": "Serveren blev ikke fundet"
+    },
+    "0969524a648d833a3ada09655fc415e3": {
+        "src": "卸载成功",
+        "dst": "Afinstallation vellykket"
+    },
+    "b0fac2cf519f031aafa78118193bca6e": {
+        "src": "该服务器已存在",
+        "dst": "Serveren eksisterer allerede"
+    },
+    "37558e86cf19e61c5d7856b9473bf2e8": {
+        "src": "环境变量格式错误",
+        "dst": "Miljøvariabelformatfejl"
+    },
+    "933b0c94ca2fc7bcd3e8f9b7a45a6020": {
+        "src": "参数格式错误",
+        "dst": "Parameterformatfejl"
+    },
+    "9d5bf2a10a520071f965d7e87b12676e": {
+        "src": "已安装",
+        "dst": "blev installeret"
+    },
+    "6f5b5ee24a3c001dc9b920b8d3cd89fa": {
+        "src": "安装失败",
+        "dst": "Installation mislykkedes"
+    },
+    "9d1114cd2c4f92b0332e4da02eb9e823": {
+        "src": "未找到MCP配置",
+        "dst": "MCP- konfiguration ikke fundet"
+    },
+    "b0d425edb75f36b2e101934f060f18ec": {
+        "src": "配置文件格式错误",
+        "dst": "Konfigurationsfilformatfejl"
+    },
+    "3b108349b93f7c8c4e2346f8d48c092a": {
+        "src": "保存成功",
+        "dst": "Gemt med succes"
+    },
+    "8e08265b9ad1b23e31c6f10b1b450a1a": {
+        "src": "获取分享配置失败",
+        "dst": "Kunne ikke opnå delingskonfiguration"
+    },
+    "3ed9891e18c456ad43d94f4787177e18": {
+        "src": "[parseDocument]解析文档失败",
+        "dst": "[parseDocument] Failed to parse document"
+    },
+    "eac6385d9a5595b1a0a1910de0efaa74": {
+        "src": "[addDocument]插入数据失败",
+        "dst": "[addDocument] Dataindsættelse mislykkedes"
+    },
+    "e6c3a129268f0c576bf2b1171b5e9c8a": {
+        "src": "[embed]嵌入文档失败",
+        "dst": "[embed] Dokumentindlejring mislykkedes"
+    },
+    "af2eb44eb9102da86521ce19e9bdc651": {
+        "src": "指定表不存在",
+        "dst": "Den angivne tabel eksisterer ikke"
+    },
+    "cea29669c04aa0bac395ae35b19e9d30": {
+        "src": "优化成功,释放空间: {}",
+        "dst": "Optimering vellykket, frigør plads: {}"
+    },
+    "e7b52c69e07fc3ba8b10d48594a824ae": {
+        "src": "优化失败: {}",
+        "dst": "Optimering mislykkedes: {}"
+    },
+    "52b85c9108c92c7844c7e2ce64395f99": {
+        "src": "同步成功",
+        "dst": "Synkronisering vellykket"
+    },
+    "4f65712f09cfa8018771e114676c6791": {
+        "src": "模型连接失败:{}",
+        "dst": "Modelforbindelse mislykkedes: {}"
+    },
+    "7f0ad4565cb005693ed7e372ca64ca62": {
+        "src": "出错了: {}",
+        "dst": "Fejl opstod: {}"
     }
 }

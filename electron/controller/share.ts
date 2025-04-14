@@ -132,9 +132,10 @@ class ShareController {
      * @param {string} args.title - 分享标题
      * @param {string} [args.password] - 分享密码（可选）
      * @param {string} [args.rag_list] - 分享权限列表（可选）
+     * @param {string} [args.agent_name] - 代理名称（可选）
      * @returns {Promise<any>} - 表示创建成功的响应对象
      */
-    async create_share(args: {supplierName?:string ;model: string; parameters: string; title: string; password?: string ,rag_list?:string}): Promise<any> {
+    async create_share(args: {supplierName?:string ;model: string; parameters: string; title: string; password?: string ,rag_list?:string,agent_name?:string}): Promise<any> {
         const shareId = pub.uuid();
         const sharePath = path.resolve(pub.get_data_path(), "share", shareId);
 
@@ -148,6 +149,7 @@ class ShareController {
 
         let supplierName = args.supplierName || 'ollama';
         let rag_list = args.rag_list?JSON.parse(args.rag_list):'';
+        let agent_name = args.agent_name || '';
 
         const shareConfig = {
             supplierName: supplierName,
@@ -156,6 +158,7 @@ class ShareController {
             model: args.model,
             parameters: args.parameters,
             title: args.title,
+            agent_name: agent_name,
             password: args.password,
             create_time: pub.time(),
         };
@@ -177,9 +180,12 @@ class ShareController {
      * @param {string} args.parameters - 模型参数
      * @param {string} args.title - 分享标题
      * @param {string} [args.password] - 分享密码（可选）
+     * @param {string} [args.rag_list] - 分享权限列表（可选）
+     * @param {string} [args.supplierName] - 供应商名称（可选）
+     * @param {string} [args.agent_name] - 代理名称（可选）
      * @returns {Promise<any>} - 表示修改成功的响应对象，如果分享不存在则返回错误响应
      */
-    async modify_share(args: { share_id: string;supplierName?:string; model: string; parameters: string; title: string; password?: string;rag_list?:string }): Promise<any> {
+    async modify_share(args: { share_id: string;supplierName?:string; model: string; parameters: string; title: string; password?: string;rag_list?:string,agent_name?:string }): Promise<any> {
         const sharePath = path.resolve(pub.get_data_path(), "share", args.share_id);
         if (!pub.file_exists(sharePath)) {
             return pub.return_error(pub.lang('分享不存在'), null);
@@ -187,18 +193,25 @@ class ShareController {
 
         let supplierName = args.supplierName || 'ollama';
         let rag_list = args.rag_list?JSON.parse(args.rag_list):'';
+        let agent_name = args.agent_name || '';
 
-        const shareConfig = {
-            share_id: args.share_id,
-            supplierName: supplierName,
-            model: args.model,
-            parameters: args.parameters,
-            title: args.title,
-            password: args.password,
-            rag_list: rag_list,
-        };
 
         const shareConfigPath = this.getShareConfigFilePath(args.share_id);
+        
+        // 修改分享配置文件
+        let shareConfig = this.read_share_config(args.share_id);
+        if (!shareConfig) {
+            return pub.return_error(pub.lang('获取分享配置失败'), null);
+        }
+        
+        shareConfig['supplierName'] = supplierName;
+        shareConfig['rag_list'] = rag_list;
+        shareConfig['model'] = args.model;
+        shareConfig['parameters'] = args.parameters;
+        shareConfig['title'] = args.title;
+        shareConfig['password'] = args.password;
+        shareConfig['agent_name'] = agent_name;
+
         this.saveJsonFile(shareConfigPath, shareConfig);
 
         return pub.return_success(pub.lang('修改成功'));

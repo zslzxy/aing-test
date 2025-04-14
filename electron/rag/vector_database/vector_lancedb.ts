@@ -59,13 +59,27 @@ export class LanceDBManager {
     // 优化指定表
     public static async optimizeTable(tableName:string){
         try{
+            let dbPath = pub.get_db_path();
+            let dataPath = path.resolve(dbPath, tableName + ".lance");
+            if(!fs.existsSync(dataPath)){
+                return pub.lang('指定表不存在');
+            }
+            let oldSize = pub.getDirSize(dataPath);
             const db = await lancedb.connect(pub.get_db_path());
             const tableObj = await db.openTable(tableName);
-            await tableObj.optimize();
+            await tableObj.optimize({
+                deleteUnverified:true,
+                cleanupOlderThan:new Date(),
+            });
             tableObj.close();
             db.close();
+            let newSize = pub.getDirSize(dataPath);
+            let size = oldSize - newSize;
+            if(size < 0) size = 0;
+            return pub.lang('优化成功,释放空间: {}',pub.bytesChange(size));
         }catch(e){
             logger.error('优化表失败',e)
+            return pub.lang('优化失败: {}',e.message);
         }
     }
 
@@ -1022,6 +1036,7 @@ export class LanceDBManager {
             // 创建FTS索引
             await this.createDocFtsIndex(tableName);
         }
+
         let sortedResults = await tableObj.query().fullTextSearch(keywords.join(' ')).nearestTo(embedding).rerank(await lancedb.rerankers.RRFReranker.create()).select(['id', 'doc', 'docId','tokens']).limit(ragInfo.maxRecall).toArray()
 
         // 获取文档信息并处理结果

@@ -33,11 +33,15 @@
 <script setup lang="ts">
 import { NCard,NModal,NButton,NImage } from 'naive-ui';
 import logo from "@/assets/images/logo.png";
-import useIndexStore from "../store";
+import useIndexStore, { getIndexStore } from "../store";
 import { storeToRefs } from "pinia";
 import storage from '@/utils/storage';
-import {openModelManage} from "../controller"
-const { welcomeShow,thirdPartyApiShow ,settingsShow} = storeToRefs(useIndexStore())
+import {openModelManage} from "@/views/Settings/controller"
+import { getThirdPartyApiStoreData } from '@/views/ThirdPartyApi/store';
+import { getSettingsStoreData } from '@/views/Settings/store';
+const { thirdPartyApiShow ,} = getThirdPartyApiStoreData()
+const {welcomeShow,} = getIndexStore()
+const {settingsShow} = getSettingsStoreData()
 
 /**
  * @description 使用第三方模型

@@ -89,6 +89,7 @@ class ShareService {
             contextId,
             model: shareInfo.model,
             parameters: shareInfo.parameters,
+            agent_name: shareInfo.agent_name,
             create_time: pub.time(),
             update_time: pub.time(),
         };
@@ -116,13 +117,14 @@ class ShareService {
 
     
     // 聊天
-    async chat(conn: tls.TLSSocket, data: {supplierName?:string; modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string,images?:string[],doc_files?:string[],rag_list?:string[] },msgId:number) {
-        let { supplierName, modelStr, content, shareInfo, contextId,search,regenerate_id,doc_files,images,rag_list } = data;
+    async chat(conn: tls.TLSSocket, data: {supplierName?:string; modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string,images?:string[],doc_files?:string[],rag_list?:string[],agent_name?:string },msgId:number) {
+        let { supplierName, modelStr, content, shareInfo, contextId,search,regenerate_id,doc_files,images,rag_list,agent_name } = data;
         const shareId = shareInfo.share_id;
         supplierName = supplierName || 'ollama';
         doc_files = doc_files || [];
         images = images || [];
         rag_list = rag_list || [];
+        agent_name = agent_name || '';
         const isOllama = supplierName === 'ollama';
 
 
@@ -209,7 +211,7 @@ class ShareService {
             shareChatService.update_chat_config(shareId,contextId, "rag_list", rag_list);
 
             if(rag_list.length > 0) {
-                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(supplierName,modelStr, content, history[history.length - 1].doc_files, '', [], rag_list);
+                let {userPrompt,systemPrompt,searchResultList,query } = await new Rag().searchAndSuggest(supplierName,modelStr, content, history[history.length - 1].doc_files, agent_name, [], rag_list);
                 chatHistoryRes.search_query = query;
                 chatHistoryRes.search_type = "[RAG]:" + rag_list.join(",");
                 chatHistoryRes.search_result = searchResultList;
@@ -243,7 +245,7 @@ class ShareService {
                 lastHistory += pub.lang("回答:") + history[history.length - 2].content + "\n";
             }
             
-            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content, modelStr, lastHistory, history[history.length - 1].doc_files, '', [], search);//getPromptForWeb(content,modelStr,lastHistory,search,doc_files,"");
+            let {userPrompt,systemPrompt,searchResultList,query } = await getPromptForWeb(content, modelStr, lastHistory, history[history.length - 1].doc_files, agent_name, [], search);//getPromptForWeb(content,modelStr,lastHistory,search,doc_files,"");
             chatHistoryRes.search_query = query;
             chatHistoryRes.search_type = search;
             chatHistoryRes.search_result = searchResultList;

@@ -3,6 +3,7 @@ import { pub } from '../class/public';
 import { Rag } from './rag';
 import {indexService} from '../service/index'
 import { logger } from 'ee-core/log';
+import path from 'path';
 
 
 
@@ -325,6 +326,16 @@ export class RagTask {
         return sepList;
     }
 
+    // 获取文档名称
+    getDocName(filename:string):string{
+        let docName = path.basename(filename)
+        // 删除文档名称中的扩展名
+        if(docName.includes('.')){
+            docName = docName.replace('.md','').split('.').slice(0, -1).join('.');
+        }
+        return docName;
+    }
+
     /**
      * 
      * @param text <string> 文本内容
@@ -344,10 +355,23 @@ export class RagTask {
             }
         }
 
+        let docName = this.getDocName(filename)
         let sepList:any[] = this.formatSep(separators)
         let sep = sepList[i];
         let chunkList:string[] = this.split(text,sep);
         chunks = this.recursionSplit(chunkList,sepList.slice(1),chunkSize,sep,overlapSize);
+
+        // 为每个块添加文档名称和块索引、起始位置和结束位置
+        for(let i = 0; i < chunks.length; i++){
+            let chunk = chunks[i].trim()
+            if(chunk.length > 0){
+                // 计算块起始位置和结束位置
+                let startPos = text.indexOf(chunk);
+                let endPos = startPos + chunk.length;
+                chunks[i] = `[${docName}]#${i+1} POS[${startPos}-${endPos}]\n` + chunk;
+            }
+        }
+
         return chunks;
     }
 

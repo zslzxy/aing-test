@@ -610,6 +610,71 @@ class ModelController {
             return this.handleResult(false, error.message);
         }
     }
+
+
+    /**
+     * 修改模型能力
+     * @param args
+     * @param args.supplierName - 模型供应商名称
+     * @param args.modelName - 模型名称
+     * @param args.capability - 模型能力
+     * @return {Promise<Result>} - 返回修改结果
+     */
+    async set_model_capability(args: { supplierName: string, modelName: string, capability: string }): Promise<Result> {
+        const modelsFile = this.getModelsFilePath(args.supplierName);
+
+        if (!pub.file_exists(modelsFile)) {
+            return this.handleResult(false, pub.lang('模型供应商不存在'));
+        }
+
+        try {
+            const models = await this.readJsonFile(modelsFile);
+            const model = models.find((model: ModelInfo) => model.modelName === args.modelName);
+
+            if (!model) {
+                return this.handleResult(false, pub.lang('模型不存在'));
+            }
+
+            model.capability = JSON.parse(args.capability);
+            await this.writeJsonFile(modelsFile, models);
+            return this.handleResult(true, pub.lang('修改成功'));
+        } catch (error: any) {
+            return this.handleResult(false, error.message);
+        }
+    }
+
+    /**
+     * 修改模型信息
+     * @param args
+     * @param args.supplierName - 模型供应商名称
+     * @param args.modelName - 模型名称
+     * @param args.capability - 模型能力
+     * @param args.title - 模型标题
+     * @return {Promise<Result>} - 返回修改结果
+     */
+    async modify_model(args: { supplierName: string, modelName: string, capability: string, title:string }): Promise<Result> {
+        const modelsFile = this.getModelsFilePath(args.supplierName);
+
+        if (!pub.file_exists(modelsFile)) {
+            return this.handleResult(false, pub.lang('模型供应商不存在'));
+        }
+
+        try {
+            const models = await this.readJsonFile(modelsFile);
+            const model = models.find((model: ModelInfo) => model.modelName === args.modelName);
+
+            if (!model) {
+                return this.handleResult(false, pub.lang('模型不存在'));
+            }
+
+            model.capability = JSON.parse(args.capability);
+            model.title = args.title;
+            await this.writeJsonFile(modelsFile, models);
+            return this.handleResult(true, pub.lang('修改成功'));
+        } catch (error: any) {
+            return this.handleResult(false, error.message);
+        }
+    }
 }
 
 /**

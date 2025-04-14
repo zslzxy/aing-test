@@ -8,6 +8,8 @@ type ModelInfo = {
     supplierName: string;
     model: string;
     size: number;
+    total?: number;
+    capability?: string[];
     contextLength: number;
 };
 
@@ -24,7 +26,7 @@ type ApiConfig = {
 export class ModelService {
     private baseUrl: string = "";
     private apiKey: string = "";
-    private client: OpenAI | null = null;
+    public client: OpenAI | null = null;
     public error: any = null;
     private apiConfigPath: string = "";
     private apiConfigFile: string = "";
@@ -36,7 +38,13 @@ export class ModelService {
 
     constructor(supplierName: string) {
         this.supplierName = supplierName;
-        this.readApiConfig();
+        if(this.supplierName === 'ollama') {
+            this.baseUrl = `${pub.get_ollama_host()}/v1`;
+            this.apiKey = supplierName;
+        }else{
+            this.readApiConfig();
+        }
+        
     }
 
     // 设置 API 密钥
@@ -216,7 +224,7 @@ export class ModelService {
     }
 
     // 连接 API
-    private connect(): boolean {
+    public connect(): boolean {
         if (this.client) {
             return true;
         }
@@ -278,6 +286,35 @@ export function getModelContextLength(model: string): number {
     return 32768;
 }
 
+function isTools(model:string):boolean {
+    let notTools = ['deepseek-r1', 'deepseek-v3', 'deepseek-reasoner', 'lite', 'gemma2', 'smollm', 'llama', 'glm', 'qvq'];
+    if(notTools.some((item) => model.toLowerCase().indexOf(item) > -1)) {
+        return false;
+    }
+    return true;
+}
+
+function getCapability(model:string, capability:string[]):string[] {
+    if(capability.length == 0){
+        capability.push("llm");
+    }
+    const modelStrLower = model.toLowerCase();
+    if (capability.includes("embedding")) {
+        return capability;
+    }
+    if (capability.includes("llm")) {
+        if(capability.includes("tools")) {
+            return capability;
+        }
+        if(isTools(modelStrLower)) {
+            capability.push("tools");
+        }
+        return capability
+    }
+
+    return capability;
+}
+
 // 读取供应商模型列表的通用函数
 async function readSupplierModels(fileName: string, contextLengthFunc: (model: string) => number): Promise<{ [key: string]: ModelInfo[] }> {
     const supplierPath = path.resolve(pub.get_data_path(), "models");
@@ -312,7 +349,8 @@ async function readSupplierModels(fileName: string, contextLengthFunc: (model: s
                     supplierName: supplierConfig.supplierName,
                     model: model.modelName,
                     size: 0,
-                    contextLength: contextLengthFunc(model.modelName)
+                    contextLength: contextLengthFunc(model.modelName),
+                    capability: getCapability(model.modelName, model.capability || []),
                 };
                 newModels.push(modelInfo);
             }
@@ -333,3 +371,67 @@ export async function GetSupplierModels(): Promise<{ [key: string]: ModelInfo[] 
 export async function GetSupplierEmbeddingModels(): Promise<{ [key: string]: ModelInfo[] }> {
     return readSupplierModels("embedding.json", () => 512);
 }
+
+
+/**
+ * 统计模型使用次数
+ * @param supplierName 模型供应商名称
+ * @param modelName 模型名称
+ * @returns 
+ */
+export function setModelUsedTotal(supplierName: string, modelName: string) {
+    let totalFile = path.resolve(pub.get_data_path(),'modelTotal.json')
+    if(!pub.file_exists(totalFile)){
+        pub.write_file(totalFile, '{}');
+    }
+    let models = {};
+    try{
+        models = pub.read_json(totalFile);
+    }catch(e){
+        pub.write_file(totalFile, '{}');
+        models = {};
+    }
+    let key = `${supplierName}/${modelName}`;
+    if(!models[key]){
+        models[key] = 0;
+    }
+    models[key]++;
+    pub.write_json(totalFile, models);
+}
+
+
+/**
+ * 获取模型使用次数列表
+ * @returns 
+ */
+export function getModelUsedTotalList() {
+    let totalFile = path.resolve(pub.get_data_path(),'modelTotal.json')
+    if(!pub.file_exists(totalFile)){
+        return {};
+    }
+    try{
+        let models = pub.read_json(totalFile);
+        return models;
+    }catch(e){
+        return {};
+    }
+
+}
+
+
+/**
+ * 获取模型使用次数
+ * @param supplierName 模型供应商名称
+ * @param modelName 模型名称
+ * @returns 
+ */
+export function getModelUsedTotal(supplierName: string, modelName: string) {
+    let totalObj = getModelUsedTotalList()
+    let key = `${supplierName}/${modelName}`;
+    if(!totalObj[key]){
+        return 0;
+    }
+    return totalObj[key];
+}
+
+

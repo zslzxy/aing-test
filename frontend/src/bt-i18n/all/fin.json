@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Siirtyvät tiedot"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Valitse työkalut"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "työkalu"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "mallin valinta"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Hakumalli"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Yhteiset mallit"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Ei käytetty"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Uusi jakaminen"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Kierrätyksen enimmäismäärä"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Tietokannasta haettaessa on suositeltavaa maksimimäärää 3 paikallisille malleille ja 5 verkkomalleille."
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automaattinen"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "Mukauta"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Anna rajaaja"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Optimoimme tietopohjaa, joka voi kestää muutamasta minuutista kymmeneen minuuttiin."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Lataa tietopohjaasiakirja"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Valitse Mallinhallinnan asennuspolku"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimoida"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Paranna indeksointia ja vapauta ylimääräistä tilaa"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "palaute"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Poista MCP- palvelin"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Onko se saatavilla"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Anna MCP- palvelimen nimi"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Anna sisältö"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "tyyppi"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "palvelimen osoite"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Anna palvelimen URL- osoite"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Sovelluksen tyyppi"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Nodejs-ympäristöä ei ole tällä hetkellä asennettu, napsauta"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "komento"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Suoritettava komento"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "parametri"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "ympäristömuuttuja"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Asennusympäristö, tämä voi kestää muutaman minuutin"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Anna suoritettava komento"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Muokkaa profiilia"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Muokkaa MCP- palvelimen JSON- määritystä. Varmista, että muoto on oikea ennen tallentamista."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Lisää palvelin"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "uusi kokoonpano"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Ympäristön asennus onnistui"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Ympäristön asennus epäonnistui"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Operaatio onnistui"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Asenna Node.js ympäristö ensin"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Haluatko poistaa nykyisen MCP- palvelimen?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Yleiset asetukset"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP- palvelin"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Muuta mallia"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Tallennettu onnistuneesti"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Puhelun tulos:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Asiakirjan jäsentäminen onnistuu odottamassa upotusta. Odotusaika riippuu tiedostojen määrästä, mikä voi kestää useita minuutteja kymmeniin minuutteihin."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Upotus käynnissä, odota"
     }
 }

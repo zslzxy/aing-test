@@ -720,6 +720,15 @@ class RagController {
 
         return pub.return_success(pub.lang('操作成功'), result);
     }
+
+
+
+    // 优化表
+    async optimize_table(args: { ragName: string }): Promise<any> {
+        await LanceDBManager.optimizeTable('doc_table')
+        let res = await LanceDBManager.optimizeTable(pub.md5(args.ragName))
+        return pub.return_success(res);
+    }
 }
 
 

@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Migracijos duomenys"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Pasirinkite įrankius"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "įrankis"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "modelio atranka"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Paieškos modelis"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Bendri modeliai"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Nenaudojama"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Naujas pasidalijimas"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Didžiausias susigrąžinimo kiekis"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Didžiausias grąžų skaičius ieškant žinių bazės rekomenduojamas būti 3 vietos modeliams ir 5 internetiniams modeliams."
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automatinis"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "pritaikyti"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Įveskite ribotuvą"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Mes optimizuojame žinių bazę, kuri gali užtrukti keletą minučių iki tuzinos minučių"
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Atsiųsti žinių bazės dokumentą"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Pasirinkite modelio valdytojo įrengimo kelią"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimizuoti"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Didinti indeksavimą ir palengvinti pernelyg didelį kosmoso užimtumą"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "grįžtamoji informacija"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Ištrinti MCP server į"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Ar jis prieinamas"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Įrašykite MCP serverio pavadinimą"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Įveskite turinį"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "tipas"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "serverio adresas"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Įveskite serverio URL adresą"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Programos tipas"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Nodejs aplinkos šiuo metu nėra įdiegta, spauskite"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "komanda"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Vykdomoji komanda"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "parametras"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "aplinkos kintamasis"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Įdiegiant aplinką gali prireikti kelių minučių"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Įveskite vykdomąją komandą"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Keisti profilį"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Keisti JSON MCP serverio konfigūracijai. Prašome užtikrinti, kad formatas būtų teisingas prieš įrašant."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Pridėti server į"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "nauja konfigūracija"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Aplinkos įrengimas sėkmingas"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Aplinkos įrengimas nepavyko"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Operacija sėkminga"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Prašome pirmiausia įdiegti Node.js aplinką"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Ar norite ištrinti dabartinį MCP server į?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Bendrieji nustatymai"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP serveris"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Pakeisti model į"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Sėkmingai išsaugoti"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Skambinimo rezultatas:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Dokumento apdorojimas sėkmingas, laukiant įterpimo. Laukimo laikas priklauso nuo failų skaičiaus, kuris gali trukti keletą minučių iki dešimčių minučių."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Įterpimas vyksta, prašome palaukti"
     }
 }

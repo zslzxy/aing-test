@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "U migraciji podataka"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Izaberi alate"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "alat"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "model izbora"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Model pretraživanja"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Obični modeli"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Nisu koristili"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Novo dijeljenje"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Maksimalna količina sjećanja"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Maksimalni broj povratka u potrazi baze znanja preporučuje se biti 3 za lokalne modele i 5 za online modele"
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automatički"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "prilagoditi"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Molim vas, ulazite delimiter"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "optimiziramo bazu znanja, koja može trajati par minuta do deset minuta."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Upload knowledge base document"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Molim vas odaberite put instalacije za upravljač modela"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimiziraj"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Pojačati indeksiranje i osloboditi preko svemirske okupacije"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "Vraćanje"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Obriši MCP server"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Je li dostupno"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Molim vas uvedite ime MCP servera"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Molim vas, uključite sadržaj"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "tipa"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "adresa servera"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Molim vas, uključite adresu adrese servera"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Tip aplikacije"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Nodejs okruženje trenutno nije instalirana, kliknite"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "command"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Izvršavajuća komanda"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "Parametr"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "promjena okruženja"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Instalacija okoliša, ovo može potrajati nekoliko minuta"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Molim vas, zapišite komandu za izvršavanje"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Redigerajte profil"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Redigerajte JSON za konfiguraciju MCP servera. Molim vas, osigurajte da je format ispravan prije spašavanja."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Dodaj server"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "novi konfiguracija"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Instalacija okoliša uspješna"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Installacija okoliša nije uspjela"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Operacija uspješna"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Prvo instalirajte okruženje Node.js"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Želite li izbrisati trenutni MCP server?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Opće nastave"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP server"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Promijeni model"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Uspjelo spašeno"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Rezultat poziva:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Analiza dokumenta je uspješna, čekajući uključenje. Čekanje vrijeme zavisi od broja datoteka, što može trajati nekoliko minuta do deset minuta."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Uključenje napreduje, molim vas čekajte"
     }
 }

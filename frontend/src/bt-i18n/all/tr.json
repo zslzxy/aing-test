@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Verileri götürmekte"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Aletleri seç"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "araç"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "model seçim"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Arama Modeli"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Ortak modeller"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Kullanılmadı"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Yeni paylaşım"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Maksimum hatırlatma miktarı"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Bilim tabanını araştırdığında en büyük sayı, yerel modeller için 3 ve internet modelleri için 5 olarak tavsiye edilir."
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "otomatik"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "Özelleştir"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Lütfen bir bölüm girin"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Bilim üssünü iyileştiriyoruz. Bu birkaç dakika düzine dakika sürebilir."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Bilim temel belgesini yükle"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Lütfen Model Yöneticisi için kurulum yolunu seçin"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "Optimize"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Indeksiyonu arttır ve uzay meşgullüğünü arttır"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "Feedback"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "MCP sunucusu sil"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Mevcut mi?"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Lütfen MCP sunucusu adını girin"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Lütfen içeriğini girin"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "tür"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "sunucu adresi"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Lütfen sunucu adresini girin"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Uygulama Türü"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Nodejs ortamı şu anda kurulu değil, tıklayın"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "command"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Çalıştırılabilir komut"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "Parametre"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "çevre değişkeni"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Ortamı kurmak için birkaç dakika sürebilir."
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Lütfen çalıştırılabilir bir komutu girin"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Profil düzenle"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "MCP sunucusu yapılandırması için JSON'u düzenle. Lütfen formanın kaydedilmeden önce doğru olmasını sağlayın."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Sunucusu ekle"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "yeni yapılandırma"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Ortam kurulu başarılı"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Ortam kurulaması başarısız oldu"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Operasyon başarılı"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Lütfen önce Node.js çevresini yerleştirin"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Mevcut MCP sunucusu silmek ister misiniz?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Genel ayarlar"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP sunucusu"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Modeli değiştir"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Başarılı kaydedildi"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Arama sonuçları:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Belge ayırıştırması başarılı, içeri girmek bekliyor. Bekleme zamanı dosyaların sayısına bağlı. Bu, birkaç dakika on dakika sürebilir."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "İçeri giriyor, lütfen bekle."
     }
 }

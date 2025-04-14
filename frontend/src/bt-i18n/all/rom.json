@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "În migrarea datelor"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Selectează instrumente"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "unealtă"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "selectarea modelului"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Caută model"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Modele comune"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Nu se utilizează"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "O nouă partajare"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Cantitatea maximă de rechemare"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Numărul maxim de returnări atunci când căutați baza de cunoștințe este recomandat să fie de 3 pentru modelele locale și de 5 pentru modelele online"
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automată"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "personalizează"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Introduceți un delimitator"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Optimizăm baza de cunoştinţe, care poate dura câteva minute până la zece minute."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Încărcați documentul bazei de cunoștințe"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Selectați calea de instalare a managerului de modele"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimizează"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Îmbunătățiți indexarea și eliberați ocuparea excesului de spațiu"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "feedback"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Șterge serverul MCP"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Este disponibil"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Introduceți numele serverului MCP"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Introduceți conținutul"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "tip"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "adresa serverului"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Introduceți adresa URL a serverului"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Tipul aplicației"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Mediul Nodejs nu este instalat în prezent, faceți clic"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "comandă"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Comandă executabilă"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "parametru"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "variabilă de mediu"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Instalarea mediului, acest lucru poate dura câteva minute"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Introduceți o comandă executabilă"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Editează profilul"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Editați JSON pentru configurația serverului MCP. Vă rugăm să vă asigurați că formatul este corect înainte de a salva."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Adaugă server"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "configurație nouă"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Instalația de mediu reușită"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Instalarea mediului a eșuat"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Operațiune reușită"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Vă rugăm să instalați mai întâi mediul Node.js"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Doriți să ștergeți serverul MCP curent?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Setări generale"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "Server MCP"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Modifică modelul"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Salvat cu succes"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Rezultatul apelului:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Analizarea documentelor este reușită, așteptând încorporarea. Timpul de așteptare depinde de numărul de fișiere, care poate dura câteva minute până la zeci de minute"
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Încorporarea în curs de desfășurare, vă rugăm să așteptați"
     }
 }

@@ -35,12 +35,16 @@ export function useDialog(options: UseDialogOptions & {selfClosable?: boolean}) 
         options.onOk?.()
     }
 
-    /**
-     * @description 点击关闭
-     */
-    function dialogClose() {
-        dialogReactive.destroy()
-    }
+		/**
+		 * @description 点击关闭
+		 */
+		function dialogClose() {
+			if (options.onClose) {
+				options.onClose()
+			} else {
+				dialogReactive.destroy()
+			}
+		}
 
     const dialogReactive = dialog.create(Object.assign({
         draggable: true,

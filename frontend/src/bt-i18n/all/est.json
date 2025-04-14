@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Andmete migreerimisel"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Tööriistade valimine"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "tööriist"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "mudeli valik"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Otsingu mudel"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Ühised mudelid"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Ei kasutata"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Uus jagamine"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Maksimaalne tagasivõtmise kogus"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Maksimaalne tulude arv teadmistebaasi otsimisel on soovitatav olla 3 kohalike mudelite ja 5 online mudelite puhul"
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automaatne"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "kohandada"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Palun sisesta eraldaja"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Optimeerime teadmistebaasi, mis võib võtta paar minutit kuni tosinat minutit."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Teadmistebaasi dokumendi üleslaadimine"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Palun vali mudelihalduri paigaldustee"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimeerida"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Parandada indekseerimist ja vabastada liigne ruumi hõivamine"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "tagasiside"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Kustuta MCP server"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Kas see on kättesaadav?"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Palun sisesta MCP serveri nimi"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Palun sisesta sisu"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "tüüp"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "serveri aadress"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Palun sisesta serveri URL aadress"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Rakenduse tüüp"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Nodejs keskkonda pole praegu paigaldatud, klõpsa"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "käsk"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Käivitatav käsk"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "parameeter"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "keskkonnamuutuja"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Keskkonna paigaldamine, see võib võtta paar minutit"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Palun sisesta käivitatav käsk"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Muuda profiili"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Muuda MCP serveri seadistamise JSON- i. Enne salvestamist veenduge, et vorming on õige."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Lisa server"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "uus seadistus"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Keskkonnapaigaldus edukas"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Keskkonna paigaldamine nurjus"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Operatsioon edukas"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Palun paigalda esmalt Node.js keskkond"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Kas kustutada aktiivne MCP server?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Üldised seadistused"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP server"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Mudeli muutmine"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Salvestamine edukalt"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Kõne tulemus:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Dokumendi parsimine on edukas, ootab manustamist. Ootamisaeg sõltub failide arvust, mis võib võtta mitu minutit kuni kümneid minuteid."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Põimimine on käimas, palun oodake"
     }
 }

@@ -723,7 +723,6 @@ class Public {
         return process.platform === 'darwin';
     }
 
-
     // 更新系统环境变量
     update_env(): void {
         try {

@@ -1,21 +1,22 @@
 <template>
-    <NLayout :has-sider="true" class="layout-wrapper">
-        <NLayoutSider :width="siderWidth" class="layout-sider">
+    <n-layout :has-sider="true" class="layout-wrapper">
+        <n-layout-sider :width="siderWidth" class="layout-sider">
             <Sider />
-        </NLayoutSider>
-        <NLayoutSider :class="['layout-sider', { 'no-border': knowledgeSiderWidth == 0 }]" :width="knowledgeSiderWidth">
+        </n-layout-sider>
+        <n-layout-sider :class="['layout-sider', { 'no-border': knowledgeSiderWidth == 0 }]"
+            :width="knowledgeSiderWidth">
             <KnowledgeStore />
-        </NLayoutSider>
-        <NLayout>
-            <NLayoutHeader class="layout-header">
+        </n-layout-sider>
+        <n-layout>
+            <n-layout-header class="layout-header">
                 <Header />
-            </NLayoutHeader>
-            <NLayoutContent class="layout-content" style="padding:0">
-                <Content />
+            </n-layout-header>
+            <n-layout-content class="layout-content" style="padding:0">
+                <ChatContent />
                 <!-- <WelcomeContent /> -->
-            </NLayoutContent>
-        </NLayout>
-    </NLayout>
+            </n-layout-content>
+        </n-layout>
+    </n-layout>
 
     <!-- 欢迎界面 -->
     <Welcome />
@@ -23,8 +24,8 @@
     <ThirdPartyApi />
 
     <!-- 更换目录时数据迁移进度 -->
-    <NModal v-model:show="dataPathChangeCheckShow">
-        <NCard class="w-600">
+    <n-modal v-model:show="dataPathChangeCheckShow">
+        <n-card class="w-600">
             <template #header>
                 <div class="flex justify-start items-center gap-1.25">
                     <i class="i-tdesign:error-circle w-20 h-20 text-[#E6A23C]"></i><span class="text-4">{{
@@ -35,34 +36,40 @@
                 <span>{{ dataPathChangeStatusValues.message || $t("等待复制") }}</span>
                 <span>[{{ dataPathChangeStatusValues.fileCurrent }}/{{ dataPathChangeStatusValues.fileTotal }}]</span>
             </div>
-            <NProgress type="line" :percentage="dataPathChangeStatusValues.percent" indicator-placement="inside"
+            <n-progress type="line" :percentage="dataPathChangeStatusValues.percent" indicator-placement="inside"
                 processing>
-            </NProgress>
+            </n-progress>
             <div class="flex justify-between items-center mt-20">
                 <span>{{ $t("总大小") }}: {{ getByteUnit(dataPathChangeStatusValues.total) }}</span>
                 <span>{{ $t("已复制") }}: {{ getByteUnit(dataPathChangeStatusValues.current) }}</span>
                 <span>{{ $t("速度") }}: {{ getByteUnit(dataPathChangeStatusValues.speed) }}/s</span>
             </div>
-        </NCard>
-    </NModal>
+        </n-card>
+    </n-modal>
+
+    <!-- 软件设置 -->
+    <SoftSettings />
 </template>
 
 <script setup lang="ts">
-import { NLayout, NLayoutSider, NLayoutContent, NLayoutHeader, NModal, NCard, NProgress } from "naive-ui"
-import Sider from "./components/Sider.vue";
-import Header from "./components/Header.vue";
-import Content from "./components/Content.vue";
-import KnowledgeStore from "./components/KnowledgeStore.vue";
+import SoftSettings from "@/views/SoftSettings/index.vue";
+import Sider from "../Sider/index.vue";
+import Header from "@/views/Header/index.vue";
+import ChatContent from "@/views/ChatContent/index.vue";
+import KnowledgeStore from "@/views/KnowleadgeStore/index.vue";
 import Welcome from "./components/Welcome.vue";
-import ThirdPartyApi from "./components/ThirdPartyApi.vue";
-import { get_languages } from "./controller/index.tsx"
-import useIndexStore from "./store";
-import { storeToRefs } from "pinia";
+import ThirdPartyApi from "@/views/ThirdPartyApi/index.vue";
+import { get_languages } from "@/views/SoftSettings/controller"
 import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 import { getByteUnit } from "@/utils/tools"
+import { getSiderStoreData } from "../Sider/store/index.ts";
+import { getKnowledgeStoreData } from "../KnowleadgeStore/store/index.ts";
+import { getSoftSettingsStoreData } from "../SoftSettings/store/index.ts";
 
-const { siderWidth, knowledgeSiderWidth, dataPathChangeCheckShow, dataPathChangeStatusValues } = storeToRefs(useIndexStore())
+const { siderWidth, } = getSiderStoreData()
+const { knowledgeSiderWidth, } = getKnowledgeStoreData()
+const { dataPathChangeCheckShow, dataPathChangeStatusValues } = getSoftSettingsStoreData()
 const { t: $t } = useI18n()
 /**
  * @description 获取支持的语言和语言列表

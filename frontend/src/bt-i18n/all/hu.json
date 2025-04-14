@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Adatok áttelepítése"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Eszközök kiválasztása"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "eszköz"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "modellkiválasztás"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Keresési modell"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Közös modellek"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Nem használt"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Új megosztás"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Maximális visszahívási mennyiség"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "A tudásbázis keresésekor a visszatérések maximális száma 3 helyi modellek esetében és 5 online modellek esetében ajánlott"
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automatikus"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "testreszabás"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Adjon meg egy határolót"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Optimalizáljuk a tudásbázist, ami néhány percet vagy tucat percet vesz igénybe."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Tudásbázis dokumentum feltöltése"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Válassza ki a modellkezelő telepítési útját"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimalizálás"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Javítsa az indexelést és szabadítsa fel a felesleges helyfoglaltságot"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "visszajelzés"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "MCP- kiszolgáló törlése"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Elérhető-e?"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Adja meg az MCP kiszolgáló nevét"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Kérjük, adja meg a tartalmat"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "típus"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "kiszolgáló címe"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Adja meg a kiszolgáló URL címét"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Alkalmazás típusa"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "A Nodejs környezet jelenleg nincs telepítve, kattintson ide"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "parancs"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Futtatható parancs"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "paraméter"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "környezeti változó"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Környezet telepítése, ez néhány percig tarthat"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Adjon meg egy végrehajtható parancsot"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Profil szerkesztése"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Módosítsa az MCP kiszolgáló JSON konfigurációját. Mentés előtt győződjön meg arról, hogy a formátum helyes."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Kiszolgáló hozzáadása"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "új konfiguráció"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Környezetvédelmi telepítés sikeres"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "A környezet telepítése nem sikerült"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "A művelet sikeres"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Először telepítse a Node.js környezetet"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Törölni szeretné az aktuális MCP kiszolgálót?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Általános beállítások"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP- kiszolgáló"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "A modell módosítása"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Sikeresen mentve"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Hívás eredménye:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "A dokumentum elemzése sikeres, a beágyazásra várva. A várakozási idő a fájlok számától függ, ami több percet és tíz percet is igénybe vehet."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Beágyazás folyamatban van, kérem várjon"
     }
 }

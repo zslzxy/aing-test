@@ -3,6 +3,12 @@ import { pub } from '../class/public';
 import * as path from 'path';
 import { parseDocument } from '../rag/doc_engins/doc';
 import { agentService } from './agent';
+import { ModelService, GetSupplierModels, getModelContextLength, setModelUsedTotal, getModelUsedTotalList } from '../service/model';
+
+import { getPromptForWeb } from '../search_engines/search';
+import { Rag } from '../rag/rag';
+import { Stream } from 'stream';
+import { MCPClient } from './mcp_client';
 
 /**
  * 定义聊天历史记录的类型
@@ -33,6 +39,7 @@ export type ChatHistory = {
     search_result: any[];
     search_type: string | undefined | null;
     search_query: string | undefined | null;
+    tools_result?: any[];
 };
 
 /**
@@ -46,10 +53,27 @@ export type ChatHistory = {
 export type ChatContext = {
     role: string;
     content: string;
-    images: string[];
-    doc_files: string[];
-    tool_calls: string;
+    images?: string[];
+    doc_files?: string[];
+    tool_calls?: string;
 };
+
+/**
+ * 定义模型信息的类型
+ * @typedef {Object} ModelInfo
+ * @property {string} model - 模型名称
+ * @property {number} size - 模型大小
+ * @property {number} contextLength - 模型的上下文长度
+ */
+export type ModelInfo = {
+    title: string,
+    supplierName: string,
+    model: string;
+    size: number;
+    capability?: string[];
+    contextLength: number;
+};
+
 
 /**
  * 聊天服务类，提供与聊天对话相关的各种操作
@@ -262,34 +286,34 @@ export class ChatService {
      */
     checkHistory(chatHistory: ChatHistory[]): ChatHistory[] {
 
-            // 确保历史记录的顺序是user在前，assistant在后，不能同时出现两个user或assistant
-            let newChatHistory: ChatHistory[] = [];
-            let userNumber = 0;
-            let assistantNumber = 0;
-            for (let history of chatHistory) {
-                if (history.role == "user") {
-                    if (userNumber == 0) {
-                        newChatHistory.push(history);
-                        userNumber++
-                        assistantNumber = 0; // 重置assistantNumber
-                    } else {
-                        // 如果已经有一个user了，就不再添加了
-                        continue;
-                    }
-                }
-
-                if (history.role == "assistant") {
-                    if (assistantNumber == 0) {
-                        newChatHistory.push(history);
-                        assistantNumber++
-                        userNumber = 0; // 重置userNumber
-                    } else {
-                        // 如果已经有一个assistant了，就不再添加了
-                        continue;
-                    }
+        // 确保历史记录的顺序是user在前，assistant在后，不能同时出现两个user或assistant
+        let newChatHistory: ChatHistory[] = [];
+        let userNumber = 0;
+        let assistantNumber = 0;
+        for (let history of chatHistory) {
+            if (history.role == "user") {
+                if (userNumber == 0) {
+                    newChatHistory.push(history);
+                    userNumber++
+                    assistantNumber = 0; // 重置assistantNumber
+                } else {
+                    // 如果已经有一个user了，就不再添加了
+                    continue;
                 }
             }
-            return newChatHistory;
+
+            if (history.role == "assistant") {
+                if (assistantNumber == 0) {
+                    newChatHistory.push(history);
+                    assistantNumber++
+                    userNumber = 0; // 重置userNumber
+                } else {
+                    // 如果已经有一个assistant了，就不再添加了
+                    continue;
+                }
+            }
+        }
+        return newChatHistory;
     }
 
 
@@ -617,6 +641,12 @@ export class ChatService {
         const historyList = this.formatHistory(this.read_history(uuid));
         return historyList[historyList.length - 1] || {};
     }
+
+    
+
+
+
+
 }
 
 /**

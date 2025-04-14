@@ -2,6 +2,7 @@ import { ElectronEgg } from 'ee-core';
 import { Lifecycle } from './preload/lifecycle';
 import { preload } from './preload';
 import { totalService } from './service/total';
+import mcp from './controller/mcp';
 
 
 // New app
@@ -21,6 +22,7 @@ app.register("preload", preload);
 setTimeout(() => {
     // 分享服务
     const { shareService } = require('./service/share');
+    const {mcpService} = require('./service/mcp');
     const shareIdPrefix = shareService.generateUniquePrefix();
     let socket = shareService.connectToCloudServer(shareIdPrefix);
     shareService.startReconnect(socket,shareIdPrefix);
@@ -33,6 +35,9 @@ setTimeout(() => {
     // 创建索引
     ragTaskObj.switchToCosineIndex()
 
+    // 同步MCP服务器列表
+    mcpService.sync_cloud_mcp()
+    
 }, 1000);
 
 // 启动统计服务

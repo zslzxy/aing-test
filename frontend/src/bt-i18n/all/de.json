@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Bei der Datenmigration"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Werkzeuge auswählen"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "Werkzeug"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "Modellauswahl"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Suchmodell"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Gemeinsame Modelle"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Nicht verwendet"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Neue Freigabe"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Maximale Rückrufmenge"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Die maximale Anzahl der Retouren bei der Suche in der Wissensdatenbank wird empfohlen, 3 für lokale Modelle und 5 für Online-Modelle zu sein."
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "automatisch"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "anpassen"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Bitte geben Sie ein Trennzeichen ein"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Wir optimieren die Wissensbasis, die einige Minuten bis ein Dutzend Minuten dauern kann"
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Wissensdatenbank-Dokument hochladen"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Bitte wählen Sie den Installationspfad für den Model Manager"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "optimieren"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Verbessern Sie die Indizierung und befreien Sie überschüssigen Speicherplatz"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "Feedback"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "MCP-Server löschen"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Ist es verfügbar?"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Bitte geben Sie den MCP-Servernamen ein"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Bitte geben Sie den Inhalt ein"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "Typ"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "Serveradresse"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Bitte geben Sie die URL-Adresse des Servers ein"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Anwendungstyp"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Nodejs-Umgebung ist derzeit nicht installiert, klicken Sie auf"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "Befehl"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Ausführbarer Befehl"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "Parameter"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "Umgebungsvariable"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Installation der Umgebung, dies kann einige Minuten dauern"
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Bitte geben Sie einen ausführbaren Befehl ein"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Profil bearbeiten"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Bearbeiten Sie die JSON für MCP-Serverkonfiguration. Bitte stellen Sie vor dem Speichern sicher, dass das Format korrekt ist."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Server hinzufügen"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "neue Konfiguration"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Installation der Umgebung erfolgreich"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Installation der Umgebung fehlgeschlagen"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Betrieb erfolgreich"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Bitte installieren Sie zuerst die Node.js Umgebung"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Möchten Sie den aktuellen MCP Server löschen?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Allgemeine Einstellungen"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "MCP-Server"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Modell ändern"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Erfolgreich gespeichert"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Anrufergebnis:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Das Parsen des Dokuments ist erfolgreich und wartet auf die Einbettung. Die Wartezeit hängt von der Anzahl der Dateien ab, die mehrere Minuten bis zehn Minuten dauern kann."
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Einbettung im Gange, bitte warten"
     }
 }

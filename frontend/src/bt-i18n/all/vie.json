@@ -1142,5 +1142,201 @@
     "迁移数据中": {
         "src": "迁移数据中",
         "dst": "Di chuyển dữ liệu"
+    },
+    "选择工具": {
+        "src": "选择工具",
+        "dst": "Công cụ chọn"
+    },
+    "工具": {
+        "src": "工具",
+        "dst": "Công cụ"
+    },
+    "模型选择": {
+        "src": "模型选择",
+        "dst": "Lựa chọn mô hình"
+    },
+    "搜索模型": {
+        "src": "搜索模型",
+        "dst": "Mô hình tìm kiếm"
+    },
+    "常用模型": {
+        "src": "常用模型",
+        "dst": "Mô hình phổ biến"
+    },
+    "不使用": {
+        "src": "不使用",
+        "dst": "Không sử dụng"
+    },
+    "新分享": {
+        "src": "新分享",
+        "dst": "Chia sẻ mới"
+    },
+    "最大召回数量": {
+        "src": "最大召回数量",
+        "dst": "Số lượng thu hồi tối đa"
+    },
+    "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条": {
+        "src": "检索知识库时的最大返回条数，建议：本地模型3条，线上模型5条",
+        "dst": "Số lượng thanh trả về tối đa khi truy xuất cơ sở kiến thức được đề xuất: 3 cho mô hình cục bộ và 5 cho mô hình trực tuyến"
+    },
+    "自动": {
+        "src": "自动",
+        "dst": "Tự động"
+    },
+    "自定义": {
+        "src": "自定义",
+        "dst": "Tùy chỉnh"
+    },
+    "请输入分隔符": {
+        "src": "请输入分隔符",
+        "dst": "Vui lòng nhập dấu tách"
+    },
+    "正在优化知识库,这可能需要几分钟到十几分钟......": {
+        "src": "正在优化知识库,这可能需要几分钟到十几分钟......",
+        "dst": "Cơ sở kiến thức đang được tối ưu hóa, có thể mất từ vài phút đến mười phút..."
+    },
+    "上传知识库文档": {
+        "src": "上传知识库文档",
+        "dst": "Tải lên tài liệu cơ sở kiến thức"
+    },
+    "请选择模型管理器的安装路径": {
+        "src": "请选择模型管理器的安装路径",
+        "dst": "Chọn đường dẫn cài đặt cho Model Manager"
+    },
+    "优化": {
+        "src": "优化",
+        "dst": "Tối ưu hóa"
+    },
+    "增强索引,并释放多余的空间占用": {
+        "src": "增强索引,并释放多余的空间占用",
+        "dst": "Tăng cường chỉ mục và giải phóng không gian dư thừa"
+    },
+    "反馈": {
+        "src": "反馈",
+        "dst": "Phản hồi"
+    },
+    "删除MCP服务器": {
+        "src": "删除MCP服务器",
+        "dst": "Gỡ bỏ MCP Server"
+    },
+    "是否可用": {
+        "src": "是否可用",
+        "dst": "Có sẵn hay không"
+    },
+    "请输入MCP服务器名称": {
+        "src": "请输入MCP服务器名称",
+        "dst": "Vui lòng nhập tên máy chủ MCP"
+    },
+    "请输入内容": {
+        "src": "请输入内容",
+        "dst": "Vui lòng nhập nội dung"
+    },
+    "类型": {
+        "src": "类型",
+        "dst": "Loại"
+    },
+    "服务器地址": {
+        "src": "服务器地址",
+        "dst": "Địa chỉ máy chủ"
+    },
+    "请输入服务器URL地址": {
+        "src": "请输入服务器URL地址",
+        "dst": "Vui lòng nhập địa chỉ URL máy chủ"
+    },
+    "程序类型": {
+        "src": "程序类型",
+        "dst": "Loại chương trình"
+    },
+    "当前未安装Nodejs环境，点击": {
+        "src": "当前未安装Nodejs环境，点击",
+        "dst": "Chưa cài đặt môi trường NodeJS"
+    },
+    "命令": {
+        "src": "命令",
+        "dst": "Lệnh"
+    },
+    "可执行命令": {
+        "src": "可执行命令",
+        "dst": "Lệnh thực thi được"
+    },
+    "参数": {
+        "src": "参数",
+        "dst": "Tham số"
+    },
+    "环境变量": {
+        "src": "环境变量",
+        "dst": "Biến môi trường"
+    },
+    "正在安装环境,这可能需要几分钟......": {
+        "src": "正在安装环境,这可能需要几分钟......",
+        "dst": "Môi trường đang được cài đặt, có thể mất vài phút..."
+    },
+    "请输入可执行命令": {
+        "src": "请输入可执行命令",
+        "dst": "Vui lòng nhập lệnh thực thi"
+    },
+    "编辑配置文件": {
+        "src": "编辑配置文件",
+        "dst": "Sửa hồ sơ"
+    },
+    "编辑MCP服务器配置的JSON。保存前请确保格式正确。": {
+        "src": "编辑MCP服务器配置的JSON。保存前请确保格式正确。",
+        "dst": "Chỉnh sửa JSON cho cấu hình máy chủ MCP. Hãy chắc chắn rằng nó được định dạng chính xác trước khi lưu."
+    },
+    "添加服务器": {
+        "src": "添加服务器",
+        "dst": "Thêm máy chủ"
+    },
+    "新配置": {
+        "src": "新配置",
+        "dst": "Cấu hình mới"
+    },
+    "环境安装成功": {
+        "src": "环境安装成功",
+        "dst": "Cài đặt môi trường thành công"
+    },
+    "环境安装失败": {
+        "src": "环境安装失败",
+        "dst": "Cài đặt môi trường thất bại"
+    },
+    "操作成功": {
+        "src": "操作成功",
+        "dst": "Hoạt động thành công"
+    },
+    "请先安装Node.js环境": {
+        "src": "请先安装Node.js环境",
+        "dst": "Cài đặt môi trường Node.js"
+    },
+    "是否删除当前MCP服务器？": {
+        "src": "是否删除当前MCP服务器？",
+        "dst": "Gỡ bỏ máy chủ MCP hiện tại?"
+    },
+    "常规设置": {
+        "src": "常规设置",
+        "dst": "Thiết lập chung"
+    },
+    "MCP服务器": {
+        "src": "MCP服务器",
+        "dst": "Máy chủ MCP"
+    },
+    "修改模型": {
+        "src": "修改模型",
+        "dst": "Sửa đổi mô hình"
+    },
+    "保存成功": {
+        "src": "保存成功",
+        "dst": "Lưu thành công"
+    },
+    "调用结果:": {
+        "src": "调用结果:",
+        "dst": "Kết quả cuộc gọi:"
+    },
+    "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟": {
+        "src": "文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟",
+        "dst": "Tài liệu được phân tích thành công, chờ nhúng, thời gian chờ tùy thuộc vào số lượng tệp, có thể mất từ vài phút đến mười phút"
+    },
+    "正在嵌入中,请稍后...": {
+        "src": "正在嵌入中,请稍后...",
+        "dst": "Đang nhúng, vui lòng để sau..."
     }
 }

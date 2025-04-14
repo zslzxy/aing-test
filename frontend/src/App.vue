@@ -2,25 +2,33 @@
   <NConfigProvider :theme="themeMode == 'light' ? lightTheme : darkTheme" :theme-overrides="themeOverrides">
     <router-view></router-view>
   </NConfigProvider>
-  <!-- <div class="drag-upload" v-show="knowledgeDragable">
-    <DragUpload />
-  </div> -->
+
 
 
 </template>
 
 <script setup lang="ts">
+import {openSoftSettings} from "@/views/SoftSettings/controller/index"
 
-import useIndexStore from './views/Home/store';
+import useIndexStore, { getIndexStore } from './views/Home/store';
 import { storeToRefs } from 'pinia';
 import { NConfigProvider, darkTheme, lightTheme } from 'naive-ui';
-import DragUpload from './views/Home/components/DragUpload.vue';
-import { ragStatus, getVersion } from './views/Home/controller';
+import { ragStatus, } from '@/views/KnowleadgeStore/controller/index';
+import { getVersion } from "@/views/Home/controller"
 import storage from './utils/storage';
 import { onMounted } from 'vue';
+import { getSoftSettingsStoreData } from './views/SoftSettings/store';
+import { getKnowledgeStoreData } from './views/KnowleadgeStore/store';
+import { getChatContentStoreData } from './views/ChatContent/store';
 
 
-const { themeMode, knowledgeDragable, welcomeShow, guideActive, targetNet } = storeToRefs(useIndexStore())
+const { themeMode, targetNet } = getSoftSettingsStoreData()
+const { knowledgeDragable, } = getKnowledgeStoreData()
+const { welcomeShow, } = getIndexStore()
+const { guideActive, } = getChatContentStoreData()
+
+// 临时代码——打开设置弹窗
+// openSoftSettings()
 
 // 检测知识库状态
 ragStatus()
