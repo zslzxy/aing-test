@@ -37,7 +37,7 @@ A user-friendly AI assistant software that supports local AI models, APIs, and k
 - Supports server-side deployment 
 
 - MCP Client
-![MCP Client](.github/assets/img/7_en.png)![alt text](image.png)
+![MCP Client](.github/assets/img/7_en.png)
 
 - Simultaneous conversations with multiple models in a single session (coming soon)  
 
