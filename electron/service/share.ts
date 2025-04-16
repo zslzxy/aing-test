@@ -9,6 +9,7 @@ import ChatController from '../controller/chat';
 import {getPromptForWeb} from '../search_engines/search'
 import { Rag } from '../rag/rag';
 import { ModelService,GetSupplierModels,getModelContextLength } from '../service/model';
+import { ToChatService } from './tochat';
 // 常量定义
 const CLOUD_SERVER_HOST = 'share.aingdesk.com';
 const CLOUD_SERVER_PORT = 9999;
@@ -117,8 +118,8 @@ class ShareService {
 
     
     // 聊天
-    async chat(conn: tls.TLSSocket, data: {supplierName?:string; modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string,images?:string[],doc_files?:string[],rag_list?:string[],agent_name?:string },msgId:number) {
-        let { supplierName, modelStr, content, shareInfo, contextId,search,regenerate_id,doc_files,images,rag_list,agent_name } = data;
+    async chat(conn: tls.TLSSocket, data: {supplierName?:string; modelStr: string; content: string; shareInfo: any; contextId: string;search?:string,regenerate_id?:string,images?:string[],doc_files?:string[],rag_list?:string[],agent_name?:string,mcp_servers?:string[] },msgId:number) {
+        let { supplierName, modelStr, content, shareInfo, contextId,search,regenerate_id,doc_files,images,rag_list,agent_name,mcp_servers } = data;
         const shareId = shareInfo.share_id;
         supplierName = supplierName || 'ollama';
         doc_files = doc_files || [];
@@ -139,10 +140,11 @@ class ShareService {
 
         // 获取模型信息
         const chatController = new ChatController();
-        let modelInfo = chatController.get_model_info(modelStr);
+        const toChat = new ToChatService();
+        let modelInfo = toChat.get_model_info(modelStr);
         if (modelInfo.contextLength === 0) {
             await chatController.get_model_list();
-            modelInfo = chatController.get_model_info(modelStr);
+            modelInfo = toChat.get_model_info(modelStr);
         }
         modelInfo.contextLength = modelInfo.contextLength || 4096;
         // 设置对话状态为正在生成
@@ -385,7 +387,7 @@ ${pub.lang('内容')}: ${doc_file}
             for await (const chunk of res) {
                 if(!isOllama) resTimeMs = new Date().getTime();
                 if ((isOllama && chunk.done) || 
-                (!isOllama && (chunk.choices[0].finish_reason === 'stop' || chunk.choices[0].finish_reason === 'normal' || (chunk.choices[0]?.dalta?.content == "" && chunk.choices[0]?.delta?.reasoning_content == null)))) {
+                (!isOllama && (chunk.choices[0].finish_reason === 'stop' || chunk.choices[0].finish_reason === 'normal'))) {
                     // 计算统计信息
                     let resInfo = {};
                     if(isOllama){
@@ -574,7 +576,8 @@ ${pub.lang('内容')}: ${doc_file}
                         regenerate_id:shareData.regenerate_id,
                         doc_files:shareData.doc_files || [],
                         images:shareData.images || [],
-                        rag_list:shareInfo.rag_list || []
+                        rag_list:shareInfo.rag_list || [],
+                        mcp_servers:shareInfo.mcp_servers || [],
                     };
                     this.chat(conn, args, shareData.msgId);
                     break;

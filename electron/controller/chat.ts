@@ -211,17 +211,20 @@ class ChatController {
     /**
      * 删除指定对话
      * @param {Object} args - 删除对话所需的参数
-     * @param {string} args.context_id - 对话的唯一标识符
+     * @param {string} args.context_id - 对话的唯一标识符,多个用逗号分隔
      * @returns {Promise<any>} - 删除成功的响应
      */
     async remove_chat(args: { context_id: string }): Promise<any> {
-        const { context_id: uuid } = args;
+        let { context_id } = args;
         const chatService = new ChatService();
         // 删除对话
-        chatService.delete_chat(uuid);
-        // 删除对话状态
-        if (ContextStatusMap.has(uuid)) {
-            ContextStatusMap.delete(uuid);
+        let uuids = context_id.split(',');
+        for(let uuid of uuids){
+            chatService.delete_chat(uuid);
+            // 删除对话状态
+            if (ContextStatusMap.has(uuid)) {
+                ContextStatusMap.delete(uuid);
+            }
         }
         // 返回成功响应
         return pub.return_success(pub.lang("对话删除成功"), null);

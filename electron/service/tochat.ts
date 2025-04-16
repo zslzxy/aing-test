@@ -271,6 +271,39 @@ export class ToChatService {
     }
 
     /**
+     * 确保消息格式正确
+     * @param {any} messages - 消息内容
+     * @returns 
+     */
+    formatMessage(messages: any[]): any[] {
+        // 确保system消息在最前面，且不重复，若有多个system消息，则只保留第一个，其它的删除
+        const systemMessages = messages.filter((msg: any) => msg.role === 'system');
+        if (systemMessages.length > 0) {
+            messages = messages.filter((msg: any) => msg.role !== 'system');
+            messages.unshift(systemMessages[0]);
+        }
+        // 确保system在第一位，且user消息和assistant交替出现
+        const userMessages = messages.filter((msg: any) => msg.role === 'user');
+        const assistantMessages = messages.filter((msg: any) => msg.role === 'assistant');
+        const systemMessage = messages.filter((msg: any) => msg.role === 'system')[0];
+        messages = [];
+        if (systemMessage) {
+            messages.push(systemMessage);
+        }
+        let i = 0;
+        while (i < userMessages.length || i < assistantMessages.length) {
+            if (i < userMessages.length) {
+                messages.push(userMessages[i]);
+            }
+            if (i < assistantMessages.length) {
+                messages.push(assistantMessages[i]);
+            }
+            i++;
+        }
+        return messages
+    }
+
+    /**
      * 开始对话
      * @param {Object} args - 对话所需的参数
      * @param {string} args.context_id - 对话的唯一标识符
@@ -347,7 +380,7 @@ export class ToChatService {
         }
         await chatService.update_chat_model(uuid, modelName, parameters as string, supplierName as string);
         const isVision = await this.isVisionModel(supplierName, modelName);
-        const history = await chatService.build_chat_history(uuid, chatContext, modelInfo.contextLength, isTempChat, isVision);
+        let history = await chatService.build_chat_history(uuid, chatContext, modelInfo.contextLength, isTempChat, isVision);
         const chatHistory: ChatHistory = {
             id: "",
             compare_id: compare_id,
@@ -400,7 +433,7 @@ export class ToChatService {
         search = await handleRag(args, chatService, history, chatHistoryRes, contextInfo, supplierName, modelStr, user_content, rag_results);
         await handleSearch(args, chatService, history, chatHistoryRes, contextInfo, supplierName, modelStr, user_content, search_results);
         const letHistory = history[history.length - 1];
-        if (!isSystemPrompt && letHistory.content === user_content) {
+        if (!isSystemPrompt && history[0].role !== 'system' && letHistory.content === user_content) {
             if (contextInfo.agent_name) {
                 const agentConfig = agentService.get_agent_config(contextInfo.agent_name);
                 if (agentConfig && agentConfig.prompt) {
@@ -427,6 +460,9 @@ export class ToChatService {
         if (letHistory.images && letHistory.images.length === 0) {
             delete letHistory.images;
         }
+
+        history = this.formatMessage(history);
+
         const requestOption: any = {
             model: modelStr,
             messages: history,
@@ -476,7 +512,7 @@ export class ToChatService {
         const ResEvent = async (chunk) => {
             if (!isOllama) resTimeMs = new Date().getTime();
             if ((isOllama && chunk.done) ||
-                (!isOllama && (chunk.choices[0].finish_reason === 'stop' || chunk.choices[0].finish_reason === 'normal' || (chunk.choices[0]?.delta?.content === "" && chunk.choices[0]?.delta?.reasoning_content === null)))) {
+                (!isOllama && (chunk.choices[0].finish_reason === 'stop' || chunk.choices[0].finish_reason === 'normal'))) {
                 const resInfo = getResponseInfo(chunk, isOllama, modelStr, resTimeMs);
                 chatHistoryRes.created_at = chunk.created_at ? chunk.created_at.toString() : chunk.created;
                 chatHistoryRes.create_time = chunk.created ? chunk.created : pub.time();

@@ -135,7 +135,7 @@ class ShareController {
      * @param {string} [args.agent_name] - 代理名称（可选）
      * @returns {Promise<any>} - 表示创建成功的响应对象
      */
-    async create_share(args: {supplierName?:string ;model: string; parameters: string; title: string; password?: string ,rag_list?:string,agent_name?:string}): Promise<any> {
+    async create_share(args: {supplierName?:string ;model: string; parameters: string; title: string; password?: string ,rag_list?:string,agent_name?:string,mcp_servers?:string[]}): Promise<any> {
         const shareId = pub.uuid();
         const sharePath = path.resolve(pub.get_data_path(), "share", shareId);
 
@@ -160,6 +160,7 @@ class ShareController {
             title: args.title,
             agent_name: agent_name,
             password: args.password,
+            mcp_servers: args.mcp_servers || [],
             create_time: pub.time(),
         };
 
@@ -185,7 +186,7 @@ class ShareController {
      * @param {string} [args.agent_name] - 代理名称（可选）
      * @returns {Promise<any>} - 表示修改成功的响应对象，如果分享不存在则返回错误响应
      */
-    async modify_share(args: { share_id: string;supplierName?:string; model: string; parameters: string; title: string; password?: string;rag_list?:string,agent_name?:string }): Promise<any> {
+    async modify_share(args: { share_id: string;supplierName?:string; model: string; parameters: string; title: string; password?: string;rag_list?:string,agent_name?:string,mcp_servers?:string[] }): Promise<any> {
         const sharePath = path.resolve(pub.get_data_path(), "share", args.share_id);
         if (!pub.file_exists(sharePath)) {
             return pub.return_error(pub.lang('分享不存在'), null);
@@ -211,6 +212,7 @@ class ShareController {
         shareConfig['title'] = args.title;
         shareConfig['password'] = args.password;
         shareConfig['agent_name'] = agent_name;
+        shareConfig['mcp_servers'] = args.mcp_servers || [];
 
         this.saveJsonFile(shareConfigPath, shareConfig);
 

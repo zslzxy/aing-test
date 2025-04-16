@@ -2,186 +2,172 @@ import { app as electronApp } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { is } from 'ee-core/utils';
 import { logger } from 'ee-core/log';
+import { pub } from '../../class/public';
 import { getMainWindow, setCloseAndQuit } from 'ee-core/electron';
 
 /**
  * AutoUpdaterService class for automatic updates
  */
 class AutoUpdaterService {
-  private config: {
-    windows: boolean;
-    macOS: boolean;
-    linux: boolean;
-    options: any;
-    force: boolean;
-  };
-  constructor() {
-    this.config = {
-      windows: true, 
-      macOS: true, 
-      linux: true,
-      options: {
-        provider: 'generic', 
-        url: 'https://download.bt.cn/AingDesk/'
-      },
-      force: true,
-    }
-  }
-
-  /**
-   * Create and configure the auto updater
-   */
-  create(): void {
-    logger.info('[autoUpdater] load');
-    const cfg  = this.config;
-    if ((is.windows() && cfg.windows) ||
-        (is.macOS() && cfg.macOS) ||
-        (is.linux() && cfg.linux)) {
-      // continue
-    } else {
-      return;
-    }
-
-    const status = {
-      error: -1,
-      available: 1,
-      noAvailable: 2,
-      downloading: 3,
-      downloaded: 4,
+    private config: {
+        windows: boolean;
+        macOS: boolean;
+        linux: boolean;
+        options: any;
+        force: boolean;
     };
-
-    const version = electronApp.getVersion();
-    logger.info('[autoUpdater] current version: ', version);
-
-    // Set the download server address
-    let server = cfg.options.url;
-    const lastChar = server.substring(server.length - 1);
-    server = lastChar === '/' ? server : server + "/";
-    cfg.options.url = server;
-
-    try {
-      autoUpdater.setFeedURL(cfg.options);
-    } catch (error) {
-      logger.error('[autoUpdater] setFeedURL error : ', error);
+    constructor() {
+        this.config = {
+            windows: true,
+            macOS: true,
+            linux: true,
+            options: {
+                provider: 'generic',
+                url: 'https://aingdesk.bt.cn/'
+            },
+            force: true,
+        }
     }
 
-    autoUpdater.on('checking-for-update', () => {
-       logger.info('[autoUpdater] checking-for-update');
-    });
-    autoUpdater.on('update-available', () => {
-      const data = {
-        status: status.available,
-        desc: '有可用更新',
-      };
-      logger.info("Available for updates");
-      this.sendStatusToWindow(data);
-    });
-    autoUpdater.on('update-not-available', () => {
-      const data = {
-        status: status.noAvailable,
-        desc: '没有可用更新',
-      };
-      logger.info("Not available for updates");
-      this.sendStatusToWindow(data);
-    });
-    autoUpdater.on('error', (err) => {
-      const data = {
-        status: status.error,
-        desc: err,
-      };
+    create() {
+        logger.info('[autoUpdater] load');
+        const cfg = this.config;
+        if ((is.windows() && cfg.windows)
+            || (is.macOS() && cfg.macOS)
+            || (is.linux() && cfg.linux)) {
+            // continue
+        } else {
+            return
+        }
 
-      logger.error('[addon:autoUpdater] error: ', err);
-      this.sendStatusToWindow(data);
-    });
-    autoUpdater.on('download-progress', (progressObj) => {
-      const percentNumber = progressObj.percent;
-      const totalSize = this.bytesChange(progressObj.total);
-      const transferredSize = this.bytesChange(progressObj.transferred);
-      let text = '已下载 ' + percentNumber + '%';
-      text = text + ' (' + transferredSize + "/" + totalSize + ')';
+        // 是否检查更新
+        if (cfg.force) {
+            this.checkUpdate();
+        }
 
-      const data = {
-        status: status.downloading,
-        desc: text,
-        percentNumber,
-        totalSize,
-        transferredSize,
-      };
-      logger.info('[addon:autoUpdater] progress: ', text);
-      this.sendStatusToWindow(data);
-    });
-    autoUpdater.on('update-downloaded', () => {
-      const data = {
-        status: status.downloaded,
-        desc: '下载完成',
-      };
-      this.sendStatusToWindow(data);
+        const status = {
+            error: -1,
+            available: 1,
+            noAvailable: 2,
+            downloading: 3,
+            downloaded: 4,
+        }
 
-      // Allow the window to close
-      setCloseAndQuit(true);
+        const version = electronApp.getVersion();
+        logger.info('[autoUpdater] current version: ', version);
 
-      // Install updates and exit the application
-      autoUpdater.quitAndInstall();
-    });
+        // 设置下载服务器地址
+        let server = cfg.options.url;
+        let lastChar = server.substring(server.length - 1);
+        server = lastChar === '/' ? server : server + "/";
+        logger.info('[autoUpdater] server: ', server);
+        cfg.options.url = server;
 
-    autoUpdater.checkForUpdates();
+        // 强制执行开发更新
+        autoUpdater.forceDevUpdateConfig = true
 
-  }
+        // 是否后台自动下载
+        autoUpdater.autoDownload = cfg.force ? true : false;
 
-  /**
-   * Check for updates
-   */
-  checkUpdate(): void {
-    autoUpdater.checkForUpdates();
-  }
+        try {
+            autoUpdater.setFeedURL(cfg.options);
+        } catch (error) {
+            logger.error('[autoUpdater] setFeedURL error : ', error);
+        }
 
-  /**
-   * Download updates
-   */
-  download(): void {
-    autoUpdater.downloadUpdate();
-  }
+        autoUpdater.on('checking-for-update', () => {
+            this.sendStatusToWindow(pub.lang('正在检查更新...'));
+        })
+        autoUpdater.on('update-available', (info) => {
+            this.sendStatusToWindow(info);
+        })
+        autoUpdater.on('update-not-available', (info) => {
+            this.sendStatusToWindow(info);
+        })
+        autoUpdater.on('error', (err) => {
+            let info = {
+                status: status.error,
+                desc: err
+            }
+            this.sendStatusToWindow(info);
+        })
+        autoUpdater.on('download-progress', (progressObj) => {
+            let percentNumber = progressObj.percent;
+            let totalSize = this.bytesChange(progressObj.total);
+            let transferredSize = this.bytesChange(progressObj.transferred);
+            let text = pub.lang('已下载 ') + percentNumber + '%';
+            text = text + ' (' + transferredSize + "/" + totalSize + ')';
 
-  /**
-   * Send status to the frontend
-   */
-  sendStatusToWindow(content: any = {}): void {
-    const textJson = JSON.stringify(content);
-    const channel = 'custom/app/updater';
-    const win = getMainWindow();
-    logger.info('[addon:autoUpdater] sendStatusToWindow: ', textJson);
-    win.webContents.send(channel, textJson);
-  }
-
-  /**
-   * Convert bytes to a more readable format
-   */
-  bytesChange(limit: number): string {
-    let size = "";
-    if (limit < 0.1 * 1024) {
-      size = limit.toFixed(2) + "B";
-    } else if (limit < 0.1 * 1024 * 1024) {
-      size = (limit / 1024).toFixed(2) + "KB";
-    } else if (limit < 0.1 * 1024 * 1024 * 1024) {
-      size = (limit / (1024 * 1024)).toFixed(2) + "MB";
-    } else {
-      size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB";
+            let info = {
+                status: status.downloading,
+                desc: text,
+                percentNumber: percentNumber,
+                totalSize: totalSize,
+                transferredSize: transferredSize
+            }
+            logger.info('[addon:autoUpdater] progress: ', text);
+            this.sendStatusToWindow(info);
+        })
+        autoUpdater.on('update-downloaded', (info) => {
+            this.sendStatusToWindow(info);
+            setCloseAndQuit(true);
+            autoUpdater.quitAndInstall();
+        });
     }
 
-    let sizeStr = size + "";
-    let index = sizeStr.indexOf(".");
-    let dou = sizeStr.substring(index + 1, index + 3);
-    if (dou === "00") {
-      return sizeStr.substring(0, index) + sizeStr.substring(index + 3, index + 5);
+    /**
+     * 检查更新
+     */
+    checkUpdate() {
+        autoUpdater.checkForUpdates();
     }
 
-    return size;
-  }
+    /**
+     * 下载更新
+     */
+    download() {
+        autoUpdater.downloadUpdate();
+    }
+
+    /**
+     * 向前端发消息
+     */
+    sendStatusToWindow(content: any = {}): void {
+        const textJson = JSON.stringify(content);
+        const channel = 'custom/app/updater';
+        const win = getMainWindow();
+        logger.info('[addon:autoUpdater] sendStatusToWindow: ', textJson);
+        win.webContents.send(channel, textJson);
+    }
+    /**
+     * 单位转换
+     */
+    bytesChange(limit) {
+        let size = "";
+        if (limit < 0.1 * 1024) {
+            size = limit.toFixed(2) + "B";
+        } else if (limit < 0.1 * 1024 * 1024) {
+            size = (limit / 1024).toFixed(2) + "KB";
+        } else if (limit < 0.1 * 1024 * 1024 * 1024) {
+            size = (limit / (1024 * 1024)).toFixed(2) + "MB";
+        } else {
+            size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB";
+        }
+
+        let sizeStr = size + "";
+        let index = sizeStr.indexOf(".");
+        let dou = sizeStr.substring(index + 1, index + 3);
+        if (dou == "00") {
+            return sizeStr.substring(0, index) + sizeStr.substring(index + 3, index + 5);
+        }
+
+        return size;
+    }
 }
 AutoUpdaterService.toString = () => '[class AutoUpdaterService]';
 const autoUpdaterService = new AutoUpdaterService();
 
-export { 
-  AutoUpdaterService, 
-  autoUpdaterService 
+export {
+    AutoUpdaterService,
+    autoUpdaterService
 };

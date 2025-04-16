@@ -221,6 +221,11 @@ export class LanceDBManager {
             fs.mkdirSync(cache_path, { recursive: true });
         }
 
+        // 检查嵌入是否有效
+        if(!embedding || embedding.length == 0){
+            return;
+        }
+
         let cache_file = path.join(cache_path, `${key}.json`);
         pub.write_file(cache_file, JSON.stringify(embedding));
         this.clearExpiredCache();
@@ -267,7 +272,7 @@ export class LanceDBManager {
 
             if (!res.embedding || res.embedding.length !== this.DIMENSION) {
                 if(!res.embedding){
-                    throw new Error(`嵌入维度错误: 期望 ${this.DIMENSION}, 实际 ${res.embedding ? res.embedding.length : 0}`);
+                    throw new Error(`嵌入维度错误: 期望 ${this.DIMENSION}, 实际 ${res.embedding ? res.embedding.length : 0}, 模型: ${model}, 文本: ${text}`);
                 }
                 // 不足的维度以0填充
                 if (res.embedding && res.embedding.length < this.DIMENSION) {
