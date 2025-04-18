@@ -76,6 +76,17 @@ docker compose up -d
 # or
 docker-compose up -d
 ``` 
+## Build
+```bash
+git clone https://github.com/aingdesk/AingDesk.git
+cd AingDesk
+# For macOS users, please remove the `@rollup/rollup-win32-x64-msvc` dependency in [package.json](http://_vscodecontentref_/0)
+cd frontend
+yarn
+cd ..
+yarn
+yarn dev
+```
 
 ## Star History
 
