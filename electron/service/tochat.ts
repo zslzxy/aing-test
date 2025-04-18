@@ -452,12 +452,18 @@ export class ToChatService {
         if (letHistory.doc_files !== undefined) {
             delete letHistory.doc_files;
         }
-        if (!isOllama) {
-            handleNonOllamaImages(letHistory);
-        } else {
-            handleOllamaImages(letHistory);
+        if(isVision){
+            if (!isOllama) {
+                handleNonOllamaImages(letHistory);
+            } else {
+                handleOllamaImages(letHistory);
+            }
         }
         if (letHistory.images && letHistory.images.length === 0) {
+            delete letHistory.images;
+        }
+
+        if(!isVision && letHistory.images){
             delete letHistory.images;
         }
 
@@ -511,6 +517,9 @@ export class ToChatService {
         let isThinkingEnd = false;
         const ResEvent = async (chunk) => {
             if (!isOllama) resTimeMs = new Date().getTime();
+            if(chunk.choices && chunk.choices.length === 0){
+                return;
+            }
             if ((isOllama && chunk.done) ||
                 (!isOllama && (chunk.choices[0].finish_reason === 'stop' || chunk.choices[0].finish_reason === 'normal'))) {
                 const resInfo = getResponseInfo(chunk, isOllama, modelStr, resTimeMs);

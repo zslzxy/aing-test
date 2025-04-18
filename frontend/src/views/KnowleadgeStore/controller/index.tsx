@@ -106,7 +106,7 @@ export async function createNewKnowledgeStore() {
 	// 重置表单
 	function resetForm() {
 		createKnowledgeModelRef.value.restoreValidation();
-		createKnowledgeFormData.value = { ragName: '', ragDesc: '', enbeddingModel: [], supplierName: '', maxRecall: 5 };
+		resetCreateKnowledgeFormData()
 		createKnowledgeDialogIns.value!.destroy();
 	}
 	// 跳转知识库使用文档
@@ -174,10 +174,13 @@ export async function ragStatus() {
  * @description 获取嵌入模型列表
  */
 export async function getEmbeddingModels() {
-	const { embeddingModelsList, createKnowledgeFormData } = getKnowledgeStoreData();
+	const { embeddingModelsList, createKnowledgeFormData, isEditKnowledge } = getKnowledgeStoreData();
 	try {
 		const res = await post('/rag/get_embedding_models');
 		embeddingModelsList.value = Object.values(res.message).flat();
+		// 如果编辑状态则不强制选择bge-m3
+		if (isEditKnowledge.value) return
+		// 如果新建则默认选择bge-m3或第一个
 		if (embeddingModelsList.value.length) {
 			let findRes = embeddingModelsList.value.find((item: any) => {
 				if (item.model.includes('bge-m3') && item.title.includes('ollama')) {
@@ -391,6 +394,20 @@ export async function removeRag(ragName: string) {
 }
 
 /**
+ * @description 重置知识库表单数据
+ */
+function resetCreateKnowledgeFormData() {
+	const { createKnowledgeFormData } = getKnowledgeStoreData()
+	createKnowledgeFormData.value = {
+		ragName: '',
+		ragDesc: '',
+		enbeddingModel: '',
+		supplierName: '',
+		maxRecall: 5,
+	};
+}
+
+/**
  * @description 修改知识库
  */
 export async function modifyRag() {
@@ -409,12 +426,7 @@ export async function modifyRag() {
 				message.success($t('修改知识库成功'));
 				dialog.destroy();
 				isEditKnowledge.value = false;
-				createKnowledgeFormData.value = {
-					ragName: '',
-					ragDesc: '',
-					enbeddingModel: '',
-					supplierName: '',
-				};
+				resetCreateKnowledgeFormData()
 			} catch (error) {
 				sendLog(error as Error);
 				message.error($t('修改知识库失败，请重试'));
@@ -423,12 +435,7 @@ export async function modifyRag() {
 		onCancel: () => {
 			dialog.destroy();
 			isEditKnowledge.value = false;
-			createKnowledgeFormData.value = {
-				ragName: '',
-				ragDesc: '',
-				enbeddingModel: '',
-				supplierName: '',
-			};
+			resetCreateKnowledgeFormData()
 		},
 	});
 }
@@ -604,15 +611,15 @@ function ragDocLoop() {
  * @description 测试文档分片
  */
 export async function testChunk() {
-    const { sliceChunkFormData, customSeparators } = getKnowledgeStoreData()
-    if (!customSeparators.value) {
-        sliceChunkFormData.value.separators = []
-    }
-    try {
-        return await post("/rag/test_chunk", sliceChunkFormData.value)
-    } catch (error) {
-        sendLog(error as Error)
-    }
+	const { sliceChunkFormData, customSeparators } = getKnowledgeStoreData()
+	if (!customSeparators.value) {
+		sliceChunkFormData.value.separators = []
+	}
+	try {
+		return await post("/rag/test_chunk", sliceChunkFormData.value)
+	} catch (error) {
+		sendLog(error as Error)
+	}
 }
 
 /**
@@ -645,28 +652,28 @@ export function doSelectModel(_: any, option: any) {
  * @description 选择当前知识库
  */
 export function chooseCurrent(item: any) {
-    const { activeKnowledgeForChat } = getKnowledgeStoreData()
-    if (!item.embeddingModelExist) {
-        return
-    }
-    if (activeKnowledgeForChat.value?.includes(item.ragName)) {
-        activeKnowledgeForChat.value = activeKnowledgeForChat.value.filter((i: string) => i !== item.ragName)
-    } else {
-        activeKnowledgeForChat.value?.push(item.ragName)
-    }
+	const { activeKnowledgeForChat } = getKnowledgeStoreData()
+	if (!item.embeddingModelExist) {
+		return
+	}
+	if (activeKnowledgeForChat.value?.includes(item.ragName)) {
+		activeKnowledgeForChat.value = activeKnowledgeForChat.value.filter((i: string) => i !== item.ragName)
+	} else {
+		activeKnowledgeForChat.value?.push(item.ragName)
+	}
 }
 
 /**
  * @description 优化知识库
  */
 export async function optimizeTable(ragName: string) {
-	const {optimizeKnowledgeShow} = getKnowledgeStoreData()
-    try {
+	const { optimizeKnowledgeShow } = getKnowledgeStoreData()
+	try {
 		optimizeKnowledgeShow.value = true
-        const res = await get("/rag/optimize_table", { ragName })
-        message.success(res.msg!)
+		const res = await get("/rag/optimize_table", { ragName })
+		message.success(res.msg!)
 		optimizeKnowledgeShow.value = false
-    } catch (error) {
-        sendLog(error as Error)
-    }
+	} catch (error) {
+		sendLog(error as Error)
+	}
 }

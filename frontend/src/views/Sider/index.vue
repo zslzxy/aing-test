@@ -22,6 +22,12 @@
 
         <div class="recent-header">
             <span class="ml-8 text-[var(--bt-notice-text-color)]">{{ $t("对话") }}</span>
+            <n-popover trigger="hover">
+                <template #trigger>
+                    <i class="i-ci:bar-top w-14 h-14 cursor-pointer" @click="cleanAllChats"></i>
+                </template>
+                {{ $t("清空对话") }}
+            </n-popover>
         </div>
 
         <div class="sider-wrapper" style="overflow: hidden;">
@@ -75,7 +81,7 @@ import KnowledgeList from "./components/KnowledgeList.vue";
 import SiderBottom from "./components/SiderBottom.vue";
 import RemoveChatConfirm from "./components/RemoveChatConfirm.vue";
 import ModifyChatConfirm from "./components/ModifyChatConfirm.vue";
-import { get_chat_list, makeNewChat, doFold, } from "@/views/Sider/controller"
+import { get_chat_list, makeNewChat, doFold,cleanAllChats } from "@/views/Sider/controller"
 import { getSoftSettingsStoreData } from "../SoftSettings/store";
 import Agent from "@/views/Agent/index.vue";
 import logoImage from "@/assets/images/logo.png"

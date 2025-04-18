@@ -1,12 +1,12 @@
 import { nextTick } from "vue"
 import { post } from "@/api"
 import { sendLog } from "@/views/Home/controller"
-import { knowledgeIsClose, modifyRag, removeRagConfirm,optimizeTable } from "@/views/KnowleadgeStore/controller"
+import { knowledgeIsClose, modifyRag, removeRagConfirm, optimizeTable } from "@/views/KnowleadgeStore/controller"
 import { getSupplierList } from "@/views/ThirdPartyApi/controller/index"
 import { singleActive } from "@/views/KnowleadgeStore/controller"
 
 import { eventBUS } from "@/views/Home/utils/tools"
-import { message } from "@/utils/naive-tools"
+import { message, delConfirm } from "@/utils/naive-tools"
 import type { ChatInfo, ChatItemInfo } from "@/views/Home/dto"
 import i18n from "@/lang";
 import { getSiderStoreData } from "../store"
@@ -285,7 +285,7 @@ export function dealPopOperation(val: string, knowledge: any) {
         removeRagConfirm(knowledge.ragName)
     } else if (val == "modifyTitle") {
         isEditKnowledge.value = true
-        createKnowledgeFormData.value.enbeddingModel = knowledge.embeddingModel
+        createKnowledgeFormData.value.enbeddingModel =  knowledge.embeddingModel
         createKnowledgeFormData.value.ragName = knowledge.ragName
         createKnowledgeFormData.value.ragDesc = knowledge.ragDesc
         createKnowledgeFormData.value.supplierName = knowledge.supplierName
@@ -306,4 +306,29 @@ export function openThirdPartyModel() {
     const { thirdPartyApiShow } = getThirdPartyApiStoreData()
     thirdPartyApiShow.value = true
     getSupplierList()
+}
+
+
+
+/**
+ * @description 清空对话
+ */
+export async function cleanAllChats() {
+    const { chatHistory } = getChatContentStoreData()
+    const { chatList } = getSiderStoreData()
+    try {
+        await delConfirm({
+            title: "提示",
+            content: "是否删除所有对话?"
+        })
+        const all_context_id = chatList.value.map(item => item.context_id).join(",")
+        await post("/chat/remove_chat", { context_id: all_context_id })
+        message.success("删除成功")
+        get_chat_list()
+        chatHistory.value = new Map()
+    } catch (error) {
+        if (error) {
+            sendLog(error as Error)
+        }
+    }
 }

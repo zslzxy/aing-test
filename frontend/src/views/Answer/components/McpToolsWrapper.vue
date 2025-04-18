@@ -10,7 +10,7 @@
                 <i class="i-common:arrow-down w-14 h-14 cursor-pointer" v-else></i>
             </span>
         </div>
-        <pre>{{ preCOntent }}</pre>
+        <pre class="content-pre">{{ preCOntent }}</pre>
     </div>
 </template>
 
@@ -130,5 +130,10 @@ const themeThinkBg = computed(() => {
 
 .is-close {
     max-height: 30px;
+}
+
+.content-pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 </style>

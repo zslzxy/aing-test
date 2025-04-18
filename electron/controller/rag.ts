@@ -199,12 +199,16 @@ class RagController {
             ollamaEmbeddingMap.set(embed.model, true);
         }
         embeddingMap.set('ollama', ollamaEmbeddingMap);
-        for (let supplierName in supplierEmbeddingList) {
+        for (let supplierTitle in supplierEmbeddingList) {
             let supplierEmbeddingMap = new Map<string, Boolean>();
-            for (let embed of supplierEmbeddingList[supplierName]) {
+            let supplierName = '';
+            for (let embed of supplierEmbeddingList[supplierTitle]) {
+                supplierName = embed.supplierName;
                 supplierEmbeddingMap.set(embed.model, true);
             }
+            if(!supplierName) supplierName = supplierTitle;
             embeddingMap.set(supplierName, supplierEmbeddingMap);
+            
         }
         return embeddingMap;
     }
@@ -341,9 +345,9 @@ class RagController {
             return pub.return_error(pub.lang('文件路径不能为空'));
         }
         let filePathList: string[] = []
-        if(filePath.startsWith('[') && filePath.endsWith(']')){
+        if (filePath.startsWith('[') && filePath.endsWith(']')) {
             filePathList = JSON.parse(filePath);
-        }else{
+        } else {
             filePathList = filePath.split(',');
         }
         if (filePathList.length == 0) {
@@ -360,7 +364,7 @@ class RagController {
             overlapSize = 100;
         }
 
-        if(typeof separators == 'string'){
+        if (typeof separators == 'string') {
             separators = [separators]
         }
 
@@ -715,7 +719,7 @@ class RagController {
             separators = [separators]
         }
 
-        let chunkList = ragTask.splitText(filename,result.content, separators, chunkSize, overlapSize);
+        let chunkList = ragTask.splitText(filename, result.content, separators, chunkSize, overlapSize);
         result.chunkList = chunkList;
 
         return pub.return_success(pub.lang('操作成功'), result);
@@ -728,6 +732,36 @@ class RagController {
         await LanceDBManager.optimizeTable('doc_table')
         let res = await LanceDBManager.optimizeTable(pub.md5(args.ragName))
         return pub.return_success(res);
+    }
+
+
+    /**
+     * 获取文档分块列表
+     * @param args
+     * @param args.ragName <string> 知识库名称
+     * @param args.docId <string> 文档ID
+     * @returns
+     **/
+    async get_doc_chunk_list(args: { ragName: string, docId: string }): Promise<any> {
+        // 检查参数
+        if (!args.ragName) {
+            return pub.return_error(pub.lang('知识库名称不能为空'));
+        }
+        if (!args.docId) {
+            return pub.return_error(pub.lang('文档ID不能为空'));
+        }
+
+        // 知识库保存路径
+        const ragPath = pub.get_rag_path() + "/" + args.ragName;
+
+        // 检查知识库是否存在
+        if (!pub.file_exists(ragPath)) {
+            return pub.return_error(pub.lang('知识库不存在'));
+        }
+
+        let ragObj = new Rag();
+        let result = await ragObj.getDocChunkList(args.ragName, args.docId);
+        return pub.return_success(pub.lang('操作成功'), result);
     }
 }
 

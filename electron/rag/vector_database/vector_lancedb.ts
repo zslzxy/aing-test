@@ -845,7 +845,7 @@ export class LanceDBManager {
      * @param where 查询条件
      * @returns 查询结果
      */
-    public static async queryRecord(tableName: string, where: string): Promise<any[]> {
+    public static async queryRecord(tableName: string, where: string,field:string[]=[]): Promise<any[]> {
         const metrics = this.startMetrics(`查询文档到表 ${tableName}`);
         this.ensureDatabaseDirectory();
         const db = await lancedb.connect(pub.get_db_path());
@@ -859,9 +859,11 @@ export class LanceDBManager {
             const tableObj = await db.openTable(tableName);
 
             // 查询记录
-            const results = await tableObj.query().where(where).limit(10000).toArray();
-
-            // logger.info(`成功查询文档到表 ${tableName}`);
+            let query = tableObj.query().where(where).limit(10000)
+            if(field.length > 0){
+                query = query.select(field)
+            }
+            const results = await query.toArray();
             return results;
         } catch (error: any) {
             logger.error(`查询文档失败: ${error.message}`);

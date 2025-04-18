@@ -10,7 +10,6 @@
 			</n-tooltip>
 		</div>
 		<div class="flex justify-end items-center">
-			<n-button type="primary" size="small" class="mr-10" @click="handleAddMcpServer">{{ $t(mcpServerEditMode ? '保存' : '添加') }}</n-button>
 			<n-tooltip trigger="hover" v-if="'isActive' in currentMcpChoose">
 				<template #trigger>
 					<n-switch size="small" v-model:value="currentMcpChoose.isActive" @update:value="handleCurrentMcpStatus"></n-switch>
@@ -20,15 +19,15 @@
 		</div>
 	</div>
 
-	<n-scrollbar style="height: 480px">
-		<n-form label-placement="top" class="mt-20" :model="currentMcpChoose" :rules="rules" ref="createMcpServerRef">
+	<n-scrollbar style="height: 510px">
+		<n-form label-placement="top" class="mt-10" :model="currentMcpChoose" :rules="rules" size="small" ref="createMcpServerRef">
 			<n-form-item :label="$t('名称')" path="name">
 				<n-input :placeholder="$t('请输入MCP服务器名称')" :disabled="mcpServerEditMode" v-model:value="currentMcpChoose.name" />
 			</n-form-item>
 			<n-form-item :label="$t('描述')" path="description">
-				<n-input :placeholder="$t('请输入内容')" v-model:value="currentMcpChoose.description" type="textarea" />
+				<n-input :placeholder="$t('请输入内容')" v-model:value="currentMcpChoose.description" />
 			</n-form-item>
-			<n-form-item :label="$t('类型')" path="type">
+			<n-form-item :label="$t('类型')" path="type" label-placement="left">
 				<n-radio-group v-model:value="currentMcpChoose.type" name="radiogroup">
 					<n-space>
 						<n-radio :value="'stdio'">Stdio</n-radio>
@@ -42,7 +41,7 @@
 				</n-form-item>
 			</template>
 			<template v-else>
-				<n-form-item :label="$t('程序类型')">
+				<n-form-item :label="$t('程序类型')" label-placement="left">
 					<n-radio-group v-model:value="commadType" name="radiogroup" @update:value="onChangeCommadType">
 						<n-space>
 							<n-radio value="npx">NPX</n-radio>
@@ -60,15 +59,15 @@
 					<n-input :placeholder="$t('可执行命令')" v-model:value="currentMcpChoose.command" />
 				</n-form-item>
 				<n-form-item :label="$t('参数')" path="args">
-					<n-input :placeholder="$t('请输入内容')" type="textarea" v-model:value="currentMcpChoose.args" />
+					<n-input :placeholder="$t('填写多个参数一行一个，如：\n/Users/username/Desktop\n-y')" type="textarea" v-model:value="currentMcpChoose.args" />
 				</n-form-item>
 				<n-form-item :label="$t('环境变量')" path="env">
-					<n-input placeholder="ak=123456&#10;sk=678910" type="textarea" v-model:value="currentMcpChoose.env" />
+					<n-input :placeholder="$t('填写多个环境变量一行一个，如：\nak=123456\nsk=678910')" type="textarea" v-model:value="currentMcpChoose.env" />
 				</n-form-item>
 			</template>
 		</n-form>
 	</n-scrollbar>
-
+	<n-button type="primary" size="small" class="absolute bottom-0 right-0" @click="handleAddMcpServer">{{ $t(mcpServerEditMode ? '保存' : '添加') }}</n-button>
 	<n-modal v-model:show="envInstallShow" :close-on-esc="false" :closable="false" :mask-closable="false">
 		<n-card style="width: 30%; max-width: 500px">
 			<div class="flex justify-center items-center gap-2.5">

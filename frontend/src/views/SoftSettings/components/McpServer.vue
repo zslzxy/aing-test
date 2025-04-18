@@ -10,7 +10,7 @@
 				</template>
 				<McpSeverDropdown />
 			</n-popover>
-			<n-scrollbar style="height: 400px">
+			<n-scrollbar style="height: 440px">
 				<div class="has-server-item  cursor-pointer" :class="{active:currentMcpName === item.name }" v-for="item in mcpServerList" @click="handleEditMcp(item.name)">
 					<n-tooltip trigger="hover">
 						<template #trigger>
@@ -30,7 +30,7 @@
 					<n-button class="w-100% mt-30" @click="openMcpConfigFile">{{ $t('编辑配置文件') }}</n-button>
 				</div>
 		</div>
-		<div class="mcp-content w-590">
+		<div class="mcp-content relative w-590">
 			<MapServerItemConfig v-if="mcpServerFormShow" />
 		</div>
 		<McpConfigFile />
@@ -43,10 +43,12 @@ import McpSeverDropdown from './McpSeverDropdown.vue';
 import McpConfigFile from './McpConfigFile.vue';
 import { checkEnvStatus, getMcpServerList, getMcpTempList, handleEditMcp,openMcpConfigFile } from '../controller';
 import { getSoftSettingsStoreData } from '../store';
+import { getGlobalStore } from '@/stores/global';
 import i18n from '@/lang';
 
 const $t = i18n.global.t;
 const { mcpServerList, mcpServerFormShow,currentMcpName } = getSoftSettingsStoreData();
+const { settingPanelBorder,siderBg } = getGlobalStore();
 checkEnvStatus();
 getMcpServerList();
 getMcpTempList();
@@ -64,7 +66,7 @@ getMcpTempList();
 
 	.mcp-list {
 		height: 100%;
-		border-right: 1px solid base.$gray-3;
+		border-right: v-bind(settingPanelBorder);
 		box-sizing: border-box;
 		padding: 10px 10px 10px 0;
 	}
@@ -78,7 +80,7 @@ getMcpTempList();
 		}
 
 		&:hover {
-			background: base.$gray-2;
+			background: v-bind(siderBg);
 		}
 		.has-server-left {
 			display: flex;

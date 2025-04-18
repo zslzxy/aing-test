@@ -1,6 +1,6 @@
-import type { ConfigProviderProps, DialogOptions,ModalOptions } from 'naive-ui'
+import type { ConfigProviderProps, DialogOptions, ModalOptions } from 'naive-ui'
 import { createDiscreteApi, darkTheme, lightTheme, NButton } from 'naive-ui'
-import { computed, ref } from 'vue'
+import { computed, ref, type VNodeChild } from 'vue'
 
 const themeRef = ref<'light' | 'dark'>('light')
 const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
@@ -20,7 +20,7 @@ type UseDialogOptions = {
     onClose?: () => void
     onDestroy?: () => void
 } & DialogOptions
-export function useDialog(options: UseDialogOptions & {selfClosable?: boolean}) {
+export function useDialog(options: UseDialogOptions & { selfClosable?: boolean }) {
     /**
      * @description 点击取消
      */
@@ -35,16 +35,16 @@ export function useDialog(options: UseDialogOptions & {selfClosable?: boolean}) 
         options.onOk?.()
     }
 
-		/**
-		 * @description 点击关闭
-		 */
-		function dialogClose() {
-			if (options.onClose) {
-				options.onClose()
-			} else {
-				dialogReactive.destroy()
-			}
-		}
+    /**
+     * @description 点击关闭
+     */
+    function dialogClose() {
+        if (options.onClose) {
+            options.onClose()
+        } else {
+            dialogReactive.destroy()
+        }
+    }
 
     const dialogReactive = dialog.create(Object.assign({
         draggable: true,
@@ -87,10 +87,39 @@ export function useModal(options: ModalOptions) {
     })
 }
 
+/**
+ * @description 删除问询
+ */
+export function delConfirm(options: {
+    title: string,
+    content: string | (() => VNodeChild) | undefined;
+}) {
+
+    return new Promise((resolve, reject) => {
+        const confirm = dialog.create({
+            title: options.title,
+            content: options.content,
+            closeOnEsc: false,
+            maskClosable: false,
+            closable: false,
+            action: () => <>
+                <NButton onClick={() => {
+                    reject(false)
+                    confirm.destroy()
+                }}>取消 </NButton>
+                < NButton type="primary" onClick={() => {
+                    confirm.destroy()
+                    resolve(true)
+                }}>确认 </NButton>
+            </>,
+        })
+    })
+}
+
 export {
     message,
     notification,
     dialog,
     loadingBar,
-    modal
+    modal,
 }

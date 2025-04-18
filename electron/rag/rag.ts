@@ -623,6 +623,19 @@ export class Rag {
         await LanceDBManager.updateRecord(argName,{where: `doc_aag='${argName}'`,values: {is_parsed: 0}});
         return true;
     }
+
+
+    /**
+     * 获取文档分片列表
+     * @param ragName:string 知识库名称
+     * @param docId:string 文档ID
+     * @returns Promise<any[]>
+     */
+    public async getDocChunkList(ragName:string,docId:string): Promise<any[]> {
+        let where = "`docId` = '" + docId + "'";
+        let chunkList = await LanceDBManager.queryRecord(pub.md5(ragName), where,["id","docId","doc","tokens"]);
+        return chunkList;
+    }
     
 }
 

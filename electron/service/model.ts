@@ -6,6 +6,7 @@ import { pub } from '../class/public';
 type ModelInfo = {
     title: string;
     supplierName: string;
+    supplierTitle?: string;
     model: string;
     size: number;
     total?: number;
@@ -347,6 +348,7 @@ async function readSupplierModels(fileName: string, contextLengthFunc: (model: s
                 const modelInfo: ModelInfo = {
                     title: model.title || `${supplierConfig.supplierTitle || supplierConfig.supplierName}/${model.modelName}`,
                     supplierName: supplierConfig.supplierName,
+                    supplierTitle: supplierConfig.supplierTitle || supplierConfig.supplierName,
                     model: model.modelName,
                     size: 0,
                     contextLength: contextLengthFunc(model.modelName),
@@ -354,7 +356,7 @@ async function readSupplierModels(fileName: string, contextLengthFunc: (model: s
                 };
                 newModels.push(modelInfo);
             }
-            result[supplierConfig.supplierName] = newModels;
+            result[supplierConfig.supplierTitle] = newModels;
         } catch (error) {
             console.error(`Error reading models for supplier ${supplier}:`, error);
         }

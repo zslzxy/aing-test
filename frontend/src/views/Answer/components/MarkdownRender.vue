@@ -17,7 +17,7 @@
             </n-list>
         </n-collapse-item>
     </n-collapse>
-    
+
     <n-divider v-if="searchResult && searchResult.length" />
     <ThinkWrapper
         :content="content.match(/<think>([\s\S]*?)(?:<\/think>|$)/) ? content.match(/<think>([\s\S]*?)(?:<\/think>|$)/)![1] : ''"
@@ -26,11 +26,10 @@
         :content="content.match(/<mcptool>([\s\S]*?)(?:<\/mcptool>|$)/) ? content.match(/<mcptool>([\s\S]*?)(?:<\/mcptool>|$)/)![1] : ''"
         v-if="content.match(/<mcptool>([\s\S]*?)(?:<\/mcptool>|$)/)" /> -->
     <!-- 回答过程中的渲染 -->
-    <McpToolsWrapper v-for="(item,index) in tools_content_arr" :key="index" :content="item"/>
+    <McpToolsWrapper v-for="(item, index) in tools_content_arr" :key="index" :content="item" />
     <!-- 获取信息后的渲染 -->
-    <McpToolsWrapper
-        :content="item"
-        v-if="tools_result&&tools_result.length" v-for="(item,index) in tools_result" :key="index"/>
+    <McpToolsWrapper :content="item" v-if="tools_result && tools_result.length" v-for="(item, index) in tools_result"
+        :key="index" />
     <div ref="markdownRef" class="markdown-content" v-html="answerContent"></div>
 </template>
 
@@ -45,7 +44,7 @@ import MermaidRender from './MermaidRender.vue';
 import { eventBUS } from '@/views/Home/utils/tools.tsx';
 import { useI18n } from 'vue-i18n';
 import mk from "@vscode/markdown-it-katex"
-import {getAnswerStoreData} from "@/views/Answer/store"
+import { getAnswerStoreData } from "@/views/Answer/store"
 import {
     replaceLatexMathDelimiters,
     dealThinkAndTools,
@@ -53,16 +52,16 @@ import {
 } from "@/views/Answer/controller"
 import { render } from 'vue';
 
-const {markdownRef} = getAnswerStoreData()
+const { markdownRef } = getAnswerStoreData()
 const { t: $t } = useI18n()
 const { themeColors, themeMode, currentLanguage } = getSoftSettingsStoreData()
 const { questionContent } = getChatToolsStoreData()
-const tools_content_arr = computed(()=>{
+const tools_content_arr = computed(() => {
     const matches = props.content.match(/<mcptool>([\s\S]*?)<\/mcptool>/g);
     return matches ? matches.map(match => match.replace(/<mcptool>|<\/mcptool>/g, "").trim()) : [];
 })
 
-const props = defineProps<{ content: string, searchResult?: Array<{ content: string, link: string, title: string }>,tools_result?:Array<string> }>()
+const props = defineProps<{ content: string, searchResult?: Array<{ content: string, link: string, title: string }>, tools_result?: Array<string> }>()
 const answerContent = ref("")
 
 const md = markdownit({
@@ -248,11 +247,13 @@ onMounted(doMermaidRender)
             background-color: v-bind("themeMarkdownBg.code");
             padding: var(--bt-pd-normal);
 
+
             code {
                 display: inline-block;
                 width: 100%;
                 background-color: transparent;
                 padding: 0;
+                white-space: pre-line;
             }
         }
 
@@ -260,7 +261,7 @@ onMounted(doMermaidRender)
             width: 100%;
             box-sizing: border-box;
             overflow-x: auto;
-            display: inline-block;
+
         }
     }
 
@@ -283,8 +284,14 @@ onMounted(doMermaidRender)
     }
 }
 
+
+code {
+    display: inline-block;
+}
+
 .hljs {
     background-color: transparent !important;
     color: v-bind("themeMarkdownBg.fontColor") !important;
+    white-space: pre-wrap;
 }
 </style>

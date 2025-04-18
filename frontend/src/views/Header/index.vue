@@ -7,7 +7,7 @@
             <n-popover trigger="click" placement="bottom-start" v-model:show="modelListShow">
                 <template #trigger>
                     <div class="flex justify-start items-center gap-2.5 cursor-pointer" @click="modelListShow = true">
-                        <span>{{ showModel }}</span>
+                        <span>{{ showModel?showModel:$t('请选择模型') }}</span>
                         <div class="choosed-model-handle">
                             <i class="i-tdesign:chevron-down w-20 h-20"></i>
                         </div>

@@ -1,9 +1,9 @@
 {
   "name": "aingdesk",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Simple and easy-to-use AI big model deployment and usage software",
   "productName": "AingDesk",
-  "main": "public/electron/main.js",
+  "main": "./public/electron/main.js",
   "type": "commonjs",
   "scripts": {
     "dev": "ee-bin dev",

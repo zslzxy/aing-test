@@ -4,8 +4,9 @@
         <n-input-group class="mb-10">
             <n-input :placeholder="$t('搜索模型')" v-model:value="modelListFilterKey"></n-input>
         </n-input-group>
+        <n-scrollbar style="max-height: 350px;">
         <!-- 常用模型 -->
-        <template v-if="modelListSource['commonModelList'] && modelListSource['commonModelList'].length">
+        <template v-if="modelListSource['commonModelList'] && modelListSource['commonModelList'].length && !modelListFilterKey">
             <div class="common-use">
                 <div class="common-tit">{{ $t("常用模型") }}</div>
                 <div class="model-item" v-for="item in modelListSource['commonModelList']" :key="item.model"
@@ -25,22 +26,21 @@
         </template>
         <n-divider style="margin: 5px 0;"></n-divider>
         <!-- 模型列表 -->
-        <n-scrollbar style="max-height: 200px;">
-            <div v-for="(value, key) in showModelList" :key="key" class="model-category">
-                <div class="categort-name">
-                    <span class="name">{{ supplierCollection[key] ? supplierCollection[key] : key }}</span>
-                </div>
-                <div class="model-item" v-for="item in value" :key="item.model"
-                    @click="changeCurrentModel(item.model, item)">
-                    <div class="item-label">
-                        <span>{{ item.title }}</span>
-                        <n-tag v-for="cap in item.capability.filter((i: string) => ['vision', 'tools'].includes(i))"
-                            :key="cap" type="info" ghost>{{ cap }}</n-tag>
-                    </div>
-                    <i class="i-tdesign:check-circle w-16 h-16 text-[var(--bt-theme-color)]"
-                        v-if="item.title == showModel"></i>
-                </div>
+        <div v-for="(value, key) in showModelList" :key="key" class="model-category">
+            <div class="categort-name">
+                <span class="name">{{ key }}</span>
             </div>
+            <div class="model-item" v-for="item in value" :key="item.model"
+                @click="changeCurrentModel(item.model, item)">
+                <div class="item-label">
+                    <span>{{ item.title }}</span>
+                    <n-tag v-for="cap in item.capability.filter((i: string) => ['vision', 'tools'].includes(i))"
+                        :key="cap" type="info" ghost>{{ cap }}</n-tag>
+                </div>
+                <i class="i-tdesign:check-circle w-16 h-16 text-[var(--bt-theme-color)]"
+                    v-if="item.title == showModel"></i>
+            </div>
+        </div>
         </n-scrollbar>
     </n-card>
     <!-- </n-modal> -->

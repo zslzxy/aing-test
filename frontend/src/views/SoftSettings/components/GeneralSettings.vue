@@ -45,7 +45,6 @@
                         {{ $t("默认搜索引擎") }}
                     </div>
                     <n-select :options='[
-                        { label: $t("不联网"), value: "" },
                         { label: $t("百度"), value: "baidu" },
                         { label: $t("搜狗"), value: "sogou" },
                         { label: $t("360搜索"), value: "360" },

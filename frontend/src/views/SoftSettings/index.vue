@@ -1,6 +1,6 @@
 <template>
-	<n-modal v-model:show="softSettingsShow">
-		<n-card segmented title="软件设置" :style="{ width: 'auto' }">
+	<n-modal v-model:show="softSettingsShow" :mask-closable="false" :close-on-esc="false">
+		<n-card segmented title="软件设置" :style="{ width: 'auto' }" closable @close="closeSoftSettings">
 			<div class="soft-settings">
 				<div class="tabs">
 					<div class="tabs-item" :class="{ active: currentSettingTab == 'general' }"
@@ -13,11 +13,7 @@
 					<McpServer v-if="currentSettingTab == 'mcp'" />
 				</div>
 			</div>
-			<template #footer>
-				<div class="modal-footer-btns">
-					<n-button type="primary" @click="closeSoftSettings">确认</n-button>
-				</div>
-			</template>
+			
 		</n-card>
 	</n-modal>
 </template>

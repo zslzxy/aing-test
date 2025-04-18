@@ -16,7 +16,6 @@ const $t = i18n.global.t;
  * @description 打开软件设置弹窗
  */
 export function openSoftSettings() {
-	console.log(1)
 	const { softSettingsShow } = getSoftSettingsStoreData();
 	softSettingsShow.value = true;
 	/* const dialog = useDialog({
@@ -461,6 +460,8 @@ export async function handleDeleteMcpServer(name: string) {
 							message.success($t('操作成功'));
 							mcpServerFormShow.value = false;
 							mcpServerEditMode.value = false;
+							// 刷新对话框工具选择
+							getMcpServerListForChat()
 						} else {
 							message.error(res.msg!);
 						}
