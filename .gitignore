@@ -1,2 +1,4 @@
 .DS_Store
 lang.py
+yarn.lock
+node_modules
