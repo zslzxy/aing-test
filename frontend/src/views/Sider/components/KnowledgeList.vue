@@ -42,7 +42,6 @@ const options = [
         value: "optimization",
         label: $t("优化"),
         render(info: any) {
-            console.log(info)
             return <n-tooltip trigger="hover">
                 {
                     {

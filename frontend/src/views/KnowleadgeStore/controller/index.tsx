@@ -3,8 +3,7 @@ import { post, get } from '@/api';
 import { eventBUS } from '@/views/Home/utils/tools';
 import { sendLog } from '@/views/Home/controller';
 import { message, useDialog } from '@/utils/naive-tools';
-import type { ActiveKnowledgeDocDto, ActiveKnowledgeDto, KnowledgeDocumentInfo } from '@/views/Home/dto';
-import CreateKnowledgeStore from '../components/CreateKnowledgeStore.vue';
+import type { ActiveKnowledgeDocDto, ActiveKnowledgeDto, CreateKnowledgeFormData, KnowledgeDocumentInfo } from '@/views/Home/dto';
 import UploadKnowledgeDoc from '../components/UploadKnowledgeDoc.vue';
 import { NButton, NSpin } from 'naive-ui';
 import i18n from '@/lang';
@@ -93,64 +92,68 @@ export function knowledgeIsClose() {
 }
 
 /**
- * @description 新建知识库：点击按钮后续交互逻辑
+ * @description 新建知识库
  */
 export async function createNewKnowledgeStore() {
-	const { createKnowledgeModelRef, createKnowledgeFormData, createKnowledgeDialogIns, activeKnowledge, isInstalledBge, activeKnowledgeDto, knowledgeList } = getKnowledgeStoreData();
+	const { isInstalledBge, createKnowledgeShow } = getKnowledgeStoreData();
 	await ragStatus();
 	await getEmbeddingModels();
 	if (!isInstalledBge.value) {
 		installBge();
 		return;
 	}
-	// 重置表单
-	function resetForm() {
-		createKnowledgeModelRef.value.restoreValidation();
-		resetCreateKnowledgeFormData()
-		createKnowledgeDialogIns.value!.destroy();
+	createKnowledgeShow.value = true;
+}
+
+/**
+ * @description 取消新建知识库
+ */
+export function cancelCreateNewKnowledgeStore() {
+	const { createKnowledgeShow, isEditKnowledge } = getKnowledgeStoreData();
+	createKnowledgeShow.value = false;
+	isEditKnowledge.value = false;
+	resetForm();
+}
+
+/**
+ * @description 重置新建数据库表单
+ */
+export function resetForm() {
+	const { createKnowledgeModelRef } = getKnowledgeStoreData();
+	createKnowledgeModelRef.value.restoreValidation();
+	resetCreateKnowledgeFormData()
+}
+
+/**
+ * @description 确认新建知识库
+ */
+export async function confirmCreateNewKnowledgeStore() {
+	const { createKnowledgeModelRef, createKnowledgeFormData, activeKnowledge, activeKnowledgeDto, knowledgeList, createKnowledgeShow } = getKnowledgeStoreData();
+	const validRes = await createKnowledgeModelRef.value.validate();
+	if (!validRes) return;
+	// 创建知识库
+	try {
+		await createRag();
+		activeKnowledge.value = createKnowledgeFormData.value.ragName;
+		resetForm();
+		knowledgeIsOpen();
+		await getRagList();
+		activeKnowledgeDto.value = knowledgeList.value.find((item: any) => item.ragName == activeKnowledge.value) as ActiveKnowledgeDto;
+		await getRagDocList(activeKnowledge.value as string);
+		createKnowledgeShow.value = false;
+	} catch (error) {
+		sendLog(error as Error);
+		console.warn(error);
 	}
-	// 跳转知识库使用文档
-	function jumpToHelp() {
-		window.open('https://docs.aingdesk.com/zh-Hans/Practical-tutorials/knowledgebase');
-	}
-	createKnowledgeDialogIns.value = useDialog({
-		title: '新建知识库',
-		content: () => (
-			<div>
-				<CreateKnowledgeStore />
-				<div class="flex justify-start items-center">
-					<NButton text type="info" onClick={jumpToHelp} style="font-size:12px">
-						{' '}
-						{$t('如何更好的使用知识库?')}{' '}
-					</NButton>
-				</div>
-			</div>
-		),
-		style: {
-			width: '480px',
-		},
-		loading: true,
-		onCancel() {
-			resetForm();
-		},
-		onOk: async () => {
-			const validRes = await createKnowledgeModelRef.value.validate();
-			if (!validRes) return;
-			// 创建知识库
-			try {
-				await createRag();
-				activeKnowledge.value = createKnowledgeFormData.value.ragName;
-				resetForm();
-				knowledgeIsOpen();
-				await getRagList();
-				activeKnowledgeDto.value = knowledgeList.value.find((item: any) => item.ragName == activeKnowledge.value) as ActiveKnowledgeDto;
-				await getRagDocList(activeKnowledge.value as string);
-			} catch (error) {
-				sendLog(error as Error);
-				console.warn(error);
-			}
-		},
-	});
+}
+
+
+
+/**
+ * @description 跳转到知识库使用文档
+ */
+export function jumpToHelp() {
+	window.open('https://docs.aingdesk.com/zh-Hans/Practical-tutorials/knowledgebase');
 }
 
 /**
@@ -212,95 +215,62 @@ export async function getEmbeddingModels() {
 }
 
 /**
- * @description 提示安装bge,安装完成后继续创建新的知识库
+ * @description 接入第三方
  */
-export function installBge() {
-	const { isInstalledBge } = getKnowledgeStoreData();
+export function doThird() {
+	const { installEmbeddingModelShow } = getKnowledgeStoreData();
 	const { thirdPartyApiShow } = getThirdPartyApiStoreData();
+	thirdPartyApiShow.value = true;
+	installEmbeddingModelShow.value = false;
+}
+
+/**
+ * @description 知识库：本地模型教程
+ */
+export function localModelTutorial() {
+	window.open('https://docs.aingdesk.com/zh-Hans/guide/knowledgebase');
+}
+
+/**
+ * @description 安装bge-m3:latest的回调方法
+ */
+export async function installBedgeCallback() {
+	const { isInstalledBge, installEmbeddingModelShow } = getKnowledgeStoreData();
+	installEmbeddingModelShow.value = false
+	await installModel('bge-m3:latest', () => {
+		isInstalledBge.value = true;
+		createNewKnowledgeStore();
+	});
+}
+
+/**
+ * @description 立即安装本地知识库嵌套模型
+ */
+export async function installBgeNow() {
 	const { settingsShow } = getSettingsStoreData();
 	/**
 	 * @description 安装本地模型
 	 */
-	function doOllama() {
+	const { managerInstallConfirm } = getSettingsStoreData();
+	const res = await post('/manager/get_model_manager');
+	if (res.message.status == false) {
+		// 如果没有安装ollama就立即安装，并且注册bge安装的回调
+		managerInstallConfirm.value = true;
+		eventBUS.$on('ollamaInstallBge', installBedgeCallback);
+	} else {
+		// 如果已经安装了ollama，就直接跳转到设置页面并执行嵌套模型安装
 		settingsShow.value = true;
-		dialog.destroy();
+		installBedgeCallback();
 	}
+	return;
+}
 
-	/**
-	 * @description 接入第三方
-	 */
-	function doThird() {
-		thirdPartyApiShow.value = true;
-		dialog.destroy();
-	}
-	/**
-	 * @description 知识库：本地模型教程
-	 */
-	function localModelTutorial() {
-		window.open('https://docs.aingdesk.com/zh-Hans/guide/knowledgebase');
-	}
-
-	/**
-	 * @description 安装bge-m3:latest的回调方法
-	 */
-	async function installBedgeCallback() {
-		dialog.destroy();
-		await installModel('bge-m3:latest', () => {
-			isInstalledBge.value = true;
-			createNewKnowledgeStore();
-		});
-	}
-
-	/**
-	 * @description 立即安装本地知识库嵌套模型
-	 */
-	async function installBgeNow() {
-		const { managerInstallConfirm } = getSettingsStoreData();
-		const res = await post('/manager/get_model_manager');
-		if (res.message.status == false) {
-			// 如果没有安装ollama就立即安装，并且注册bge安装的回调
-			managerInstallConfirm.value = true;
-			eventBUS.$on('ollamaInstallBge', installBedgeCallback);
-		} else {
-			// 如果已经安装了ollama，就直接跳转到设置页面并执行嵌套模型安装
-			settingsShow.value = true;
-			installBedgeCallback();
-		}
-		return;
-	}
-	const dialog = useDialog({
-		title: $t('请安装或接入嵌入模型'),
-		selfClosable: true,
-		content: () => {
-			return (
-				<div class="flex flex-col items-start justify-center gap-2.5 mt-20">
-					<div class="w-100%">
-						<span>{$t('请选择从Ollama安装-Embedding-安装bge-m3:latest')}</span>
-						<NButton type="primary" class="w-100%" onClick={installBgeNow}>
-							{$t('使用本地模型嵌入（推荐）')}
-						</NButton>
-					</div>
-					<div class="w-100%">
-						<span>{$t('请选择接入第三方模型,接入支持Embedding三方API,如硅基流动')}</span>
-						<NButton type="primary" ghost class="w-100%" onClick={doThird}>
-							{$t('使用第三方API提供模型嵌入')}
-						</NButton>
-					</div>
-					<div class="flex justify-center w-100%">
-						<span class="cursor-pointer underline text-green-5" onClick={localModelTutorial}>
-							{$t('查看知识库教程')}
-						</span>
-					</div>
-				</div>
-			);
-		},
-		action: () => {
-			return <></>;
-		},
-		style: {
-			width: '460px',
-		},
-	});
+/**
+ * @description 提示安装bge,安装完成后继续创建新的知识库
+ */
+export function installBge() {
+	const { installEmbeddingModelShow } = getKnowledgeStoreData();
+	installEmbeddingModelShow.value = true;
 }
 
 /**
@@ -344,34 +314,31 @@ export async function getRagList(init: boolean = false) {
  * @description 删除知识库询问
  */
 export function removeRagConfirm(ragName: string) {
-	const { knowledgeList, knowledgeSiderWidth } = getKnowledgeStoreData();
-	const dialog = useDialog({
-		title: '提示',
-		content: () => {
-			return (
-				<div class="flex items-center justify-center">
-					<div class="box-border p-5 flex justify-center items-center gap-1.25 mt-20">
-						<i class="i-jam:alert-f w-24 h-24 text-[#E6A23C]"></i>
-						<span>{$t('是否确认删除知识库{0}及其下的所有文档？该操作不可逆', [ragName])}</span>
-					</div>
-				</div>
-			);
-		},
-		style: {
-			width: '500px',
-		},
-		onOk: async () => {
-			await removeRag(ragName);
-			dialog.destroy();
-			if (knowledgeList.value.length == 0) {
-				knowledgeSiderWidth.value = 0;
-			}
-		},
-		onCancel: () => {
-			dialog.destroy();
-		},
-	});
+	const { deleteKnowledgeName, deleteKnowledgeShow } = getKnowledgeStoreData();
+	deleteKnowledgeShow.value = true;
+	deleteKnowledgeName.value = ragName;
 }
+
+/**
+ * @description 取消删除知识库
+ */
+export function cancelRemoveRagConfirm() {
+	const { deleteKnowledgeShow } = getKnowledgeStoreData();
+	deleteKnowledgeShow.value = false;
+}
+
+/**
+ * @description 确认删除知识库
+ */
+export async function confirmRemoveRagConfirm() {
+	const { deleteKnowledgeName, deleteKnowledgeShow, knowledgeList, knowledgeSiderWidth } = getKnowledgeStoreData();
+	await removeRag(deleteKnowledgeName.value);
+	deleteKnowledgeShow.value = false;
+	if (knowledgeList.value.length == 0) {
+		knowledgeSiderWidth.value = 0;
+	}
+}
+
 
 /***
  * @description 删除知识库
@@ -410,71 +377,67 @@ function resetCreateKnowledgeFormData() {
 /**
  * @description 修改知识库
  */
-export async function modifyRag() {
-	const { createKnowledgeFormData, isEditKnowledge } = getKnowledgeStoreData();
-	await getEmbeddingModels();
-	const dialog = useDialog({
-		title: '修改知识库',
-		content: () => <CreateKnowledgeStore disabledKey="ragName" />,
-		style: {
-			width: '480px',
-		},
-		onOk: async () => {
-			try {
-				await post('/rag/modify_rag', createKnowledgeFormData.value);
-				await getRagList();
-				message.success($t('修改知识库成功'));
-				dialog.destroy();
-				isEditKnowledge.value = false;
-				resetCreateKnowledgeFormData()
-			} catch (error) {
-				sendLog(error as Error);
-				message.error($t('修改知识库失败，请重试'));
-			}
-		},
-		onCancel: () => {
-			dialog.destroy();
-			isEditKnowledge.value = false;
-			resetCreateKnowledgeFormData()
-		},
-	});
+export function modifyRag(knowledgeInfo: CreateKnowledgeFormData) {
+	const { createKnowledgeFormData, isEditKnowledge, createKnowledgeShow } = getKnowledgeStoreData();
+	isEditKnowledge.value = true
+	createKnowledgeFormData.value.enbeddingModel = knowledgeInfo.embeddingModel
+	createKnowledgeFormData.value.ragName = knowledgeInfo.ragName
+	createKnowledgeFormData.value.ragDesc = knowledgeInfo.ragDesc
+	createKnowledgeFormData.value.supplierName = knowledgeInfo.supplierName
+	createKnowledgeFormData.value.maxRecall = knowledgeInfo.maxRecall
+	createKnowledgeShow.value = true
+}
+
+/**
+ * @description 确认修改知识库
+ */
+export async function confirmModifyRag() {
+	const { createKnowledgeShow, createKnowledgeFormData, isEditKnowledge } = getKnowledgeStoreData();
+	try {
+		await post('/rag/modify_rag', createKnowledgeFormData.value);
+		await getRagList();
+		message.success($t('修改知识库成功'));
+		createKnowledgeShow.value = false;
+		isEditKnowledge.value = false;
+		resetCreateKnowledgeFormData()
+	} catch (error) {
+		sendLog(error as Error);
+		message.error($t('修改知识库失败，请重试'));
+	}
 }
 
 /**
  * @description 删除知识库文档：弹窗
  */
 export function delKnowledgeDoc(doc: any) {
-	const { activeKnowledge } = getKnowledgeStoreData();
-	const dialog = useDialog({
-		title: $t('提示'),
-		content: () => {
-			return (
-				<div class="flex items-center justify-center">
-					<div class="box-border p-5 flex justify-center items-center gap-1.25 mt-20">
-						<i class="i-jam:alert-f w-24 h-24 text-[#E6A23C]"></i>
-						<span>{$t('是否确认删除文档{0}？该操作不可逆', [doc.doc_name])}</span>
-					</div>
-				</div>
-			);
-		},
-		style: {
-			width: '480px',
-		},
+	const { deleteKnowledgeDoc, deleteKnowledgeDocShow } = getKnowledgeStoreData();
+	deleteKnowledgeDocShow.value = true;
+	deleteKnowledgeDoc.value = doc;
 
-		onOk: async () => {
-			try {
-				await removeDoc(doc);
-				message.success($t('文档删除成功'));
-				await getRagDocList(activeKnowledge.value as string);
-				dialog.destroy();
-			} catch (error) {
-				message.success($t('文档删除失败'));
-			}
-		},
-		onCancel() {
-			dialog.destroy();
-		},
-	});
+}
+
+/**
+ * @description 取消删除知识库文档
+ */
+export function cancelDelKnowledgeDoc() {
+	const { deleteKnowledgeDocShow } = getKnowledgeStoreData();
+	deleteKnowledgeDocShow.value = false;
+}
+
+/**
+ * @description 确认删除知识库文档
+ */
+export async function confirmDelKnowledgeDoc() {
+	const { deleteKnowledgeDoc, activeKnowledge, deleteKnowledgeDocShow } = getKnowledgeStoreData();
+	try {
+		await removeDoc(deleteKnowledgeDoc.value);
+		message.success($t('文档删除成功'));
+		await getRagDocList(activeKnowledge.value as string);
+		cancelDelKnowledgeDoc()
+		deleteKnowledgeDocShow.value = false;
+	} catch (error) {
+		message.success($t('文档删除失败'));
+	}
 }
 
 /**
@@ -503,65 +466,107 @@ export async function getDocContent(doc: ActiveKnowledgeDocDto) {
 }
 
 /**
- * @description 上传知识库文档:打开弹窗
+ * @description 取消上传文档
+ */
+export async function doCancel() {
+	const { fileOrDirList, chooseList, isUploadingDoc, knowledgeUploadDocShow } = getKnowledgeStoreData();
+	fileOrDirList.value = [];
+	chooseList.value = [];
+	isUploadingDoc.value = false;
+	knowledgeUploadDocShow.value = false;
+}
+
+/**
+ * @description 继续上传文档
+ */
+export async function uploadAhead() {
+	eventBUS.$emit('chooseFile');
+}
+
+/***
+ * @description 确认上传文档
+ */
+export async function doOk() {
+	const { isUploadingDoc } = getKnowledgeStoreData();
+	try {
+		isUploadingDoc.value = true;
+		await uploadRagDocForManual();
+		doCancel()
+		ragDocLoop();
+	} catch (error) {
+		sendLog(error as Error);
+		isUploadingDoc.value = false;
+	}
+}
+
+/**
+ * @description 上传知识库文档：打开弹窗
  */
 export async function openDocUploadDialog() {
-	const { fileOrDirList, chooseList, isUploadingDoc } = getKnowledgeStoreData();
-	async function doOk() {
-		try {
-			isUploadingDoc.value = true;
-			await uploadRagDocForManual();
-			isUploadingDoc.value = false;
-			fileOrDirList.value = [];
-			chooseList.value = [];
-			dialog.destroy();
-			ragDocLoop();
-		} catch (error) {
-			sendLog(error as Error);
-			isUploadingDoc.value = false;
-		}
-	}
-	async function doCancel() {
-		fileOrDirList.value = [];
-		chooseList.value = [];
-		isUploadingDoc.value = false;
-		dialog.destroy();
-	}
-	async function uploadAhead() {
-		eventBUS.$emit('chooseFile');
-	}
-	const dialog = useDialog({
-		title: $t('上传知识库文档'),
-		content: () => (
-			<NSpin show={isUploadingDoc.value}>
-				{{
-					default: () => <UploadKnowledgeDoc />,
-					description: () => <span>{$t('正在解析文档，这可能要几分钟时间...')}</span>,
-				}}
-			</NSpin>
-		),
-		style: {
-			width: '580px',
-		},
-		action: () => {
-			return (
-				<div class="flex justify-end items-center gap-5">
-					<NButton onClick={doCancel} disabled={isUploadingDoc.value ? true : false}>
-						{$t('取消')}
-					</NButton>
-					{fileOrDirList.value.length ? (
-						<NButton onClick={uploadAhead} disabled={isUploadingDoc.value ? true : false}>
-							{$t('继续添加文件')}
-						</NButton>
-					) : null}
-					<NButton type="primary" onClick={doOk} disabled={isUploadingDoc.value || fileOrDirList.value.length == 0 ? true : false}>
-						{$t('确认')}
-					</NButton>
-				</div>
-			);
-		},
-	});
+	const { knowledgeUploadDocShow } = getKnowledgeStoreData();
+	knowledgeUploadDocShow.value = true;
 }
+
+// /**
+//  * @description 上传知识库文档:打开弹窗
+//  */
+// export async function openDocUploadDialogBak() {
+// 	const { fileOrDirList, chooseList, isUploadingDoc } = getKnowledgeStoreData();
+// 	async function doOk() {
+// 		try {
+// 			isUploadingDoc.value = true;
+// 			await uploadRagDocForManual();
+// 			isUploadingDoc.value = false;
+// 			fileOrDirList.value = [];
+// 			chooseList.value = [];
+// 			dialog.destroy();
+// 			ragDocLoop();
+// 		} catch (error) {
+// 			sendLog(error as Error);
+// 			isUploadingDoc.value = false;
+// 		}
+// 	}
+// 	async function doCancel() {
+// 		fileOrDirList.value = [];
+// 		chooseList.value = [];
+// 		isUploadingDoc.value = false;
+// 		dialog.destroy();
+// 	}
+// 	async function uploadAhead() {
+// 		eventBUS.$emit('chooseFile');
+// 	}
+// 	const dialog = useDialog({
+// 		title: $t('上传知识库文档'),
+// 		content: () => (
+// 			<NSpin show={isUploadingDoc.value}>
+// 				{{
+// 					default: () => <UploadKnowledgeDoc />,
+// 					description: () => <span>{$t('正在解析文档，这可能要几分钟时间...')}</span>,
+// 				}}
+// 			</NSpin>
+// 		),
+// 		style: {
+// 			width: '580px',
+// 		},
+// 		action: () => {
+// 			return (
+// 				<div class="flex justify-end items-center gap-5">
+// 					<NButton onClick={doCancel} disabled={isUploadingDoc.value ? true : false}>
+// 						{$t('取消')}
+// 					</NButton>
+// 					{fileOrDirList.value.length ? (
+// 						<NButton onClick={uploadAhead} disabled={isUploadingDoc.value ? true : false}>
+// 							{$t('继续添加文件')}
+// 						</NButton>
+// 					) : null}
+// 					<NButton type="primary" onClick={doOk} disabled={isUploadingDoc.value || fileOrDirList.value.length == 0 ? true : false}>
+// 						{$t('确认')}
+// 					</NButton>
+// 				</div>
+// 			);
+// 		},
+// 	});
+// }
 
 /**
  * @description 上传知识库文档：手动上传

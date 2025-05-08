@@ -17,7 +17,7 @@
                         <NButton @click="choosePicVisible = true">{{
                             createAgentFormData.icon ? createAgentFormData.icon : $t("请选择") }}</NButton>
                     </template>
-                    <EmojiPicker @select="choosePic" />
+                    <EmojiPicker @select="choosePic" :native="true"/>
                 </NPopover>
             </NFormItem>
         </NForm>

@@ -280,23 +280,14 @@ export function doChatDel(contextId: string) {
  * @description 知识库操作
  */
 export function dealPopOperation(val: string, knowledge: any) {
-    const { isEditKnowledge, createKnowledgeFormData } = getKnowledgeStoreData()
     if (val == "delChat") {
         removeRagConfirm(knowledge.ragName)
     } else if (val == "modifyTitle") {
-        isEditKnowledge.value = true
-        createKnowledgeFormData.value.enbeddingModel =  knowledge.embeddingModel
-        createKnowledgeFormData.value.ragName = knowledge.ragName
-        createKnowledgeFormData.value.ragDesc = knowledge.ragDesc
-        createKnowledgeFormData.value.supplierName = knowledge.supplierName
-        createKnowledgeFormData.value.maxRecall = knowledge.maxRecall
-        modifyRag()
+        modifyRag(knowledge)
     } else if (val == "optimization") {
         optimizeTable(knowledge.ragName)
     }
 }
-
-
 
 
 /**

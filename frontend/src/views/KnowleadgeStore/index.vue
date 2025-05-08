@@ -85,7 +85,7 @@
                                         {{ $t("已嵌入完成, 可正常调用") }}</div>
                                     <div class="text-[var(--bt-theme-danger)]" v-else-if="item.is_parsed == -1">{{
                                         $t("文档解析失败")
-                                    }}</div>
+                                        }}</div>
                                     <div class="text-[var(--bt-theme-info)]" v-else-if="item.is_parsed == 2">{{
                                         $t("文档解析成功,等待嵌入,等待时长视文件数量，这可能需要几分钟到十几分钟") }}</div>
                                     <div class="text-[var(--bt-theme-warning)]" v-else-if="item.is_parsed == 0">
@@ -103,7 +103,6 @@
     </div>
 
     <!-- 文档选择中后弹窗设置分片规则 -->
-    <!-- 临时：新建知识库 -->
     <NModal v-model:show="sliceRuleShow">
         <NCard style="width:900px" :title="$t('文档分片设置')" segmented>
             <KnowledgeDocGeneralConfig />
@@ -114,9 +113,29 @@
             </template>
         </NCard>
     </NModal>
+
+    <!-- 新建知识库 -->
+    <CreateKnowledgeStore />
+
+    <!-- 安装嵌套模型 -->
+    <InstallEmbedding />
+
+    <!-- 删除知识库问询 -->
+    <DelKnowledgeConfirm />
+
+    <!-- 删除知识库文档闻讯 -->
+    <DelKnowledgeDocConfirm />
+
+    <!-- 知识库上传文档 -->
+    <UploadKnowledgeDoc />
 </template>
 
 <script setup lang="ts">
+import UploadKnowledgeDoc from './components/UploadKnowledgeDoc.vue';
+import DelKnowledgeDocConfirm from './components/DelKnowledgeDocConfirm.vue';
+import DelKnowledgeConfirm from './components/DelKnowledgeConfirm.vue';
+import InstallEmbedding from './components/InstallEmbedding.vue';
+import CreateKnowledgeStore from './components/CreateKnowledgeStore.vue';
 import KnowledgeDocGeneralConfig from './components/KnowledgeDocGeneralConfig.vue';
 import { NDivider, NTooltip, NPopover, NButton, NScrollbar, NCard, NModal } from 'naive-ui';
 import { isoToLocalDateTime } from '@/utils/tools';

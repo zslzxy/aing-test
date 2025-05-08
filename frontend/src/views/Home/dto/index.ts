@@ -150,7 +150,7 @@ export type CreateKnowledgeFormData = {
     ragName: string,
     ragDesc: string,
     supplierName?: string,
-    enbeddingModel: string | string[],
+    embeddingModel: string | string[],
     searchStrategy?: number,
     maxRecall?: number,
     recallAccuracy?: number,

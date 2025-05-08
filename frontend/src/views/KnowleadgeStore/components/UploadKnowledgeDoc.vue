@@ -1,42 +1,57 @@
 <template>
-    <div class="upload-wrapper">
-        <div class="mode-choose" v-if="chooseList.length == 0">
-            <n-radio-group v-model:value="uploadMode">
-                <n-radio value="file">{{ $t("上传文件") }}</n-radio>
-                <n-radio value="dir">{{ $t("上传文件夹") }}</n-radio>
-            </n-radio-group>
-        </div>
-        <div :class="['upload-area-wrapper', { 'wait': chooseList.length == 0 }]">
-            <input type="file" @change="handleFileChange" multiple :webkitdirectory="uploadMode == 'dir'"
-                ref="fileUpload" style="display: none" :accept="acceptFileType" />
-            <div class="upload-area" v-if="chooseList.length == 0" @click="chooseFiles" ref="dragAreaRef">
-                <i class="i-tdesign:folder-add w-40 h-40"></i>
-                <n-button type="primary">{{ $t("点击上传") }}</n-button>
-                <div class="text-[#909399] flex justify-center flex-col px-5">
-                    {{ $t("文件支持类型") }}:
-                    <div class="flex flex-wrap">
-                        <span v-for="item in fileType" :key="item" type="default" style="margin:0 5px">.{{ item
-                            }}</span>
+    <n-modal :close-on-esc="false" :mask-closable="false" :title="$t('上传知识库文档')" v-model:show="knowledgeUploadDocShow" preset="card" class="w-580px">
+        <n-spin :description="$t('正在解析文档，这可能要几分钟时间...')" v-model:show="isUploadingDoc">
+            <div class="upload-wrapper">
+                <div class="mode-choose" v-if="chooseList.length == 0">
+                    <n-radio-group v-model:value="uploadMode">
+                        <n-radio value="file">{{ $t("上传文件") }}</n-radio>
+                        <n-radio value="dir">{{ $t("上传文件夹") }}</n-radio>
+                    </n-radio-group>
+                </div>
+                <div :class="['upload-area-wrapper', { 'wait': chooseList.length == 0 }]">
+                    <input type="file" @change="handleFileChange" multiple :webkitdirectory="uploadMode == 'dir'"
+                        ref="fileUpload" style="display: none" :accept="acceptFileType" />
+                    <div class="upload-area" v-if="chooseList.length == 0" @click="chooseFiles" ref="dragAreaRef">
+                        <i class="i-tdesign:folder-add w-40 h-40"></i>
+                        <n-button type="primary">{{ $t("点击上传") }}</n-button>
+                        <div class="text-[#909399] flex justify-center flex-col px-5">
+                            {{ $t("文件支持类型") }}:
+                            <div class="flex flex-wrap">
+                                <span v-for="item in fileType" :key="item" type="default" style="margin:0 5px">.{{ item
+                                    }}</span>
+                            </div>
+                        </div>
                     </div>
+
+                    <n-scrollbar style="min-height: 200px; max-height: 600px;" v-else>
+                        <n-button @click="sliceSettings" type="info" size="small">{{ $t("文档分片设置") }}</n-button>
+                        <n-list hoverable>
+                            <n-list-item v-for="item in chooseList" :key="item">
+                                <div class="file-list-item">
+                                    <span>{{ item.name }}</span>
+                                    <i class="i-ri:close-circle-line w-20 h-20 text-[#909399]"
+                                        @click="removeFile(item)"></i>
+                                </div>
+                            </n-list-item>
+                        </n-list>
+                    </n-scrollbar>
                 </div>
             </div>
+        </n-spin>
 
-            <n-scrollbar style="min-height: 200px; max-height: 600px;" v-else>
-                <n-button @click="sliceSettings" type="info" size="small">{{ $t("文档分片设置") }}</n-button>
-                <n-list hoverable>
-                    <n-list-item v-for="item in chooseList" :key="item">
-                        <div class="file-list-item">
-                            <span>{{ item.name }}</span>
-                            <i class="i-ri:close-circle-line w-20 h-20 text-[#909399]" @click="removeFile(item)"></i>
-                        </div>
-                    </n-list-item>
-                </n-list>
-            </n-scrollbar>
-        </div>
-    </div>
+        <template #footer>
+            <div class="modal-footer-btns">
+                <n-button :disabled="isUploadingDoc" @click="doCancel">{{ $t('取消') }}</n-button>
+                <n-button :disabled="isUploadingDoc" type="info" @click="uploadAhead" v-if="fileOrDirList.length">{{ $t('继续添加文件') }}</n-button>
+                <n-button :disabled="isUploadingDoc || fileOrDirList.length == 0" type="primary"
+                    @click="doOk">{{ $t('确认') }}</n-button>
+            </div>
+        </template>
+    </n-modal>
 </template>
 
 <script setup lang="ts">
+import { doCancel, uploadAhead, doOk } from "../controller"
 import { getKnowledgeStoreData } from '../store';
 import { eventBUS } from '@/views/Home/utils/tools';
 const fileUpload = ref<HTMLInputElement>()
@@ -46,7 +61,9 @@ const {
     chooseList,
     sliceRuleShow,
     slicePreviewList,
-    sliceChunkFormData
+    sliceChunkFormData,
+    isUploadingDoc,
+    knowledgeUploadDocShow
 } = getKnowledgeStoreData();
 import i18n from '@/lang';
 import { testChunk } from '@/views/KnowleadgeStore/controller';

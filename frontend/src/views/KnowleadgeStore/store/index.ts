@@ -8,6 +8,8 @@ const useKnowledgeStore = defineStore("knowledgeStore", () => {
     const knowledgeList = ref<Array<KnowledgeDocumentInfo>>([])
     // 当前正在新增知识库（input出现）
     const addingKnowledge = ref(false)
+    // 新建知识库弹窗
+    const createKnowledgeShow = ref(false)
     // 新建知识库的数据体
     const createKnowledgeFormData = ref<any>({
         ragName: "",
@@ -16,18 +18,30 @@ const useKnowledgeStore = defineStore("knowledgeStore", () => {
         supplierName: "",
         maxRecall: 5,
     })
+    // 安装嵌入模型弹窗
+    const installEmbeddingModelShow = ref(false)
     // 是否正在编辑知识库
     const isEditKnowledge = ref(false)
     // 新建知识库的弹窗ref
     const createKnowledgeModelRef = ref()
     // 新建知识库的弹窗实例
     const createKnowledgeDialogIns = ref<DialogReactive>()
+    // 删除知识库的问询
+    const deleteKnowledgeShow = ref(false)
+    // 等待删除的知识库
+    const deleteKnowledgeName = ref<string>("")
+    // 删除知识库文档的问询
+    const deleteKnowledgeDocShow = ref(false)
+    // 当前等待删除的知识库文档
+    const deleteKnowledgeDoc = ref<ActiveKnowledgeDocDto>()
     // 当前激活的知识库
     const activeKnowledge = ref<string | null>(null)
     // 当前激活的知识库的实体
     const activeKnowledgeDto = ref<ActiveKnowledgeDto | null>(null)
     // 知识库拖拽上传
     const knowledgeDragable = ref(false)
+    // 知识库上传文档弹窗
+    const knowledgeUploadDocShow = ref(false)
     // 等待上传的文档集合
     const knowledgeDocFileList = ref([])
     // 等待上传的目录集合
@@ -97,9 +111,16 @@ const useKnowledgeStore = defineStore("knowledgeStore", () => {
         docContent,
         knowledgeSiderWidth,
         isInstalledBge,
-        embeddingModelsList,    
+        embeddingModelsList,
         customSeparators,
-        optimizeKnowledgeShow
+        optimizeKnowledgeShow,
+        createKnowledgeShow,
+        installEmbeddingModelShow,
+        deleteKnowledgeShow,
+        deleteKnowledgeName,
+        deleteKnowledgeDocShow,
+        deleteKnowledgeDoc,
+        knowledgeUploadDocShow
     }
 })
 
