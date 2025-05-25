@@ -1,166 +1,167 @@
 import fs from 'fs';
 import path from 'path';
-import { app as electronApp, dialog, shell } from 'electron';
-import { windowService } from '../service/os/window';
+import os from 'os';
+import { pub } from '../class/public';
 
 /**
- * example
+ * OS Controller for Node.js backend - Electron-specific features removed
  * @class
  */
 class OsController {
 
   /**
-   * All methods receive two parameters
-   * @param args Parameters transmitted by the frontend
-   * @param event - Event are only available during IPC communication. For details, please refer to the controller documentation
+   * Get system information
    */
-
-  /**
-   * Message prompt dialog box
-   */
-  messageShow(): string {
-    dialog.showMessageBoxSync({
-      type: 'info', // "none", "info", "error", "question" 或者 "warning"
-      title: 'Custom Title',
-      message: 'Customize message content',
-      detail: 'Other additional information'
-    })
-  
-    return 'Opened the message box';
-  }
-
-  /**
-   * Message prompt and confirmation dialog box
-   */
-  messageShowConfirm(): string {
-    const res = dialog.showMessageBoxSync({
-      type: 'info',
-      title: 'Custom Title',
-      message: 'Customize message content',
-      detail: 'Other additional information',
-      cancelId: 1, // Index of buttons used to cancel dialog boxes
-      defaultId: 0, // Set default selected button
-      buttons: ['confirm', 'cancel'], 
-    })
-    let data = (res === 0) ? 'click the confirm button' : 'click the cancel button';
-  
-    return data;
-  }
-
-  /**
-   * Select Directory
-   */
-  selectFolder() {
-    const filePaths = dialog.showOpenDialogSync({
-      properties: ['openDirectory', 'createDirectory']
+  getSystemInfo(): any {
+    return pub.return_success('获取系统信息成功', {
+      platform: os.platform(),
+      arch: os.arch(),
+      release: os.release(),
+      hostname: os.hostname(),
+      cpus: os.cpus().length,
+      totalMemory: os.totalmem(),
+      freeMemory: os.freemem(),
+      uptime: os.uptime()
     });
-
-    if (!filePaths) {
-      return ""
-    }
-
-    return filePaths[0];
-  } 
-
-  /**
-   * open directory
-   */
-  openDirectory(args: { id: any }): boolean {
-    const { id } = args;
-    if (!id) {
-      return false;
-    }
-    let dir = '';
-    if (path.isAbsolute(id)) {
-      dir = id;
-    } else {
-      dir = electronApp.getPath(id);
-    }
-
-    shell.openPath(dir);
-    return true;
   }
 
   /**
-   * Select Picture
+   * Check if directory exists
    */
-  selectPic(): string | null {
-    const filePaths = dialog.showOpenDialogSync({
-      title: 'select pic',
-      properties: ['openFile'],
-      filters: [
-        { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-      ]
-    });
-    if (!filePaths) {
-      return null
+  checkDirectory(args: { path: string }): any {
+    const { path: dirPath } = args;
+    if (!dirPath) {
+      return pub.return_error('请提供目录路径');
+    }
+
+    try {
+      const exists = fs.existsSync(dirPath);
+      const isDirectory = exists ? fs.statSync(dirPath).isDirectory() : false;
+      
+      return pub.return_success('检查完成', {
+        exists,
+        isDirectory,
+        path: dirPath
+      });
+    } catch (error) {
+      return pub.return_error('检查目录时出错', error);
+    }
+  }
+
+  /**
+   * Read file as base64 (for images)
+   */
+  readFileAsBase64(args: { filePath: string; mimeType?: string }): any {
+    const { filePath, mimeType = 'image/jpeg' } = args;
+    
+    if (!filePath) {
+      return pub.return_error('请提供文件路径');
+    }
+
+    if (!fs.existsSync(filePath)) {
+      return pub.return_error('文件不存在');
     }
     
     try {
-      const data = fs.readFileSync(filePaths[0]);
-      const pic =  'data:image/jpeg;base64,' + data.toString('base64');
-      return pic;
-    } catch (err) {
-      console.error(err);
-      return null;
+      const data = fs.readFileSync(filePath);
+      const base64 = `data:${mimeType};base64,` + data.toString('base64');
+      
+      return pub.return_success('读取文件成功', {
+        base64,
+        size: data.length,
+        path: filePath
+      });
+    } catch (error) {
+      return pub.return_error('读取文件时出错', error);
     }
-  }   
-
-  /**
-   * Open a new window
-   */
-  createWindow(args: any): any {
-    const wcid = windowService.createWindow(args);
-    return wcid;
-  }
-  
-  /**
-   * Get Window contents id
-   */
-  getWCid(args: any): any {
-    const wcid = windowService.getWCid(args);
-    return wcid;
   }
 
   /**
-   * Realize communication between two windows through the transfer of the main process
+   * Get directory contents
    */
-  window1ToWindow2(args: any): void {
-    windowService.communicate(args);
-    return;
+  getDirectoryContents(args: { dirPath: string }): any {
+    const { dirPath } = args;
+    
+    if (!dirPath) {
+      return pub.return_error('请提供目录路径');
+    }
+
+    if (!fs.existsSync(dirPath)) {
+      return pub.return_error('目录不存在');
+    }
+
+    try {
+      const items = fs.readdirSync(dirPath).map(item => {
+        const itemPath = path.join(dirPath, item);
+        const stats = fs.statSync(itemPath);
+        
+        return {
+          name: item,
+          path: itemPath,
+          isDirectory: stats.isDirectory(),
+          isFile: stats.isFile(),
+          size: stats.size,
+          modified: stats.mtime
+        };
+      });
+
+      return pub.return_success('获取目录内容成功', {
+        path: dirPath,
+        items
+      });
+    } catch (error) {
+      return pub.return_error('读取目录时出错', error);
+    }
   }
 
   /**
-   * Realize communication between two windows through the transfer of the main process
+   * Create directory
    */
-  window2ToWindow1(args: any): void {
-    windowService.communicate(args);
-    return;
+  createDirectory(args: { dirPath: string }): any {
+    const { dirPath } = args;
+    
+    if (!dirPath) {
+      return pub.return_error('请提供目录路径');
+    }
+
+    try {
+      fs.mkdirSync(dirPath, { recursive: true });
+      return pub.return_success('创建目录成功', { path: dirPath });
+    } catch (error) {
+      return pub.return_error('创建目录时出错', error);
+    }
   }
 
   /**
-   * Create system notifications
+   * Get file stats
    */
-  sendNotification(args: { title?: string; subtitle?: string; body?: string; silent?: boolean }, event: any): boolean {
-    const { title, subtitle, body, silent} = args;
+  getFileStats(args: { filePath: string }): any {
+    const { filePath } = args;
+    
+    if (!filePath) {
+      return pub.return_error('请提供文件路径');
+    }
 
-    const options: any = {};
-    if (title) {
-      options.title = title;
+    if (!fs.existsSync(filePath)) {
+      return pub.return_error('文件不存在');
     }
-    if (subtitle) {
-      options.subtitle = subtitle;
-    }
-    if (body) {
-      options.body = body;
-    }
-    if (silent !== undefined) {
-      options.silent = silent;
-    }
-    windowService.createNotification(options, event);
 
-    return true
-  }   
+    try {
+      const stats = fs.statSync(filePath);
+      
+      return pub.return_success('获取文件信息成功', {
+        path: filePath,
+        size: stats.size,
+        isFile: stats.isFile(),
+        isDirectory: stats.isDirectory(),
+        created: stats.birthtime,
+        modified: stats.mtime,
+        accessed: stats.atime
+      });
+    } catch (error) {
+      return pub.return_error('获取文件信息时出错', error);
+    }
+  }
 }
 OsController.toString = () => '[class OsController]';
 

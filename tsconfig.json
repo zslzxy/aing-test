@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2024",
-    "module": "commonjs",
+    "module": "Node16",
     "useDefineForClassFields": true,
     "skipLibCheck": true,
     "types": ["node"],
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Bundler mode */
-    "moduleResolution": "node16", // node
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "isolatedModules": true,
 
@@ -21,12 +22,30 @@
     "noFallthroughCasesInSwitch": false,
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./",
-    "outDir": "./public/electron/",
+    "outDir": "./dist/",
+    "declaration": true,
+    "sourceMap": true
   },
   "include": [
-    "./electron/**/*"
+    "./server.ts",
+    "./electron/controller/**/*",
+    "./electron/service/**/*",
+    "./electron/rag/**/*",
+    "./electron/model_engines/**/*",
+    "./electron/search_engines/**/*",
+    "./electron/class/**/*",
+    "./electron/config/**/*"
   ],
   "exclude": [
     "node_modules/**/*",
+    "frontend/**/*",
+    "dist/**/*",
+    "public/**/*",
+    "electron/preload/**/*",
+    "electron/service/os/**/*",
+    "electron/service/os_backup/**/*",
+    "electron/rag/doc_engins/doc.test.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

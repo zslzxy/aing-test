@@ -1,0 +1,463 @@
+{
+    "mcpServers": {
+        "postgres": {
+            "name": "PostgreSQL",
+            "description": "PostgreSQL server for ModelContext Protocol.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-postgres",
+                "postgresql://<user>:<password>@<host>/<table>"
+            ],
+            "env": {}
+        },
+        "github": {
+            "name": "GitHub",
+            "description": "GitHub server for ModelContext Protocol.",
+            "command": "npx",
+            "type": "stdio",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>"
+            }
+        },
+        "amap-maps": {
+            "name": "高德地图",
+            "description": "高德地图官方 MCP Server",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@amap/amap-maps-mcp-server"
+            ],
+            "env": {
+                "AMAP_MAPS_API_KEY": "您在高德官网上申请的key"
+            }
+        },
+        "baidu-map": {
+            "name": "百度地图",
+            "description": "百度地图官方 MCP Server",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@baidumap/mcp-server-baidu-map"
+            ],
+            "env": {
+                "BAIDU_MAP_API_KEY": "xxx"
+            }
+        },
+        "tencent-map": {
+            "name": "腾讯地图",
+            "description": "腾讯地图官方 MCP Server",
+            "type": "sse",
+            "command": "",
+            "baseUrl": "https://mcp.map.qq.com/sse?key=your_key",
+            "args": [],
+            "env": {}
+        },
+        "playwright": {
+            "name": "Playwright",
+            "description": "A Model Context Protocol (MCP) server that provides browser automation capabilities using Playwright. This server enables LLMs to interact with web pages through structured accessibility snapshots, bypassing the need for screenshots or visually-tuned models.",
+            "type": "stdio",
+            "baseUrl": "",
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest"
+            ],
+            "env": {}
+        },
+        "redis": {
+            "name": "Redis",
+            "description": "A Model Context Protocol server that provides access to Redis databases. This server enables LLMs to interact with Redis key-value stores through a set of standardized tools.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-redis",
+                "redis://localhost:6379"
+            ],
+            "env": {}
+        },
+        "filesystem": {
+            "name": "FileSystem",
+            "description": "Node.js server implementing Model Context Protocol (MCP) for filesystem operations.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/Users/username/Desktop",
+                "/path/to/other/allowed/dir"
+            ],
+            "env": {}
+        },
+        "edgeone-pages": {
+            "name": "Tencent EdgeOne Pages",
+            "description": "EdgeOne Pages server for ModelContext Protocol.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "edgeone-pages-mcp"
+            ],
+            "env": {}
+        },
+        "gitlab": {
+            "name": "GitLab",
+            "description": "GitLab API, enabling project management",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-gitlab"
+            ],
+            "env": {
+                "GITLAB_PERSONAL_ACCESS_TOKEN": "<YOUR_TOKEN>",
+                "GITLAB_API_URL": "https://gitlab.com/api/v4"
+            }
+        },
+        "tavily": {
+            "name": "Tavily MCP Server",
+            "description": "A Model Context Protocol (MCP) server that provides access to the Tavily API. This server enables LLMs to interact with the Tavily API through a set of standardized tools.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "tavily-mcp"
+            ],
+            "env": {
+                "TAVILY_API_KEY": "<YOUR_TAVILY_API_KEY>"
+            }
+        },
+        "lighthouse-mcp-server": {
+            "name": "腾讯云轻量应用服务器",
+            "description": "基于轻量应用服务器Lighthouse运行态数据构建诊断矩阵，提供实例健康检测-故障根因定位-修复策略建议的能力，通过自然语言交互即可完成端口阻塞、登录异常等高频问题诊断，并能够联动配置防火墙端口规则",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "lighthouse-mcp-server"
+            ],
+            "env": {
+                "TENCENTCLOUD_SECRET_KEY": "YOUR_TENCENT_SECRET_KEY",
+                "TENCENTCLOUD_SECRET_ID": "YOUR_TENCENT_SECRET_ID"
+            }
+        },
+        "slack": {
+            "name": "Slack",
+            "description": "Channel management and messaging capabilities.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-slack"
+            ],
+            "env": {
+                "SLACK_BOT_TOKEN": "<YOUR_SLACK_BOT_TOKEN>",
+                "SLACK_TEAM_ID": "T01234567"
+            }
+        },
+        "everart": {
+            "name": "Everart",
+            "description": "Image generation server for Claude Desktop using EverArt's API.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-everart"
+            ],
+            "env": {
+                "EVERART_API_KEY": "<YOUR_EVERART_API_KEY>"
+            }
+        },
+        "@suekou/notion": {
+            "name": "Notion",
+            "description": "开源社区开发者基于 Notion API 封装，使得 AI 能够与 Notion 工作区进行交互。",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@suekou/mcp-notion-server"
+            ],
+            "env": {
+                "NOTION_API_TOKEN": "your-integration-token"
+            }
+        },
+        "firecrawl": {
+            "name": "Firecrawl",
+            "description": "Official Firecrawl MCP Server - Adds powerful web scraping to Cursor, Claude and any other LLM clients.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "firecrawl-mcp"
+            ],
+            "env": {
+                "FIRECRAWL_API_KEY": "<YOUR_FIRECRAWL_API_KEY>"
+            }
+        },
+        "perplexity": {
+            "name": "Perplexity Ask",
+            "description": "An MCP server implementation that integrates the Sonar API to provide Claude with unparalleled real-time, web-wide research.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "server-perplexity-ask"
+            ],
+            "env": {
+                "PERPLEXITY_API_KEY": "YOUR_API_KEY_HERE"
+            }
+        },
+        "@gongrzhe/quickchart": {
+            "name": "QuickChart",
+            "description": "A Model Context Protocol server for generating charts using QuickChart.io",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@gongrzhe/quickchart-mcp-server"
+            ],
+            "env": {}
+        },
+        "flomo": {
+            "name": "Flomo",
+            "description": "Flomo 浮墨笔记官方提供的服务，用户可通过 AI 聊天交互在 Flomo 中创建笔记，通过自然语言命令无缝地书写和组织您的想法。",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "mcp-server-flomo"
+            ],
+            "env": {
+                "FLOMO_API_URL": "your_api_url_here"
+            }
+        },
+        "brave-search": {
+            "name": "Brave Search",
+            "description": "An MCP server implementation that integrates the Brave Search API, providing both web and local search capabilities.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "env": {
+                "BRAVE_API_KEY": "YOUR_API_KEY_HERE"
+            }
+        },
+        "g-search-mcp": {
+            "name": "G Search",
+            "description": "A powerful MCP server for Google search that enables parallel searching with multiple keywords simultaneously.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "g-search-mcp"
+            ],
+            "env": {}
+        },
+        "google-maps": {
+            "name": "Google Maps",
+            "description": "Location services, directions, and place details",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-google-maps"
+            ],
+            "env": {
+                "GOOGLE_MAPS_API_KEY": "<YOUR_GOOGLE_MAPS_API_KEY>"
+            }
+        },
+        "puppeteer": {
+            "name": "Puppeteer",
+            "description": "Browser automation and web scraping.",
+            "type": "stdio",
+            "baseUrl": "",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-puppeteer"
+            ],
+            "env": {}
+        },
+        "xmind-generator": {
+            "name": "Xmind Generator",
+            "description": "An MCP (Model Context Protocol) server for generating Xmind mind maps. This server allows LLMs to create structured mind maps through the MCP protocol.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "xmind-generator-mcp"
+            ],
+            "env": {
+                "outputPath": "/path/to/save/xmind/files",
+                "autoOpenFile": "false"
+            }
+        },
+        "paypal": {
+            "name": "PayPal",
+            "description": "The PayPal Agent Toolkit is a library that enables integration of popular agent frameworks with PayPal APIs through function calling, supporting TypeScript and built on top of PayPal APIs and SDKs.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@paypal/mcp",
+                "--tools=all"
+            ],
+            "env": {
+                "PAYPAL_ACCESS_TOKEN": "YOUR_PAYPAL_ACCESS_TOKEN",
+                "PAYPAL_ENVIRONMENT": "SANDBOX"
+            }
+        },
+        "cnb": {
+            "name": "CNB",
+            "description": "CNB toolkits for LLMs supporting the MCP protocol.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@cnbcool/mcp-server"
+            ],
+            "env": {
+                "API_BASE_URL": "<BASE_URL>",
+                "API_TOKEN": "<YOUR_TOKEN>"
+            }
+        },
+        "alipay": {
+            "name": "Alipay",
+            "description": "Alipay MCP server for payment processing.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@alipay/mcp-server-alipay"
+            ],
+            "env": {
+                "AP_APP_ID": "2021xxxxxxxx8009",
+                "AP_APP_KEY": "MIIEvw.....kO71sA==",
+                "AP_PUB_KEY": "MIIBIjA......AQAB"
+            }
+        },
+        "wuying-agentbay": {
+            "name": "无影AgentBay",
+            "description": "无影AgentBay是AI 时代的Agent云基础设施， 面向企业、开发者、AI厂商，提供可一键配置的AI Agent任务执行工具和执行环境",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "wuying-agentbay-mcp-server"
+            ],
+            "env": {
+                "APIKEY": "YOUR_API_KEY"
+            }
+        },
+        "dart": {
+            "name": "Dart",
+            "description": "Dart is Project Management powered by AI.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "dart-mcp-server"
+            ],
+            "env": {
+                "DART_TOKEN": "dsa_..."
+            }
+        },
+        "circleci": {
+            "name": "CircleCI",
+            "description": "Enable AI Agents to fix build failures from CircleCI.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@circleci/mcp-server-circleci"
+            ],
+            "env": {
+                "CIRCLECI_TOKEN": "your-circleci-token"
+            }
+        },
+        "chargebee": {
+            "name": "Chargebee",
+            "description": "MCP Server that connects AI agents to Chargebee platform.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "@chargebee/mcp"
+            ],
+            "env": {}
+        },
+        "mysql": {
+            "name": "MySQL",
+            "description": "MySQL server for ModelContext Protocol.",
+            "type": "stdio",
+            "command": "npx",
+            "baseUrl": "",
+            "args": [
+                "-y",
+                "mysql-query-mcp-server"
+            ],
+            "env": {
+                "LOCAL_DB_HOST": "localhost",
+                "LOCAL_DB_USER": "root",
+                "LOCAL_DB_PASS": "<YOUR_LOCAL_DB_PASSWORD>",
+                "LOCAL_DB_NAME": "your_database",
+                "LOCAL_DB_PORT": "3306",
+                "DEVELOPMENT_DB_HOST": "dev.example.com",
+                "DEVELOPMENT_DB_USER": "<DEV_USER>",
+                "DEVELOPMENT_DB_PASS": "<DEV_PASSWORD>",
+                "DEVELOPMENT_DB_NAME": "your_database",
+                "DEVELOPMENT_DB_PORT": "3306",
+                "STAGING_DB_HOST": "staging.example.com",
+                "STAGING_DB_USER": "<STAGING_USER>",
+                "STAGING_DB_PASS": "<STAGING_PASSWORD>",
+                "STAGING_DB_NAME": "your_database",
+                "STAGING_DB_PORT": "3306",
+                "PRODUCTION_DB_HOST": "prod.example.com",
+                "PRODUCTION_DB_USER": "<PRODUCTION_USER>",
+                "PRODUCTION_DB_PASS": "<PRODUCTION_PASSWORD>",
+                "PRODUCTION_DB_NAME": "your_database",
+                "PRODUCTION_DB_PORT": "3306",
+                "DEBUG": "false",
+                "MCP_MYSQL_SSL": "true",
+                "MCP_MYSQL_REJECT_UNAUTHORIZED": "false"
+            }
+        }
+    }
+}
