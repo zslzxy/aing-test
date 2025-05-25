@@ -1,0 +1,95 @@
+
+> aingdesk-server@1.2.3 start
+> node dist/server.js
+
+2025-05-25 11:27:43,561 INFO 2299 HTTP Server running on port 12000
+2025-05-25 11:27:43,562 INFO 2299 Socket.IO Server running on port 12000
+2025-05-25 11:27:43,562 INFO 2299 Server accessible at http://0.0.0.0:12000
+2025-05-25 11:27:44,530 INFO 2299 Services initialized successfully
+2025-05-25 11:27:45,572 ERROR 2299 Error obtaining Olama model list: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async get (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:124:20)
+    at async Ollama.list (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:406:22)
+    at async OllamaService.model_list (/workspace/aing-test/dist/electron/service/ollama.js:217:32)
+    at async ChatController.get_model_list (/workspace/aing-test/dist/electron/controller/chat.js:83:31)
+    at async /workspace/aing-test/dist/server.js:377:32 {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:11434
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 11434
+  }
+}
+2025-05-25 11:27:46,577 ERROR 2299 Error obtaining Olama model list: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async get (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:124:20)
+    at async Ollama.list (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:406:22)
+    at async OllamaService.model_list (/workspace/aing-test/dist/electron/service/ollama.js:217:32)
+    at async ChatController.get_model_list (/workspace/aing-test/dist/electron/controller/chat.js:83:31)
+    at async /workspace/aing-test/dist/server.js:377:32 {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:11434
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 11434
+  }
+}
+2025-05-25 11:27:47,582 ERROR 2299 Error obtaining Olama model list: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async get (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:124:20)
+    at async Ollama.list (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:406:22)
+    at async OllamaService.model_list (/workspace/aing-test/dist/electron/service/ollama.js:217:32)
+    at async ChatController.get_model_list (/workspace/aing-test/dist/electron/controller/chat.js:83:31)
+    at async /workspace/aing-test/dist/server.js:377:32 {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:11434
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 11434
+  }
+}
+2025-05-25 11:27:48,587 ERROR 2299 Error obtaining Olama model list: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async get (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:124:20)
+    at async Ollama.list (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:406:22)
+    at async OllamaService.model_list (/workspace/aing-test/dist/electron/service/ollama.js:217:32)
+    at async ChatController.get_model_list (/workspace/aing-test/dist/electron/controller/chat.js:83:31)
+    at async /workspace/aing-test/dist/server.js:377:32 {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:11434
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 11434
+  }
+}
+2025-05-25 11:27:48,588 ERROR 2299 Error obtaining model list: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async get (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:124:20)
+    at async Ollama.list (/workspace/aing-test/node_modules/ollama/dist/browser.cjs:406:22)
+    at async ChatController.get_model_list (/workspace/aing-test/dist/electron/controller/chat.js:88:25)
+    at async /workspace/aing-test/dist/server.js:377:32 {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:11434
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1636:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 11434
+  }
+}
+2025-05-25 11:27:48,597 INFO 2299 create_chat undefined:undefined
+2025-05-25 11:27:48,610 INFO 2299 Socket client connected: rrijH01ueubBCecnAAAB
+2025-05-25 11:27:48,614 INFO 2299 Socket client disconnected: rrijH01ueubBCecnAAAB

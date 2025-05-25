@@ -1,7 +1,6 @@
 import { pub } from '../class/public';
 import * as path from 'path';
 import { logger } from 'ee-core/log';
-const { dialog } = require('electron');
 
 /**
  * index controller 类，用于处理主进程的语言相关逻辑
@@ -150,28 +149,25 @@ class IndexController {
 
 
     /**
-     * 选择目录
-     * @param args - 参数
-     * @param event - 事件
+     * 选择目录 - 在纯后端模式下，此功能需要前端提供目录路径
+     * @param args - 参数，包含folder路径
      */
-    async select_folder(args: {}, event): Promise<any> {
-        // 通过electron选择目录
-        let result = await dialog.showOpenDialog({
-            properties: ['openDirectory'],
-            title: pub.lang('选择目录'),
-            message: pub.lang('请选择一个目录')
-        })
+    async select_folder(args: { folder?: string }): Promise<any> {
+        const { folder } = args;
         
-        // 如果有选择目录
-        if (!result.canceled) {
-            // 返回成功响应
-            return pub.return_success(pub.lang('选择成功'), {
-                folder: result.filePaths[0]
-            });
+        if (!folder) {
+            return pub.return_error(pub.lang('请提供目录路径'));
         }
 
-        return pub.return_error(pub.lang('未选择目录'));
+        // 检查目录是否存在
+        if (!pub.file_exists(folder)) {
+            return pub.return_error(pub.lang('指定的目录不存在'));
+        }
 
+        // 返回成功响应
+        return pub.return_success(pub.lang('选择成功'), {
+            folder: folder
+        });
     }
 
 

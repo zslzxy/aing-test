@@ -1,0 +1,1 @@
+{"version":3,"file":"config.local.js","sourceRoot":"","sources":["../../../electron/config/config.local.ts"],"names":[],"mappings":";;AAEA,MAAM,MAAM,GAAoB,GAAG,EAAE;IACnC,OAAO;QACL,YAAY,EAAE;YACZ,IAAI,EAAE,QAAQ;SACf;QACD,IAAI,EAAE;YACJ,UAAU,EAAE,KAAK;SAClB;KACF,CAAC;AACJ,CAAC,CAAC;AAEF,kBAAe,MAAM,CAAC"}

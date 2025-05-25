@@ -1,0 +1,1 @@
+{"version":3,"file":"bridge.js","sourceRoot":"","sources":["../../../electron/preload/bridge.ts"],"names":[],"mappings":";AAAA;;;GAGG;;AAEH,uCAAwE;AAOxE,MAAM,GAAG,GAAgB;IACrB,WAAW,EAAX,sBAAW;CACd,CAAC;AACF,wBAAa,CAAC,iBAAiB,CAAC,UAAU,EAAE,GAAG,CAAC,CAAC"}
